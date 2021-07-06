@@ -18,7 +18,6 @@ export interface data {
 const url = "http://localhost:3001";
 
 export const fetchUsers = () => {
-  console.log("jkjfsdjf");
   return async (dispatch: Dispatch) => {
     const response = await axios.get<fake[]>(url);
     dispatch<FetchUsersAction>({
@@ -28,14 +27,14 @@ export const fetchUsers = () => {
   };
 };
 
-export function deleteUsers(data: any) {
-  return function (dispatch: Dispatch) {
-    return fetch(url, {
-      method: "DELETE",
-      body: JSON.stringify(data),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    }).then((res) => res.json());
-  };
-}
+// export function deleteUsers(data: any) {
+//   return function (dispatch: Dispatch) {
+//     return fetch(url, {
+//       method: "DELETE",
+//       body: JSON.stringify(data),
+//       headers: {
+//         "Content-Type": "application/json",
+//       },
+//     }).then((res) => res.json());
+//   };
+// }
