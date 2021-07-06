@@ -1,0 +1,19 @@
+{
+  "name": "reservar",
+  "version": "1.0.0",
+  "description": "Proyecto final de henry. Grupo 04 FT-13",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/davidcesaretti/reservar.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/davidcesaretti/reservar/issues"
+  },
+  "homepage": "https://github.com/davidcesaretti/reservar#readme"
+}
