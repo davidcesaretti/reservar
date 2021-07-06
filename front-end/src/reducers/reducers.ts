@@ -1,9 +1,9 @@
 import { combineReducers } from "redux";
 import { usersReducer } from "./users";
-import { User } from "../actions";
+import { fake } from "../actions";
 
 export interface StoreState {
-  users: User[];
+  users: fake[];
 }
 
 export const reducers = combineReducers<StoreState>({

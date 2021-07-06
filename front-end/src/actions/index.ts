@@ -2,24 +2,25 @@ import axios from "axios";
 import { Dispatch } from "redux";
 import { ActionTypes } from "./types";
 
-export interface User {
-  id: number;
-  name: string;
-  lastName: string;
+export interface fake {
+  imagen: string;
+  precio: string;
+  ciudad: string;
 }
 export interface FetchUsersAction {
   type: ActionTypes.fetchUsers;
-  payload: User[];
+  payload: fake[];
 }
 export interface data {
   nombre: string;
   id: Number;
 }
-const url = "http://localhost:3001/api/user";
+const url = "http://localhost:3001";
 
 export const fetchUsers = () => {
+  console.log("jkjfsdjf");
   return async (dispatch: Dispatch) => {
-    const response = await axios.get<User[]>(url);
+    const response = await axios.get<fake[]>(url);
     dispatch<FetchUsersAction>({
       type: ActionTypes.fetchUsers,
       payload: response.data,
