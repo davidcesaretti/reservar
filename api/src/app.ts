@@ -76,12 +76,12 @@ app.get("/", async (req: Request, res: Response) => {
   //  const objetoPrueba<obj[]> = {[{image, ciudad, precio},]}
   res.json([
     { imagen, ciudad, precio },
-    { imagen2, ciudad2, precio2 },
-    { imagen3, ciudad3, precio3 },
-    { imagen4, ciudad4, precio4 },
-    { imagen5, ciudad5, precio5 },
-    { imagen6, ciudad6, precio6 },
-    { imagen7, ciudad7, precio7 },
+    { imagen: imagen2, ciudad: ciudad2, precio: precio2 },
+    { imagen: imagen3, ciudad: ciudad3, precio: precio3 },
+    { imagen: imagen4, ciudad: ciudad4, precio: precio4 },
+    { imagen: imagen5, ciudad: ciudad5, precio: precio5 },
+    { imagen: imagen6, ciudad: ciudad6, precio: precio6 },
+    { imagen: imagen7, ciudad: ciudad7, precio: precio7 },
   ]);
 });
 
