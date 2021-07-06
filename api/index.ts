@@ -1,5 +1,6 @@
 //import { sequelize } from "./src/db";
 import app from "./src/app";
+import './db'
 // sequelize
 //   .sync({ force: true, logging: false })
 //   .then(() => {
