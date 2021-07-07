@@ -1,19 +1,17 @@
 require ("./db");
-const Product = require ("./src/models/Products")
-import express, { Request, Response, NextFunction, Application } from "express";
+const Property = require ("./src/models/Properties")
 
-interface error {
-    status: number;
-    message: string;
-  }
 
-const productTest = new Product ({
-    name: "laptop",
-    description: "lenovo 6th generation",
-    price: 1399
-})
+const createdTest = async () => {
 
-productTest.save((err: error, document:Response)=> {
-    if(err) console.log(err)
-    console.log(document)
-})
+    const propertyTest = new Property ({
+        name: "hostal",
+        adress: "Av P. Sherman 42",
+        price: 52.999
+    })
+    
+   const productSave=  await propertyTest.save()
+    console.log(productSave)
+}
+
+createdTest()
