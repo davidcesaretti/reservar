@@ -4,6 +4,7 @@ import "./App.css";
 import { useDispatch } from "react-redux";
 import { fetchUsers } from "./actions";
 import Card from "../src/components/Card/Card"
+import Footer from "../src/components/Footer/Footer";
 
 function App() {
   const dispatch = useDispatch();
@@ -17,6 +18,7 @@ function App() {
       <header className="App-header">
         <Card/>
       </header>
+      <Footer/>
     </div>
   );
 }
