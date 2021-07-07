@@ -1,6 +1,6 @@
 const {Schema, model} = require("mongoose")
 
-const Products = new Schema({
+const Properties = new Schema({
     name: {
         type: String,
 },
@@ -8,9 +8,9 @@ const Products = new Schema({
         type: Number,
         default: 0
     },
-    description: {
+    adress: {
         type: String
     }
 })
 
-module.exports= model("products", Products)
+module.exports= model("Properties", Properties)
