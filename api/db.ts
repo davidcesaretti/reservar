@@ -19,12 +19,5 @@ mongoose
   )
   .catch((err) => console.error(err));
 
-const airbnb = new Schema({}, { collection: "listingsAndReviews" });
+const airbnb = new Schema({}, { collection: "properties" });
 export const dataAirbnb = model("DatafaCostumer", airbnb);
-
-// app.get("/test", async (req: Request, res: Response) => {
-//     dataAirbnb
-//       .find({})
-//       .limit(20)
-//       .then((data) => res.json(data));
-//   });

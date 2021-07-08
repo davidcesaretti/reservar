@@ -35,7 +35,7 @@ const Properties = new Schema({
     type: String,
   },
 
-  adress: {
+  address: {
     type: String,
   },
 });
