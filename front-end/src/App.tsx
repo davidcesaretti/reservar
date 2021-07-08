@@ -12,6 +12,7 @@ import MenuIcon from "@material-ui/icons/Menu";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
+import NavBar from "./components/Nav/nav";
 
 const useStyles = makeStyles((theme) => ({
   offset: theme.mixins.toolbar,
@@ -26,17 +27,10 @@ function App() {
   }, []);
 
   return (
-    <div className="App">
-      <AppBar position="fixed" color="primary">
-        <Toolbar>
-          <IconButton edge="start" color="inherit" aria-label="menu">
-            <MenuIcon />
-          </IconButton>
+    <div>
+      <NavBar></NavBar>
 
-          <Typography variant="h6"></Typography>
-        </Toolbar>
-      </AppBar>
-      <Button variant="contained" color="secondary">
+      <Button variant="contained" >
         holaaa
       </Button>
       {user.users &&
