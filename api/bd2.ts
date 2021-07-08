@@ -1,19 +1,36 @@
 import express, { Request, Response, NextFunction, Application } from "express";
-import config from "./lib/config";
+// import config from "./lib/config";
 import cors from "cors";
 import morgan from "morgan";
 import cookieParser from "cookie-parser";
-import routes from "./routes/index";
+// import routes from "./routes/index";
 import faker from "faker";
-import { dataAirbnb } from "../db";
-//-----------------------------------
+import mongoose, { Schema, model } from "mongoose";
+const { MongoClient } = require("mongodb");
 
+//-----------------------------------
+//const mongoose = new Mongoose();
 interface error {
   status: number;
   message: string;
 }
 
 const app: Application = express();
+
+const conectionString = `mongodb+srv://henry:Henry2021@cluster0.v3bjx.mongodb.net/sample_airbnb?retryWrites=true&w=majority`;
+
+mongoose
+  .connect(conectionString, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    authSource: "admin",
+    ssl: true,
+    useCreateIndex: true,
+  })
+  .then(() => {
+    console.log("database conected");
+  })
+  .catch((err) => console.error(err));
 
 app.use("/api", routes);
 app.use(express.urlencoded({ extended: true, limit: "50mb" })); //middleware
@@ -86,10 +103,24 @@ app.get("/", async (req: Request, res: Response) => {
   ]);
 });
 
+const airbnb = new Schema({}, { collection: "listingsAndReviews" });
+const dataAirbnb = model("DatafaCostumer", airbnb);
+
+// mongoose.connection.once("open", function () {
+//   mongoose.connection.db.collection(
+//     "sample_airbnb",
+//     function (err, collection) {
+//       collection.find({}).toArray(function (err, data) {
+//         console.log(data); // it will print your collection data
+//       });
+//     }
+//   );
+// });
+
 app.get("/test", async (req: Request, res: Response) => {
   dataAirbnb
     .find({})
-    .limit(100)
+    .limit(20)
     .then((data) => res.json(data));
 });
 
