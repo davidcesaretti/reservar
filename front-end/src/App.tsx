@@ -3,7 +3,8 @@ import logo from "./logo.svg";
 import "./App.css";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchUsers } from "./actions";
-import Card from "../src/components/Card/Card";
+import Card from "../src/components/Card/Card"
+import Footer from "../src/components/Footer/Footer";
 import Button from "@material-ui/core/Button";
 import MenuItem from "@material-ui/core/MenuItem";
 import AppBar from "@material-ui/core/AppBar";
@@ -27,9 +28,11 @@ function App() {
   }, []);
 
   return (
-    <div>
-      <NavBar></NavBar>
-
+    <div className="App">
+      <NavBar/>
+      <header className="App-header">
+        <Card/>
+      </header>
       <Button variant="contained" >
         holaaa
       </Button>
@@ -39,7 +42,7 @@ function App() {
             <p style={{ color: "white" }}></p>
           </div>
         ))}
-      <Card />
+        <Footer/>
     </div>
   );
 }
