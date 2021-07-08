@@ -40,4 +40,18 @@ const Properties = new Schema({
   },
 });
 
+// ****TYPES OF PROPERTIES****
+
+// House
+// Apartment
+// Condominium
+// Loft
+// Guesthouse
+// Hostel
+// Serviced Apartment
+// Bed and breakfast
+// Treehouse
+// Bungalow
+// Guest suite
+
 module.exports = model("Properties", Properties);
