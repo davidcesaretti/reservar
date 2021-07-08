@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import {onLogin} from '../../actions/index'
 
 const Login = () => {
 
@@ -7,8 +8,21 @@ const Login = () => {
         password: '',
     })
 
+    const [error, setError] = useState('')
+
+    const log = async (e: React.FormEvent) => {
+        e.preventDefault()
+        const response = await onLogin({
+            username,
+            password
+        })
+        if (response && response.error) {
+            setError(response.error)
+        }
+    }
+
     return (
-        <form>
+        <form onSubmit={(e) => {log(e)}}>
             <label placeholder="username">Username</label>
             <input placeholder="Username" value={username} onChange={(e) => {
                 setCredentials({
@@ -24,6 +38,7 @@ const Login = () => {
                 })
             }} />
             <button type="submit">Login</button>
+            {error.length > 0 && <p>{error}</p>}
         </form>
 
     )

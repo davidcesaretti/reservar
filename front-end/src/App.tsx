@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./App.css";
 import { Route } from 'react-router-dom'
 import { useDispatch } from "react-redux";
@@ -12,10 +12,11 @@ function App() {
     dispatch(fetchUsers());
   }, []);
 
+  
   return (
-    <div>
+    <>
       <Route exact path='/login' component={Login} ></Route>
-    </div>
+    </>
   );
 }
 
