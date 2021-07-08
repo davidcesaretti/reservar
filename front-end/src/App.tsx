@@ -14,6 +14,7 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import NavBar from "./components/Nav/nav";
+import Home from "./components/Home/Home";
 
 const useStyles = makeStyles((theme) => ({
   offset: theme.mixins.toolbar,
@@ -30,6 +31,7 @@ function App() {
   return (
     <div className="App">
       <NavBar/>
+      <Home />
       <header className="App-header">
         <Card/>
       </header>
