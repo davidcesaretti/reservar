@@ -5,6 +5,7 @@ import morgan from "morgan";
 import cookieParser from "cookie-parser";
 import routes from "./routes/index";
 import faker from "faker";
+import { dataAirbnb } from "../db";
 //-----------------------------------
 
 interface error {
@@ -83,6 +84,13 @@ app.get("/", async (req: Request, res: Response) => {
     { imagen: imagen6, ciudad: ciudad6, precio: precio6 },
     { imagen: imagen7, ciudad: ciudad7, precio: precio7 },
   ]);
+});
+
+app.get("/test", async (req: Request, res: Response) => {
+  dataAirbnb
+    .find({})
+    .limit(100)
+    .then((data) => res.json(data));
 });
 
 export default app;
