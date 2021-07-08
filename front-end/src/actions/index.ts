@@ -1,4 +1,5 @@
-import axios from "axios";
+
+import axios, { AxiosRequestConfig } from "axios";
 import { Dispatch } from "redux";
 import { ActionTypes } from "./types";
 
@@ -15,7 +16,26 @@ export interface data {
   nombre: string;
   id: Number;
 }
+export interface Credentials {
+    username: string,
+    password: string,
+}
 const url = "http://localhost:3001";
+
+
+export const onLogin = async (data: Credentials) => {
+    const requestConfig: AxiosRequestConfig = {
+        method: 'post',
+        url: process.env.BASE_URL + '/login',
+        data
+    }
+    try{
+        const {data: response} = await axios.request(requestConfig)
+    } catch (e) {
+        console.error(e)
+        return {error: e.response.data.message}
+    }
+}
 
 export const fetchUsers = () => {
   return async (dispatch: Dispatch) => {
