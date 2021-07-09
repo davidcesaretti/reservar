@@ -1,6 +1,6 @@
-import { dataAirbnb } from "./db";
-require("./db");
-const Property = require("./src/models/Properties");
+// import { dataAirbnb } from "./db";
+// require("./db");
+// const Property = require("./src/models/Properties");
 
 // export const createdTest = async () => {
 //   dataAirbnb
@@ -19,10 +19,13 @@ const Property = require("./src/models/Properties");
 //           amenities: x._doc.amenities,
 //           price: x._doc.price,
 //           image: x._doc.images.picture_url,
+//           score: x._doc.review_scores.review_scores_value
+//             ? x._doc.review_scores.review_scores_value
+//             : 0,
 //           address: `${x._doc.address.country}, ${x._doc.address.market} ${x._doc.address.government_area}`,
 //         }).save();
 //       })
 //     );
 // };
 
-// createdTest()
+// createdTest();

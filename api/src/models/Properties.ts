@@ -38,6 +38,9 @@ const Properties = new Schema({
   address: {
     type: String,
   },
+  score: {
+    type: Number,
+  },
 });
 
 // ****TYPES OF PROPERTIES****
