@@ -3,9 +3,27 @@ import { Box, Button, Grid } from '@material-ui/core'
 import SearchIcon from '@material-ui/icons/Search';
 import { Typography } from "@material-ui/core";
 import { makeStyles } from '@material-ui/core/styles';
+import Image1 from '../../Image/pexels-pixabay-210017.jpeg'
+
 
 const useStyle = makeStyles({
+    boxFilters: {
+        display: 'flex',
+        justifyContent: 'center',
+        borderRadius: 10,
 
+    },
+    containerFilters: {
+        backgroundSize: 'cover',
+        backgroundImage: `url(${Image1})`,
+        display: 'grid',
+        justifyContent: 'center'
+        
+    },
+    containerRecomendados: {
+        display: 'grid',
+        gridTemplateColumns: '5fr'
+    }
 });
 
 
@@ -14,14 +32,14 @@ const Home = () => {
     const classes = useStyle();
 
     return (
-        <div>
-            <Grid container justifyContent='center'>
-                <Grid item xs={8} >
+        <div >
+            <Grid container justifyContent='center' >
+                <Grid item xs={12} className={classes.containerFilters} >
                     <Typography variant='h5'>
                         EXPLORA LOS ANDES !!!
                     </Typography>
                     <Grid>
-                        <Box border={2}>
+                        <Box  border={2} className={classes.boxFilters}>
                             <Grid>
                                 <Typography variant='subtitle2'>
                                     ¿A donde quieres ir?
@@ -53,20 +71,21 @@ const Home = () => {
                     </Grid>
                     <br/>
                 </Grid>
-                <Grid item xs={8} direction='column'>
-                    <Box display='flex'>
+                <Grid item xs={8} justifyContent='center' direction='row' >
+                    <Box >
                         <Typography variant='h6'>Recomendados</Typography>
                         <Grid>Imagen 1</Grid>
                         <Grid>Imagen 2</Grid>
                         <Grid>Imagen 3</Grid>
                         <Grid>Imagen 4</Grid>
-                    </Box>
                     <br/>
+                    <br/>
+                    </Box>
                 </Grid>
-                <Grid item xs={8} direction='column' alignContent='center'>
-                    <Typography variant='h6'>EXPLORA SEGUN EL TIPO DE ALOJAMIOENTO QUE QUIERES DISFRUTAR</Typography>
-                    <Grid>
-                        <Box display='flex'>
+                <Grid container item xs={8} justifyContent='center'>
+                    <Typography variant='h6'>EXPLORA SEGUN EL TIPO DE ALOJAMIENTO QUE QUIERES DISFRUTAR</Typography>
+                    <Grid item xs={8} justifyContent='center'>
+                        <Box display='flex'  justifyContent='center'>
                             <Box border={2}>
                                 <Typography variant='subtitle1'>Hostales & Bed & Breakfast</Typography>
                                 <Button>Explorar</Button>
