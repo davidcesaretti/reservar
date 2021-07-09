@@ -1,24 +1,14 @@
-import React, { useEffect, useState } from "react";
-import "./App.css";
-import { Route } from 'react-router-dom'
-import { useDispatch } from "react-redux";
-import { fetchUsers } from "./actions";
-import Login from './components/login/login'
-import Register from './components/register/register'
+import React from 'react'
+import { Route, Switch } from 'react-router-dom'
+import Login from './components/Login/Login'
+import Register from './components/Register/Register'
 
 function App() {
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(fetchUsers());
-  }, []);
-
-  
   return (
-    <>
-      <Route exact path='/login' component={Login} ></Route>
-      <Route exact path='/register' component={Register} ></Route>
-     </>
+    <Switch>
+      <Route exact path='/login' component={Login} />
+      <Route exact path='/register' component={Register} />
+    </Switch>
   );
 }
 
