@@ -3,14 +3,12 @@ import config from "./lib/config";
 import cors from "cors";
 import morgan from "morgan";
 import cookieParser from "cookie-parser";
-import routes from "./routes/index";
+import UserRouter from "./routes/user";
 import faker from "faker";
 import { dataAirbnb } from "../db";
-const User = require("./models/Users")
-const jwt= require("jsonwebtoken")
-const { SECRET_TOKEN} = process.env;
-import verifyToken from "./controllers/verifyToken"
+
 //-----------------------------------
+
 
 interface error {
   status: number;
@@ -19,9 +17,10 @@ interface error {
 
 const app: Application = express();
 
-app.use("/api", routes);
+app.use("/", UserRouter);
 app.use(express.urlencoded({ extended: true, limit: "50mb" })); //middleware
-app.use(express.json({ limit: "50mb" }));
+// app.use(express.json({ limit: "50mb" }));
+app.use(express.json())
 app.use(cookieParser());
 app.use(morgan("dev"));
 app.use((req, res, next) => {
@@ -97,43 +96,6 @@ app.get("/test", async (req: Request, res: Response) => {
     .then((data) => res.json(data));
 });
 
-app.post("/registrer", async (req: Request, res: Response)=> {
-  const {username, email, password} = req.body
-  const user = new User({
-    username,
-    email,
-    password
-  })
-  user.password = await user.encryptPass(user.password)
-  await user.save()
-  const token = jwt.sign({id: user._id, },SECRET_TOKEN, { expiresIn: '24h' })
-  res.json({authorization: true,token})
-})
 
-
-app.post("/login", async (req: Request, res: Response)=> {
-  const {email,password} = req.body
-  const user = await User.findOne({email: email})
-  if(!user){
-    return res.status(404).send("The email doesn't exist")
-  }
-  const validPassword= await user.validatePass(password)
-  if(!validPassword){
-    return res.status(401).send("Password invalid")
-  }
-  const token = jwt.sign({id: user._id},SECRET_TOKEN, { expiresIn: '24h' })
-  return res.json({authorization: true, token })
-  
-})
-
-app.get("/profile", verifyToken, async (req, res)=> {
-  // const {userId} = req.body
-  const userFinded = await User.findById(req.userId, {password: 0});
-  console.log(req.userId)
-  if(!userFinded) {
-    return res.status(404).send("user not found")
-  }
-  res.json(userFinded)
-})
 
 export default app;
