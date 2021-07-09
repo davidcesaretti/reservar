@@ -4,6 +4,15 @@ import SearchIcon from '@material-ui/icons/Search';
 import { Typography } from "@material-ui/core";
 import { makeStyles } from '@material-ui/core/styles';
 import Image1 from '../../Image/pexels-pixabay-210017.jpeg'
+import Recom1 from '../../Image/recom1.jpeg'
+import Recom2 from '../../Image/recom2.jpeg'
+import Recom3 from '../../Image/recom3.jpeg'
+import Recom4 from '../../Image/recom4.jpeg'
+import Tipos1 from '../../Image/tipos1.jpeg'
+import Tipos2 from '../../Image/tipos2.jpeg'
+import Tipos3 from '../../Image/tipos3.jpeg'
+import Chica from '../../Image/chica.jpeg'
+
 
 
 const useStyle = makeStyles({
@@ -17,13 +26,23 @@ const useStyle = makeStyles({
         backgroundSize: 'cover',
         backgroundImage: `url(${Image1})`,
         display: 'grid',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        backgroundPosition: 'center'
         
     },
     containerRecomendados: {
         display: 'grid',
         gridTemplateColumns: '5fr'
+    },
+    imgRecomendadas: {
+        width: 200,
+        height: 180,
+        backgroundPosition: 'center'
+    },
+    imgTiposAlojamiento: {
+
     }
+
 });
 
 
@@ -71,39 +90,46 @@ const Home = () => {
                     </Grid>
                     <br/>
                 </Grid>
-                <Grid item xs={8} justifyContent='center' direction='row' >
-                    <Box >
-                        <Typography variant='h6'>Recomendados</Typography>
-                        <Grid>Imagen 1</Grid>
-                        <Grid>Imagen 2</Grid>
-                        <Grid>Imagen 3</Grid>
-                        <Grid>Imagen 4</Grid>
+                <Grid item xs={8} justifyContent='center' direction='row' container spacing={1} >
+                        <Grid>
+                            <Typography variant='h6'>Recomendados</Typography>
+                        </Grid>
+                        <Grid item xs={2}>
+                            <img src={`${Recom1}`} alt='' className={classes.imgRecomendadas} />
+                        </Grid>
+                        <Grid item xs={2}>
+                            <img src={`${Recom2}`} alt='' className={classes.imgRecomendadas} />
+                        </Grid>
+                        <Grid item xs={2}>
+                            <img src={`${Recom3}`} alt='' className={classes.imgRecomendadas} />
+                        </Grid>
+                        <Grid item xs={2}>
+                            <img src={`${Recom4}`} alt='' className={classes.imgRecomendadas} />
+                        </Grid>
                     <br/>
                     <br/>
-                    </Box>
+            
                 </Grid>
                 <Grid container item xs={8} justifyContent='center'>
                     <Typography variant='h6'>EXPLORA SEGUN EL TIPO DE ALOJAMIENTO QUE QUIERES DISFRUTAR</Typography>
-                    <Grid item xs={8} justifyContent='center'>
-                        <Box display='flex'  justifyContent='center'>
-                            <Box border={2}>
+                    <Grid item xs={8} justifyContent='center' container >
+                            <Grid style={{backgroundImage: `url(${Tipos1})` , backgroundSize: 'cover', width: '40%', height: 'auto', backgroundPosition: 'center'}}>
                                 <Typography variant='subtitle1'>Hostales & Bed & Breakfast</Typography>
                                 <Button>Explorar</Button>
-                            </Box>
-                            <Box border={2}>
+                            </Grid>
+                            <Grid style={{backgroundImage: `url(${Tipos2})` , backgroundSize: 'cover', width: '40%', height: 'auto', backgroundPosition: 'center'}}>
                                 <Typography variant='subtitle1'>Casas y Apartamentos</Typography>
                                 <Button>Explorar</Button>
-                            </Box>
-                            <Box border={2}>
+                            </Grid>
+                            <Grid style={{backgroundImage: `url(${Tipos3})` , backgroundSize: 'cover', width: '40%', height: 'auto', backgroundPosition: 'center'}}>
                                 <Typography variant='subtitle1'>Fuera de lo comun</Typography>
                                 <Button>Explorar</Button>
-                            </Box>
-                        </Box>
+                            </Grid>
                         <br/>
                     </Grid>
                 </Grid>
                 <Grid item xs={8}>
-                    <Box border={2}>
+                    <Box border={2} style={{backgroundImage: `url(${Chica})` , backgroundSize: 'cover', backgroundPosition: 'center'}}>
                         <Box>
                             <Typography variant='subtitle1'>
                                 Tienes un inmueble para alquilar? Regístrate como Host y empieza a recibir huéspedes
