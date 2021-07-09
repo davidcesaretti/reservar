@@ -4,6 +4,7 @@ import { Route } from 'react-router-dom'
 import { useDispatch } from "react-redux";
 import { fetchUsers } from "./actions";
 import Login from './components/login/login'
+import Register from './components/register/register'
 
 function App() {
   const dispatch = useDispatch();
@@ -16,7 +17,8 @@ function App() {
   return (
     <>
       <Route exact path='/login' component={Login} ></Route>
-    </>
+      <Route exact path='/register' component={Register} ></Route>
+     </>
   );
 }
 
