@@ -3,10 +3,12 @@ import config from "./lib/config";
 import cors from "cors";
 import morgan from "morgan";
 import cookieParser from "cookie-parser";
-import routes from "./routes/index";
+import UserRouter from "./routes/user";
 import faker from "faker";
 import { dataAirbnb } from "../db";
+
 //-----------------------------------
+
 
 interface error {
   status: number;
@@ -15,9 +17,10 @@ interface error {
 
 const app: Application = express();
 
-app.use("/api", routes);
+app.use("/", UserRouter);
 app.use(express.urlencoded({ extended: true, limit: "50mb" })); //middleware
-app.use(express.json({ limit: "50mb" }));
+// app.use(express.json({ limit: "50mb" }));
+app.use(express.json())
 app.use(cookieParser());
 app.use(morgan("dev"));
 app.use((req, res, next) => {
@@ -92,5 +95,7 @@ app.get("/test", async (req: Request, res: Response) => {
     .limit(100)
     .then((data) => res.json(data));
 });
+
+
 
 export default app;
