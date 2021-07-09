@@ -24,15 +24,19 @@ const useStyle = makeStyles({
         display: 'grid',
         justifyContent: 'center',
         backgroundPosition: 'center'
-        
     },
     containerRecomendados: {
-        display: 'grid',
-        gridTemplateColumns: '5fr'
+        padding:'0.5rem 3rem',
+    },
+    containerTipos: {
+        padding:'0.5rem 3rem'
     },
     imgRecomendadas: {
-        width: 200,
-        height: 180,
+        borderRadius: '1em',
+        width: '100%',
+        height: '100%',
+        maxHeight: '8rem',
+        maxWidth: '14rem',
         backgroundPosition: 'center'
     },
     imgTiposAlojamiento: {
@@ -102,11 +106,11 @@ const Home = () => {
                     </Grid>
                     <br/>
                 </Grid>
-                <Grid item xs={8} justifyContent='center' direction='row' container spacing={5} >
-                        <Grid>
+                <Grid xs={12} alignItems='center' justifyContent='space-between' direction='row' container className={classes.containerRecomendados}  >
+                        <Grid item xs={2} style={{textAlign: 'center'}}>
                             <Typography variant='h6'>Recomendados</Typography>
                         </Grid>
-                        <Grid item xs={2}>
+                        <Grid item xs={2}> 
                             <img src={`${Recom1}`} alt='' className={classes.imgRecomendadas} />
                         </Grid>
                         <Grid item xs={2}>
@@ -119,13 +123,12 @@ const Home = () => {
                             <img src={`${Recom4}`} alt='' className={classes.imgRecomendadas} />
                         </Grid>
                 </Grid>
-                <Divider/>
-                <Grid container item xs={8} justifyContent='center'>
+                <Grid container item xs={12} justifyContent='center' className={classes.containerTipos} >
                     <Grid item xs={12}>
                         <Typography variant='h6'>EXPLORA SEGUN EL TIPO DE ALOJAMIENTO QUE QUIERES DISFRUTAR</Typography>
                     </Grid>
-                    <Grid item xs={12} justifyContent='center' container >
-                            <Grid item xs={4} container style={{backgroundImage: `url(${Tipos1})` , backgroundSize: 'cover', width: '40%', height: 'auto', backgroundPosition: 'center'}}>
+                    <Grid item xs={12} justifyContent='space-evenly' container>
+                            <Grid item xs={3}  style={{padding:'3rem', backgroundImage: `url(${Tipos1})` , backgroundSize: 'cover', height: '100%', backgroundPosition: 'center', borderRadius:'1em'}}>
                                 <Grid item xs={12}>
                                     <Typography variant='subtitle1'>Hostales & Bed & Breakfast</Typography>
                                 </Grid>
@@ -133,7 +136,7 @@ const Home = () => {
                                     <Button>Explorar</Button>
                                 </Grid>
                             </Grid>
-                            <Grid item xs={4} container style={{backgroundImage: `url(${Tipos2})` , backgroundSize: 'cover', width: '40%', height: 'auto', backgroundPosition: 'center'}}>
+                            <Grid item xs={3}  style={{padding:'3rem', backgroundImage: `url(${Tipos2})` , backgroundSize: 'cover', height: 'auto', backgroundPosition: 'center', borderRadius:'1em'}}>
                                 <Grid item xs={12}>
                                     <Typography variant='subtitle1'>Casas y Apartamentos</Typography>
                                 </Grid>
@@ -141,7 +144,7 @@ const Home = () => {
                                     <Button>Explorar</Button>
                                 </Grid>
                             </Grid>
-                            <Grid item xs={4} container style={{backgroundImage: `url(${Tipos3})` , backgroundSize: 'cover', width: '40%', height: 'auto', backgroundPosition: 'center'}}>
+                            <Grid item xs={3} style={{padding:'3rem', backgroundImage: `url(${Tipos3})` , backgroundSize: 'cover', height: 'auto', backgroundPosition: 'center', borderRadius:'1em'}}>
                                 <Grid item xs={12}>
                                     <Typography variant='subtitle1'>Fuera de lo comun</Typography>
                                 </Grid>
@@ -149,22 +152,22 @@ const Home = () => {
                                     <Button>Explorar</Button>
                                 </Grid>
                             </Grid>
-                        <br/>
                     </Grid>
                 </Grid>
                 <Divider/>
     
-                    <Grid item xs={8} container style={{backgroundImage: `url(${Chica})` , backgroundSize: 'cover', backgroundPosition: 'center'}}>
+                    <Grid item xs={10} direction='column' container style={{backgroundImage: `url(${Chica})` , backgroundSize: 'cover', height:'20rem ', backgroundPosition: 'center', borderRadius:'1em'}}>
                         <Grid item xs={6}>
                             <Typography variant='subtitle1'>
                                 Tienes un inmueble para alquilar? Regístrate como Host y empieza a recibir huéspedes
                             </Typography>
                         </Grid>
                         <Grid item xs={6}>
-                            <Button>Quiero set Host !</Button>
+                            <Button >Quiero set Host !</Button>
                         </Grid>
                     </Grid>
-                    <Grid container justifyContent='center'>
+
+                    <Grid container justifyContent='space-between'>
                         <Footer/>
                     </Grid>
             </Grid>
