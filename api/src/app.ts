@@ -6,6 +6,7 @@ import cookieParser from "cookie-parser";
 import routes from "./routes/index";
 import faker from "faker";
 import { dataAirbnb } from "../db";
+//import { createdTest } from "../test";
 //-----------------------------------
 
 interface error {
@@ -87,6 +88,7 @@ app.get("/", async (req: Request, res: Response) => {
 });
 
 app.get("/test", async (req: Request, res: Response) => {
+  //  createdTest();
   dataAirbnb
     .find({})
     .limit(100)
