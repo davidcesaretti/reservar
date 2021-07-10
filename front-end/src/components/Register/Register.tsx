@@ -21,6 +21,7 @@ const Register = () => {
             <h1>Te damos la bienvenida a Reservar</h1>
             <h2>Crea una cuenta</h2>
             <input placeholder="Escribe tu correo electrónico" />
+            <input placeholder="Escribe una contraseña" />
             <div>
                 <button>Soy Viajero</button>
                 <button>Soy Host</button>
