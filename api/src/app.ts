@@ -88,7 +88,7 @@ app.get("/", async (req: Request, res: Response) => {
 });
 
 app.get("/test", async (req: Request, res: Response) => {
-  //  createdTest();
+  // createdTest();
   dataAirbnb
     .find({})
     .limit(100)

@@ -20,7 +20,7 @@ const Properties = new Schema({
     type: Number,
   },
   bathrooms: {
-    type: String,
+    type: Number,
   },
 
   amenities: {
@@ -28,7 +28,7 @@ const Properties = new Schema({
   },
 
   price: {
-    type: String,
+    type: Number,
   },
 
   image: {

@@ -15,9 +15,9 @@
 //           accommodates: x._doc.accommodates,
 //           beds: x._doc.beds,
 //           bedrooms: x._doc.bedrooms,
-//           bathrooms: x._doc.bathrooms,
+//           bathrooms: parseInt(x._doc.bathrooms),
 //           amenities: x._doc.amenities,
-//           price: x._doc.price,
+//           price: parseInt(x._doc.price),
 //           image: x._doc.images.picture_url,
 //           score: x._doc.review_scores.review_scores_value
 //             ? x._doc.review_scores.review_scores_value
