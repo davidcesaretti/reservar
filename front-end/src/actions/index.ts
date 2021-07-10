@@ -16,6 +16,11 @@ export interface data {
   nombre: string;
   id: Number;
 }
+
+export interface SignedInUser {
+  type: ActionTypes.signUser;
+  payload: boolean;
+}
 export interface Credentials {
     username: string,
     password: string,
@@ -46,6 +51,15 @@ export const fetchUsers = () => {
     });
   };
 };
+
+export const signUser = (sign) => {
+  return async (dispatch: Dispatch) => {
+    dispatch<SignedInUser>({
+      type: ActionTypes.signUser,
+      payload: sign
+    })
+  }
+}
 
 // export function deleteUsers(data: any) {
 //   return function (dispatch: Dispatch) {
