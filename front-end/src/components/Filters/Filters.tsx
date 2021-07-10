@@ -26,7 +26,7 @@ const GreenCheckbox = withStyles({
 
 const useStyles = makeStyles({
   filterbox: {
-    background: "darkgreen",
+    background: "#324021",
     position: "absolute",
     color: "white",
     marginTop: "120px",
@@ -102,10 +102,10 @@ export default function CheckboxList() {
             <h4 className={classes.nombredecat}>{cat.title}</h4>
             {cat.iconos && (
               <>
-                <Button color="secondary" startIcon={<ExpandLessIcon />}>
+                <Button color="inherit" startIcon={<ExpandLessIcon />}>
                   Max - Min
                 </Button>
-                <Button color="primary" startIcon={<ExpandMoreIcon />}>
+                <Button color="inherit" startIcon={<ExpandMoreIcon />}>
                   Min - Max
                 </Button>
               </>
