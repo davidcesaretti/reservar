@@ -50,7 +50,7 @@ UserRouter.post("/login", async (req, res)=> {
 
   
 UserRouter.get("/profile", verifyToken, async (req, res)=> {
-    const userFinded = await User.findById(req.userId, {password: 0});
+    const userFinded = await User.findById(req.query.userId, {password: 0});
     if(!userFinded) {
         return res.status(404).send("user not found")
     }
