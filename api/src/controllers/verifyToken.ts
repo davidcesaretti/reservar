@@ -14,4 +14,8 @@ const { SECRET_TOKEN} = process.env;
   next()
 }
 
+// async function ctrlEmail () {
+//   const emailUser = await 
+// }
+
 export default verifyToken

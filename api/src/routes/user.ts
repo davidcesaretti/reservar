@@ -1,5 +1,5 @@
 import express, { Request, Response, NextFunction, Router } from "express";
-import { User } from "../models/Users"
+import { User, Reserva } from "../models/Users"
 import jwt from "jsonwebtoken"
 import verifyToken from "../controllers/verifyToken"
 
@@ -9,24 +9,33 @@ const UserRouter = Router();
 UserRouter.use(express.json())
 const { SECRET_TOKEN} = process.env;
 
-UserRouter.post("/register", async (req: Request, res: Response)=> {
+UserRouter.post("/register", async (req: Request, res: Response, next)=> {
     const {username, email, password} = req.body
     const user = new User({
       username,
       email,
       password
     })
-    user.password = await user.encryptPass(user.password)
-    await user.save()
-    const token = jwt.sign({id: user._id, },SECRET_TOKEN, { expiresIn: '24h' })
-    res.json({authorization: true,token})
+    try{
+
+        user.password = await user.encryptPass(user.password)
+        await user.save()
+        const token = jwt.sign({id: user._id, },SECRET_TOKEN, { expiresIn: '24h' })
+        res.json({authorization: true,token})
+    }
+    catch(err){
+        const emailUser = await User.findOne({email: email})
+        if(emailUser) {
+            res.status(400).send("El email ya esta en uso")
+        }
+    }
   })
   
 
   
 UserRouter.post("/login", async (req, res)=> {
     const {email,password} = req.body
-    try{
+   
         const user = await User.findOne({email: email})
         if(!user){
             return res.status(404).send("The email doesn't exist")
@@ -37,12 +46,6 @@ UserRouter.post("/login", async (req, res)=> {
         }
         const token = jwt.sign({id: user._id},SECRET_TOKEN, { expiresIn: '24h' })
         return res.json({authorization: true, token })
-
-    }
-    catch(err){
-        res.send("ups!")
-    }
-
 })
 
   
@@ -57,7 +60,18 @@ UserRouter.get("/profile", verifyToken, async (req, res)=> {
   
 UserRouter.get("/reservar",verifyToken, (req, res) => {
 
-    res.send("access allowed")
+    
+})
+
+UserRouter.post("/fecha", async (req, res) => {
+    const fechaInicial = req.body.fecha_inicial;
+    const fechaFinal = req.body.fecha_final;
+    // const reg = await Reserva.find({'Fecha_Creacion':  { $gte: fechaInicial, $lte: fechaFinal}})
+    const reserva  = new Reserva( {
+        Fecha_Creacion: new Date()
+    })
+    await  reserva.save()
+    res.send("exito")
 })
 
 
