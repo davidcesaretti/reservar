@@ -1,22 +1,25 @@
-import React from "react";
-import { Box, Button, Grid } from "@material-ui/core";
-import SearchIcon from "@material-ui/icons/Search";
-import { Typography } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
-import Divider from "@material-ui/core/Divider";
-import Image1 from "../../Image/pexels-pixabay-210017.jpeg";
-import Recom1 from "../../Image/recom1.jpeg";
-import Recom2 from "../../Image/recom2.jpeg";
-import Recom3 from "../../Image/recom3.jpeg";
-import Recom4 from "../../Image/recom4.jpeg";
-import Tipos1 from "../../Image/tipos1.jpeg";
-import Tipos2 from "../../Image/tipos2.jpeg";
-import Tipos3 from "../../Image/tipos3.jpeg";
-import Chica from "../../Image/chica.jpeg";
 import Footer from "../Footer/Footer";
 import TextField from "@material-ui/core/TextField";
 import FormControl from "@material-ui/core/FormControl";
 import FormLabel from "@material-ui/core/FormLabel";
+import React, { useEffect } from 'react'
+import { Box, Button, Grid } from '@material-ui/core'
+import SearchIcon from '@material-ui/icons/Search';
+import { Typography } from "@material-ui/core";
+import { makeStyles } from '@material-ui/core/styles';
+import Image1 from '../../Image/pexels-pixabay-210017.jpeg'
+import Recom1 from '../../Image/recom1.jpeg'
+import Recom2 from '../../Image/recom2.jpeg'
+import Recom3 from '../../Image/recom3.jpeg'
+import Recom4 from '../../Image/recom4.jpeg'
+import Tipos1 from '../../Image/tipos1.jpeg'
+import Tipos2 from '../../Image/tipos2.jpeg'
+import Tipos3 from '../../Image/tipos3.jpeg'
+import Chica from '../../Image/chica.jpeg'
+import { useDispatch } from 'react-redux';
+import { fetchCardsHotels } from '../../actions';
+
+
 
 const useStyle = makeStyles({
     containerFilters: {
@@ -66,6 +69,11 @@ const useStyle = makeStyles({
 });
 
 const Home = () => {
+
+    const dispatch = useDispatch();
+    useEffect(() => {
+        dispatch(fetchCardsHotels())
+    },[])
     const classes = useStyle();
 
     return (
