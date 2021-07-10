@@ -27,9 +27,9 @@ export function Calendary() {
     setdepartureDate(date);
   };
 
-  function disableWeekends(date) {
-    return date.getDay() === 0 || date.getDay() === 6;
-  }
+  // function disableWeekends(date) {
+  //   return date.getDay() === 0 || date.getDay() === 6;
+  // }
 
   return (
     <MuiPickersUtilsProvider utils={DateFnsUtils}>
