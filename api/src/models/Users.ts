@@ -54,6 +54,7 @@ export const UserRegistered = model("UserRegistered", userRegistered );
 
 
 const reserva = new Schema ({
-    Fecha_Creacion: {type: Date}
+    fechaSalida: {type: Date},
+    fechaLlegada:{type:Date}
 })
 export const Reserva = model("Reserva", reserva );

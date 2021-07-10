@@ -58,20 +58,16 @@ UserRouter.get("/profile", verifyToken, async (req, res)=> {
 })
   
   
-UserRouter.get("/reservar",verifyToken, (req, res) => {
 
+UserRouter.post("/reserva", async (req, res) => {
+    const {fechaSalida, fechaLlegada} = req.body
     
-})
-
-UserRouter.post("/fecha", async (req, res) => {
-    const fechaInicial = req.body.fecha_inicial;
-    const fechaFinal = req.body.fecha_final;
-    // const reg = await Reserva.find({'Fecha_Creacion':  { $gte: fechaInicial, $lte: fechaFinal}})
     const reserva  = new Reserva( {
-        Fecha_Creacion: new Date()
+        fechaSalida,
+        fechaLlegada
     })
-    await  reserva.save()
-    res.send("exito")
+    await reserva.save()
+    res.json({creado: reserva})
 })
 
 
