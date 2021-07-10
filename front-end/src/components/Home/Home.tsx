@@ -1,3 +1,7 @@
+import Footer from "../Footer/Footer";
+import TextField from "@material-ui/core/TextField";
+import FormControl from "@material-ui/core/FormControl";
+import FormLabel from "@material-ui/core/FormLabel";
 import React, { useEffect } from 'react'
 import { Box, Button, Grid } from '@material-ui/core'
 import SearchIcon from '@material-ui/icons/Search';
@@ -18,35 +22,51 @@ import { fetchCardsHotels } from '../../actions';
 
 
 const useStyle = makeStyles({
-    boxFilters: {
-        display: 'flex',
-        justifyContent: 'center',
-        borderRadius: 10,
-
-    },
     containerFilters: {
-        backgroundSize: 'cover',
+        backgroundSize: "cover",
         backgroundImage: `url(${Image1})`,
-        display: 'grid',
-        justifyContent: 'center',
-        backgroundPosition: 'center'
-        
+        display: "grid",
+        justifyContent: "center",
+        backgroundPosition: "center center",
+        width: "100%",
+        height: "20rem",
+        borderBottom: '1.5px solid #333'
     },
     containerRecomendados: {
-        display: 'grid',
-        gridTemplateColumns: '5fr'
+        padding: "0.5rem 3rem",
+        margin: '1.3rem 0'
+    },
+    containerTipos: {
+        padding: "0.5rem 3rem",
+        marginBottom: '1.3rem'
     },
     imgRecomendadas: {
-        width: 200,
-        height: 180,
-        backgroundPosition: 'center'
+        borderRadius: "1em",
+        width: "100%",
+        height: "100%",
+        maxHeight: "8rem",
+        maxWidth: "14rem",
+        backgroundPosition: "center",
     },
     imgTiposAlojamiento: {
-
+        borderRadius: "1em",
+        maxHeight: "17rem",
+        maxWidth: "20rem",
+        backgroundPosition: "center",
+        backgroundSize: "cover",
+        padding: "5rem",
+    },
+    fontHomePrimary: {
+        color: "white",
+        textShadow: "-1px 0 black, 0 1px black, 1px 0 black, 0 -1px black",
+        fontSize: "1.5em",
+        fontWeight: "bold",
+    },
+    hr: {
+        color: '#333',
+        width: '75%',
     }
-
 });
-
 
 const Home = () => {
 
@@ -57,96 +77,222 @@ const Home = () => {
     const classes = useStyle();
 
     return (
-        <div >
-            <Grid container justifyContent='center' >
-                <Grid item xs={12} className={classes.containerFilters} >
-                    <Typography variant='h5'>
-                        EXPLORA LOS ANDES !!!
-                    </Typography>
-                    <Grid>
-                        <Box  border={2} className={classes.boxFilters}>
-                            <Grid>
-                                <Typography variant='subtitle2'>
-                                    ¿A donde quieres ir?
-                                </Typography>
-                                <input placeholder='Escoge el destino'></input>
-                            </Grid>
-                            <Grid>
-                                <Typography variant='subtitle2'>
-                                    Fecha de llegada
-                                </Typography>
-                                <input placeholder='Elige la fecha'></input>
-                            </Grid>
-                            <Grid>
-                                <Typography variant='subtitle2'>
-                                    Fecha de salida
-                                </Typography>
-                                <input placeholder='Elige la fecha'></input>
-                            </Grid>
-                            <Grid>
-                                <Typography variant='subtitle2'>
-                                    ¿Cuántos viajan?
-                                </Typography>
-                                <input placeholder='2 adultos, 0 niños'></input>
-                            </Grid>
-                            <Grid>
-                                <SearchIcon/>
-                            </Grid>
-                        </Box>
+        <div>
+            <Grid container justifyContent="center" spacing={5}>
+                <Grid
+                    container
+                    item
+                    xs={12}
+                    className={classes.containerFilters}
+                    justifyContent="center"
+                >
+                    <Grid item xs={12} style={{justifyContent:'center', alignItems:'center', display:'flex'}} >
+                        <Typography
+                            variant="h5"
+                            className={classes.fontHomePrimary}
+                            style={{justifyContent:'center', alignItems:'center', display:'flex'}}
+                        >
+                            EXPLORA LOS ANDES !!!
+                        </Typography>
                     </Grid>
-                    <br/>
+                    <FormControl>
+                        <FormLabel
+                            style={{
+                                display: "flex",
+                                border: "solid",
+                                backgroundColor: 'whitesmoke',
+                                padding: '0.1rem 0.8rem',
+                                borderRadius: '1em'
+                            }}
+                        >
+                            <TextField
+                                id=""
+                                label="¿A Donde quieres ir?"
+                                variant="standard"
+                                color="secondary"
+                                margin="none"
+                                size="small"
+                            />
+                            <TextField
+                                id=""
+                                label="Fecha de llegada"
+                                variant="standard"
+                                color="primary"
+                                margin="none"
+                                size="small"
+                            />
+                            <TextField
+                                id=""
+                                label="Fecha de salida"
+                                variant="standard"
+                                color="primary"
+                                margin="none"
+                                size="small"
+                            />
+                            <TextField
+                                id=""
+                                label="¿Cuántos viajan?"
+                                variant="standard"
+                                color="primary"
+                                margin="none"
+                                size="small"
+                            />
+                            <SearchIcon style={{display:'flex', justifyContent:'center', alignItems:'center', height:'auto'}} />
+                        </FormLabel>
+                    </FormControl>
+    
                 </Grid>
-                <Grid item xs={8} justifyContent='center' direction='row' container spacing={1} >
-                        <Grid>
-                            <Typography variant='h6'>Recomendados</Typography>
-                        </Grid>
-                        <Grid item xs={2}>
-                            <img src={`${Recom1}`} alt='' className={classes.imgRecomendadas} />
-                        </Grid>
-                        <Grid item xs={2}>
-                            <img src={`${Recom2}`} alt='' className={classes.imgRecomendadas} />
-                        </Grid>
-                        <Grid item xs={2}>
-                            <img src={`${Recom3}`} alt='' className={classes.imgRecomendadas} />
-                        </Grid>
-                        <Grid item xs={2}>
-                            <img src={`${Recom4}`} alt='' className={classes.imgRecomendadas} />
-                        </Grid>
-                    <br/>
-                    <br/>
-            
-                </Grid>
-                <Grid container item xs={8} justifyContent='center'>
-                    <Typography variant='h6'>EXPLORA SEGUN EL TIPO DE ALOJAMIENTO QUE QUIERES DISFRUTAR</Typography>
-                    <Grid item xs={8} justifyContent='center' container >
-                            <Grid style={{backgroundImage: `url(${Tipos1})` , backgroundSize: 'cover', width: '40%', height: 'auto', backgroundPosition: 'center'}}>
-                                <Typography variant='subtitle1'>Hostales & Bed & Breakfast</Typography>
-                                <Button>Explorar</Button>
-                            </Grid>
-                            <Grid style={{backgroundImage: `url(${Tipos2})` , backgroundSize: 'cover', width: '40%', height: 'auto', backgroundPosition: 'center'}}>
-                                <Typography variant='subtitle1'>Casas y Apartamentos</Typography>
-                                <Button>Explorar</Button>
-                            </Grid>
-                            <Grid style={{backgroundImage: `url(${Tipos3})` , backgroundSize: 'cover', width: '40%', height: 'auto', backgroundPosition: 'center'}}>
-                                <Typography variant='subtitle1'>Fuera de lo comun</Typography>
-                                <Button>Explorar</Button>
-                            </Grid>
-                        <br/>
+                <Grid
+                    xs={12}
+                    alignItems="center"
+                    justifyContent="space-between"
+                    direction="row"
+                    container
+                    className={classes.containerRecomendados}
+                >
+                    <Grid item xs={2} style={{ textAlign: "center" }}>
+                        <Typography variant="h6">Recomendados</Typography>
+                    </Grid>
+                    <Grid item xs={2}>
+                        <img
+                            src={`${Recom1}`}
+                            alt=""
+                            className={classes.imgRecomendadas}
+                        />
+                    </Grid>
+                    <Grid item xs={2}>
+                        <img
+                            src={`${Recom2}`}
+                            alt=""
+                            className={classes.imgRecomendadas}
+                        />
+                    </Grid>
+                    <Grid item xs={2}>
+                        <img
+                            src={`${Recom3}`}
+                            alt=""
+                            className={classes.imgRecomendadas}
+                        />
+                    </Grid>
+                    <Grid item xs={2}>
+                        <img
+                            src={`${Recom4}`}
+                            alt=""
+                            className={classes.imgRecomendadas}
+                        />
                     </Grid>
                 </Grid>
-                <Grid item xs={8}>
-                    <Box border={2} style={{backgroundImage: `url(${Chica})` , backgroundSize: 'cover', backgroundPosition: 'center'}}>
-                        <Box>
-                            <Typography variant='subtitle1'>
-                                Tienes un inmueble para alquilar? Regístrate como Host y empieza a recibir huéspedes
-                            </Typography>
-                        </Box>
-                        <Button>Quiero set Host !</Button>
-                    </Box>
+                <hr className={classes.hr}/>
+                <Grid
+                    container
+                    item
+                    xs={12}
+                    justifyContent="center"
+                    className={classes.containerTipos}
+                >
+                    <Grid item xs={12} style={{justifyContent:'center', alignItems:'center', display:'flex', padding:'1rem', }}>
+                        <Typography variant="h6" >
+                            EXPLORA SEGUN EL TIPO DE ALOJAMIENTO QUE QUIERES
+                            DISFRUTAR
+                        </Typography>
+                    </Grid>
+                    <Grid item xs={12} justifyContent="space-evenly" container>
+                        <Grid
+                            item
+                            xs={3}
+                            container
+                            style={{ backgroundImage: `url(${Tipos1})`}}
+                            className={classes.imgTiposAlojamiento}
+                        >
+                            <Grid item xs={12}>
+                                <Typography
+                                    variant="subtitle1"
+                                    className={classes.fontHomePrimary}
+                                    style={{boxSizing:'content-box'}}
+                                >
+                                    Hostales & Bed & Breakfast
+                                </Typography>
+                            </Grid>
+                            <Grid item xs={3}>
+                                <Button variant="contained">Explorar</Button>
+                            </Grid>
+                        </Grid>
+                        <Grid
+                            item
+                            xs={3}
+                            container
+                            style={{ backgroundImage: `url(${Tipos2})` }}
+                            className={classes.imgTiposAlojamiento}
+                        >
+                            <Grid item xs={12}>
+                                <Typography
+                                    variant="subtitle1"
+                                    className={classes.fontHomePrimary}
+                                >
+                                    Casas y Apartamentos
+                                </Typography>
+                            </Grid>
+                            <Grid item xs={3}>
+                                <Button variant="contained">Explorar</Button>
+                            </Grid>
+                        </Grid>
+                        <Grid
+                            item
+                            xs={3}
+                            container
+                            style={{ backgroundImage: `url(${Tipos3})` }}
+                            className={classes.imgTiposAlojamiento}
+                        >
+                            <Grid item xs={12}>
+                                <Typography
+                                    variant="subtitle1"
+                                    className={classes.fontHomePrimary}
+                                >
+                                    Fuera de lo comun
+                                </Typography>
+                            </Grid>
+                            <Grid item xs={3}>
+                                <Button variant="contained">Explorar</Button>
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                </Grid>
+                <hr className={classes.hr}/>
+
+                <Grid
+                    item
+                    xs={10}
+                    direction="column"
+                    container
+                    style={{
+                        backgroundImage: `url(${Chica})`,
+                        backgroundSize: "cover",
+                        height: "20rem ",
+                        backgroundPosition: "center",
+                        borderRadius: "1em",
+                        margin: '1.8rem'
+                    }}
+                >
+                    <Grid item xs={6}>
+                        <Typography
+                            variant="subtitle1"
+                            className={classes.fontHomePrimary}
+                        >
+                            Tienes un inmueble para alquilar? Regístrate como
+                            Host y empieza a recibir huéspedes
+                        </Typography>
+                    </Grid>
+                    <Grid item xs={6}>
+                        <Button variant="contained">Quiero set Host !</Button>
+                    </Grid>
+                </Grid>
+
+                <Grid container justifyContent="space-between">
+                    <Footer />
                 </Grid>
             </Grid>
         </div>
-    )
-}
+    );
+};
 
-export default Home
+export default Home;
