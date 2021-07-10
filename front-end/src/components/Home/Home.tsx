@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Box, Button, Grid } from '@material-ui/core'
 import SearchIcon from '@material-ui/icons/Search';
 import { Typography } from "@material-ui/core";
@@ -12,6 +12,8 @@ import Tipos1 from '../../Image/tipos1.jpeg'
 import Tipos2 from '../../Image/tipos2.jpeg'
 import Tipos3 from '../../Image/tipos3.jpeg'
 import Chica from '../../Image/chica.jpeg'
+import { useDispatch } from 'react-redux';
+import { fetchCardsHotels } from '../../actions';
 
 
 
@@ -48,6 +50,10 @@ const useStyle = makeStyles({
 
 const Home = () => {
 
+    const dispatch = useDispatch();
+    useEffect(() => {
+        dispatch(fetchCardsHotels())
+    },[])
     const classes = useStyle();
 
     return (
