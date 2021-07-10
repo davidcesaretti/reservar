@@ -2,10 +2,10 @@ import React from 'react'
 import 'date-fns';
 import Grid from '@material-ui/core/Grid';
 import DateFnsUtils from '@date-io/date-fns';
-import {
-  MuiPickersUtilsProvider,
-  KeyboardDatePicker,
-} from '@material-ui/pickers';
+import {MuiPickersUtilsProvider,KeyboardDatePicker} from '@material-ui/pickers';
+
+
+
 
 export function Calendary() {
   // The first commit of Material-UI
@@ -27,6 +27,10 @@ export function Calendary() {
     setdepartureDate(date);
   };
 
+  function disableWeekends(date) {
+    return date.getDay() === 0 || date.getDay() === 6;
+  }
+
   return (
     <MuiPickersUtilsProvider utils={DateFnsUtils}>
       <Grid container justifyContent="space-around">
@@ -40,6 +44,7 @@ export function Calendary() {
           value={arrivalDate}
           //deshabilitado el 15 de julio
           shouldDisableDate={(date) => date.getTime() === new Date('2021-07-15T00:00').getTime()}
+          // shouldDisableDate={disableWeekends}
           disablePast= {true}
           onChange={handleDateChange}
           KeyboardButtonProps={{
