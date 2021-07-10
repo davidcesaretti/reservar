@@ -1,4 +1,4 @@
-
+import { cardsHotel } from './../reducers/hotels';
 import axios, { AxiosRequestConfig } from "axios";
 import { Dispatch } from "redux";
 import { ActionTypes } from "./types";
@@ -11,6 +11,10 @@ export interface fake {
 export interface FetchUsersAction {
   type: ActionTypes.fetchUsers;
   payload: fake[];
+}
+export interface FetchCardsHotelAction {
+  type: ActionTypes.fetchCardsHotels;
+  payload: cardsHotel[];
 }
 export interface data {
   nombre: string;
@@ -47,6 +51,16 @@ export const fetchUsers = () => {
   };
 };
 
+
+export const fetchCardsHotels = () => {
+  return async (dispatch: Dispatch) => {
+    const response = await axios.get<cardsHotel[]>(url + '/test');
+    dispatch<FetchCardsHotelAction>({
+      type: ActionTypes.fetchCardsHotels,
+      payload: response.data,
+    });
+  };
+}
 // export function deleteUsers(data: any) {
 //   return function (dispatch: Dispatch) {
 //     return fetch(url, {
