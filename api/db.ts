@@ -4,8 +4,8 @@ require("dotenv").config();
 import { Schema, model } from "mongoose";
 
 const { DB_HOST, DB_NAME, DB_PORT } = process.env;
-// const MONGODB_URL = `mongodb+srv://${DB_HOST}:${DB_PORT}/${DB_NAME}`;
-const MONGODB_URL = `mongodb://${DB_HOST}:${DB_PORT}/${DB_NAME}`;
+const MONGODB_URL = `mongodb+srv://${DB_HOST}:${DB_PORT}/${DB_NAME}`;
+//const MONGODB_URL = `mongodb://${DB_HOST}:${DB_PORT}/${DB_NAME}`;
 
 mongoose
   .connect(MONGODB_URL, {
