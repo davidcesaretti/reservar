@@ -32,7 +32,7 @@ const userRegistered = new Schema({
     name: {type: String, required: true},
     email: {type: String, required: true, unique: true},
     phone_number: {type: Number, required: true, unique: true},
-    nationality: {type: String, required: true, },
+    nationality: {type: String, required: true},
     identity_document_type: {
         type: String, 
         required: true, 
@@ -41,7 +41,7 @@ const userRegistered = new Schema({
     identity_document_number: {type: Number, required: true, unique: true},
     date_birth: {type: Date, required: true},
     residence_address: {type: String, required: true},
-    city_and_country_of_residence: {type: String, required: true, unique: true},
+    city_and_country_of_residence: {type: String, required: true},
     emergency_contact: {type: String, required: true},
     emergency_phone_number: {type: Number, required: true},
     relationship: {type: String, enum:["Family", "Friend"]},
