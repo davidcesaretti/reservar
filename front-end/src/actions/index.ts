@@ -1,4 +1,4 @@
-import { cardsHotel } from './../reducers/hotels';
+import { cardsHotel } from "./../reducers/hotels";
 import axios, { AxiosRequestConfig } from "axios";
 import { Dispatch } from "redux";
 import { ActionTypes } from "./types";
@@ -21,25 +21,24 @@ export interface data {
   id: Number;
 }
 export interface Credentials {
-    username: string,
-    password: string,
+  username: string;
+  password: string;
 }
 const url = "http://localhost:3001";
 
-
 export const onLogin = async (data: Credentials) => {
-    const requestConfig: AxiosRequestConfig = {
-        method: 'post',
-        url: process.env.BASE_URL + '/login',
-        data
-    }
-    try{
-        const {data: response} = await axios.request(requestConfig)
-    } catch (e) {
-        console.error(e)
-        return {error: e.response.data.message}
-    }
-}
+  const requestConfig: AxiosRequestConfig = {
+    method: "post",
+    url: process.env.BASE_URL + "/login",
+    data,
+  };
+  try {
+    const { data: response } = await axios.request(requestConfig);
+  } catch (e) {
+    console.error(e);
+    return { error: e.response.data.message };
+  }
+};
 
 export const fetchUsers = () => {
   return async (dispatch: Dispatch) => {
@@ -51,16 +50,31 @@ export const fetchUsers = () => {
   };
 };
 
-
-export const fetchCardsHotels = () => {
+export const fetchCardsHotels = (
+  page,
+  price,
+  amenities,
+  type,
+  accommodates,
+  score
+) => {
   return async (dispatch: Dispatch) => {
-    const response = await axios.get<cardsHotel[]>(url + '/test');
+    const response = await axios.get<cardsHotel[]>(
+      url +
+        `/filter?page=${page}&${
+          score !== undefined ? `score=${score}` : "nada"
+        }&${
+          accommodates !== undefined ? `accommodates=${accommodates}` : "nada"
+        }&${amenities !== undefined ? `amenities=${amenities}` : "nada"}&${
+          price !== undefined ? `price=${price}` : "nada"
+        }&${type !== undefined ? `type=${type}` : "nada"}`
+    );
     dispatch<FetchCardsHotelAction>({
       type: ActionTypes.fetchCardsHotels,
       payload: response.data,
     });
   };
-}
+};
 // export function deleteUsers(data: any) {
 //   return function (dispatch: Dispatch) {
 //     return fetch(url, {

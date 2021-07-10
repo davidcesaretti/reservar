@@ -8,6 +8,7 @@ const router = Router();
 router.get("/", (req: Request, res: Response, next: NextFunction) => {
   let { amenities, price, type } = req.query;
   if (
+    req.query.page ||
     req.query.accommodates ||
     req.query.amenities ||
     req.query.score ||
@@ -41,6 +42,8 @@ router.get("/", (req: Request, res: Response, next: NextFunction) => {
     }
 
     if (price) {
+      // console.log(obj);
+      // console.log(price);
       dataAirbnb
         .find(obj)
         .sort({ price: req.query.price })
@@ -52,6 +55,7 @@ router.get("/", (req: Request, res: Response, next: NextFunction) => {
       .then((data: any) => res.json(paginado(req, res, data)))
       .catch((err) => console.error(err));
   }
+  dataAirbnb.find({}).then((data: any) => res.json(paginado(req, res, data)));
 });
 
 export default router;
