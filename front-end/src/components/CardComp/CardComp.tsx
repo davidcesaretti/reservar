@@ -32,7 +32,7 @@ import MonetizationOnIcon from '@material-ui/icons/MonetizationOn';
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
-      maxWidth: 345,
+      width: 500,
     },
     media: {
       height: 200,
@@ -46,7 +46,8 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-export default function CardComp() {
+
+export default function CardComp({name, type, beds, price, image, score, address, accommodates}) {
   const classes = useStyles();
   
       return (
@@ -54,21 +55,21 @@ export default function CardComp() {
       <CardActionArea>
         <CardMedia
           className={classes.media}
-          image="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1500&q=80"
+          src={image}
           title="Room Deluxe">
-         <StarBorderIcon>Score</StarBorderIcon>
+         <StarBorderIcon>{score}</StarBorderIcon>
         </CardMedia>
         <CardContent>
           <Typography gutterBottom variant="h5" component="h2" className={classes.title}>
-            Dubai Room Hostel!
+            {name}
           </Typography>
         </CardContent>
            <CardContent>
-         <ApartmentIcon>Type Prop</ApartmentIcon>
-         <AddLocationIcon>Direction</AddLocationIcon>
-         <AccountCircleIcon>Capacity</AccountCircleIcon>
-         <HotelIcon>Bed</HotelIcon>
-         <MonetizationOnIcon>Price</MonetizationOnIcon>
+         <ApartmentIcon>{type}</ApartmentIcon>
+         <AddLocationIcon>{address}</AddLocationIcon>
+         <AccountCircleIcon>{accommodates}</AccountCircleIcon>
+         <HotelIcon>{beds}</HotelIcon>
+         <MonetizationOnIcon>{price}</MonetizationOnIcon>
         </CardContent>
       </CardActionArea>
       <CardActions>
@@ -81,9 +82,6 @@ export default function CardComp() {
              </IconButton >
              <IconButton>
              </IconButton>
-        <Button size="small" color="primary" href="">
-          More Detail
-        </Button>
       </CardActions>
     </Card>
       );

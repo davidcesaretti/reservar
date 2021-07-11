@@ -69,10 +69,11 @@ export const fetchCardsHotels = (
           price !== undefined ? `price=${price}` : "nada"
         }&${type !== undefined ? `type=${type}` : "nada"}`
     );
+    
     dispatch<FetchCardsHotelAction>({
       type: ActionTypes.fetchCardsHotels,
       payload: response.data,
-    });
+    }); 
   };
 };
 // export function deleteUsers(data: any) {

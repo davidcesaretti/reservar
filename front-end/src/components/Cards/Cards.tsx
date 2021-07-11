@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import Button from '@material-ui/core/Button';
 import CameraIcon from '@material-ui/icons/PhotoCamera';
@@ -16,7 +16,10 @@ import Link from '@material-ui/core/Link';
 import CardComp from '../CardComp/CardComp';
 import NavBar from '../Nav/nav';
 import Footer from '../Footer/Footer';
-
+import CheckboxList from '../Filters/Filters';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchCardsHotels } from '../../actions';
+import { hotelsReducer } from '../../reducers/hotels';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -51,27 +54,49 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-
 export default function Album() {
   const classes = useStyles();
+  const cards = useSelector((state: any) => state.cardsHotel) 
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchCardsHotels(
+      undefined, 
+      undefined, 
+      undefined,
+      undefined,
+      undefined,
+      undefined
+      ));
+  }, []);
+  console.log(cards)
+
 
   return (
     <React.Fragment>
       <CssBaseline />
+      <CheckboxList/>
       <NavBar/>
-      <main>
+      <main style={{marginLeft:"200px"}}>
         {/* Hero unit */}
         <Container className={classes.cardGrid} maxWidth="md">
           {/* End hero unit */}
           <Grid container spacing={4}>
-            {cards.map((card) => (
-              <Grid item key={card} xs={12} sm={6} md={4}>
+            {cards && cards.map((e) => { 
+              <Grid item key={e} xs={12} sm={6} md={6}>
                 <Card className={classes.card}>
-                  <CardComp/>
+                  <CardComp
+                    name={e.name}
+                    type={e.type}
+                    beds={e.beds}
+                    price={e.price}
+                    score={e.score}
+                    address={e.address}
+                    accommodates={e.accommodates}
+                    image={e.image}
+                  />
                 </Card>
               </Grid>
-            ))}
+          })}
           </Grid>
         </Container>
       </main>
