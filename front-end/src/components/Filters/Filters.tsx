@@ -16,6 +16,10 @@ import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { fetchCardsHotels } from "../../actions";
 import { useState } from "react";
+import FormControl from "@material-ui/core/FormControl";
+import Select from "@material-ui/core/Select";
+import MenuItem from "@material-ui/core/MenuItem";
+import InputLabel from "@material-ui/core/InputLabel";
 
 const GreenCheckbox = withStyles({
   root: {
@@ -128,11 +132,22 @@ export default function CheckboxList() {
   const [dataFilter, setDataFilter] = useState({
     page: undefined,
     price: undefined,
-    amenities: undefined,
+    amenities: [],
     type: undefined,
     accommodates: undefined,
     score: undefined,
   });
+
+  const setAmeniHandler = (e) => {
+    e.preventDefault();
+    console.log(e.target.name, "target name");
+    console.log(e.target.value, "target value");
+
+    setDataFilter({
+      ...dataFilter,
+      [e.target.name]: dataFilter[e.target.name].concat(e.target.value),
+    });
+  };
 
   const setDataHandler = (e) => {
     e.preventDefault();
@@ -177,18 +192,37 @@ export default function CheckboxList() {
               </>
             )}
             <List>
-              {cat.filtros &&
-                cat.filtros.map((value) => (
-                  <ListItem className={classes.nombredetipo} key={value}>
-                    <GreenCheckbox
-                      edge="start"
-                      value={value}
-                      name={cat.keyword}
-                      onChange={setDataHandler}
-                    />
-                    <ListItemText primary={value} />
-                  </ListItem>
-                ))}
+              {cat.title !== "Type" && cat.title !== "Score"
+                ? cat?.filtros?.map((value) => (
+                    <ListItem className={classes.nombredetipo} key={value}>
+                      <GreenCheckbox
+                        edge="start"
+                        value={value}
+                        name={cat.keyword}
+                        onChange={setAmeniHandler}
+                      />
+                      <ListItemText primary={value} />
+                    </ListItem>
+                  ))
+                : cat?.filtros?.map((value) => (
+                    <ListItem className={classes.nombredetipo} key={value}>
+                      <FormControl>
+                        <InputLabel id="demo-simple-select-label">-</InputLabel>
+                        <Select
+                          labelId="demo-simple-select-label"
+                          id="demo-simple-select"
+                          name={cat.keyword}
+                          value={value}
+                          onChange={setDataHandler}
+                        >
+                          <MenuItem value={10}>Ten</MenuItem>
+                          <MenuItem value={20}>Twenty</MenuItem>
+                          <MenuItem value={30}>Thirty</MenuItem>
+                        </Select>
+                      </FormControl>
+                      <ListItemText primary={value} />
+                    </ListItem>
+                  ))}
             </List>
           </Grid>
           <Divider />
