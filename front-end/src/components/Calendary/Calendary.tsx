@@ -1,6 +1,5 @@
 import React from "react";
 import "date-fns";
-import Grid from "@material-ui/core/Grid";
 import DateFnsUtils from "@date-io/date-fns";
 import {
   MuiPickersUtilsProvider,
@@ -24,26 +23,24 @@ export function Calendary() {
     setdepartureDate(date);
   };
 
-  // function disableWeekends(date) {
-  //   return date.getDay() === 0 || date.getDay() === 6;
-  // }
+  
+function disableDates(date) {
+  return date.getDate() === 15 || date.getDate() === 16 || date.getDate() === 17 || date.getDate() === 18
+
+}
 
   return (
     <MuiPickersUtilsProvider utils={DateFnsUtils}>
-      <Grid container justifyContent="space-around">
         <KeyboardDatePicker
           disableToolbar
           variant="inline"
           format="dd/MM/yyyy"
-          margin="normal"
+          margin="none"
+          style={{marginRight:"10px", marginLeft:"10px"}}
           id="date-picker-inline"
           label="Check in"
           value={arrivalDate}
-          //deshabilitado el 15 de julio
-          shouldDisableDate={(date) =>
-            date.getTime() === new Date("2021-07-15T00:00").getTime()
-          }
-          // shouldDisableDate={disableWeekends}
+          shouldDisableDate={disableDates}
           disablePast={true}
           onChange={handleDateChange}
           KeyboardButtonProps={{
@@ -54,11 +51,13 @@ export function Calendary() {
           disableToolbar
           variant="inline"
           format="dd/MM/yyyy"
-          margin="normal"
+          margin="none"
+          style={{marginRight:"10px", marginLeft:"10px"}}
           id="date-picker-inline"
           label="Check out"
           value={departureDate}
           disablePast={true}
+          shouldDisableDate={disableDates}
           onChange={handleChange}
           minDate={arrivalDate}
           disabled={!aux ? true : false}
@@ -66,7 +65,6 @@ export function Calendary() {
             "aria-label": "change date",
           }}
         />
-      </Grid>
     </MuiPickersUtilsProvider>
   );
 }

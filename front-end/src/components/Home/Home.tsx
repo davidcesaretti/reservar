@@ -18,6 +18,7 @@ import Tipos3 from "../../Image/tipos3.jpeg";
 import Chica from "../../Image/chica.jpeg";
 import { useDispatch } from "react-redux";
 import { fetchCardsHotels } from "../../actions";
+import {Calendary} from "../Calendary/Calendary"
 
 const useStyle = makeStyles({
   containerFilters: {
@@ -115,8 +116,9 @@ const Home = () => {
                 display: "flex",
                 border: "solid",
                 backgroundColor: "whitesmoke",
-                padding: "0.1rem 0.8rem",
+                padding: "0.5rem 0.8rem",
                 borderRadius: "1em",
+                alignItems: "center",
               }}
             >
               <TextField
@@ -127,7 +129,7 @@ const Home = () => {
                 margin="none"
                 size="small"
               />
-              <TextField
+              {/* <TextField
                 id=""
                 label="Check in"
                 variant="standard"
@@ -142,7 +144,8 @@ const Home = () => {
                 color="primary"
                 margin="none"
                 size="small"
-              />
+              /> */}
+              <Calendary/>
               <TextField
                 id=""
                 label="Guests"
