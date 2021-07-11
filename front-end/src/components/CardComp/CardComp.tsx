@@ -55,34 +55,32 @@ export default function CardComp({name, type, beds, price, image, score, address
       <CardActionArea>
         <CardMedia
           className={classes.media}
-          src={image}
+          image={image}
           title="Room Deluxe">
-         <StarBorderIcon>{score}</StarBorderIcon>
+         <StarBorderIcon></StarBorderIcon>
+         {score}
+        <IconButton aria-label="add to favorites">
+          <FavoriteIcon />
+        </IconButton>
         </CardMedia>
         <CardContent>
           <Typography gutterBottom variant="h5" component="h2" className={classes.title}>
-            {name}
+          {name}
           </Typography>
         </CardContent>
            <CardContent>
-         <ApartmentIcon>{type}</ApartmentIcon>
-         <AddLocationIcon>{address}</AddLocationIcon>
-         <AccountCircleIcon>{accommodates}</AccountCircleIcon>
-         <HotelIcon>{beds}</HotelIcon>
-         <MonetizationOnIcon>{price}</MonetizationOnIcon>
+         <ApartmentIcon></ApartmentIcon>
+         {type}
+         <AddLocationIcon></AddLocationIcon>
+         {address}
+         <AccountCircleIcon></AccountCircleIcon>
+         {accommodates}
+         <HotelIcon></HotelIcon>
+         {beds}
+         <MonetizationOnIcon></MonetizationOnIcon>
+         {price}
         </CardContent>
       </CardActionArea>
-      <CardActions>
-     
-      <IconButton aria-label="add to favorites">
-             <FavoriteIcon />
-             </IconButton>
-             <IconButton aria-label="share">
-               <ShareIcon />
-             </IconButton >
-             <IconButton>
-             </IconButton>
-      </CardActions>
     </Card>
       );
     }
