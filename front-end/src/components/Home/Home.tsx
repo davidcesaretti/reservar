@@ -154,14 +154,21 @@ const Home = () => {
                 margin="none"
                 size="small"
               />
-              <SearchIcon
+              <Button
+                variant="contained"
+                color="secondary"
+                size="small"
                 style={{
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  height: "auto",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    height: "70%",
+                    alignSelf: "center",
+                    borderRadius: "1em",
                 }}
-              />
+              >
+                <SearchIcon />
+              </Button>
             </FormLabel>
           </FormControl>
         </Grid>
