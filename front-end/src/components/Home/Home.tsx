@@ -60,6 +60,10 @@ const useStyle = makeStyles({
     fontSize: "1.5em",
     fontWeight: "bold",
   },
+  fontHomeSecondary: {
+    display: "flex",
+    alignItems: "center",
+  },
   hr: {
     color: "#333",
     width: "75%",
@@ -102,7 +106,7 @@ const Home = () => {
                 display: "flex",
               }}
             >
-              EXPLORA LOS ANDES !!!
+              FIND YOUR PLACE
             </Typography>
           </Grid>
           <FormControl>
@@ -117,7 +121,7 @@ const Home = () => {
             >
               <TextField
                 id=""
-                label="¿A Donde quieres ir?"
+                label="Where are you going?"
                 variant="standard"
                 color="secondary"
                 margin="none"
@@ -125,7 +129,7 @@ const Home = () => {
               />
               <TextField
                 id=""
-                label="Fecha de llegada"
+                label="Check in"
                 variant="standard"
                 color="primary"
                 margin="none"
@@ -133,7 +137,7 @@ const Home = () => {
               />
               <TextField
                 id=""
-                label="Fecha de salida"
+                label="Check out"
                 variant="standard"
                 color="primary"
                 margin="none"
@@ -141,7 +145,7 @@ const Home = () => {
               />
               <TextField
                 id=""
-                label="¿Cuántos viajan?"
+                label="Guests"
                 variant="standard"
                 color="primary"
                 margin="none"
@@ -167,7 +171,7 @@ const Home = () => {
           className={classes.containerRecomendados}
         >
           <Grid item xs={2} style={{ textAlign: "center" }}>
-            <Typography variant="h6">Recomendados</Typography>
+            <Typography variant="h6">EXPLORE</Typography>
           </Grid>
           <Grid item xs={2}>
             <img src={`${Recom1}`} alt="" className={classes.imgRecomendadas} />
@@ -200,9 +204,7 @@ const Home = () => {
               padding: "1rem",
             }}
           >
-            <Typography variant="h6">
-              EXPLORA SEGUN EL TIPO DE ALOJAMIENTO QUE QUIERES DISFRUTAR
-            </Typography>
+            <Typography variant="h6">CHOOSE YOUR STYLE</Typography>
           </Grid>
           <Grid item xs={12} justifyContent="space-evenly" container>
             <Grid
@@ -218,11 +220,11 @@ const Home = () => {
                   className={classes.fontHomePrimary}
                   style={{ boxSizing: "content-box" }}
                 >
-                  Hostales & Bed & Breakfast
+                  Hostels & Bed & Breakfast
                 </Typography>
               </Grid>
               <Grid item xs={3}>
-                <Button variant="contained">Explorar</Button>
+                <Button variant="contained">Go</Button>
               </Grid>
             </Grid>
             <Grid
@@ -237,11 +239,11 @@ const Home = () => {
                   variant="subtitle1"
                   className={classes.fontHomePrimary}
                 >
-                  Casas y Apartamentos
+                  Houses and Apartments
                 </Typography>
               </Grid>
               <Grid item xs={3}>
-                <Button variant="contained">Explorar</Button>
+                <Button variant="contained">Go</Button>
               </Grid>
             </Grid>
             <Grid
@@ -256,11 +258,11 @@ const Home = () => {
                   variant="subtitle1"
                   className={classes.fontHomePrimary}
                 >
-                  Fuera de lo comun
+                  Uniques
                 </Typography>
               </Grid>
               <Grid item xs={3}>
-                <Button variant="contained">Explorar</Button>
+                <Button variant="contained">Go</Button>
               </Grid>
             </Grid>
           </Grid>
@@ -281,14 +283,13 @@ const Home = () => {
             margin: "1.8rem",
           }}
         >
-          <Grid item xs={6}>
+          <Grid item xs={6} className={classes.fontHomeSecondary}>
             <Typography variant="subtitle1" className={classes.fontHomePrimary}>
-              Tienes un inmueble para alquilar? Regístrate como Host y empieza a
-              recibir huéspedes
+              Got a place? Share your space and earn an <br /> extra income!
             </Typography>
           </Grid>
           <Grid item xs={6}>
-            <Button variant="contained">Quiero set Host !</Button>
+            <Button variant="contained">make me a Host !</Button>
           </Grid>
         </Grid>
 
