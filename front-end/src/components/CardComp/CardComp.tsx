@@ -46,7 +46,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-export default function RecipeReviewCard() {
+export default function CardComp() {
   const classes = useStyles();
   
       return (
