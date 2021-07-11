@@ -19,6 +19,7 @@ export interface data {
 
 export interface SignedInUser {
   type: ActionTypes.signUser;
+  payload: boolean;
 }
 export interface Credentials {
     username: string,
@@ -51,10 +52,20 @@ export const fetchUsers = () => {
   };
 };
 
-export const signUser = () => {
+export const signUser = (data) => {
   return async (dispatch: Dispatch) => {
+    console.log('action ' + data)
+    let userInfo = {
+      email: data.email,
+      name: data.displayName,
+      photo: data.photoURL,
+      
+    }
+    
+    userInfo && console.log('userInfo' + userInfo.email)
     dispatch<SignedInUser>({
-      type: ActionTypes.signUser
+      type: ActionTypes.signUser,
+      payload: false,
     })
   }
 }
