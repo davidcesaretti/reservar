@@ -46,6 +46,25 @@ const useStyles = makeStyles({
   nombredecat: {
     marginBottom: "0",
   },
+
+  btn: {
+    backgroundColor: "#324021" /* Green */,
+    "&:hover": {
+      background: "white",
+      transition: "0.4s",
+      color: "black",
+    },
+    border: "none",
+    color: "white",
+    padding: "10px",
+
+    textAlign: "center",
+    textDecoration: "none",
+    display: "flex",
+    fontSize: "16px",
+    borderRadius: "5px",
+    margin: "10px",
+  },
 });
 
 const Categories = [
@@ -54,11 +73,12 @@ const Categories = [
     keyword: "type",
 
     filtros: [
-      "Hostal",
-      "Bed & Breakfast",
-      "Casa",
-      "Apartamento",
-      "Fuera de lo común",
+      "Hostel",
+      "Condominium",
+      "House",
+      "Apartment",
+      "Loft",
+      "Guesthouse",
     ],
   },
   {
@@ -66,11 +86,11 @@ const Categories = [
     keyword: "amenities",
 
     filtros: [
-      "Piscina",
-      "Estacionamiento",
-      "Playa",
-      "Aire acondicionado",
-      "Wifi incluido",
+      "Pool",
+      "Free parking on premises",
+      "Long term stays allowed",
+      "Air conditioning",
+      "Wifi",
     ],
   },
   {
@@ -83,15 +103,15 @@ const Categories = [
     iconos: true,
   },
   {
-    title: "Filtros populares",
+    title: "Popular",
     keyword: "amenities",
 
     filtros: [
       "Cancelación gratuita",
-      "Admite mascotas",
-      "Apto para fumadores",
-      "Adaptado para personas de movilidad reducida",
-      "Servicio de habitación",
+      "Pets allowed",
+      "Smoking allowed",
+      "Wheelchair accessible",
+      "Kitchen",
     ],
   },
 ];
@@ -101,14 +121,7 @@ export default function CheckboxList() {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(
-      fetchCardsHotels(
-        undefined,
-        undefined,
-        undefined,
-        undefined,
-        undefined,
-        undefined
-      )
+      fetchCardsHotels(2, undefined, undefined, undefined, undefined, undefined)
     );
   }, []);
 
@@ -145,25 +158,22 @@ export default function CheckboxList() {
             <h4 className={classes.nombredecat}>{cat.title}</h4>
             {cat.iconos && (
               <>
-                <Button
-                  color="inherit"
-                  startIcon={<ExpandLessIcon />}
-                  value="desc"
-                  name="price"
-                  onClick={setDataHandler}
-                  variant="contained"
-                >
-                  Max - Min
-                </Button>
-                <Button
-                  color="secondary"
-                  startIcon={<ExpandMoreIcon />}
-                  name="price"
+                <button
+                  className={classes.btn}
                   value="asc"
+                  name="price"
                   onClick={setDataHandler}
                 >
                   Min - Max
-                </Button>
+                </button>
+                <button
+                  className={classes.btn}
+                  value="desc"
+                  name="price"
+                  onClick={setDataHandler}
+                >
+                  Max - Min
+                </button>
               </>
             )}
             <List>
