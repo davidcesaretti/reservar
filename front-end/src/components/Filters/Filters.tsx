@@ -51,6 +51,8 @@ const useStyles = makeStyles({
 const Categories = [
   {
     title: "Type",
+    keyword: "type",
+
     filtros: [
       "Hostal",
       "Bed & Breakfast",
@@ -61,6 +63,8 @@ const Categories = [
   },
   {
     title: "Amenities",
+    keyword: "amenities",
+
     filtros: [
       "Piscina",
       "Estacionamiento",
@@ -71,6 +75,7 @@ const Categories = [
   },
   {
     title: "Score",
+    keyword: "score",
     filtros: ["Fantástico", "Muy bueno", "Bueno", "Agradable"],
   },
   {
@@ -78,7 +83,9 @@ const Categories = [
     iconos: true,
   },
   {
-    title: "Amenities",
+    title: "Filtros populares",
+    keyword: "amenities",
+
     filtros: [
       "Cancelación gratuita",
       "Admite mascotas",
@@ -116,17 +123,17 @@ export default function CheckboxList() {
 
   const setDataHandler = (e) => {
     e.preventDefault();
+    console.log(e.target.name, "target name");
+    console.log(e.target.value, "target value");
 
     setDataFilter({
       ...dataFilter,
       [e.target.name]: e.target.value,
     });
-
-    console.log(dataFilter);
   };
   return (
     <Container maxWidth="xs" className={classes.filterbox}>
-      <h3 className={classes.nombredecat}>FILTRAR POR</h3>
+      <h3 className={classes.nombredecat}>Filter by...</h3>
       {Categories.map((cat) => (
         <>
           <Grid
@@ -138,10 +145,23 @@ export default function CheckboxList() {
             <h4 className={classes.nombredecat}>{cat.title}</h4>
             {cat.iconos && (
               <>
-                <Button color="inherit" startIcon={<ExpandLessIcon />}>
+                <Button
+                  color="inherit"
+                  startIcon={<ExpandLessIcon />}
+                  value="desc"
+                  name="price"
+                  onClick={setDataHandler}
+                  variant="contained"
+                >
                   Max - Min
                 </Button>
-                <Button color="inherit" startIcon={<ExpandMoreIcon />}>
+                <Button
+                  color="secondary"
+                  startIcon={<ExpandMoreIcon />}
+                  name="price"
+                  value="asc"
+                  onClick={setDataHandler}
+                >
                   Min - Max
                 </Button>
               </>
@@ -153,7 +173,7 @@ export default function CheckboxList() {
                     <GreenCheckbox
                       edge="start"
                       value={value}
-                      name={cat.title.toLowerCase()}
+                      name={cat.keyword}
                       onChange={setDataHandler}
                     />
                     <ListItemText primary={value} />
@@ -164,6 +184,13 @@ export default function CheckboxList() {
           <Divider />
         </>
       ))}
+      <Button
+        variant="text"
+        color="default"
+        onClick={() => console.log(dataFilter)}
+      >
+        Estado
+      </Button>
     </Container>
   );
 }
