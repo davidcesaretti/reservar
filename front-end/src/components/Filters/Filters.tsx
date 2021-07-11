@@ -12,7 +12,10 @@ import {
 import Checkbox, { CheckboxProps } from "@material-ui/core/Checkbox";
 import ExpandLessIcon from "@material-ui/icons/ExpandLess";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { fetchCardsHotels } from "../../actions";
+import { useState } from "react";
 
 const GreenCheckbox = withStyles({
   root: {
@@ -47,7 +50,7 @@ const useStyles = makeStyles({
 
 const Categories = [
   {
-    title: "Tipos de alojamiento",
+    title: "Type",
     filtros: [
       "Hostal",
       "Bed & Breakfast",
@@ -57,7 +60,7 @@ const Categories = [
     ],
   },
   {
-    title: "Filtros Populares",
+    title: "Amenities",
     filtros: [
       "Piscina",
       "Estacionamiento",
@@ -67,15 +70,15 @@ const Categories = [
     ],
   },
   {
-    title: "Puntuación",
+    title: "Score",
     filtros: ["Fantástico", "Muy bueno", "Bueno", "Agradable"],
   },
   {
-    title: "Precio",
+    title: "Price",
     iconos: true,
   },
   {
-    title: "Otros Filtros",
+    title: "Amenities",
     filtros: [
       "Cancelación gratuita",
       "Admite mascotas",
@@ -85,9 +88,42 @@ const Categories = [
     ],
   },
 ];
-
+//fetchCardsHotels(page, price, amenities, type, accommodates, score);
 export default function CheckboxList() {
   const classes = useStyles();
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(
+      fetchCardsHotels(
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined
+      )
+    );
+  }, []);
+
+  const [dataFilter, setDataFilter] = useState({
+    page: undefined,
+    price: undefined,
+    amenities: undefined,
+    type: undefined,
+    accommodates: undefined,
+    score: undefined,
+  });
+
+  const setDataHandler = (e) => {
+    e.preventDefault();
+
+    setDataFilter({
+      ...dataFilter,
+      [e.target.name]: e.target.value,
+    });
+
+    console.log(dataFilter);
+  };
   return (
     <Container maxWidth="xs" className={classes.filterbox}>
       <h3 className={classes.nombredecat}>FILTRAR POR</h3>
@@ -114,7 +150,12 @@ export default function CheckboxList() {
               {cat.filtros &&
                 cat.filtros.map((value) => (
                   <ListItem className={classes.nombredetipo} key={value}>
-                    <GreenCheckbox edge="start" />
+                    <GreenCheckbox
+                      edge="start"
+                      value={value}
+                      name={cat.title.toLowerCase()}
+                      onChange={setDataHandler}
+                    />
                     <ListItemText primary={value} />
                   </ListItem>
                 ))}
