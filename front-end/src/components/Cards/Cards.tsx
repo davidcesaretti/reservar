@@ -68,7 +68,7 @@ export default function Album() {
       undefined
       ));
   }, []);
-  console.log(cards)
+  console.log(cards.posts)
 
 
   return (
@@ -81,22 +81,23 @@ export default function Album() {
         <Container className={classes.cardGrid} maxWidth="md">
           {/* End hero unit */}
           <Grid container spacing={4}>
-            {cards && cards.map((e) => { 
-              <Grid item key={e} xs={12} sm={6} md={6}>
-                <Card className={classes.card}>
-                  <CardComp
-                    name={e.name}
-                    type={e.type}
-                    beds={e.beds}
-                    price={e.price}
-                    score={e.score}
-                    address={e.address}
-                    accommodates={e.accommodates}
-                    image={e.image}
-                  />
-                </Card>
-              </Grid>
-          })}
+            {cards.posts &&
+              cards.posts.map((e) => (
+                <Grid item key={e} xs={12} sm={6} md={6}>
+                  <Card className={classes.card}>
+                    <CardComp
+                      image={e.image}
+                      score={e.score}
+                      name={e.name}
+                      type={e.type}
+                      address={e.address}
+                      accommodates={e.accommodates}
+                      beds={e.beds}
+                      price={e.price}
+                    />
+                  </Card>
+                </Grid>
+            ))}
           </Grid>
         </Container>
       </main>
