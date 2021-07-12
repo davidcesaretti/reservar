@@ -58,18 +58,24 @@ export const fetchCardsHotels = (
   accommodates,
   score
 ) => {
+  console.log(amenities);
+
+  let string1 = `/filter?page=${page}&${
+    score !== undefined ? `score=${score}` : "nada"
+  }&${accommodates !== undefined ? `accommodates=${accommodates}` : "nada"}&${
+    Array.isArray(amenities)
+      ? amenities.map((x) => `amenities=${x}&`)
+      : amenities !== undefined
+      ? `amenities=${amenities}&`
+      : "nada"
+  }${price !== undefined ? `price=${price}` : "nada"}&${
+    type !== undefined ? `type=${type}` : "nada"
+  }`;
+
+  string1 = string1.split(",").join("");
+
   return async (dispatch: Dispatch) => {
-    const response = await axios.get<cardsHotel[]>(
-      url +
-        `/filter?page=${page}&${
-          score !== undefined ? `score=${score}` : "nada"
-        }&${
-          accommodates !== undefined ? `accommodates=${accommodates}` : "nada"
-        }&${amenities !== undefined ? `amenities=${amenities}` : "nada"}&${
-          price !== undefined ? `price=${price}` : "nada"
-        }&${type !== undefined ? `type=${type}` : "nada"}`
-    );
-    
+    const response = await axios.get<cardsHotel[]>(url + string1);
     dispatch<FetchCardsHotelAction>({
       type: ActionTypes.fetchCardsHotels,
       payload: response.data,
