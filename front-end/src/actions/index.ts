@@ -20,6 +20,11 @@ export interface data {
   nombre: string;
   id: Number;
 }
+
+export interface SignedInUser {
+  type: ActionTypes.signUser;
+  payload: boolean;
+}
 export interface Credentials {
   username: string;
   password: string;
@@ -82,6 +87,24 @@ export const fetchCardsHotels = (
     }); 
   };
 };
+export const signUser = (data) => {
+  return async (dispatch: Dispatch) => {
+    console.log('action ' + data)
+    let userInfo = {
+      email: data.email,
+      name: data.displayName,
+      photo: data.photoURL,
+      
+    }
+    
+    userInfo && console.log('userInfo' + userInfo.email)
+    dispatch<SignedInUser>({
+      type: ActionTypes.signUser,
+      payload: false,
+    })
+  }
+}
+
 // export function deleteUsers(data: any) {
 //   return function (dispatch: Dispatch) {
 //     return fetch(url, {
