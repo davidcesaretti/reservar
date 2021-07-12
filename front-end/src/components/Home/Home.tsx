@@ -75,7 +75,11 @@ const Home = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchCardsHotels("1", "asc", "TV", "Apartment", 4, 0));
-  }, []);
+  }, []); 
+
+  const onClickHandler = () => {
+    dispatch(fetchCardsHotels(undefined,undefined,undefined,undefined,undefined,undefined))
+  }
 
   const classes = useStyle();
 
@@ -158,6 +162,7 @@ const Home = () => {
                 variant="contained"
                 color="secondary"
                 size="small"
+                href="/Categories"
                 style={{
                     display: "flex",
                     justifyContent: "center",
@@ -166,6 +171,7 @@ const Home = () => {
                     alignSelf: "center",
                     borderRadius: "1em",
                 }}
+                onClick={onClickHandler}
               >
                 <SearchIcon />
               </Button>
@@ -303,7 +309,7 @@ const Home = () => {
           </Grid>
         </Grid>
 
-        <Grid container justifyContent="space-between">
+        <Grid container justifyContent="center">
           <Footer />
         </Grid>
       </Grid>
