@@ -13,7 +13,7 @@ function App() {
       <Route exact path="/login" component={Login} />
       <Route exact path="/register" component={Register} />
       <Route exact path="/Calendary" component={Calendary} />
-      <Route exact path="/Card" component={Card} />
+      <Route exact path="/Categories" component={Card} />
     </Switch>
   );
 }

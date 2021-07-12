@@ -8,6 +8,7 @@ const styles = makeStyles((theme) => ({
   footer: {
     display: "grid",
     gridTemplateColumns: "1fr 1fr 1fr",
+    columnGap: "200px",
     textDecoration: "none",
   },
   acercaa: {
@@ -26,6 +27,7 @@ const styles = makeStyles((theme) => ({
   },
   iconosli: {
     listStyle: "none",
+    marginTop: "10px",
   },
   titulo: {
     marginLeft: "38px",
