@@ -1,7 +1,7 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
 import Login from "./components/Login/Login";
-import Register from "./components/Register/Register";
+import Register from "./components/Register/Register2";
 import Home from "./components/Home/Home";
 import Calendary from "./components/Calendary/Calendary";
 import Album from "./components/Cards/Cards";
