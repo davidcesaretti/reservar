@@ -4,16 +4,18 @@ import Login from "./components/Login/Login";
 import Register from "./components/Register/Register";
 import Home from "./components/Home/Home";
 import Calendary from "./components/Calendary/Calendary";
-import Card from "./components/Card/Card";
-
+import Album from "./components/Cards/Cards";
+import Filters from "./components/Filters/Filters";
 function App() {
   return (
     <Switch>
       <Route exact path="/" component={Home} />
-      <Route exact path="/login" component={Login} />
-      <Route exact path="/register" component={Register} />
+      <Route exact path="/Login" component={Login} />
+      <Route exact path="/Register" component={Register} />
       <Route exact path="/Calendary" component={Calendary} />
-      <Route exact path="/Categories" component={Card} />
+
+      <Route exact path="/Filters" component={Filters} />
+      <Route exact path="/Categories" component={Album} />
     </Switch>
   );
 }
