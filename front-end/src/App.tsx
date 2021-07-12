@@ -13,8 +13,9 @@ function App() {
       <Route exact path="/Login" component={Login} />
       <Route exact path="/Register" component={Register} />
       <Route exact path="/Calendary" component={Calendary} />
-      <Route exact path="/Card" component={Album} />
+
       <Route exact path="/Filters" component={Filters} />
+      <Route exact path="/Categories" component={Album} />
     </Switch>
   );
 }
