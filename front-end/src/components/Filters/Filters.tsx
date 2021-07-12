@@ -192,37 +192,37 @@ export default function CheckboxList() {
               </>
             )}
             <List>
-              {cat.title !== "Type" && cat.title !== "Score"
-                ? cat?.filtros?.map((value) => (
-                    <ListItem className={classes.nombredetipo} key={value}>
-                      <GreenCheckbox
-                        edge="start"
-                        value={value}
-                        name={cat.keyword}
-                        onChange={setAmeniHandler}
-                      />
-                      <ListItemText primary={value} />
-                    </ListItem>
-                  ))
-                : cat?.filtros?.map((value) => (
-                    <ListItem className={classes.nombredetipo} key={value}>
-                      <FormControl>
-                        <InputLabel id="demo-simple-select-label">-</InputLabel>
-                        <Select
-                          labelId="demo-simple-select-label"
-                          id="demo-simple-select"
-                          name={cat.keyword}
-                          value={value}
-                          onChange={setDataHandler}
-                        >
-                          <MenuItem value={10}>Ten</MenuItem>
-                          <MenuItem value={20}>Twenty</MenuItem>
-                          <MenuItem value={30}>Thirty</MenuItem>
-                        </Select>
-                      </FormControl>
-                      <ListItemText primary={value} />
-                    </ListItem>
-                  ))}
+              {cat.title !== "Type" && cat.title !== "Score" ? (
+                cat?.filtros?.map((value) => (
+                  <ListItem className={classes.nombredetipo} key={value}>
+                    <GreenCheckbox
+                      edge="start"
+                      value={value}
+                      name={cat.keyword}
+                      onChange={setAmeniHandler}
+                    />
+                    <ListItemText primary={value} />
+                  </ListItem>
+                ))
+              ) : (
+                <ListItem className={classes.nombredetipo}>
+                  {cat.title === "Type"}
+                  <FormControl>
+                    <InputLabel id="demo-simple-select-label">-</InputLabel>
+                    <Select
+                      labelId="demo-simple-select-label"
+                      id="demo-simple-select"
+                      name={cat.keyword}
+                      onChange={setDataHandler}
+                    >
+                      <MenuItem value={10}>Ten</MenuItem>
+                      <MenuItem value={20}>Twenty</MenuItem>
+                      <MenuItem value={30}>Thirty</MenuItem>
+                    </Select>
+                  </FormControl>
+                  <ListItemText />
+                </ListItem>
+              )}
             </List>
           </Grid>
           <Divider />
