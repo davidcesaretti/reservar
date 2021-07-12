@@ -75,14 +75,13 @@ const Categories = [
   {
     title: "Type",
     keyword: "type",
-
     filtros: [
-      "Hostel",
-      "Condominium",
-      "House",
-      "Apartment",
-      "Loft",
-      "Guesthouse",
+      { id: "Hostel", msg: "Hostel" },
+      { id: "Condominium", msg: "Condominium" },
+      { id: "House", msg: "House" },
+      { id: "Apartment", msg: "Apartment" },
+      { id: "Loft", msg: "Loft" },
+      { id: "Guesthouse", msg: "Guesthouse" },
     ],
   },
   {
@@ -100,7 +99,13 @@ const Categories = [
   {
     title: "Score",
     keyword: "score",
-    filtros: ["Fantástico", "Muy bueno", "Bueno", "Agradable"],
+    filtros: [
+      { id: 10, msg: "Excelent" },
+      { id: 9, msg: "Amazing" },
+      { id: 8, msg: "Very nice" },
+      { id: 7, msg: "Cool" },
+      { id: 0, msg: "No rating" },
+    ],
   },
   {
     title: "Price",
@@ -206,7 +211,6 @@ export default function CheckboxList() {
                 ))
               ) : (
                 <ListItem className={classes.nombredetipo}>
-                  {cat.title === "Type"}
                   <FormControl>
                     <InputLabel id="demo-simple-select-label">-</InputLabel>
                     <Select
@@ -215,9 +219,9 @@ export default function CheckboxList() {
                       name={cat.keyword}
                       onChange={setDataHandler}
                     >
-                      <MenuItem value={10}>Ten</MenuItem>
-                      <MenuItem value={20}>Twenty</MenuItem>
-                      <MenuItem value={30}>Thirty</MenuItem>
+                      {cat?.filtros?.map((value) => (
+                        <MenuItem value={value.id}>{value.msg}</MenuItem>
+                      ))}
                     </Select>
                   </FormControl>
                   <ListItemText />

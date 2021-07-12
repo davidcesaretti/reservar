@@ -65,9 +65,15 @@ export const fetchCardsHotels = (
           score !== undefined ? `score=${score}` : "nada"
         }&${
           accommodates !== undefined ? `accommodates=${accommodates}` : "nada"
-        }&${amenities !== undefined ? `amenities=${amenities}` : "nada"}&${
-          price !== undefined ? `price=${price}` : "nada"
-        }&${type !== undefined ? `type=${type}` : "nada"}`
+        }&${
+          amenities !== undefined
+            ? `amenities=${amenities}`
+            : Array.isArray(amenities)
+            ? amenities.map((x) => `amenities=${x}`)
+            : "nada"
+        }&${price !== undefined ? `price=${price}` : "nada"}&${
+          type !== undefined ? `type=${type}` : "nada"
+        }`
     );
     dispatch<FetchCardsHotelAction>({
       type: ActionTypes.fetchCardsHotels,
