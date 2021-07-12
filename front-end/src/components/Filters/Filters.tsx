@@ -116,7 +116,6 @@ const Categories = [
     keyword: "amenities",
 
     filtros: [
-      "Cancelación gratuita",
       "Pets allowed",
       "Smoking allowed",
       "Wheelchair accessible",
