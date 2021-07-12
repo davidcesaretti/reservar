@@ -49,9 +49,8 @@ const useStyles = makeStyles({
   },
   nombredecat: {
     marginTop: "27px",
-    marginBottom: "10px"
+    marginBottom: "10px",
   },
-
   btn: {
     backgroundColor: "#324021" /* Green */,
     "&:hover": {
@@ -72,10 +71,11 @@ const useStyles = makeStyles({
   },
 });
 
-const Categories = [
+let Categories = [
   {
     title: "Type",
     keyword: "type",
+    checked: undefined,
     filtros: [
       { id: "Hostel", msg: "Hostel" },
       { id: "Condominium", msg: "Condominium" },
@@ -88,6 +88,7 @@ const Categories = [
   {
     title: "Amenities",
     keyword: "amenities",
+    checked: undefined,
 
     filtros: [
       "Pool",
@@ -100,6 +101,7 @@ const Categories = [
   {
     title: "Score",
     keyword: "score",
+    checked: undefined,
     filtros: [
       { id: 10, msg: "Excelent" },
       { id: 9, msg: "Amazing" },
@@ -115,7 +117,7 @@ const Categories = [
   {
     title: "Popular",
     keyword: "amenities",
-
+    checked: undefined,
     filtros: [
       "Pets allowed",
       "Smoking allowed",
@@ -128,10 +130,11 @@ const Categories = [
 export default function CheckboxList() {
   const classes = useStyles();
   const dispatch = useDispatch();
+  const [paginado, setPaginado] = useState(1);
   useEffect(() => {
     dispatch(
       fetchCardsHotels(
-        undefined,
+        paginado,
         undefined,
         undefined,
         undefined,
@@ -139,28 +142,26 @@ export default function CheckboxList() {
         undefined
       )
     );
-  }, []);
+  }, [paginado]);
+
   const [dataFilter, setDataFilter] = useState({
-    page: undefined,
     price: undefined,
     amenities: [],
     type: undefined,
     accommodates: undefined,
     score: undefined,
   });
-  
+
   const [pagination, setPagination] = useState({
-    page: undefined,
     price: undefined,
     amenities: [],
     type: undefined,
     accommodates: undefined,
     score: undefined,
-  })
-  
+  });
+
   const resetData = () => {
     setDataFilter({
-      page: undefined,
       price: undefined,
       amenities: [],
       type: undefined,
@@ -214,18 +215,15 @@ export default function CheckboxList() {
 
   const submitData = (e) => {
     e.preventDefault();
-    if (dataFilter["amenities"].length < 1) {
-      dataFilter["amenities"] = undefined;
-    }
-
-    setPagination(
-      dataFilter
-    )
+    setPagination(dataFilter);
+    // if (dataFilter["amenities"].length < 1) {
+    //   dataFilter["amenities"] = undefined;
+    // }
 
     dispatch(
       //fetchCardsHotels(page, price, amenities, type, accommodates, score);
       fetchCardsHotels(
-        dataFilter.page,
+        paginado,
         dataFilter.price,
         dataFilter.amenities,
         dataFilter.type,
@@ -233,41 +231,42 @@ export default function CheckboxList() {
         dataFilter.score
       )
     );
+
     console.log(dataFilter);
-    e.target.reset();
+    e.currentTarget.reset();
 
     resetData();
   };
 
   const onPrev = (e) => {
-    if (pagination.page > 2 && pagination.page !== undefined) {
-      dispatch(
-        //fetchCardsHotels(page, price, amenities, type, accommodates, score);
-        fetchCardsHotels(
-          pagination.page - 1,
-          pagination.price,
-          pagination.amenities,
-          pagination.type,
-          pagination.accommodates,
-          pagination.score
-        )
-      )
-    }
-  }
-
-  const onNext = (e) => {
+    // if (pagination.page > 2 && pagination.page !== undefined) {
     dispatch(
       //fetchCardsHotels(page, price, amenities, type, accommodates, score);
       fetchCardsHotels(
-        pagination.page + 1,
+        setPaginado(paginado - 1),
         pagination.price,
         pagination.amenities,
         pagination.type,
         pagination.accommodates,
         pagination.score
       )
-    )
-  }
+    );
+    //}
+  };
+
+  const onNext = (e) => {
+    dispatch(
+      //fetchCardsHotels(page, price, amenities, type, accommodates, score);
+      fetchCardsHotels(
+        setPaginado(paginado + 1),
+        pagination.price,
+        pagination.amenities,
+        pagination.type,
+        pagination.accommodates,
+        pagination.score
+      )
+    );
+  };
 
   return (
     <form onSubmit={submitData}>
@@ -303,12 +302,14 @@ export default function CheckboxList() {
                 </>
               )}
               <List>
+                {console.log(cat.keyword)}
                 {cat.title !== "Type" && cat.title !== "Score" ? (
                   cat?.filtros?.map((value) => (
                     <ListItem className={classes.nombredetipo} key={value}>
                       <GreenCheckbox
                         edge="start"
                         value={value}
+                        checked={cat.checked}
                         name={cat.keyword}
                         onChange={handleChecks}
                       />
@@ -336,8 +337,22 @@ export default function CheckboxList() {
         <Button variant="text" color="default" type="submit">
           Estado
         </Button>
-        <Button onClick={(e) => {onPrev(e)}}> Prev </Button>
-        <Button onClick={(e) => {onNext(e)}}> Next </Button>
+        <Button
+          onClick={(e) => {
+            onPrev(e);
+          }}
+        >
+          {" "}
+          Prev{" "}
+        </Button>
+        <Button
+          onClick={(e) => {
+            onNext(e);
+          }}
+        >
+          {" "}
+          Next{" "}
+        </Button>
       </Container>
     </form>
   );
