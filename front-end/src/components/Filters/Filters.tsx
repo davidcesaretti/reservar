@@ -182,6 +182,27 @@ export default function CheckboxList() {
     });
   };
 
+  const handleChecks = (e) => {
+    let flag = true;
+    dataFilter["amenities"].forEach((c) => {
+      if (e.target.value === c) {
+        setDataFilter({
+          ...dataFilter,
+          amenities: dataFilter["amenities"].filter(
+            (a) => e.target.value !== a
+          ),
+        });
+        return (flag = false);
+      }
+    });
+    if (flag) {
+      setDataFilter({
+        ...dataFilter,
+        [e.target.name]: dataFilter[e.target.name].concat(e.target.value),
+      });
+    }
+  };
+
   const submitData = (e) => {
     e.preventDefault();
     if (dataFilter["amenities"].length < 1) {
@@ -200,76 +221,79 @@ export default function CheckboxList() {
       )
     );
     console.log(dataFilter);
+    e.target.reset();
 
     resetData();
   };
 
   return (
-    <Container maxWidth="xs" className={classes.filterbox}>
-      <h3 className={classes.nombredecat}>Filter by...</h3>
-      {Categories.map((cat) => (
-        <>
-          <Grid
-            container
-            direction="column"
-            justifyContent="space-evenly"
-            alignItems="flex-start"
-          >
-            <h4 className={classes.nombredecat}>{cat.title}</h4>
-            {cat.iconos && (
-              <>
-                <button
-                  className={classes.btn}
-                  value="asc"
-                  name="price"
-                  onClick={setDataHandler}
-                >
-                  Min - Max
-                </button>
-                <button
-                  className={classes.btn}
-                  value="desc"
-                  name="price"
-                  onClick={setDataHandler}
-                >
-                  Max - Min
-                </button>
-              </>
-            )}
-            <List>
-              {cat.title !== "Type" && cat.title !== "Score" ? (
-                cat?.filtros?.map((value) => (
-                  <ListItem className={classes.nombredetipo} key={value}>
-                    <GreenCheckbox
-                      edge="start"
-                      value={value}
-                      name={cat.keyword}
-                      onChange={setAmeniHandler}
-                    />
-                    <ListItemText primary={value} />
-                  </ListItem>
-                ))
-              ) : (
-                <ListItem className={classes.nombredetipo}>
-                  <FormControl>
-                    <InputLabel>-</InputLabel>
-                    <Select name={cat.keyword} onChange={setDataHandler}>
-                      {cat?.filtros?.map((value) => (
-                        <MenuItem value={value.id}>{value.msg}</MenuItem>
-                      ))}
-                    </Select>
-                  </FormControl>
-                  <ListItemText />
-                </ListItem>
+    <form onSubmit={submitData}>
+      <Container maxWidth="xs" className={classes.filterbox}>
+        <h3 className={classes.nombredecat}>Filter by...</h3>
+        {Categories.map((cat) => (
+          <>
+            <Grid
+              container
+              direction="column"
+              justifyContent="space-evenly"
+              alignItems="flex-start"
+            >
+              <h4 className={classes.nombredecat}>{cat.title}</h4>
+              {cat.iconos && (
+                <>
+                  <button
+                    className={classes.btn}
+                    value="asc"
+                    name="price"
+                    onClick={setDataHandler}
+                  >
+                    Min - Max
+                  </button>
+                  <button
+                    className={classes.btn}
+                    value="desc"
+                    name="price"
+                    onClick={setDataHandler}
+                  >
+                    Max - Min
+                  </button>
+                </>
               )}
-            </List>
-          </Grid>
-          <Divider />
-        </>
-      ))}
-      <Button variant="text" color="default" onClick={submitData}>
-        Estado
-      </Button>
-    </Container>
+              <List>
+                {cat.title !== "Type" && cat.title !== "Score" ? (
+                  cat?.filtros?.map((value) => (
+                    <ListItem className={classes.nombredetipo} key={value}>
+                      <GreenCheckbox
+                        edge="start"
+                        value={value}
+                        name={cat.keyword}
+                        onChange={handleChecks}
+                      />
+                      <ListItemText primary={value} />
+                    </ListItem>
+                  ))
+                ) : (
+                  <ListItem className={classes.nombredetipo}>
+                    <FormControl>
+                      <InputLabel>-</InputLabel>
+                      <Select name={cat.keyword} onChange={setDataHandler}>
+                        {cat?.filtros?.map((value) => (
+                          <MenuItem value={value.id}>{value.msg}</MenuItem>
+                        ))}
+                      </Select>
+                    </FormControl>
+                    <ListItemText />
+                  </ListItem>
+                )}
+              </List>
+            </Grid>
+            <Divider />
+          </>
+        ))}
+        <Button variant="text" color="default" type="submit">
+          Estado
+        </Button>
+      </Container>
+    </form>
   );
 }
