@@ -129,7 +129,14 @@ export default function CheckboxList() {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(
-      fetchCardsHotels(2, undefined, undefined, undefined, undefined, undefined)
+      fetchCardsHotels(
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined
+      )
     );
   }, []);
 
@@ -141,6 +148,17 @@ export default function CheckboxList() {
     accommodates: undefined,
     score: undefined,
   });
+
+  const resetData = () => {
+    setDataFilter({
+      page: undefined,
+      price: undefined,
+      amenities: [],
+      type: undefined,
+      accommodates: undefined,
+      score: undefined,
+    });
+  };
 
   const setAmeniHandler = (e) => {
     e.preventDefault();
@@ -163,6 +181,29 @@ export default function CheckboxList() {
       [e.target.name]: e.target.value,
     });
   };
+
+  const submitData = (e) => {
+    e.preventDefault();
+    if (dataFilter["amenities"].length < 1) {
+      dataFilter["amenities"] = undefined;
+    }
+
+    dispatch(
+      //fetchCardsHotels(page, price, amenities, type, accommodates, score);
+      fetchCardsHotels(
+        dataFilter.page,
+        dataFilter.price,
+        dataFilter.amenities,
+        dataFilter.type,
+        dataFilter.accommodates,
+        dataFilter.score
+      )
+    );
+    console.log(dataFilter);
+
+    resetData();
+  };
+
   return (
     <Container maxWidth="xs" className={classes.filterbox}>
       <h3 className={classes.nombredecat}>Filter by...</h3>
@@ -211,13 +252,8 @@ export default function CheckboxList() {
               ) : (
                 <ListItem className={classes.nombredetipo}>
                   <FormControl>
-                    <InputLabel id="demo-simple-select-label">-</InputLabel>
-                    <Select
-                      labelId="demo-simple-select-label"
-                      id="demo-simple-select"
-                      name={cat.keyword}
-                      onChange={setDataHandler}
-                    >
+                    <InputLabel>-</InputLabel>
+                    <Select name={cat.keyword} onChange={setDataHandler}>
                       {cat?.filtros?.map((value) => (
                         <MenuItem value={value.id}>{value.msg}</MenuItem>
                       ))}
@@ -231,11 +267,7 @@ export default function CheckboxList() {
           <Divider />
         </>
       ))}
-      <Button
-        variant="text"
-        color="default"
-        onClick={() => console.log(dataFilter)}
-      >
+      <Button variant="text" color="default" onClick={submitData}>
         Estado
       </Button>
     </Container>
