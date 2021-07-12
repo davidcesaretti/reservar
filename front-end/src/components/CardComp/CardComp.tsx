@@ -36,13 +36,28 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     media: {
       height: 200,
+
     },
     title: {
-      color: theme.palette.primary.main
+      color: theme.palette.primary.main,
     },
     icono: {
-   
+      display: "flex",
+      alignItems: "center",
+      paddingRight: "13px"
+    },
+    card:{
+      display: "flex"
+    },
+    icon:{
+      marginRight: "5px"
+    },
+    iconfav:{
+      color:"black", 
+      padding: "5px",
+      background: "#8b96c175"
     }
+    
   })
 );
 
@@ -57,28 +72,54 @@ export default function CardComp({name, type, beds, price, image, score, address
           className={classes.media}
           image={image}
           title="Room Deluxe">
-         <StarBorderIcon></StarBorderIcon>
-         {score}
-        <IconButton aria-label="add to favorites">
+        
+        <IconButton aria-label="add to favorites" className={classes.iconfav}>
           <FavoriteIcon />
         </IconButton>
+           <IconButton className={classes.iconfav}>
+         <StarBorderIcon />
+           </IconButton>
+           <IconButton style={{color: "black", padding:"initial"}}>
+              {score}
+           </IconButton>
+           
         </CardMedia>
         <CardContent>
-          <Typography gutterBottom variant="h5" component="h2" className={classes.title}>
+          <Typography gutterBottom variant="h5" component="h2" className={classes.title} style={{marginBottom:"5px"}}>
+          
           {name}
           </Typography>
-        </CardContent>
-           <CardContent>
-         <ApartmentIcon></ApartmentIcon>
-         {type}
-         <AddLocationIcon></AddLocationIcon>
+          </CardContent>
+
+        <CardContent>
+          <div >
+        <AddLocationIcon>    
+        </AddLocationIcon>
          {address}
-         <AccountCircleIcon></AccountCircleIcon>
-         {accommodates}
-         <HotelIcon></HotelIcon>
-         {beds}
-         <MonetizationOnIcon></MonetizationOnIcon>
-         {price}
+          </div>
+        </CardContent>
+
+
+
+        <CardContent>
+          <div className={classes.card}>
+
+            <div className={classes.icono}>
+         <ApartmentIcon className={classes.icon}></ApartmentIcon>{type}
+            </div>
+
+            <div className={classes.icono}>
+        <AccountCircleIcon className={classes.icon}></AccountCircleIcon>{accommodates}
+           </div>
+
+            <div className={classes.icono}>
+         <HotelIcon className={classes.icon}></HotelIcon>{beds}
+            </div>
+
+            <div className={classes.icono}>
+         <MonetizationOnIcon className={classes.icon}></MonetizationOnIcon>{price}
+            </div>
+         </div >
         </CardContent>
       </CardActionArea>
     </Card>
