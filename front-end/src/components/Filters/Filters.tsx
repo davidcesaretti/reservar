@@ -140,7 +140,6 @@ export default function CheckboxList() {
       )
     );
   }, []);
-
   const [dataFilter, setDataFilter] = useState({
     page: undefined,
     price: undefined,
@@ -149,7 +148,16 @@ export default function CheckboxList() {
     accommodates: undefined,
     score: undefined,
   });
-
+  
+  const [pagination, setPagination] = useState({
+    page: undefined,
+    price: undefined,
+    amenities: [],
+    type: undefined,
+    accommodates: undefined,
+    score: undefined,
+  })
+  
   const resetData = () => {
     setDataFilter({
       page: undefined,
@@ -210,6 +218,10 @@ export default function CheckboxList() {
       dataFilter["amenities"] = undefined;
     }
 
+    setPagination(
+      dataFilter
+    )
+
     dispatch(
       //fetchCardsHotels(page, price, amenities, type, accommodates, score);
       fetchCardsHotels(
@@ -226,6 +238,36 @@ export default function CheckboxList() {
 
     resetData();
   };
+
+  const onPrev = (e) => {
+    if (pagination.page > 2 && pagination.page !== undefined) {
+      dispatch(
+        //fetchCardsHotels(page, price, amenities, type, accommodates, score);
+        fetchCardsHotels(
+          pagination.page - 1,
+          pagination.price,
+          pagination.amenities,
+          pagination.type,
+          pagination.accommodates,
+          pagination.score
+        )
+      )
+    }
+  }
+
+  const onNext = (e) => {
+    dispatch(
+      //fetchCardsHotels(page, price, amenities, type, accommodates, score);
+      fetchCardsHotels(
+        pagination.page + 1,
+        pagination.price,
+        pagination.amenities,
+        pagination.type,
+        pagination.accommodates,
+        pagination.score
+      )
+    )
+  }
 
   return (
     <form onSubmit={submitData}>
@@ -294,6 +336,8 @@ export default function CheckboxList() {
         <Button variant="text" color="default" type="submit">
           Estado
         </Button>
+        <Button onClick={(e) => {onPrev(e)}}> Prev </Button>
+        <Button onClick={(e) => {onNext(e)}}> Next </Button>
       </Container>
     </form>
   );
