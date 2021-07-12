@@ -84,7 +84,7 @@ export const fetchCardsHotels = (
     dispatch<FetchCardsHotelAction>({
       type: ActionTypes.fetchCardsHotels,
       payload: response.data,
-    });
+    }); 
   };
 };
 export const signUser = (data) => {
