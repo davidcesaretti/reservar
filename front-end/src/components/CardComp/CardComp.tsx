@@ -32,21 +32,37 @@ import MonetizationOnIcon from '@material-ui/icons/MonetizationOn';
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
-      maxWidth: 345,
+      width: 500,
     },
     media: {
       height: 200,
+
     },
     title: {
-      color: theme.palette.primary.main
+      color: theme.palette.primary.main,
     },
     icono: {
-   
+      display: "flex",
+      alignItems: "center",
+      paddingRight: "13px"
+    },
+    card:{
+      display: "flex"
+    },
+    icon:{
+      marginRight: "5px"
+    },
+    iconfav:{
+      color:"black", 
+      padding: "5px",
+      background: "#8b96c175"
     }
+    
   })
 );
 
-export default function CardComp() {
+
+export default function CardComp({name, type, beds, price, image, score, address, accommodates}) {
   const classes = useStyles();
   
       return (
@@ -54,37 +70,58 @@ export default function CardComp() {
       <CardActionArea>
         <CardMedia
           className={classes.media}
-          image="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1500&q=80"
+          image={image}
           title="Room Deluxe">
-         <StarBorderIcon>Score</StarBorderIcon>
+        
+        <IconButton aria-label="add to favorites" className={classes.iconfav}>
+          <FavoriteIcon />
+        </IconButton>
+           <IconButton className={classes.iconfav}>
+         <StarBorderIcon />
+           </IconButton>
+           <IconButton style={{color: "black", padding:"initial"}}>
+              {score}
+           </IconButton>
+           
         </CardMedia>
         <CardContent>
-          <Typography gutterBottom variant="h5" component="h2" className={classes.title}>
-            Dubai Room Hostel!
+          <Typography gutterBottom variant="h5" component="h2" className={classes.title} style={{marginBottom:"5px"}}>
+          
+          {name}
           </Typography>
+          </CardContent>
+
+        <CardContent>
+          <div >
+        <AddLocationIcon>    
+        </AddLocationIcon>
+         {address}
+          </div>
         </CardContent>
-           <CardContent>
-         <ApartmentIcon>Type Prop</ApartmentIcon>
-         <AddLocationIcon>Direction</AddLocationIcon>
-         <AccountCircleIcon>Capacity</AccountCircleIcon>
-         <HotelIcon>Bed</HotelIcon>
-         <MonetizationOnIcon>Price</MonetizationOnIcon>
+
+
+
+        <CardContent>
+          <div className={classes.card}>
+
+            <div className={classes.icono}>
+         <ApartmentIcon className={classes.icon}></ApartmentIcon>{type}
+            </div>
+
+            <div className={classes.icono}>
+        <AccountCircleIcon className={classes.icon}></AccountCircleIcon>{accommodates}
+           </div>
+
+            <div className={classes.icono}>
+         <HotelIcon className={classes.icon}></HotelIcon>{beds}
+            </div>
+
+            <div className={classes.icono}>
+         <MonetizationOnIcon className={classes.icon}></MonetizationOnIcon>{price}
+            </div>
+         </div >
         </CardContent>
       </CardActionArea>
-      <CardActions>
-     
-      <IconButton aria-label="add to favorites">
-             <FavoriteIcon />
-             </IconButton>
-             <IconButton aria-label="share">
-               <ShareIcon />
-             </IconButton >
-             <IconButton>
-             </IconButton>
-        <Button size="small" color="primary" href="">
-          More Detail
-        </Button>
-      </CardActions>
     </Card>
       );
     }
