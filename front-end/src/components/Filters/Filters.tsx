@@ -34,14 +34,15 @@ const useStyles = makeStyles({
     width: "20%",
   },
   nombredetipo: {
-    padding: "0",
+    padding: "30px 0",
     height: "30px",
     "& span": {
       fontSize: "13px",
     },
   },
   nombredecat: {
-    marginBottom: "0",
+    marginTop: "27px",
+    marginBottom: "10px"
   },
 });
 
