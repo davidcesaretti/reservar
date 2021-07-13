@@ -65,20 +65,11 @@ router.get("/", (req: Request, res: Response, next: NextFunction) => {
 
 router.get('/properties/:id', async (req: Request, res: Response) => {
   const idPropiedad = req.params.id;
-  console.log('params id', idPropiedad)
   
   try {
-      // let totalData = await find({});
+    
       if(idPropiedad) {
-        
-          // let dataFilter = dataAirbnb.posts.filter( data => data.id.toString() === id);
-          // if(dataFilter.length) {
-          //     return res.send(dataFilter)
-          // } else {
-          //     return res.status(404).send('Property not found');
-          // }
-
-          dataAirbnb.find({_id: {$all: idPropiedad}}).then((data) => res.json(paginado(req, res, data)))
+          dataAirbnb.find({_id: idPropiedad}).then((data) => res.json(data))
           return
       }
   } catch(error) {
