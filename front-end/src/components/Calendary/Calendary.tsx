@@ -10,21 +10,22 @@ export function Calendary() {
   // The first commit of Material-UI
   const [aux, setAux] = React.useState<Boolean>(false);
 
-  const [arrivalDate, setArrivalDate] = React.useState<Date | null>(new Date());
-  const [departureDate, setdepartureDate] = React.useState<Date | null>(
-    new Date()
+  var hora = new Date()
+  const [arrivalDate, setArrivalDate] = React.useState<Date | String>(new Date(hora).toISOString());
+  const [departureDate, setdepartureDate] = React.useState<Date | String>(
+    new Date(hora).toISOString()
   );
 
-  const handleDateChange = (date: Date | null) => {
-    setArrivalDate(date);
+  const handleDateChange = (date: Date) => {
+    setArrivalDate(new Date(date).toISOString());
     setAux(true);
   };
-  const handleChange = (date: Date | null) => {
-    setdepartureDate(date);
+  const handleChange = (date: Date) => {
+    setdepartureDate(new Date(date).toISOString());
   };
 
   
-function disableDates(date) {
+function disableDates(date:Date) {
   return date.getDate() === 15 || date.getDate() === 16 || date.getDate() === 17 || date.getDate() === 18
 
 }

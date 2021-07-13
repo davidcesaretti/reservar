@@ -23,7 +23,7 @@ import {Calendary} from "../Calendary/Calendary"
 const useStyle = makeStyles({
   containerFilters: {
     backgroundSize: "cover",
-    backgroundImage: `url(${Image1})`,
+    backgroundImage: `linear-gradient( rgb(4 4 4 / 30%), rgb(0 0 0 / 30%)), url(${Image1})`,
     display: "grid",
     justifyContent: "center",
     backgroundPosition: "center center",
@@ -57,8 +57,8 @@ const useStyle = makeStyles({
   },
   fontHomePrimary: {
     color: "white",
-    textShadow: "-1px 0 black, 0 1px black, 1px 0 black, 0 -1px black",
-    fontSize: "1.5em",
+    textShadow: "3px 3px 2px black",
+    fontSize: "1.6em",
     fontWeight: "bold",
   },
   fontHomeSecondary: {
@@ -111,7 +111,7 @@ const Home = () => {
                 display: "flex",
               }}
             >
-              FIND YOUR PLACE
+              FIND YOUR PLACE!
             </Typography>
           </Grid>
           <FormControl>
