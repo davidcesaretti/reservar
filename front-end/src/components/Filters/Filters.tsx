@@ -69,6 +69,12 @@ const useStyles = makeStyles({
     borderRadius: "5px",
     margin: "10px",
   },
+  select: {
+    color: "white",
+    "&:before": {
+      borderColor: "white",
+    },
+  },
 });
 
 let Categories = [
@@ -219,7 +225,7 @@ export default function CheckboxList() {
     // if (dataFilter["amenities"].length < 1) {
     //   dataFilter["amenities"] = undefined;
     // }
-
+    //  setPaginado(1);
     dispatch(
       //fetchCardsHotels(page, price, amenities, type, accommodates, score);
       fetchCardsHotels(
@@ -240,32 +246,14 @@ export default function CheckboxList() {
 
   const onPrev = (e) => {
     // if (pagination.page > 2 && pagination.page !== undefined) {
-    dispatch(
-      //fetchCardsHotels(page, price, amenities, type, accommodates, score);
-      fetchCardsHotels(
-        setPaginado(paginado - 1),
-        pagination.price,
-        pagination.amenities,
-        pagination.type,
-        pagination.accommodates,
-        pagination.score
-      )
-    );
+
+    setPaginado(paginado - 1);
+
     //}
   };
 
   const onNext = (e) => {
-    dispatch(
-      //fetchCardsHotels(page, price, amenities, type, accommodates, score);
-      fetchCardsHotels(
-        setPaginado(paginado + 1),
-        pagination.price,
-        pagination.amenities,
-        pagination.type,
-        pagination.accommodates,
-        pagination.score
-      )
-    );
+    setPaginado(paginado + 1);
   };
 
   return (
@@ -312,6 +300,7 @@ export default function CheckboxList() {
                         checked={cat.checked}
                         name={cat.keyword}
                         onChange={handleChecks}
+                        className={classes.select}
                       />
                       <ListItemText primary={value} />
                     </ListItem>
@@ -320,7 +309,11 @@ export default function CheckboxList() {
                   <ListItem className={classes.nombredetipo}>
                     <FormControl>
                       <InputLabel>-</InputLabel>
-                      <Select name={cat.keyword} onChange={setDataHandler}>
+                      <Select
+                        name={cat.keyword}
+                        onChange={setDataHandler}
+                        className={classes.select}
+                      >
                         {cat?.filtros?.map((value) => (
                           <MenuItem value={value.id}>{value.msg}</MenuItem>
                         ))}
@@ -334,10 +327,12 @@ export default function CheckboxList() {
             <Divider />
           </>
         ))}
-        <Button variant="text" color="default" type="submit">
+        <Button variant="text" color="inherit" type="submit">
           Estado
         </Button>
         <Button
+          variant="text"
+          color="inherit"
           onClick={(e) => {
             onPrev(e);
           }}
@@ -346,6 +341,8 @@ export default function CheckboxList() {
           Prev{" "}
         </Button>
         <Button
+          variant="text"
+          color="inherit"
           onClick={(e) => {
             onNext(e);
           }}
