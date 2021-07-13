@@ -16,6 +16,10 @@ export interface FetchCardsHotelAction {
   type: ActionTypes.fetchCardsHotels;
   payload: cardsHotel[];
 }
+export interface FetchDetailHotel {
+  type: ActionTypes.detailHotel;
+  payload: cardsHotel[];
+}
 export interface data {
   nombre: string;
   id: Number;
@@ -101,6 +105,15 @@ export const signUser = (data) => {
     dispatch<SignedInUser>({
       type: ActionTypes.signUser,
       payload: false,
+    })
+  }
+}
+export const detailHotel = (id) => {
+  return async (dispatch: Dispatch) => {
+    const response = await axios.get<cardsHotel[]>(`${url}/filter/${id}`);
+    dispatch<FetchDetailHotel>({
+      type: ActionTypes.detailHotel,
+      payload: response.data,
     })
   }
 }

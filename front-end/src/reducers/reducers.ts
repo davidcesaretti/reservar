@@ -9,12 +9,14 @@ export interface StoreState {
   users: fake[];
   cardsHotel: cardsHotel[];
   signed: boolean;
+  categorieDetail: cardsHotel[];
 }
  
 export const reducers = combineReducers<StoreState>({
   users: usersReducer,
   cardsHotel: hotelsReducer,
   signed: signedReducer,
+  categorieDetail: hotelsReducer,
 });
 
 

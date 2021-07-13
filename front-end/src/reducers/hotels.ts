@@ -13,6 +13,7 @@ export interface cardsHotel{
   price: String,
   image: String,
   address: String,
+  score: Number,
 }
 
 export const hotelsReducer = (state: cardsHotel[] = [], action: FetchCardsHotelAction) => {

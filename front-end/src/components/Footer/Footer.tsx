@@ -8,7 +8,8 @@ const styles = makeStyles((theme) => ({
   footer: {
     display: "grid",
     gridTemplateColumns: "1fr 1fr 1fr",
-    columnGap: "200px",
+    columnGap: "100px",
+    marginLeft: "100px",
     textDecoration: "none",
   },
   acercaa: {

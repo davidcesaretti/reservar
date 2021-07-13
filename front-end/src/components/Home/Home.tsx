@@ -309,7 +309,7 @@ const Home = () => {
           </Grid>
         </Grid>
 
-        <Grid container justifyContent="center">
+        <Grid container justifyContent="center" >
           <Footer />
         </Grid>
       </Grid>
