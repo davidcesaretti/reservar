@@ -41,6 +41,7 @@ const useStyles = makeStyles({
     width: "20%",
   },
   nombredetipo: {
+    color: "white",
     padding: "30px 0",
     height: "30px",
     "& span": {
@@ -276,8 +277,8 @@ export default function CheckboxList() {
                 ) : (
                   <ListItem className={classes.nombredetipo}>
                     <FormControl>
-                      <InputLabel>-</InputLabel>
-                      <Select name={cat.keyword} onChange={setDataHandler}>
+                      <InputLabel>Select a type</InputLabel>
+                      <Select name={cat.keyword} onChange={setDataHandler} style={{color:"white", padding: "5px 40px"}}>
                         {cat?.filtros?.map((value) => (
                           <MenuItem value={value.id}>{value.msg}</MenuItem>
                         ))}

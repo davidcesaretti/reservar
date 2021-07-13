@@ -50,7 +50,8 @@ UserRouter.post("/login", async (req, res)=> {
 
   
 UserRouter.get("/profile", verifyToken, async (req, res)=> {
-    const userFinded = await User.findById(req.query.userId, {password: 0});
+    const userFinded = await User.findById(req.userId, {password: 0});
+    console.log(userFinded)
     if(!userFinded) {
         return res.status(404).send("user not found")
     }
@@ -61,13 +62,34 @@ UserRouter.get("/profile", verifyToken, async (req, res)=> {
 
 UserRouter.post("/reserva", async (req, res) => {
     const {fechaSalida, fechaLlegada} = req.body
-    
-    const reserva  = new Reserva( {
-        fechaSalida,
-        fechaLlegada
+
+    try{const reservaFind = await Reserva.find({$or: [{fechaSalida: 
+        { $gte: new Date(fechaSalida), 
+        $lte: new Date(fechaLlegada)}},
+        {fechaLlegada: 
+            { $gte: new Date(fechaSalida), 
+            $lte: new Date(fechaLlegada)}}
+    ]
     })
-    await reserva.save()
-    res.json({creado: reserva})
+            if(reservaFind){
+                res.json({
+                    message: "No hay reservas disponibles en este lapso de tiempo",
+                    fechasOcupadas: reservaFind
+                })
+            }
+
+          else {
+              const reserva  = new Reserva( {
+                  fechaSalida,
+                  fechaLlegada
+              })
+              await reserva.save()
+              res.json({mesagge: "reserva exitosa!",
+                  creado: reserva})
+          }  }
+          catch(err){
+              res.send(err)
+          }
 })
 
 
