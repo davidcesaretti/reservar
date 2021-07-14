@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import firebase from "firebase";
 import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
 import { Button, Container, Typography, Grid } from "@material-ui/core";
-import { signUser } from "../../actions/index";
+import { signUser, UserEmail, UserEmailGlobal } from "../../actions/index";
 import { makeStyles } from "@material-ui/core/styles";
 import backImg from "../../Image/fondoLogin.jpeg";
 import "@fontsource/roboto";
@@ -84,7 +84,7 @@ const Register = () => {
   }
 
   const [signedIn, setSignedIn] = useState(false);
-  const [userInfo, setUserInfo] = useState({});
+
   const [logged, setLogged] = useState(false);
   const dispatch = useDispatch();
   /*let signed = useSelector((state: any) => state.signed);
@@ -114,6 +114,37 @@ const Register = () => {
     logged && setUserInfo(firebase.auth().currentUser)
     logged && dispatch(signUser(userInfo))
     setLogged(false) */
+  let userlogged = firebase.auth().currentUser;
+
+  const [userInfo, setUserInfo] = useState({
+    name: "",
+    email: "",
+    photo: "",
+  });
+
+  useEffect(() => {
+    setUserInfo({
+      ...userInfo,
+      name: userlogged?.displayName,
+      email: userlogged?.email,
+      photo: userlogged?.photoURL,
+    });
+    if (userlogged) {
+      dispatch(UserEmailGlobal(userlogged?.email));
+    }
+  }, [userlogged]);
+
+  const checkear = () => {
+    if (userInfo) {
+      dispatch(signUser(userInfo));
+    }
+  };
+
+  const logueado = () => {
+    console.log(userlogged.email);
+
+    dispatch(UserEmailGlobal(userlogged?.email));
+  };
 
   /* console.log(firebase.auth().currentUser) */
 
@@ -170,6 +201,8 @@ const Register = () => {
       <Grid xs={12} className={classes.footer}>
         <Typography className={classes.infoFooter}>Copyright 2021</Typography>
       </Grid>
+      <button onClick={checkear}>Checkear</button>
+      <button onClick={logueado}>USER LOGGED</button>
     </Grid>
   );
 };

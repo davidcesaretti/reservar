@@ -18,12 +18,12 @@ import Tipos3 from "../../Image/tipos3.jpeg";
 import Chica from "../../Image/chica.jpeg";
 import { useDispatch } from "react-redux";
 import { fetchCardsHotels } from "../../actions";
-import {Calendary} from "../Calendary/Calendary"
+import { Calendary } from "../Calendary/Calendary";
 
 const useStyle = makeStyles({
   containerFilters: {
     backgroundSize: "cover",
-    backgroundImage: `url(${Image1})`,
+    backgroundImage: `linear-gradient( rgb(4 4 4 / 30%), rgb(0 0 0 / 30%)), url(${Image1})`,
     display: "grid",
     justifyContent: "center",
     backgroundPosition: "center center",
@@ -57,8 +57,8 @@ const useStyle = makeStyles({
   },
   fontHomePrimary: {
     color: "white",
-    textShadow: "-1px 0 black, 0 1px black, 1px 0 black, 0 -1px black",
-    fontSize: "1.5em",
+    textShadow: "3px 3px 2px black",
+    fontSize: "1.6em",
     fontWeight: "bold",
   },
   fontHomeSecondary: {
@@ -75,11 +75,20 @@ const Home = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchCardsHotels("1", "asc", "TV", "Apartment", 4, 0));
-  }, []); 
+  }, []);
 
   const onClickHandler = () => {
-    dispatch(fetchCardsHotels(undefined,undefined,undefined,undefined,undefined,undefined))
-  }
+    dispatch(
+      fetchCardsHotels(
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined
+      )
+    );
+  };
 
   const classes = useStyle();
 
@@ -111,7 +120,7 @@ const Home = () => {
                 display: "flex",
               }}
             >
-              FIND YOUR PLACE
+              FIND YOUR PLACE!
             </Typography>
           </Grid>
           <FormControl>
@@ -149,7 +158,7 @@ const Home = () => {
                 margin="none"
                 size="small"
               /> */}
-              <Calendary/>
+              <Calendary />
               <TextField
                 id=""
                 label="Guests"
@@ -164,12 +173,12 @@ const Home = () => {
                 size="small"
                 href="/Categories"
                 style={{
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    height: "70%",
-                    alignSelf: "center",
-                    borderRadius: "1em",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  height: "70%",
+                  alignSelf: "center",
+                  borderRadius: "1em",
                 }}
                 onClick={onClickHandler}
               >
