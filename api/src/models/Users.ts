@@ -5,6 +5,7 @@ interface IUser extends Document {
   name: string;
   email: string;
   photo: string;
+ 
 }
 
 const user = new Schema<IUser>(
@@ -12,21 +13,14 @@ const user = new Schema<IUser>(
     name: { type: String, required: true },
     email: { type: String, required: true, unique: true },
     photo: { type: String, required: true },
+    reserveId: {type:[Object]}
   },
   { versionKey: false }
 );
 
-/* user.methods.encryptPass = async (password) => {
-  const salt = await bcrypt.genSalt(10);
-  return bcrypt.hash(password, salt);
-};
- user.methods.validatePass = function (password) {
-  return bcrypt.compare(password, this.password);
-};   */
-
 export const User = model<IUser>("User", user);
 
-/*  const userRegistered = new Schema(
+  const userRegistered = new Schema(
   {
     name: { type: String, required: true },
     email: { type: String, required: true, unique: true },
@@ -55,13 +49,14 @@ export const User = model<IUser>("User", user);
 );
 
 export const UserRegistered = model("UserRegistered", userRegistered);
- */
+
+
+
 const reserva = new Schema(
   {
     fechaSalida: { type: Date },
     fechaLlegada: { type: Date },
-    info_user: { type: Array },
-    post_id: { type: Number },
+    info_user: { type: Object },
   },
   { versionKey: false }
 );
