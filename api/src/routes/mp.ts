@@ -8,7 +8,7 @@ mercadopago.configure({
   access_token: config.prod_access_token,
 });
 
-router.post("/", (req: Request, res: Response, next: NextFunction) => {
+router.get("/", (req: Request, res: Response, next: NextFunction) => {
   // Crea un objeto de preferencia
   const { title, unit_price, quantity } = req.body;
   let preference = {
@@ -16,7 +16,7 @@ router.post("/", (req: Request, res: Response, next: NextFunction) => {
       {
         title: title || "bicicleta",
         unit_price: unit_price || 100,
-        quantity: quantity || 12,
+        quantity: quantity || 1,
       },
     ],
   };
