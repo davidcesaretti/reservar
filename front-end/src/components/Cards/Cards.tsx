@@ -1,26 +1,25 @@
-import React, { useEffect } from 'react';
-import AppBar from '@material-ui/core/AppBar';
-import Button from '@material-ui/core/Button';
-import CameraIcon from '@material-ui/icons/PhotoCamera';
-import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Grid from '@material-ui/core/Grid';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container';
-import Link from '@material-ui/core/Link';
-import CardComp from '../CardComp/CardComp';
-import NavBar from '../Nav/nav';
-import Footer from '../Footer/Footer';
-import CheckboxList from '../Filters/Filters';
-import { useDispatch, useSelector } from 'react-redux';
-import { fetchCardsHotels } from '../../actions';
-import { hotelsReducer } from '../../reducers/hotels';
-
+import React, { useEffect } from "react";
+import AppBar from "@material-ui/core/AppBar";
+import Button from "@material-ui/core/Button";
+import CameraIcon from "@material-ui/icons/PhotoCamera";
+import Card from "@material-ui/core/Card";
+import CardActions from "@material-ui/core/CardActions";
+import CardContent from "@material-ui/core/CardContent";
+import CardMedia from "@material-ui/core/CardMedia";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import Grid from "@material-ui/core/Grid";
+import Toolbar from "@material-ui/core/Toolbar";
+import Typography from "@material-ui/core/Typography";
+import { makeStyles } from "@material-ui/core/styles";
+import Container from "@material-ui/core/Container";
+import Link from "@material-ui/core/Link";
+import CardComp from "../CardComp/CardComp";
+import NavBar from "../Nav/nav";
+import Footer from "../Footer/Footer";
+import CheckboxList from "../Filters/Filters";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchCardsHotels } from "../../actions";
+import { hotelsReducer } from "../../reducers/hotels";
 
 const useStyles = makeStyles((theme) => ({
   icon: {
@@ -38,12 +37,12 @@ const useStyles = makeStyles((theme) => ({
     paddingBottom: theme.spacing(8),
   },
   card: {
-    height: '100%',
-    display: 'flex',
-    flexDirection: 'column',
+    height: "100%",
+    display: "flex",
+    flexDirection: "column",
   },
   cardMedia: {
-    paddingTop: '56.25%', // 16:9
+    paddingTop: "56.25%", // 16:9
   },
   cardContent: {
     flexGrow: 1,
@@ -56,27 +55,16 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Album() {
   const classes = useStyles();
-  const cards = useSelector((state: any) => state.cardsHotel) 
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(fetchCardsHotels(
-      undefined, 
-      undefined, 
-      undefined,
-      undefined,
-      undefined,
-      undefined
-      ));
-  }, []);
-  console.log(cards.posts)
+  const cards = useSelector((state: any) => state.cardsHotel);
 
+  console.log(cards.posts);
 
   return (
     <React.Fragment>
       <CssBaseline />
-      <CheckboxList/>
-      <NavBar/>
-      <main style={{marginLeft:"200px"}}>
+      <CheckboxList />
+      <NavBar />
+      <main style={{ marginLeft: "200px" }}>
         {/* Hero unit */}
         <Container className={classes.cardGrid} maxWidth="md">
           {/* End hero unit */}
@@ -97,14 +85,14 @@ export default function Album() {
                     />
                   </Card>
                 </Grid>
-            ))}
+              ))}
           </Grid>
         </Container>
       </main>
       {/* Footer */}
-      <div style={{marginLeft:"200px",width:"80%"}}> 
-      <Footer/>
-      {/* End footer */}
+      <div style={{ marginLeft: "200px", width: "80%" }}>
+        <Footer />
+        {/* End footer */}
       </div>
     </React.Fragment>
   );
