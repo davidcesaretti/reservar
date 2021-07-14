@@ -12,14 +12,7 @@ import {
 import Checkbox, { CheckboxProps } from "@material-ui/core/Checkbox";
 import ExpandLessIcon from "@material-ui/icons/ExpandLess";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { fetchCardsHotels } from "../../actions";
-import { useState } from "react";
-import FormControl from "@material-ui/core/FormControl";
-import Select from "@material-ui/core/Select";
-import MenuItem from "@material-ui/core/MenuItem";
-import InputLabel from "@material-ui/core/InputLabel";
+import React from "react";
 
 const GreenCheckbox = withStyles({
   root: {
@@ -41,316 +34,95 @@ const useStyles = makeStyles({
     width: "20%",
   },
   nombredetipo: {
-    padding: "30px 0",
+    padding: "0",
     height: "30px",
     "& span": {
       fontSize: "13px",
     },
   },
   nombredecat: {
-    marginTop: "27px",
-    marginBottom: "10px",
-  },
-  btn: {
-    backgroundColor: "#324021" /* Green */,
-    "&:hover": {
-      background: "white",
-      transition: "0.4s",
-      color: "black",
-    },
-    border: "none",
-    color: "white",
-    padding: "10px",
-
-    textAlign: "center",
-    textDecoration: "none",
-    display: "flex",
-    fontSize: "16px",
-    borderRadius: "5px",
-    margin: "10px",
-  },
-  select: {
-    color: "white",
-    "&:before": {
-      borderColor: "white",
-    },
+    marginBottom: "0",
   },
 });
 
-let Categories = [
+const Categories = [
   {
-    title: "Type",
-    keyword: "type",
-    checked: undefined,
+    title: "Tipos de alojamiento",
     filtros: [
-      { id: "Hostel", msg: "Hostel" },
-      { id: "Condominium", msg: "Condominium" },
-      { id: "House", msg: "House" },
-      { id: "Apartment", msg: "Apartment" },
-      { id: "Loft", msg: "Loft" },
-      { id: "Guesthouse", msg: "Guesthouse" },
+      "Hostal",
+      "Bed & Breakfast",
+      "Casa",
+      "Apartamento",
+      "Fuera de lo común",
     ],
   },
   {
-    title: "Amenities",
-    keyword: "amenities",
-    checked: undefined,
-
+    title: "Filtros Populares",
     filtros: [
-      "Pool",
-      "Free parking on premises",
-      "Long term stays allowed",
-      "Air conditioning",
-      "Wifi",
+      "Piscina",
+      "Estacionamiento",
+      "Playa",
+      "Aire acondicionado",
+      "Wifi incluido",
     ],
   },
   {
-    title: "Score",
-    keyword: "score",
-    checked: undefined,
-    filtros: [
-      { id: 10, msg: "Excelent" },
-      { id: 9, msg: "Amazing" },
-      { id: 8, msg: "Very nice" },
-      { id: 7, msg: "Cool" },
-      { id: 0, msg: "No rating" },
-    ],
+    title: "Puntuación",
+    filtros: ["Fantástico", "Muy bueno", "Bueno", "Agradable"],
   },
   {
-    title: "Price",
+    title: "Precio",
     iconos: true,
   },
   {
-    title: "Popular",
-    keyword: "amenities",
-    checked: undefined,
+    title: "Otros Filtros",
     filtros: [
-      "Pets allowed",
-      "Smoking allowed",
-      "Wheelchair accessible",
-      "Kitchen",
+      "Cancelación gratuita",
+      "Admite mascotas",
+      "Apto para fumadores",
+      "Adaptado para personas de movilidad reducida",
+      "Servicio de habitación",
     ],
   },
 ];
-//fetchCardsHotels(page, price, amenities, type, accommodates, score);
+
 export default function CheckboxList() {
   const classes = useStyles();
-  const dispatch = useDispatch();
-  const [paginado, setPaginado] = useState(1);
-  useEffect(() => {
-    dispatch(
-      fetchCardsHotels(
-        paginado,
-        undefined,
-        undefined,
-        undefined,
-        undefined,
-        undefined
-      )
-    );
-  }, [paginado]);
-
-  const [dataFilter, setDataFilter] = useState({
-    price: undefined,
-    amenities: [],
-    type: undefined,
-    accommodates: undefined,
-    score: undefined,
-  });
-
-  const [pagination, setPagination] = useState({
-    price: undefined,
-    amenities: [],
-    type: undefined,
-    accommodates: undefined,
-    score: undefined,
-  });
-
-  const resetData = () => {
-    setDataFilter({
-      price: undefined,
-      amenities: [],
-      type: undefined,
-      accommodates: undefined,
-      score: undefined,
-    });
-  };
-
-  const setAmeniHandler = (e) => {
-    e.preventDefault();
-    console.log(e.target.name, "target name");
-    console.log(e.target.value, "target value");
-
-    setDataFilter({
-      ...dataFilter,
-      [e.target.name]: dataFilter[e.target.name].concat(e.target.value),
-    });
-  };
-
-  const setDataHandler = (e) => {
-    e.preventDefault();
-    console.log(e.target.name, "target name");
-    console.log(e.target.value, "target value");
-
-    setDataFilter({
-      ...dataFilter,
-      [e.target.name]: e.target.value,
-    });
-  };
-
-  const handleChecks = (e) => {
-    let flag = true;
-    dataFilter["amenities"].forEach((c) => {
-      if (e.target.value === c) {
-        setDataFilter({
-          ...dataFilter,
-          amenities: dataFilter["amenities"].filter(
-            (a) => e.target.value !== a
-          ),
-        });
-        return (flag = false);
-      }
-    });
-    if (flag) {
-      setDataFilter({
-        ...dataFilter,
-        [e.target.name]: dataFilter[e.target.name].concat(e.target.value),
-      });
-    }
-  };
-
-  const submitData = (e) => {
-    e.preventDefault();
-    setPagination(dataFilter);
-    // if (dataFilter["amenities"].length < 1) {
-    //   dataFilter["amenities"] = undefined;
-    // }
-    //  setPaginado(1);
-    dispatch(
-      //fetchCardsHotels(page, price, amenities, type, accommodates, score);
-      fetchCardsHotels(
-        paginado,
-        dataFilter.price,
-        dataFilter.amenities,
-        dataFilter.type,
-        dataFilter.accommodates,
-        dataFilter.score
-      )
-    );
-
-    console.log(dataFilter);
-    e.currentTarget.reset();
-
-    resetData();
-  };
-
-  const onPrev = (e) => {
-    // if (pagination.page > 2 && pagination.page !== undefined) {
-
-    setPaginado(paginado - 1);
-
-    //}
-  };
-
-  const onNext = (e) => {
-    setPaginado(paginado + 1);
-  };
-
   return (
-    <form onSubmit={submitData}>
-      <Container maxWidth="xs" className={classes.filterbox}>
-        <h3 className={classes.nombredecat}>Filter by...</h3>
-        {Categories.map((cat) => (
-          <>
-            <Grid
-              container
-              direction="column"
-              justifyContent="space-evenly"
-              alignItems="flex-start"
-            >
-              <h4 className={classes.nombredecat}>{cat.title}</h4>
-              {cat.iconos && (
-                <>
-                  <button
-                    className={classes.btn}
-                    value="asc"
-                    name="price"
-                    onClick={setDataHandler}
-                  >
-                    Min - Max
-                  </button>
-                  <button
-                    className={classes.btn}
-                    value="desc"
-                    name="price"
-                    onClick={setDataHandler}
-                  >
-                    Max - Min
-                  </button>
-                </>
-              )}
-              <List>
-                {console.log(cat.keyword)}
-                {cat.title !== "Type" && cat.title !== "Score" ? (
-                  cat?.filtros?.map((value) => (
-                    <ListItem className={classes.nombredetipo} key={value}>
-                      <GreenCheckbox
-                        edge="start"
-                        value={value}
-                        checked={cat.checked}
-                        name={cat.keyword}
-                        onChange={handleChecks}
-                        className={classes.select}
-                      />
-                      <ListItemText primary={value} />
-                    </ListItem>
-                  ))
-                ) : (
-                  <ListItem className={classes.nombredetipo}>
-                    <FormControl>
-                      <InputLabel>-</InputLabel>
-                      <Select
-                        name={cat.keyword}
-                        onChange={setDataHandler}
-                        className={classes.select}
-                      >
-                        {cat?.filtros?.map((value) => (
-                          <MenuItem value={value.id}>{value.msg}</MenuItem>
-                        ))}
-                      </Select>
-                    </FormControl>
-                    <ListItemText />
+    <Container maxWidth="xs" className={classes.filterbox}>
+      <h3 className={classes.nombredecat}>FILTRAR POR</h3>
+      {Categories.map((cat) => (
+        <>
+          <Grid
+            container
+            direction="column"
+            justifyContent="space-evenly"
+            alignItems="flex-start"
+          >
+            <h4 className={classes.nombredecat}>{cat.title}</h4>
+            {cat.iconos && (
+              <>
+                <Button color="inherit" startIcon={<ExpandLessIcon />}>
+                  Max - Min
+                </Button>
+                <Button color="inherit" startIcon={<ExpandMoreIcon />}>
+                  Min - Max
+                </Button>
+              </>
+            )}
+            <List>
+              {cat.filtros &&
+                cat.filtros.map((value) => (
+                  <ListItem className={classes.nombredetipo} key={value}>
+                    <GreenCheckbox edge="start" />
+                    <ListItemText primary={value} />
                   </ListItem>
-                )}
-              </List>
-            </Grid>
-            <Divider />
-          </>
-        ))}
-        <Button variant="text" color="inherit" type="submit">
-          Estado
-        </Button>
-        <Button
-          variant="text"
-          color="inherit"
-          onClick={(e) => {
-            onPrev(e);
-          }}
-        >
-          {" "}
-          Prev{" "}
-        </Button>
-        <Button
-          variant="text"
-          color="inherit"
-          onClick={(e) => {
-            onNext(e);
-          }}
-        >
-          {" "}
-          Next{" "}
-        </Button>
-      </Container>
-    </form>
+                ))}
+            </List>
+          </Grid>
+          <Divider />
+        </>
+      ))}
+    </Container>
   );
 }

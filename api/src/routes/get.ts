@@ -39,7 +39,6 @@ router.get("/", (req: Request, res: Response, next: NextFunction) => {
       dataAirbnb
         .find({ amenities: { $all: req.query.amenities } })
         .then((data) => res.json(paginado(req, res, data)));
-      return;
     }
 
     if (price) {
@@ -50,13 +49,11 @@ router.get("/", (req: Request, res: Response, next: NextFunction) => {
         .sort({ price: req.query.price })
         .then((data: any) => res.json(paginado(req, res, data)))
         .catch((err) => console.error(err));
-      return;
     }
     dataAirbnb
       .find(obj)
       .then((data: any) => res.json(paginado(req, res, data)))
       .catch((err) => console.error(err));
-    return;
   }
   dataAirbnb.find({}).then((data: any) => res.json(paginado(req, res, data)));
 });

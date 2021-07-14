@@ -9,10 +9,10 @@ export const paginado = function (req, res, data: any) {
   if (page > pageCount) {
     page = pageCount;
   }
-  const obj: any = {
+
+  return res.json({
     page: page,
     pageCount: pageCount,
     posts: data.slice(page * 8 - 8, page * 8),
-  };
-  return obj;
+  });
 };
