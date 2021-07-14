@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { useParams } from "react-router"
 import { detailHotel } from '../../actions';
-
+import {Link} from "react-router-dom"
 
 
 const DetailHotel = () => {
@@ -15,6 +15,7 @@ const DetailHotel = () => {
     },[])
     return (
         <div>
+            <Link to={'/categories'}>Back</Link>
             <div>Name {detailhotel[0]?.name}</div>
             <div>Amenities {detailhotel[0]?.amenities}</div>
             <div>Summary {detailhotel[0]?.summary}</div>

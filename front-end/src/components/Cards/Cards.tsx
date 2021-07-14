@@ -86,6 +86,7 @@ export default function Album() {
                 <Grid item key={e} xs={12} sm={6} md={6}>
                   <Card className={classes.card}>
                     <CardComp
+                      _id={e._id}
                       image={e.image}
                       score={e.score}
                       name={e.name}
