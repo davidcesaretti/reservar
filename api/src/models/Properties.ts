@@ -44,6 +44,9 @@ const properties = new Schema({
   id_post:{
     type: Number
   },
+  availability:{
+    type: Array
+  },
 },
 {versionKey: false}
 

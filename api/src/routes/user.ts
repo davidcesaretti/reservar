@@ -10,7 +10,8 @@ const UserRouter = Router();
 UserRouter.use(express.json());
 const { SECRET_TOKEN } = process.env;
 
-UserRouter.post("/register", async (req: Request, res: Response, next) => {
+
+UserRouter.post("/register", async (req: Request, res: Response) => {
   const { name, email, photo } = req.body;
 
   console.log(name, "  NAME BACK");
@@ -24,6 +25,7 @@ UserRouter.post("/register", async (req: Request, res: Response, next) => {
       name,
       email,
       photo,
+  
     });
     await user.save();
     console.log(user, "   USER BACK");
@@ -33,36 +35,13 @@ UserRouter.post("/register", async (req: Request, res: Response, next) => {
   }
 });
 
-UserRouter.post("/login", async (req, res) => {
-  const { email, password } = req.body;
 
-  const user = await User.findOne({ email: email });
-  if (!user) {
-    return res.status(404).send("The email doesn't exist");
-  }
-  /* const validPassword = await user.validatePass(password);
-  if (!validPassword) {
-    return res.status(401).send("Password invalid");
-  }  */
-  const token = jwt.sign({ id: user._id }, SECRET_TOKEN, { expiresIn: "24h" });
-  return res.json({ authorization: true, token });
-});
 
-/* UserRouter.get("/profile", verifyToken, async (req, res)=> {
-    const userFinded = await User.findById(req.userId, {password: 0});
-    console.log(userFinded)
-    if(!userFinded) {
-        return res.status(404).send("user not found")
-    }
-    res.json(userFinded)
-})  */
 
 UserRouter.post("/reserva", async (req, res) => {
-  const { fechaSalida, fechaLlegada } = req.body;
+  const { fechaSalida,  fechaLlegada, email,Prop_id} = req.body;
 
-  const finded = await User.find({ email: "dariovelazquez@gmail.com" });
-  console.log(finded);
-
+  const finded = await User.findOne({ email:email });
   try {
     const reservaFind = await Reserva.find({
       $or: [
@@ -80,34 +59,51 @@ UserRouter.post("/reserva", async (req, res) => {
         },
       ],
     });
+    
     if (reservaFind.length) {
       res.json({
         message: "No hay reservas disponibles en este lapso de tiempo",
-        fechasOcupadas: reservaFind,
+        fechasOcupadas: reservaFind
       });
     } else {
-      const id_reservas = await Reserva.count();
+    
       const reserva = new Reserva({
         fechaSalida,
         fechaLlegada,
-        info_user: finded,
-        post_id: id_reservas + 1,
+        info_user: finded._id,
+        
+       
       });
-      await reserva.save();
-      res.json({ mesagge: "reserva exitosa!", creado: reserva });
+      await reserva.save()
+      await Properties.updateOne(
+        { _id: Prop_id },
+        { $push: { availability:reserva } })
+        console.log(reserva)
+
+        await User.updateOne(
+          {email: email},
+          {$push:{reserveId: reserva._id }}
+          )
+          // 
+      res.json({message:"reserva exitosa!", checkIn:fechaSalida, checkOut: fechaLlegada});
     }
   } catch (err) {
     res.send(err);
   }
 });
 
-UserRouter.get("/prueba", async (req, res) => {
-  const user_id = await Properties.updateOne(
-    { _id: "60ee0706d460c340cc287fca" },
-    { disponibilidad: "asd" },
-    { upsert: true }
-  );
-  res.json({ update: user_id });
-});
+// UserRouter.get("/test", async (req: Request, res: Response) => {
+//   Properties.aggregate([
+//       {
+//         $lookup: {
+//           from: "users",
+//           localField: "availability[0].info_user",
+//           foreignField: "_id",
+//           as: "prueba",
+//         },
+//       },
+//     ]).then((data) => res.json(data));
+//   }
+
 
 export default UserRouter;
