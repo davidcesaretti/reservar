@@ -21,7 +21,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchCardsHotels } from '../../actions';
 import { hotelsReducer } from '../../reducers/hotels';
 
-
 const useStyles = makeStyles((theme) => ({
   icon: {
     marginRight: theme.spacing(2),
@@ -68,7 +67,7 @@ export default function Album() {
       undefined
       ));
   }, []);
-  console.log(cards.posts)
+
 
 
   return (

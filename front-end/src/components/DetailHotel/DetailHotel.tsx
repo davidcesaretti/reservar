@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { useParams } from "react-router"
-import { detailHotel } from '../../actions';
+import { clearDetail, detailHotel } from '../../actions';
 import {Link} from "react-router-dom"
 
 
@@ -12,8 +12,17 @@ const DetailHotel = () => {
     const { id } = useParams()
     useEffect(() => {
         dispatch(detailHotel(id))
-    },[])
-    return (
+        return () => {
+            dispatch(clearDetail())
+        }
+    },[dispatch, id])
+
+    if(detailhotel === null) {
+        return <h1>Error</h1>
+    } else if(detailhotel.length < 1) {
+        return <h1>Cargando...</h1>
+    } else {
+        return (
         <div>
             <Link to={'/categories'}>Back</Link>
             <div>Name {detailhotel[0]?.name}</div>
@@ -29,7 +38,7 @@ const DetailHotel = () => {
             <div>Score {detailhotel[0]?.score}</div>
             <div>Address {detailhotel[0]?.address}</div>
         </div>
-    )
+        )}
 
 }
 
