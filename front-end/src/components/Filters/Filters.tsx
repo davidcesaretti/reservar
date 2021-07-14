@@ -41,6 +41,7 @@ const useStyles = makeStyles({
     width: "20%",
   },
   nombredetipo: {
+    color: "white",
     padding: "30px 0",
     height: "30px",
     "& span": {

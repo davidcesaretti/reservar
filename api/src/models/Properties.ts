@@ -1,6 +1,6 @@
-import  { Schema, model } from "mongoose";
+import  mongoose, { Schema, model } from "mongoose";
 
-const Properties = new Schema({
+const properties = new Schema({
   name: {
     type: String,
   },
@@ -41,7 +41,16 @@ const Properties = new Schema({
   score: {
     type: Number,
   },
-});
+  id_post:{
+    type: Number
+  },
+  availability:{
+    type: Array
+  },
+},
+{versionKey: false}
+
+);
 
 // ****TYPES OF PROPERTIES****
 
@@ -57,4 +66,4 @@ const Properties = new Schema({
 // Bungalow
 // Guest suite
 
-module.exports = model("Properties", Properties);
+export const Properties = model("Properties", properties);
