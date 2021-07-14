@@ -25,6 +25,11 @@ export interface SignedInUser {
   type: ActionTypes.signUser;
   payload: boolean;
 }
+
+export interface UserEmail {
+  type: ActionTypes.usersLogged;
+  payload: string;
+}
 export interface Credentials {
   username: string;
   password: string;
@@ -84,26 +89,38 @@ export const fetchCardsHotels = (
     dispatch<FetchCardsHotelAction>({
       type: ActionTypes.fetchCardsHotels,
       payload: response.data,
-    }); 
+    });
   };
 };
 export const signUser = (data) => {
   return async (dispatch: Dispatch) => {
-    console.log('action ' + data)
+    console.log("action " + data);
     let userInfo = {
       email: data.email,
-      name: data.displayName,
-      photo: data.photoURL,
-      
-    }
-    
-    userInfo && console.log('userInfo' + userInfo.email)
+      name: data.name,
+      photo: data.photo,
+    };
+    const newUser = await axios.post(
+      "http://localhost:3001/register",
+      userInfo
+    );
+    console.log(newUser, "new user");
     dispatch<SignedInUser>({
       type: ActionTypes.signUser,
       payload: false,
-    })
-  }
-}
+    });
+  };
+};
+
+export const UserEmailGlobal = (data) => {
+  return async (dispatch: Dispatch) => {
+    console.log("Dispatch data email", data);
+    dispatch<UserEmail>({
+      type: ActionTypes.usersLogged,
+      payload: data,
+    });
+  };
+};
 
 // export function deleteUsers(data: any) {
 //   return function (dispatch: Dispatch) {

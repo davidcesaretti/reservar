@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme: Theme) =>
       width: 500,
     },
     media: {
-      height: 200,
+      height: 160,
 
     },
     title: {
@@ -55,7 +55,8 @@ const useStyles = makeStyles((theme: Theme) =>
     iconfav:{
       color:"black", 
       padding: "5px",
-      background: "#8b96c175"
+      background: "#8b96c175",
+      fontSize: "1.2rem"
     }
     
   })
@@ -84,16 +85,16 @@ export default function CardComp({name, type, beds, price, image, score, address
            </IconButton>
            
         </CardMedia>
-        <CardContent>
-          <Typography gutterBottom variant="h5" component="h2" className={classes.title} style={{marginBottom:"5px"}}>
+        <CardContent style={{padding: "15px"}}>
+          <Typography gutterBottom variant="h5" component="h2" className={classes.title} style={{marginBottom:"-5px"}}>
           
           {name}
           </Typography>
           </CardContent>
 
-        <CardContent>
-          <div >
-        <AddLocationIcon>    
+        <CardContent style={{padding: "16px 0 12px 10px"  }}>
+          <div  className={classes.icono}>
+        <AddLocationIcon >    
         </AddLocationIcon>
          {address}
           </div>
@@ -101,7 +102,7 @@ export default function CardComp({name, type, beds, price, image, score, address
 
 
 
-        <CardContent>
+        <CardContent style={{padding: "12px 0 12px 10px"  }}>
           <div className={classes.card}>
 
             <div className={classes.icono}>

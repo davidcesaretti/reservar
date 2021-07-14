@@ -1,77 +1,110 @@
 import express, { Request, Response, NextFunction, Router } from "express";
-import { User, Reserva } from "../models/Users"
-import jwt from "jsonwebtoken"
-import verifyToken from "../controllers/verifyToken"
+import { User, Reserva } from "../models/Users";
+import { Properties } from "../models/Properties";
+import jwt from "jsonwebtoken";
+import verifyToken from "../controllers/verifyToken";
 
 //-------------------------------------------
 
 const UserRouter = Router();
-UserRouter.use(express.json())
-const { SECRET_TOKEN} = process.env;
+UserRouter.use(express.json());
+const { SECRET_TOKEN } = process.env;
 
-UserRouter.post("/register", async (req: Request, res: Response, next)=> {
-    const {username, email, password} = req.body
+
+UserRouter.post("/register", async (req: Request, res: Response) => {
+  const { name, email, photo } = req.body;
+
+  console.log(name, "  NAME BACK");
+
+  try {
+    const emailUser = await User.findOne({ email: email });
+    if (emailUser) {
+      res.status(400).send("El email ya esta en uso");
+    }
     const user = new User({
-      username,
+      name,
       email,
-      password
-    })
-    try{
+      photo,
+  
+    });
+    await user.save();
+    console.log(user, "   USER BACK");
+    res.json(user);
+  } catch (err) {
+    res.send(err);
+  }
+});
 
-        user.password = await user.encryptPass(user.password)
-        await user.save()
-        const token = jwt.sign({id: user._id, },SECRET_TOKEN, { expiresIn: '24h' })
-        res.json({authorization: true,token})
-    }
-    catch(err){
-        const emailUser = await User.findOne({email: email})
-        if(emailUser) {
-            res.status(400).send("El email ya esta en uso")
-        }
-    }
-  })
-  
 
-  
-UserRouter.post("/login", async (req, res)=> {
-    const {email,password} = req.body
-   
-        const user = await User.findOne({email: email})
-        if(!user){
-            return res.status(404).send("The email doesn't exist")
-        }
-        const validPassword= await user.validatePass(password)
-        if(!validPassword){
-            return res.status(401).send("Password invalid")
-        }
-        const token = jwt.sign({id: user._id},SECRET_TOKEN, { expiresIn: '24h' })
-        return res.json({authorization: true, token })
-})
 
-  
-UserRouter.get("/profile", verifyToken, async (req, res)=> {
-    const userFinded = await User.findById(req.query.userId, {password: 0});
-    if(!userFinded) {
-        return res.status(404).send("user not found")
-    }
-    res.json(userFinded)
-})
-  
-  
 
 UserRouter.post("/reserva", async (req, res) => {
-    const {fechaSalida, fechaLlegada} = req.body
+  const { fechaSalida,  fechaLlegada, email,Prop_id} = req.body;
+
+  const finded = await User.findOne({ email:email });
+  try {
+    const reservaFind = await Reserva.find({
+      $or: [
+        {
+          fechaSalida: {
+            $gte: new Date(fechaSalida),
+            $lte: new Date(fechaLlegada),
+          },
+        },
+        {
+          fechaLlegada: {
+            $gte: new Date(fechaSalida),
+            $lte: new Date(fechaLlegada),
+          },
+        },
+      ],
+    });
     
-    const reserva  = new Reserva( {
+    if (reservaFind.length) {
+      res.json({
+        message: "No hay reservas disponibles en este lapso de tiempo",
+        fechasOcupadas: reservaFind
+      });
+    } else {
+    
+      const reserva = new Reserva({
         fechaSalida,
-        fechaLlegada
-    })
-    await reserva.save()
-    res.json({creado: reserva})
-})
+        fechaLlegada,
+        info_user: finded._id,
+        
+       
+      });
+      await reserva.save()
+      
+      await Properties.updateOne(
+        { _id: Prop_id },
+        { $push: { availability:reserva } })
+        console.log(reserva)
 
+        await User.updateOne(
+          {email: email},
+          {$push:{reserveId: reserva._id }}
+          )
+          // 
+      res.json({message:"reserva exitosa!", checkIn:fechaSalida, checkOut: fechaLlegada});
+    }
+  } catch (err) {
+    res.send(err);
+  }
+});
 
-
+// UserRouter.get("/test", async (req: Request, res: Response) => {
+//   Properties.aggregate([
+//       {
+//         $lookup: {
+//           from: "users",
+//           localField: "availability[0].info_user",
+//           foreignField: "_id",
+//           as: "prueba",
+//         },
+//       },
+//     ]).then((data) => res.json(data));
+//   }
 
 
 export default UserRouter;
