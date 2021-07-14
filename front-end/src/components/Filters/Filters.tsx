@@ -87,42 +87,42 @@ const Categories = [
 ];
 
 export default function CheckboxList() {
-  const classes = useStyles();
-  return (
-    <Container maxWidth="xs" className={classes.filterbox}>
-      <h3 className={classes.nombredecat}>FILTRAR POR</h3>
-      {Categories.map((cat) => (
-        <>
-          <Grid
-            container
-            direction="column"
-            justifyContent="space-evenly"
-            alignItems="flex-start"
-          >
-            <h4 className={classes.nombredecat}>{cat.title}</h4>
-            {cat.iconos && (
-              <>
-                <Button color="inherit" startIcon={<ExpandLessIcon />}>
-                  Max - Min
-                </Button>
-                <Button color="inherit" startIcon={<ExpandMoreIcon />}>
-                  Min - Max
-                </Button>
-              </>
-            )}
-            <List>
-              {cat.filtros &&
-                cat.filtros.map((value) => (
-                  <ListItem className={classes.nombredetipo} key={value}>
-                    <GreenCheckbox edge="start" />
-                    <ListItemText primary={value} />
-                  </ListItem>
-                ))}
-            </List>
-          </Grid>
-          <Divider />
-        </>
-      ))}
-    </Container>
-  );
+  // const classes = useStyles();
+  // return (
+  //   <Container maxWidth="xs" className={classes.filterbox}>
+  //     <h3 className={classes.nombredecat}>FILTRAR POR</h3>
+  //     {Categories.map((cat) => (
+  //       <>
+  //         <Grid
+  //           container
+  //           direction="column"
+  //           justifyContent="space-evenly"
+  //           alignItems="flex-start"
+  //         >
+  //           <h4 className={classes.nombredecat}>{cat.title}</h4>
+  //           {cat.iconos && (
+  //             <>
+  //               <Button color="inherit" startIcon={<ExpandLessIcon />}>
+  //                 Max - Min
+  //               </Button>
+  //               <Button color="inherit" startIcon={<ExpandMoreIcon />}>
+  //                 Min - Max
+  //               </Button>
+  //             </>
+  //           )}
+  //           <List>
+  //             {cat.filtros &&
+  //               cat.filtros.map((value) => (
+  //                 <ListItem className={classes.nombredetipo} key={value}>
+  //                   <GreenCheckbox edge="start" />
+  //                   <ListItemText primary={value} />
+  //                 </ListItem>
+  //               ))}
+  //           </List>
+  //         </Grid>
+  //         <Divider />
+  //       </>
+  //     ))}
+  //   </Container>
+  // );
 }
