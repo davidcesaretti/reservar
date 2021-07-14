@@ -108,6 +108,7 @@ export const signUser = (data) => {
     })
   }
 }
+
 export const detailHotel = (id) => {
   return async (dispatch: Dispatch) => {
     const response = await axios.get<cardsHotel[]>(`${url}/filter/properties/${id}`);
