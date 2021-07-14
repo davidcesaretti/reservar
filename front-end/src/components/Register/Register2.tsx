@@ -134,23 +134,12 @@ const Register = () => {
     }
   }, [userlogged]);
 
-  const checkear = () => {
-    if (userInfo) {
-      dispatch(signUser(userInfo));
-    }
-  };
-
-  const logueado = () => {
-    console.log(userlogged.email);
-
-    dispatch(UserEmailGlobal(userlogged?.email));
-  };
-
   /* console.log(firebase.auth().currentUser) */
 
   const handleClick = () => {
     firebase.auth().signOut();
     setLogged(false);
+    dispatch(UserEmailGlobal(""));
   };
 
   const classes = useStyle();
@@ -201,8 +190,6 @@ const Register = () => {
       <Grid xs={12} className={classes.footer}>
         <Typography className={classes.infoFooter}>Copyright 2021</Typography>
       </Grid>
-      <button onClick={checkear}>Checkear</button>
-      <button onClick={logueado}>USER LOGGED</button>
     </Grid>
   );
 };
