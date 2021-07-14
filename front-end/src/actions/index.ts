@@ -25,6 +25,11 @@ export interface SignedInUser {
   type: ActionTypes.signUser;
   payload: boolean;
 }
+
+export interface UserEmail {
+  type: ActionTypes.usersLogged;
+  payload: string;
+}
 export interface Credentials {
   username: string;
   password: string;
@@ -95,8 +100,6 @@ export const signUser = (data) => {
       name: data.name,
       photo: data.photo,
     };
-    userInfo && console.log("userInfo ENTRIES     " + Object.values(userInfo));
-
     const newUser = await axios.post(
       "http://localhost:3001/register",
       userInfo
@@ -105,6 +108,16 @@ export const signUser = (data) => {
     dispatch<SignedInUser>({
       type: ActionTypes.signUser,
       payload: false,
+    });
+  };
+};
+
+export const UserEmailGlobal = (data) => {
+  return async (dispatch: Dispatch) => {
+    console.log("Dispatch data email", data);
+    dispatch<UserEmail>({
+      type: ActionTypes.usersLogged,
+      payload: data,
     });
   };
 };
