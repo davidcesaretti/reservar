@@ -110,7 +110,7 @@ export const signUser = (data) => {
 }
 export const detailHotel = (id) => {
   return async (dispatch: Dispatch) => {
-    const response = await axios.get<cardsHotel[]>(`${url}/filter/${id}`);
+    const response = await axios.get<cardsHotel[]>(`${url}/filter/properties/${id}`);
     dispatch<FetchDetailHotel>({
       type: ActionTypes.detailHotel,
       payload: response.data,
