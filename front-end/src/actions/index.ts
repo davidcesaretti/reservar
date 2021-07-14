@@ -84,26 +84,30 @@ export const fetchCardsHotels = (
     dispatch<FetchCardsHotelAction>({
       type: ActionTypes.fetchCardsHotels,
       payload: response.data,
-    }); 
+    });
   };
 };
 export const signUser = (data) => {
   return async (dispatch: Dispatch) => {
-    console.log('action ' + data)
+    console.log("action " + data);
     let userInfo = {
       email: data.email,
-      name: data.displayName,
-      photo: data.photoURL,
-      
-    }
-    
-    userInfo && console.log('userInfo' + userInfo.email)
+      name: data.name,
+      photo: data.photo,
+    };
+    userInfo && console.log("userInfo ENTRIES     " + Object.values(userInfo));
+
+    const newUser = await axios.post(
+      "http://localhost:3001/register",
+      userInfo
+    );
+    console.log(newUser, "new user");
     dispatch<SignedInUser>({
       type: ActionTypes.signUser,
       payload: false,
-    })
-  }
-}
+    });
+  };
+};
 
 // export function deleteUsers(data: any) {
 //   return function (dispatch: Dispatch) {
