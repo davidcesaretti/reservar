@@ -1,6 +1,7 @@
 import express, { Response, Request, Router, NextFunction } from "express";
 import { dataAirbnb } from "../../db";
 import { paginado } from "../paginado";
+import { Properties } from "../models/Properties";
 // import cors from "cors";
 // import config from "../lib/config";
 const router = Router();
@@ -36,7 +37,7 @@ router.get("/", (req: Request, res: Response, next: NextFunction) => {
     //  console.log(obj, "objeto logeado");
 
     if (Array.isArray(req.query.amenities)) {
-      dataAirbnb
+      Properties
         .find({ amenities: { $all: req.query.amenities } })
         .then((data) => res.json(paginado(req, res, data)));
       return;
@@ -45,20 +46,20 @@ router.get("/", (req: Request, res: Response, next: NextFunction) => {
     if (price) {
       // console.log(obj);
       // console.log(price);
-      dataAirbnb
+      Properties
         .find(obj)
         .sort({ price: req.query.price })
         .then((data: any) => res.json(paginado(req, res, data)))
         .catch((err) => console.error(err));
       return;
     }
-    dataAirbnb
+    Properties
       .find(obj)
       .then((data: any) => res.json(paginado(req, res, data)))
       .catch((err) => console.error(err));
     return;
   }
-  dataAirbnb.find({}).then((data: any) => res.json(paginado(req, res, data)));
+  Properties.find({}).then((data: any) => res.json(paginado(req, res, data)));
 });
 
 export default router;
