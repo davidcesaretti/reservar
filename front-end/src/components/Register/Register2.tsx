@@ -80,7 +80,7 @@ const Register = () => {
   }
 
   const [signedIn, setSignedIn] = useState(false);
-  const [userInfo, setUserInfo] = useState({});
+
   const [logged, setLogged] = useState(false);
   const dispatch = useDispatch();
   /*let signed = useSelector((state: any) => state.signed);
@@ -110,6 +110,28 @@ const Register = () => {
     logged && setUserInfo(firebase.auth().currentUser)
     logged && dispatch(signUser(userInfo))
     setLogged(false) */
+  let userlogged = firebase.auth().currentUser;
+
+  const [userInfo, setUserInfo] = useState({
+    name: "",
+    email: "",
+    photo: "",
+  });
+
+  const checkear = () => {
+    console.log(firebase.auth().currentUser);
+    if (userlogged) {
+      setUserInfo({
+        ...userInfo,
+        name: userlogged.displayName,
+        email: userlogged.email,
+        photo: userlogged.photoURL,
+      });
+    }
+    if (userInfo) {
+      dispatch(signUser(userInfo));
+    }
+  };
 
   /* console.log(firebase.auth().currentUser) */
 
@@ -166,6 +188,7 @@ const Register = () => {
       <Grid xs={12} className={classes.footer}>
         <Typography className={classes.infoFooter}>Copyright 2021</Typography>
       </Grid>
+      <button onClick={checkear}>Checkear</button>
     </Grid>
   );
 };
