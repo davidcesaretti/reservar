@@ -14,6 +14,7 @@ export interface cardsHotel{
   image: String,
   address: String,
   score: Number,
+  _id: String
 }
 
 export const detailReducer = (state: cardsHotel[] = [], action: FetchDetailHotel) => {
