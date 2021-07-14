@@ -118,16 +118,16 @@ const Register = () => {
     photo: "",
   });
 
+  useEffect(() => {
+    setUserInfo({
+      ...userInfo,
+      name: userlogged?.displayName,
+      email: userlogged?.email,
+      photo: userlogged?.photoURL,
+    });
+  }, [userlogged]);
+
   const checkear = () => {
-    console.log(firebase.auth().currentUser);
-    if (userlogged) {
-      setUserInfo({
-        ...userInfo,
-        name: userlogged.displayName,
-        email: userlogged.email,
-        photo: userlogged.photoURL,
-      });
-    }
     if (userInfo) {
       dispatch(signUser(userInfo));
     }
