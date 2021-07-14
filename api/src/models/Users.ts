@@ -1,4 +1,4 @@
-import { Schema, model, Document } from "mongoose";
+import mongoose,{ Schema, model, Document } from "mongoose";
 import bcrypt from "bcryptjs";
 
 interface IUser extends Document {
@@ -13,7 +13,7 @@ const user = new Schema<IUser>({
   username: { type: String, required: true },
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
-});
+},{versionKey: false});
 
 user.methods.encryptPass = async (password) => {
   const salt = await bcrypt.genSalt(10);
@@ -48,12 +48,16 @@ const userRegistered = new Schema({
   emergency_phone_number: { type: Number, required: true },
   relationship: { type: String, enum: ["Family", "Friend"] },
   role: { type: String, enum: ["Traveler", "Host"] },
-});
+},{versionKey: false});
 
 export const UserRegistered = model("UserRegistered", userRegistered);
 
 const reserva = new Schema({
   fechaSalida: { type: Date },
   fechaLlegada: { type: Date },
-});
+  info_user: {type: Array},
+  post_id: {type: Number}
+},
+{versionKey: false}
+);
 export const Reserva = model("Reserva", reserva);
