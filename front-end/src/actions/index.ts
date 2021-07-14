@@ -119,6 +119,13 @@ export const detailHotel = (id) => {
   }
 }
 
+export const clearDetail = () => {
+  return {
+      type: ActionTypes.detailHotel,
+      payload: []
+  } 
+}
+
 // export function deleteUsers(data: any) {
 //   return function (dispatch: Dispatch) {
 //     return fetch(url, {

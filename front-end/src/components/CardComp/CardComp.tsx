@@ -26,6 +26,7 @@ import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import AirlineSeatIndividualSuiteIcon from '@material-ui/icons/AirlineSeatIndividualSuite';
 import HotelIcon from '@material-ui/icons/Hotel';
 import MonetizationOnIcon from '@material-ui/icons/MonetizationOn';
+import {Link} from "react-router-dom"
 
 // import { RootState } from '../../store';
 
@@ -62,10 +63,11 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 
-export default function CardComp({name, type, beds, price, image, score, address, accommodates}) {
+export default function CardComp({_id,name, type, beds, price, image, score, address, accommodates}) {
   const classes = useStyles();
   
       return (
+        <Link to={`/categories/${_id}`}>
       <Card className={classes.root}>
       <CardActionArea>
         <CardMedia
@@ -123,5 +125,6 @@ export default function CardComp({name, type, beds, price, image, score, address
         </CardContent>
       </CardActionArea>
     </Card>
+    </Link>
       );
     }
