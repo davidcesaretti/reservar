@@ -75,6 +75,7 @@ UserRouter.post("/reserva", async (req, res) => {
        
       });
       await reserva.save()
+      
       await Properties.updateOne(
         { _id: Prop_id },
         { $push: { availability:reserva } })
