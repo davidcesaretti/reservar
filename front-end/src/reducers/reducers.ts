@@ -3,7 +3,7 @@ import { usersReducer} from "./users";
 import { signedReducer } from "./signed"
 import { fake } from "../actions";
 import { cardsHotel, hotelsReducer } from './hotels';
-
+import { detailReducer } from './detail';
 
 export interface StoreState {
   users: fake[];
@@ -16,7 +16,7 @@ export const reducers = combineReducers<StoreState>({
   users: usersReducer,
   cardsHotel: hotelsReducer,
   signed: signedReducer,
-  categorieDetail: hotelsReducer,
+  categorieDetail: detailReducer,
 });
 
 

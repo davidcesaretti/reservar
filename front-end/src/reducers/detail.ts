@@ -1,4 +1,4 @@
-import { FetchCardsHotelAction } from "../actions/index";
+import { FetchDetailHotel } from './../actions/index';
 import { ActionTypes } from "../actions/types";
 
 export interface cardsHotel{
@@ -16,9 +16,9 @@ export interface cardsHotel{
   score: Number,
 }
 
-export const hotelsReducer = (state: cardsHotel[] = [], action: FetchCardsHotelAction) => {
+export const detailReducer = (state: cardsHotel[] = [], action: FetchDetailHotel) => {
   switch (action.type) {
-    case ActionTypes.fetchCardsHotels:
+    case ActionTypes.detailHotel:
       return action.payload;
     default:
       return state;
