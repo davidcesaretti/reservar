@@ -1,25 +1,68 @@
 import React from "react";
+import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
-import { makeStyles } from "@material-ui/core";
-
+import Button from "@material-ui/core/Button";
+import IconButton from "@material-ui/core/IconButton";
+import MenuIcon from "@material-ui/icons/Menu";
+import { Link } from "react-router-dom";
 const useStyles = makeStyles((theme) => ({
-  offset: theme.mixins.toolbar,
+  root: {
+    flexGrow: 1,
+  },
+  menuButton: {
+    marginTop: theme.spacing(2),
+    marginRight: theme.spacing(2),
+  },
+  title: {
+    marginTop: theme.spacing(2),
+    flexGrow: 1,
+  },
+  link: {
+    marginTop: theme.spacing(2),
+    textDecoration: "none",
+    color: "white",
+    marginRight: theme.spacing(2),
+  },
+  link1: {
+    marginTop: theme.spacing(2),
+    textDecoration: "none",
+    color: "white",
+  },
 }));
 
-const NavBar = () => {
+export default function MenuAppBar() {
   const classes = useStyles();
+
   return (
-    <div>
-      <AppBar position="fixed" color="primary">
+    <div className={classes.root}>
+      <AppBar position="static">
         <Toolbar>
-          <Typography variant="h6">ReservAr</Typography>
+          <Typography variant="h6" className={classes.title}>
+            <Link to="/" className={classes.link}>
+              Trekker Logo
+            </Link>
+          </Typography>
+          <Link to="/categories" className={classes.link}>
+            <Button variant="contained" color="secondary">
+              Catalogue
+            </Button>
+          </Link>
+          <Link to="/register" className={classes.link1}>
+            <Button variant="contained" color="secondary">
+              Log In/Register
+            </Button>
+          </Link>
         </Toolbar>
       </AppBar>
-      <div className={classes.offset}></div>
     </div>
   );
-};
+}
 
-export default NavBar;
+/* import logo from "../../Image/logo.jpeg";
+<img src={`${logo}`} alt="logo" className={classes.img} />  
+
+
+import { useHistory } from "react-router-dom";
+let history = useHistory(); */
