@@ -1,6 +1,6 @@
 import mongoose, { Schema, model } from "mongoose";
 
-const properties = new Schema(
+const propertiestests = new Schema(
   {
     name: {
       type: String,
@@ -23,7 +23,6 @@ const properties = new Schema(
     bathrooms: {
       type: Number,
     },
-
     amenities: {
       type: [String],
     },
@@ -33,11 +32,9 @@ const properties = new Schema(
     price: {
       type: Number,
     },
-
     image: {
       type: String,
     },
-
     address: {
       type: String,
     },
@@ -51,18 +48,4 @@ const properties = new Schema(
   { versionKey: false }
 );
 
-// ****TYPES OF PROPERTIES****
-
-// House
-// Apartment
-// Condominium
-// Loft
-// Guesthouse
-// Hostel
-// Serviced Apartment
-// Bed and breakfast
-// Treehouse
-// Bungalow
-// Guest suite
-
-export const Properties = model("Properties", properties);
+export const Propertiestests = model("propertiestests", propertiestests);
