@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import firebase from "firebase";
 import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
 import { Button, Container, Typography, Grid } from "@material-ui/core";
-import { signUser } from "../../actions/index";
+import { signUser, UserEmail, UserEmailGlobal } from "../../actions/index";
 import { makeStyles } from "@material-ui/core/styles";
 import backImg from "../../Image/fondoLogin.jpeg";
 import "@fontsource/roboto";
@@ -29,17 +29,21 @@ const useStyle = makeStyles({
     background: "rgba(48, 58, 31, 0.85)",
   },
   ctn: {
+    position: "absolute",
+    top: "0",
+    bottom: "0",
+    left: "0",
+    right: "0",
     backgroundSize: "cover",
     backgroundImage: `url(${backImg})`,
-    height: "44em",
   },
   footer: {
     height: "1.5em",
     background: "rgba(48, 58, 31, 0.85)",
     position: "absolute",
-    bottom: "0.5em",
-    left: "0.5em",
-    right: "0.5em",
+    bottom: "0",
+    left: "0",
+    right: "0",
     textAlign: "center",
     padding: "1.5em",
   },
@@ -80,7 +84,7 @@ const Register = () => {
   }
 
   const [signedIn, setSignedIn] = useState(false);
-  const [userInfo, setUserInfo] = useState({});
+
   const [logged, setLogged] = useState(false);
   const dispatch = useDispatch();
   /*let signed = useSelector((state: any) => state.signed);
@@ -110,12 +114,32 @@ const Register = () => {
     logged && setUserInfo(firebase.auth().currentUser)
     logged && dispatch(signUser(userInfo))
     setLogged(false) */
+  let userlogged = firebase.auth().currentUser;
+
+  const [userInfo, setUserInfo] = useState({
+    name: "",
+    email: "",
+    photo: "",
+  });
+
+  useEffect(() => {
+    setUserInfo({
+      ...userInfo,
+      name: userlogged?.displayName,
+      email: userlogged?.email,
+      photo: userlogged?.photoURL,
+    });
+    if (userlogged) {
+      dispatch(UserEmailGlobal(userlogged?.email));
+    }
+  }, [userlogged]);
 
   /* console.log(firebase.auth().currentUser) */
 
   const handleClick = () => {
     firebase.auth().signOut();
     setLogged(false);
+    dispatch(UserEmailGlobal(""));
   };
 
   const classes = useStyle();

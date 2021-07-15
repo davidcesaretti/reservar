@@ -41,6 +41,7 @@ const useStyles = makeStyles({
     width: "20%",
   },
   nombredetipo: {
+    color: "white",
     padding: "30px 0",
     height: "30px",
     "& span": {
@@ -49,9 +50,8 @@ const useStyles = makeStyles({
   },
   nombredecat: {
     marginTop: "27px",
-    marginBottom: "10px"
+    marginBottom: "10px",
   },
-
   btn: {
     backgroundColor: "#324021" /* Green */,
     "&:hover": {
@@ -70,12 +70,19 @@ const useStyles = makeStyles({
     borderRadius: "5px",
     margin: "10px",
   },
+  select: {
+    color: "white",
+    "&:before": {
+      borderColor: "white",
+    },
+  },
 });
 
-const Categories = [
+let Categories = [
   {
     title: "Type",
     keyword: "type",
+    checked: undefined,
     filtros: [
       { id: "Hostel", msg: "Hostel" },
       { id: "Condominium", msg: "Condominium" },
@@ -88,6 +95,7 @@ const Categories = [
   {
     title: "Amenities",
     keyword: "amenities",
+    checked: undefined,
 
     filtros: [
       "Pool",
@@ -100,6 +108,7 @@ const Categories = [
   {
     title: "Score",
     keyword: "score",
+    checked: undefined,
     filtros: [
       { id: 10, msg: "Excelent" },
       { id: 9, msg: "Amazing" },
@@ -115,7 +124,7 @@ const Categories = [
   {
     title: "Popular",
     keyword: "amenities",
-
+    checked: undefined,
     filtros: [
       "Pets allowed",
       "Smoking allowed",
@@ -128,10 +137,11 @@ const Categories = [
 export default function CheckboxList() {
   const classes = useStyles();
   const dispatch = useDispatch();
+  const [paginado, setPaginado] = useState(1);
   useEffect(() => {
     dispatch(
       fetchCardsHotels(
-        undefined,
+        paginado,
         undefined,
         undefined,
         undefined,
@@ -139,10 +149,17 @@ export default function CheckboxList() {
         undefined
       )
     );
-  }, []);
+  }, [paginado]);
 
   const [dataFilter, setDataFilter] = useState({
-    page: undefined,
+    price: undefined,
+    amenities: [],
+    type: undefined,
+    accommodates: undefined,
+    score: undefined,
+  });
+
+  const [pagination, setPagination] = useState({
     price: undefined,
     amenities: [],
     type: undefined,
@@ -152,7 +169,6 @@ export default function CheckboxList() {
 
   const resetData = () => {
     setDataFilter({
-      page: undefined,
       price: undefined,
       amenities: [],
       type: undefined,
@@ -206,14 +222,15 @@ export default function CheckboxList() {
 
   const submitData = (e) => {
     e.preventDefault();
-    if (dataFilter["amenities"].length < 1) {
-      dataFilter["amenities"] = undefined;
-    }
-
+    setPagination(dataFilter);
+    // if (dataFilter["amenities"].length < 1) {
+    //   dataFilter["amenities"] = undefined;
+    // }
+    //  setPaginado(1);
     dispatch(
       //fetchCardsHotels(page, price, amenities, type, accommodates, score);
       fetchCardsHotels(
-        dataFilter.page,
+        paginado,
         dataFilter.price,
         dataFilter.amenities,
         dataFilter.type,
@@ -221,10 +238,23 @@ export default function CheckboxList() {
         dataFilter.score
       )
     );
+
     console.log(dataFilter);
-    e.target.reset();
+    e.currentTarget.reset();
 
     resetData();
+  };
+
+  const onPrev = (e) => {
+    // if (pagination.page > 2 && pagination.page !== undefined) {
+
+    setPaginado(paginado - 1);
+
+    //}
+  };
+
+  const onNext = (e) => {
+    setPaginado(paginado + 1);
   };
 
   return (
@@ -261,14 +291,17 @@ export default function CheckboxList() {
                 </>
               )}
               <List>
+                {console.log(cat.keyword)}
                 {cat.title !== "Type" && cat.title !== "Score" ? (
                   cat?.filtros?.map((value) => (
                     <ListItem className={classes.nombredetipo} key={value}>
                       <GreenCheckbox
                         edge="start"
                         value={value}
+                        checked={cat.checked}
                         name={cat.keyword}
                         onChange={handleChecks}
+                        className={classes.select}
                       />
                       <ListItemText primary={value} />
                     </ListItem>
@@ -277,7 +310,11 @@ export default function CheckboxList() {
                   <ListItem className={classes.nombredetipo}>
                     <FormControl>
                       <InputLabel>-</InputLabel>
-                      <Select name={cat.keyword} onChange={setDataHandler}>
+                      <Select
+                        name={cat.keyword}
+                        onChange={setDataHandler}
+                        className={classes.select}
+                      >
                         {cat?.filtros?.map((value) => (
                           <MenuItem value={value.id}>{value.msg}</MenuItem>
                         ))}
@@ -291,8 +328,28 @@ export default function CheckboxList() {
             <Divider />
           </>
         ))}
-        <Button variant="text" color="default" type="submit">
+        <Button variant="text" color="inherit" type="submit">
           Estado
+        </Button>
+        <Button
+          variant="text"
+          color="inherit"
+          onClick={(e) => {
+            onPrev(e);
+          }}
+        >
+          {" "}
+          Prev{" "}
+        </Button>
+        <Button
+          variant="text"
+          color="inherit"
+          onClick={(e) => {
+            onNext(e);
+          }}
+        >
+          {" "}
+          Next{" "}
         </Button>
       </Container>
     </form>
