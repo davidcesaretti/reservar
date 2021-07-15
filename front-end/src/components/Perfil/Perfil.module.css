@@ -50,6 +50,7 @@ body{
 .line{
     height: 2em;
     border-left: solid 1px #FFF;
+    margin-left: 2.5em;
 }
 ul li{
     list-style: none;
@@ -122,6 +123,7 @@ ul li{
     font-weight: bold;
     font-size: 1em;
     margin-bottom: 3em;
+    cursor: pointer;
 }
 .update:hover{
     background:rgb(88, 114, 43)
