@@ -21,7 +21,6 @@ import { fetchCardsHotels } from "../../actions";
 import { hotelsReducer } from "../../reducers/hotels";
 import NavBar from "../Nav/Nav2";
 
-
 const useStyles = makeStyles((theme) => ({
   icon: {
     marginRight: theme.spacing(2),
@@ -52,23 +51,27 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.background.paper,
     padding: theme.spacing(6),
   },
+  navbar: {
+    height: "80%",
+  },
 }));
 
 export default function Album() {
   const classes = useStyles();
-  const cards = useSelector((state: any) => state.cardsHotel) 
+  const cards = useSelector((state: any) => state.cardsHotel);
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(fetchCardsHotels(
-      undefined, 
-      undefined, 
-      undefined,
-      undefined,
-      undefined,
-      undefined
-      ));
+    dispatch(
+      fetchCardsHotels(
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined
+      )
+    );
   }, []);
-
 
   console.log(cards.posts);
 

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import firebase from "firebase";
 import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
 import { Button, Container, Typography, Grid } from "@material-ui/core";
@@ -97,6 +97,7 @@ const Register = () => {
       firebase.auth.FacebookAuthProvider.PROVIDER_ID,
       firebase.auth.EmailAuthProvider.PROVIDER_ID,
     ],
+    callbacks: {},
   };
 
   useEffect(() => {
@@ -104,11 +105,6 @@ const Register = () => {
       setSignedIn(!!user);
     });
   }, [dispatch]);
-
-  /* useEffect(() => {
-        setUserInfo(firebase.auth().currentUser)
-        dispatch(signUser(userInfo))
-    }, [userInfo]) */
 
   /* firebase.auth().currentUser && setLogged(true)
     logged && setUserInfo(firebase.auth().currentUser)
@@ -129,12 +125,14 @@ const Register = () => {
       email: userlogged?.email,
       photo: userlogged?.photoURL,
     });
-    if (userlogged) {
+    if (userlogged?.email.length > 2) {
       dispatch(UserEmailGlobal(userlogged?.email));
     }
   }, [userlogged]);
 
-  /* console.log(firebase.auth().currentUser) */
+  useEffect(() => {
+    dispatch(signUser(userInfo));
+  }, [userInfo]);
 
   const handleClick = () => {
     firebase.auth().signOut();

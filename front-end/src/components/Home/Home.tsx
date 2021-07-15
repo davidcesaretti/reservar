@@ -19,6 +19,7 @@ import Chica from "../../Image/chica.jpeg";
 import { useDispatch } from "react-redux";
 import { fetchCardsHotels } from "../../actions";
 import { Calendary } from "../Calendary/Calendary";
+import MenuAppBar from "../Nav/Nav2";
 
 const useStyle = makeStyles({
   containerFilters: {
@@ -95,6 +96,7 @@ const Home = () => {
   return (
     <div>
       <Grid container justifyContent="center" spacing={5}>
+        <MenuAppBar />
         <Grid
           container
           item
@@ -318,7 +320,7 @@ const Home = () => {
           </Grid>
         </Grid>
 
-        <Grid container justifyContent="center" >
+        <Grid container justifyContent="center">
           <Footer />
         </Grid>
       </Grid>
