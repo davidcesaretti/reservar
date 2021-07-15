@@ -67,11 +67,46 @@ router.get("/", (req: Request, res: Response, next: NextFunction) => {
     Propertiestests.find({
       available: {
         $elemMatch: {
-          fechaLlegada: { $gte: new Date(fechaLlegada) },
-          fechaSalida: { $gte: new Date(fechaSalida) },
+          $or: [
+            {
+              fechaSalida: {
+                $gte: new Date(fechaSalida),
+                $lte: new Date(fechaLlegada),
+              },
+            },
+            {
+              fechaLlegada: {
+                $gte: new Date(fechaSalida),
+                $lte: new Date(fechaLlegada),
+              },
+            },
+          ],
         },
       },
     }).then((data) => res.json(data));
+
+    // Propertiestests.aggregate([
+    //   {
+    //     $match: {
+    //       available: {
+    //         $or: [
+    //           {
+    //             fechaSalida: {
+    //               $gte: new Date(fechaSalida),
+    //               $lte: new Date(fechaLlegada),
+    //             },
+    //           },
+    //           {
+    //             fechaLlegada: {
+    //               $gte: new Date(fechaSalida),
+    //               $lte: new Date(fechaLlegada),
+    //             },
+    //           },
+    //         ],
+    //       },
+    //     },
+    //   },
+    // ]).then((data) => res.json(data));
 
     // Reserva.find({
     //   $or: [
