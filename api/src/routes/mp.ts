@@ -7,7 +7,7 @@ const mercadopago = require("mercadopago");
 mercadopago.configure({
   access_token: config.prod_access_token,
 });
-
+// ESTA EN GET PARA TESTEO, DEBERIA SER UN POST
 router.get("/", (req: Request, res: Response, next: NextFunction) => {
   // Crea un objeto de preferencia
   const { title, unit_price, quantity } = req.body;
