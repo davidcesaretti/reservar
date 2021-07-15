@@ -7,6 +7,7 @@ import { Properties } from "../models/Properties";
 const router = Router();
 
 router.get("/", (req: Request, res: Response, next: NextFunction) => {
+  
   let { amenities, price, type } = req.query;
   if (
     req.query.page ||
@@ -61,5 +62,21 @@ router.get("/", (req: Request, res: Response, next: NextFunction) => {
   }
   Properties.find({}).then((data: any) => res.json(paginado(req, res, data)));
 });
+
+
+router.get('/properties/:id', async (req: Request, res: Response) => {
+  const idPropiedad = req.params.id;
+  
+  try {
+    
+      if(idPropiedad) {
+          dataAirbnb.find({_id: idPropiedad}).then((data) => res.json(data))
+          return
+      }
+  } catch(error) {
+      console.log(error);
+  }
+})
+
 
 export default router;

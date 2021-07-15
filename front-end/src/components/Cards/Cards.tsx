@@ -21,6 +21,7 @@ import { fetchCardsHotels } from "../../actions";
 import { hotelsReducer } from "../../reducers/hotels";
 import NavBar from "../Nav/Nav2";
 
+
 const useStyles = makeStyles((theme) => ({
   icon: {
     marginRight: theme.spacing(2),
@@ -55,7 +56,19 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Album() {
   const classes = useStyles();
-  const cards = useSelector((state: any) => state.cardsHotel);
+  const cards = useSelector((state: any) => state.cardsHotel) 
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchCardsHotels(
+      undefined, 
+      undefined, 
+      undefined,
+      undefined,
+      undefined,
+      undefined
+      ));
+  }, []);
+
 
   console.log(cards.posts);
 
@@ -74,6 +87,7 @@ export default function Album() {
                 <Grid item key={e} xs={12} sm={6} md={6}>
                   <Card className={classes.card}>
                     <CardComp
+                      _id={e._id}
                       image={e.image}
                       score={e.score}
                       name={e.name}
