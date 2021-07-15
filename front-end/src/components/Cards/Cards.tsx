@@ -14,7 +14,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import Link from "@material-ui/core/Link";
 import CardComp from "../CardComp/CardComp";
-import NavBar from "../Nav/nav";
+import NavBar from "../Nav/Nav";
 import Footer from "../Footer/Footer";
 import CheckboxList from "../Filters/Filters";
 import { useDispatch, useSelector } from "react-redux";
