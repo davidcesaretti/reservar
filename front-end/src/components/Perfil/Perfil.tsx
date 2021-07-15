@@ -7,6 +7,10 @@ import style from './Perfil.module.css'
 
 const Perfil = () => {
 
+    const signOut = () => {
+
+    }
+
     return (
         <div>
             <div className={style.navBar}>
@@ -20,17 +24,23 @@ const Perfil = () => {
                     </div>
                     <div className={style.separator}></div>
                     <nav className={style.options}>
-                            <Link to="" className={style.option}>My Profile</Link>
+                            <Link to="/perfil" className={style.option}>My Profile</Link>
                             <div className={style.line}></div>
-                            <Link to="" className={style.option}>My Bookings</Link>
+                            <Link to="/booking" className={style.option}>My Bookings</Link>
                             <div className={style.line}></div>
-                            <Link to="" className={style.option}>Favourites</Link>
+                            <Link to="/favourites" className={style.option}>Favourites</Link>
                             <div className={style.line}></div>
-                            <Link to="" className={style.option}>History of travels</Link>
+                            <Link to="/travels" className={style.option}>History of travels</Link>
                             <div className={style.line}></div>
-                            <Link to="" className={style.option}>Privacity</Link>
+                            <Link to="/privacity" className={style.option}>Privacity</Link>
                             <div className={style.line}></div>
-                            <Link to="" className={style.option}>Sign Out</Link>
+                            <button className={style.buttonOption} 
+                                    onClick={() => {
+                                        signOut()}
+                                    }
+                            >
+                                        Sign Out
+                            </button>
                     </nav>
                 </div>
             </div>
