@@ -6,6 +6,7 @@ import Home from "./components/Home/Home";
 import Calendary from "./components/Calendary/Calendary";
 import Album from "./components/Cards/Cards";
 import Filters from "./components/Filters/Filters";
+import Perfil from './components/Perfil/Perfil';
 function App() {
   return (
     <Switch>
@@ -13,7 +14,7 @@ function App() {
       <Route exact path="/Login" component={Login} />
       <Route exact path="/Register" component={Register} />
       <Route exact path="/Calendary" component={Calendary} />
-
+      <Route exact path="/perfil" component={Perfil} />
       <Route exact path="/Filters" component={Filters} />
       <Route exact path="/Categories" component={Album} />
     </Switch>
