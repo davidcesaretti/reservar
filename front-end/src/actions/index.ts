@@ -16,6 +16,10 @@ export interface FetchCardsHotelAction {
   type: ActionTypes.fetchCardsHotels;
   payload: cardsHotel[];
 }
+export interface FetchDetailHotel {
+  type: ActionTypes.detailHotel;
+  payload: cardsHotel[];
+}
 export interface data {
   nombre: string;
   id: Number;
@@ -121,6 +125,23 @@ export const UserEmailGlobal = (data) => {
     });
   };
 };
+
+export const detailHotel = (id) => {
+  return async (dispatch: Dispatch) => {
+    const response = await axios.get<cardsHotel[]>(`${url}/filter/properties/${id}`);
+    dispatch<FetchDetailHotel>({
+      type: ActionTypes.detailHotel,
+      payload: response.data,
+    })
+  }
+}
+
+export const clearDetail = () => {
+  return {
+      type: ActionTypes.detailHotel,
+      payload: []
+  } 
+}
 
 // export function deleteUsers(data: any) {
 //   return function (dispatch: Dispatch) {
