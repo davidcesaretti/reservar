@@ -20,7 +20,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchCardsHotels } from "../../actions";
 import { hotelsReducer } from "../../reducers/hotels";
 import NavBar from "../Nav/Nav2";
-
+import { useState } from "react";
 
 const useStyles = makeStyles((theme) => ({
   icon: {
@@ -56,19 +56,34 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Album() {
   const classes = useStyles();
-  const cards = useSelector((state: any) => state.cardsHotel) 
+  const cards = useSelector((state: any) => state.cardsHotel);
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(fetchCardsHotels(
-      undefined, 
-      undefined, 
-      undefined,
-      undefined,
-      undefined,
-      undefined
-      ));
+    dispatch(
+      fetchCardsHotels(
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined
+      )
+    );
   }, []);
 
+  const [fav, setFav] = useState([]);
+
+  const handleClick = (e) => {
+    e.preventDefault();
+    if (fav.includes(e.currentTarget.value)) {
+      setFav(fav.filter((x) => x !== e.currentTarget.value));
+    } else setFav(fav.concat(e.currentTarget.value));
+
+    //console.log("entrando");
+  };
+  const checkear = (e) => {
+    console.log(fav);
+  };
 
   console.log(cards.posts);
 
@@ -96,6 +111,7 @@ export default function Album() {
                       accommodates={e.accommodates}
                       beds={e.beds}
                       price={e.price}
+                      click={handleClick}
                     />
                   </Card>
                 </Grid>
@@ -108,6 +124,7 @@ export default function Album() {
         <Footer />
         {/* End footer */}
       </div>
+      <button onClick={checkear}>Show state</button>
     </React.Fragment>
   );
 }
