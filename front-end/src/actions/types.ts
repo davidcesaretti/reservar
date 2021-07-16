@@ -5,7 +5,8 @@ export enum ActionTypes {
   deleteUsers,
   fetchCardsHotels,
   signUser,
-
+  updateUser,
+  
 }
 
 export type Action = FetchUsersAction;
