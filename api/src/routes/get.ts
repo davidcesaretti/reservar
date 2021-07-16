@@ -10,6 +10,27 @@ const router = Router();
 
 router.get("/", (req: Request, res: Response, next: NextFunction) => {
   let { amenities, price, type } = req.query;
+  let { fechaSalida, fechaLlegada } = req.body;
+  const fechaBusqueda = {
+    available: {
+      $elemMatch: {
+        $or: [
+          {
+            fechaSalida: {
+              $gte: new Date(fechaSalida),
+              $lte: new Date(fechaLlegada),
+            },
+          },
+          {
+            fechaLlegada: {
+              $gte: new Date(fechaSalida),
+              $lte: new Date(fechaLlegada),
+            },
+          },
+        ],
+      },
+    },
+  };
   if (
     req.query.page ||
     req.query.accommodates ||
@@ -44,47 +65,27 @@ router.get("/", (req: Request, res: Response, next: NextFunction) => {
       );
       return;
     }
+    if (fechaLlegada && fechaSalida) obj = { ...obj, ...fechaBusqueda };
+
     console.log(obj);
     if (price) {
-      // console.log(obj);
-      // console.log(price);
-      Properties.find(obj)
+      //Properties.find(obj)
+      Propertiestests.find(obj)
         .sort({ price: req.query.price })
         .then((data: any) => res.json(paginado(req, res, data)))
         .catch((err) => console.error(err));
       return;
     }
-    Properties.find(obj)
+    // Properties.find(obj)
+    Propertiestests.find(obj)
       .then((data: any) => res.json(paginado(req, res, data)))
       .catch((err) => console.error(err));
     return;
   }
+  //_________________
   if (req.body.fechaSalida && req.body.fechaLlegada) {
-    let { fechaSalida, fechaLlegada } = req.body;
-    console.log(fechaSalida);
-    console.log(fechaLlegada);
-
-    Propertiestests.find({
-      _id: "60ee079276aaa54abc311dfc",
-      available: {
-        $elemMatch: {
-          $or: [
-            {
-              fechaSalida: {
-                $gte: new Date(fechaSalida),
-                $lte: new Date(fechaLlegada),
-              },
-            },
-            {
-              fechaLlegada: {
-                $gte: new Date(fechaSalida),
-                $lte: new Date(fechaLlegada),
-              },
-            },
-          ],
-        },
-      },
-    }).then((data) => res.json(data));
+    Propertiestests.find(fechaBusqueda).then((data) => res.json(data));
+    //______________
 
     // Propertiestests.aggregate([
     //   {
@@ -125,6 +126,7 @@ router.get("/", (req: Request, res: Response, next: NextFunction) => {
     //     },
     //   ],
     // }).then((data) => res.json(data));
+    //_________________
     return;
   }
   Properties.find({}).then((data: any) => res.json(paginado(req, res, data)));
