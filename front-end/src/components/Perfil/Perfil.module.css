@@ -27,14 +27,14 @@ body{
     font-size: 1.5em;
 }
 .picture{
-    height: 6em;
-    width: 6em;
-    background: url(https://lh3.googleusercontent.com/z4SGBQHzF_LCe-BMDb1garS30TW2jySJtoq4r4SxhcWduRpWxyv5OVRpeaW008As8ytenK-57doE7IbnjUfRKyySxj9h2rbhJMQDECKWyjDrLmh2lVivYI8EiKzb0YZTrczc3D8);
+    height: 7em;
+    width: 7em;
     background-size: cover;
     border-radius: 50%;
     padding: 1em;
     margin-left: 2em;
     margin-top: 2em;
+    margin-bottom: 1em;
 }
 .separator{
     border-top: solid 1px #FFF;

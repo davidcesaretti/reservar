@@ -3,11 +3,15 @@ import { useDispatch, useSelector } from 'react-redux';
 import {storage} from '../../firebase/index'
 import {Link} from 'react-router-dom'
 import style from './Perfil.module.css'
+import {UserEmailGlobal, updateUser} from '../../actions/index'
+import { useAuth } from "../../firebase/index";
 
 
 
 const Perfil = () => {
+    const auth = useAuth()
     const dispatch = useDispatch()
+    
     const [info, setInfo] = useState({
         name: '',
         email: '',
@@ -22,24 +26,11 @@ const Perfil = () => {
         recoveryMail: '',
         civilStatus: ''
     })
-    interface userInfo {
-        name: string;
-        email: string;
-        phone: number;
-        dcmType: string;
-        dcmNumber: number;
-        nationality: string;
-        birthday: string;
-        adress: string;
-        residence: string;
-        emergencyPhone: number;
-        recoveryMail: string;
-        civilStatus: string;
-    }
 
-    const signOut = () => {
-
-    }
+    /* const signOut = (e) => {
+        e.preventDefault()
+        dispatch(UserEmailGlobal(''))
+    } */
 
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -51,7 +42,9 @@ const Perfil = () => {
 
     const emailRegex = /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i;
 
-    const handleUpdate = () => {
+    const handleUpdate = (e) => {
+        e.preventDefault()
+
         if (typeof info.name !== "string" && info.name !== '') {
             alert('write your name, it must be a string')
             return
@@ -101,17 +94,20 @@ const Perfil = () => {
             return
         }
 
-    }
+        dispatch(updateUser(info))
 
+        alert('Your information was updated!')
+    }
+    console.log(auth.user)
     return (
         <div>
             <div className={style.navBar}>
-                <div className={style.picture}>
-                    <div className={style.image}></div>
+                <div >
+                    <img className={style.picture} src={auth.user.photoURL} alt="profile"/>
                 </div>
                 <div className={style.menu}>
                     <div className={style.title}>
-                        <h4 className={style.bienvenida}>Bienvenido resumenes de anime!</h4>
+                        <h4 className={style.bienvenida}>Bienvenido {auth.user.displayName}</h4>
                         <p className={style.type}>VIAJERO</p>
                     </div>
                     <div className={style.separator}></div>
@@ -126,18 +122,20 @@ const Perfil = () => {
                             <div className={style.line}></div>
                             <Link to="/privacity" className={style.option}>Privacity</Link>
                             <div className={style.line}></div>
-                            <button className={style.buttonOption} 
-                                    onClick={() => {
-                                        signOut()}
-                                    }
-                            >
+                            <button className={style.buttonOption} onClick={() => auth.signout()}>Signout</button>
+                            {/* <button className={style.buttonOption} 
+                                    onClick={(e) => auth.signOut()}
+                                    >
                                         Sign Out
-                            </button>
+                            </button> */}
                     </nav>
                 </div>
             </div>
             <h2 className={style.header}>My Profile</h2>
-            <div className={style.ctn}>
+            <form 
+                className={style.ctn}
+                onSubmit={(e) => {handleUpdate(e)}}
+            >
                 <div className={style.field}>
                     <label className={style.nameField}>Complete name</label>
                     <input 
@@ -260,15 +258,15 @@ const Perfil = () => {
                         onChange={(e) => {handleChange(e)}}
                 />
                 </div>
-            </div>
             <div className={style.ctnUpdate}>
                 <button 
+                    type="submit"
                     className={style.update}
-                    onClick={() => {handleUpdate()}}
-            >
-                Update
-            </button>
+                >
+                    Update
+                </button>
             </div>
+            </form>
             <div className={style.footer}>
                 <p className={style.infoFooter}>COPYRIGHT 2021</p>
             </div>
