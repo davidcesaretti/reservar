@@ -8,6 +8,7 @@ export interface fake {
   precio: string;
   ciudad: string;
 }
+
 export interface FetchUsersAction {
   type: ActionTypes.fetchUsers;
   payload: fake[];
@@ -125,23 +126,30 @@ export const UserEmailGlobal = (data) => {
     });
   };
 };
-
+export const FechasReserva = (data: Object) => {
+  return {
+    type: ActionTypes.calendary,
+    payload: data,
+  };
+};
 export const detailHotel = (id) => {
   return async (dispatch: Dispatch) => {
-    const response = await axios.get<cardsHotel[]>(`${url}/filter/properties/${id}`);
+    const response = await axios.get<cardsHotel[]>(
+      `${url}/filter/properties/${id}`
+    );
     dispatch<FetchDetailHotel>({
       type: ActionTypes.detailHotel,
       payload: response.data,
-    })
-  }
-}
+    });
+  };
+};
 
 export const clearDetail = () => {
   return {
-      type: ActionTypes.detailHotel,
-      payload: []
-  } 
-}
+    type: ActionTypes.detailHotel,
+    payload: [],
+  };
+};
 
 // export function deleteUsers(data: any) {
 //   return function (dispatch: Dispatch) {
