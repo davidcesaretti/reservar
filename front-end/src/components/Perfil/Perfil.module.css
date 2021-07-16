@@ -36,6 +36,28 @@ body{
     margin-top: 2em;
     margin-bottom: 1em;
 }
+.buttonsNavBar{
+    display: flex;
+}
+.navButton1{
+    text-decoration: none;
+    color: #FFF;
+    font-size: 1.2em;
+    margin-left:2.5em;
+    margin-right:2em;
+}
+.navButton1:hover{
+    color: #e3e3e3;
+}
+.navButton{
+    text-decoration: none;
+    color: #FFF;
+    font-size: 1.2em;
+    margin-left:2.5em;
+}
+.navButton:hover{
+    color: #e3e3e3;
+}
 .separator{
     border-top: solid 1px #FFF;
     width: 1200px;

@@ -108,7 +108,11 @@ const Perfil = () => {
                 <div className={style.menu}>
                     <div className={style.title}>
                         <h4 className={style.bienvenida}>Bienvenido {auth.user.displayName}</h4>
-                        <p className={style.type}>VIAJERO</p>
+                        <div className={style.buttonsNavBar}>
+                            <Link to="/" className={style.navButton1}>Home</Link>
+                            <div className={style.line}></div>
+                            <Link to="/" className={style.navButton}>Categories</Link>
+                        </div>
                     </div>
                     <div className={style.separator}></div>
                     <nav className={style.options}>
@@ -123,11 +127,7 @@ const Perfil = () => {
                             <Link to="/privacity" className={style.option}>Privacity</Link>
                             <div className={style.line}></div>
                             <button className={style.buttonOption} onClick={() => auth.signout()}>Signout</button>
-                            {/* <button className={style.buttonOption} 
-                                    onClick={(e) => auth.signOut()}
-                                    >
-                                        Sign Out
-                            </button> */}
+                            
                     </nav>
                 </div>
             </div>
