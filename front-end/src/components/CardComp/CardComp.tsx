@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
 import clsx from "clsx";
 import Card from "@material-ui/core/Card";
@@ -13,6 +13,7 @@ import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
 import { red } from "@material-ui/core/colors";
 import FavoriteIcon from "@material-ui/icons/Favorite";
+import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import ShareIcon from "@material-ui/icons/Share";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
@@ -27,6 +28,7 @@ import AirlineSeatIndividualSuiteIcon from '@material-ui/icons/AirlineSeatIndivi
 import HotelIcon from '@material-ui/icons/Hotel';
 import MonetizationOnIcon from '@material-ui/icons/MonetizationOn';
 import {Link} from "react-router-dom"
+import { isTypeOfExpression } from "typescript";
 
 // import { RootState } from '../../store';
 
@@ -66,9 +68,19 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export default function CardComp({_id, name, type, beds, price, image, score, address, accommodates}) {
   const classes = useStyles();
-  
+
+  //const [fav, setFav] = React.useState<Array | String>([])
+  const [fav, setFav] = useState([])
+
+  const handleClick = (e) => {
+    console.log('entrando')
+    setFav(fav.push(e.currentTarget.value))
+    console.log(fav)
+  }
+
+
       return (
-        <Link to={`/categories/${_id}`}>
+       
       <Card className={classes.root}>
       <CardActionArea>
         <CardMedia
@@ -76,7 +88,7 @@ export default function CardComp({_id, name, type, beds, price, image, score, ad
           image={image}
           title="Room Deluxe">
         
-        <IconButton aria-label="add to favorites" className={classes.iconfav}>
+        <IconButton aria-label="add to favorites" className={classes.iconfav} onClick={handleClick} value={_id} >
           <FavoriteIcon />
         </IconButton>
            <IconButton className={classes.iconfav}>
@@ -87,13 +99,14 @@ export default function CardComp({_id, name, type, beds, price, image, score, ad
            </IconButton>
            
         </CardMedia>
-        <CardContent style={{padding: "15px"}}>
-          <Typography gutterBottom variant="h5" component="h2" className={classes.title} style={{marginBottom:"-5px"}}>
+        <Link to={`/categories/${_id}`}>
+          <CardContent style={{padding: "15px"}}>
+            <Typography gutterBottom variant="h5" component="h2" className={classes.title} style={{marginBottom:"-5px"}}>
           
           {name}
-          </Typography>
+           </Typography>
           </CardContent>
-
+          </Link>
         <CardContent style={{padding: "16px 0 12px 10px"  }}>
           <div  className={classes.icono}>
         <AddLocationIcon >    
@@ -126,6 +139,6 @@ export default function CardComp({_id, name, type, beds, price, image, score, ad
         </CardContent>
       </CardActionArea>
     </Card>
-    </Link>
+    
       );
     }
