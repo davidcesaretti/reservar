@@ -29,6 +29,20 @@ export interface Credentials {
   username: string;
   password: string;
 }
+export interface userInfo {
+  name: string;
+  email: string;
+  phone: number;
+  dcmType: string;
+  dcmNumber: number;
+  nationality: string;
+  birthday: string;
+  adress: string;
+  residence: string;
+  emergencyPhone: number;
+  recoveryMail: string;
+  civilStatus: string;
+}
 const url = "http://localhost:3001";
 
 export const onLogin = async (data: Credentials) => {
@@ -102,6 +116,13 @@ export const signUser = (data) => {
       type: ActionTypes.signUser,
       payload: false,
     })
+  }
+}
+export const updateUser = (userInfo) => {
+  return async (dispatch: Dispatch) => {
+    let data = {
+      
+    }
   }
 }
 

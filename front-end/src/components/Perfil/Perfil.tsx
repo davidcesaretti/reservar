@@ -98,7 +98,7 @@ const Perfil = () => {
         }
         if (typeof info.civilStatus !== "string" && info.civilStatus !== '') {
             alert('write your civil status')
-            return 
+            return
         }
 
     }
