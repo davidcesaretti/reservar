@@ -1,83 +1,116 @@
-.contimg{
-    display:flex;
-    justify-content: center;
-    padding: 5%;
-    margin-left: 40%;
+.contimg {
+  display: flex;
+  justify-content: center;
+  padding: 5%;
+  margin-left: 40%;
 }
 
-.contnd{
-    margin-top: -40%
+.contnd {
+  margin-top: -40%;
 }
 
-.name{
-    font-size:xx-large;
-    font-weight: bold;
-    margin: 1.5%;
-    text-indent: 2%;
+.name {
+  font-size: xx-large;
+  font-weight: bold;
+  margin: 1.5%;
+  text-indent: 2%;
 }
 
-.des{
-    margin-left: 3%;
-    margin-bottom: 0.1%;
+.des {
+  margin-left: 3%;
+  margin-bottom: 0.1%;
 }
 
-.summ{
-    margin-left: 3%;
-    font-weight: 500;
-    margin-right: 56%;
+.summ {
+  margin-left: 3%;
+  font-weight: 500;
+  margin-right: 56%;
 }
 
-.hr{
-    margin-left: 3%;
-    border-top: 2px solid grey;
-    width: 41%;
+.hr {
+  margin-left: 3%;
+  border-top: 2px solid grey;
+  width: 41%;
 }
 
-.service{
-    margin-left: 3.5%;
+.service {
+  margin-left: 3.5%;
 }
 
-.ame{
-
+.ame {
 }
 
-.hr1{
-   height:110px;
-    border-left: solid 2px black;
-    margin-left: 15%; 
+.hr1 {
+  height: 110px;
+  border-left: solid 2px black;
+  margin-left: 15%;
 }
 
-.hr2{
-    height:150px;
-    border-left: solid 2px black;
-    margin-left: 30%;
-    margin-top: -11%;
-    
+.hr2 {
+  height: 150px;
+  border-left: solid 2px black;
+  margin-left: 30%;
+  margin-top: -11%;
 }
 
-.contf{
-    margin-left: 3%;
-    border: solid 2px black;
-    border-radius: 5px;
+.contf {
+  margin-left: 3%;
+  border: solid 2px black;
+  border-radius: 5px;
 }
 
-.contfechas{
-    margin:5%;
+.contfechas {
+  margin: 5%;
 }
 
-.travel{
-    margin: 5%;
+.travel {
+  margin: 5%;
 }
 
-.hr3{
-    margin-left: 3%;
-    border-top: 2px solid grey;
-    width: 440%;
+.hr3 {
+  margin-left: 3%;
+  border-top: 2px solid grey;
+  width: 440%;
 }
 
-.hr4{
-    margin-top: 3%;
-    height:50px;
-    border-left: solid 2px black;
-    margin-left: 50%;
+.hr4 {
+  margin-top: 3%;
+  height: 50px;
+  border-left: solid 2px black;
+  margin-left: 50%;
+}
+
+.gridPadre {
+  margin-left: 100px;
+  width: 410px;
+  height: 180px;
+  /* background-color: aqua; */
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 2fr;
+  border: black solid 2px;
+  border-radius: 15px;
+}
+.gridHijo1 {
+  width: 100%;
+  /* background-color: blueviolet; */
+  height: 60%;
+  text-align: center;
+  border-right: black solid 1px;
+}
+.gridHijo2 {
+  width: 90%;
+  /* background-color: blueviolet; */
+  height: 60%;
+  text-align: center;
+  /* border-right: black solid 1px; */
+}
+.gridHijo3 {
+  margin: auto;
+  margin-bottom: 20px;
+  padding-top: 6px;
+  width: 80%;
+  border-top: black solid 1px;
+  text-align: center;
+  grid-column: 1/3;
 }
