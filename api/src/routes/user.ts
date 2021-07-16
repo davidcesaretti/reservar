@@ -1,8 +1,8 @@
+
 import express, { Request, Response, NextFunction, Router } from "express";
 import { User, Reserva } from "../models/Users";
 import { Properties } from "../models/Properties";
-import jwt from "jsonwebtoken";
-import verifyToken from "../controllers/verifyToken";
+import {Propertiestests} from "../models/propertiestests";
 
 //-------------------------------------------
 
@@ -43,23 +43,27 @@ UserRouter.post("/reserva", async (req, res) => {
 
   const finded = await User.findOne({ email:email });
   try {
-    const reservaFind = await Reserva.find({
-      $or: [
-        {
-          fechaSalida: {
-            $gte: new Date(fechaSalida),
-            $lte: new Date(fechaLlegada),
-          },
+    const reservaFind = await Propertiestests.find({
+      _id: Prop_id,
+      available: {
+        $elemMatch: {
+          $or: [
+            {
+              fechaSalida: {
+                $gte: new Date(fechaSalida),
+                $lte: new Date(fechaLlegada),
+              },
+            },
+            {
+              fechaLlegada: {
+                $gte: new Date(fechaSalida),
+                $lte: new Date(fechaLlegada),
+              },
+            },
+          ],
         },
-        {
-          fechaLlegada: {
-            $gte: new Date(fechaSalida),
-            $lte: new Date(fechaLlegada),
-          },
-        },
-      ],
+      },
     });
-    
     if (reservaFind.length) {
       res.json({
         message: "No hay reservas disponibles en este lapso de tiempo",
@@ -70,16 +74,15 @@ UserRouter.post("/reserva", async (req, res) => {
       const reserva = new Reserva({
         fechaSalida,
         fechaLlegada,
-        info_user: finded._id,
+        info_user: finded.email,
         
        
       });
       await reserva.save()
       
-      await Properties.updateOne(
+      await Propertiestests.updateOne(
         { _id: Prop_id },
-        { $push: { availability:reserva } })
-        console.log(reserva)
+        { $push: { available:reserva } })
 
         await User.updateOne(
           {email: email},
