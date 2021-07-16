@@ -71,12 +71,28 @@ export default function CardComp({_id, name, type, beds, price, image, score, ad
 
   //const [fav, setFav] = React.useState<Array | String>([])
   const [fav, setFav] = useState([])
+  
+
+  useEffect(() => {
+    dispatch()
+
+  }, [])
+
 
   const handleClick = (e) => {
-    console.log('entrando')
-    setFav(fav.push(e.currentTarget.value))
-    console.log(fav)
-  }
+    e.preventDefault();
+    if(state === false) {
+      setFav([fav.concat(e.currentTarget.value)]);
+      setState(true)
+    } else {
+      const result = 
+      setState(false)
+    }
+
+    //console.log("entrando");
+    
+    
+  };
 
 
       return (
