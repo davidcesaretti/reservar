@@ -3,7 +3,9 @@ import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { useParams } from "react-router"
 import { clearDetail, detailHotel } from '../../actions';
-import {Link} from "react-router-dom"
+import {Link} from "react-router-dom";
+import NavBar from "../Nav/Nav2";
+import style from './DetailHotel.module.css';
 
 
 const DetailHotel = () => {
@@ -24,19 +26,41 @@ const DetailHotel = () => {
     } else {
         return (
         <div>
+            <NavBar/>
+            <div className={style.contimg}>
+            <img src={detailhotel[0]?.image} style={{width:600}}alt="No image"/>
+            </div>
+            <div className={style.contnd}>
+            <div className={style.name}>{detailhotel[0]?.name}</div>
+            <h3 className={style.des}>Description</h3>
+            <div className={style.summ}>{detailhotel[0]?.summary}</div>
+            <hr className={style.hr}/>
+            </div>
+            <table className={style.contf}>
+                <tr className={style.contfechas}>
+                    <td className={style.fechas}>Arrival date</td>
+                    <div className={style.hr4}></div>
+                    <td>Departure date</td>
+                </tr>
+                <hr className={style.hr3}/>
+                    <td className={style.travel}>¿How many are traveling?</td>
+                <tr>
+                </tr>
+            </table>
+            <h2 className={style.service}>OUTSTANDING SERVICIE</h2>
+            <div className={style.hr1}></div>
+            <div className={style.hr2}></div>
+           {/*  <div>{detailhotel[0]?.amenities.map((e) => (
+                <div>
+                    {e === "TV" && <LiveTvIcon/> || e === "Air conditioning" && <AcUnitIcon/> || e}
+                </div>
+                
+            ))}
+            </div> */}
             <Link to={'/categories'}>Back</Link>
-            <div>Name {detailhotel[0]?.name}</div>
-            <div>Amenities {detailhotel[0]?.amenities}</div>
-            <div>Summary {detailhotel[0]?.summary}</div>
-            <div>Type {detailhotel[0]?.type}</div>
             <div>Accommodates {detailhotel[0]?.accommodates}</div>
-            <div>Beds {detailhotel[0]?.beds}</div>
-            <div>Bedrooms {detailhotel[0]?.bedrooms}</div>
-            <div>Bathrooms {detailhotel[0]?.bathrooms}</div>
-            <div>Price {detailhotel[0]?.price}</div>
-            <img src={detailhotel[0]?.image} alt="No image"/>
+            <div>Value per night {detailhotel[0]?.price}</div>
             <div>Score {detailhotel[0]?.score}</div>
-            <div>Address {detailhotel[0]?.address}</div>
         </div>
         )}
 
