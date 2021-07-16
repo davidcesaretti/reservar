@@ -85,6 +85,10 @@ export const fetchCardsHotels = (
       : "nada"
   }${price !== undefined ? `price=${price}` : "nada"}&${
     type !== undefined ? `type=${type}` : "nada"
+    // }&${
+    //   type !== undefined ? `type=${type}` : "nada"
+    // }&${
+    //   type !== undefined ? `type=${type}` : "nada"
   }`;
 
   string1 = string1.split(",").join("");
