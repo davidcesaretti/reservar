@@ -65,6 +65,7 @@ router.get("/", (req: Request, res: Response, next: NextFunction) => {
     console.log(fechaLlegada);
 
     Propertiestests.find({
+      _id: "60ee079276aaa54abc311dfc",
       available: {
         $elemMatch: {
           $or: [
@@ -134,7 +135,7 @@ router.get("/properties/:id", async (req: Request, res: Response) => {
 
   try {
     if (idPropiedad) {
-      dataAirbnb.find({ _id: idPropiedad }).then((data) => res.json(data));
+      Properties.find({ _id: idPropiedad }).then((data) => res.json(data));
       return;
     }
   } catch (error) {
