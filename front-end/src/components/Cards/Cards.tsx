@@ -21,6 +21,8 @@ import { fetchCardsHotels } from "../../actions";
 import { hotelsReducer } from "../../reducers/hotels";
 import NavBar from "../Nav/Nav2";
 import { useState } from "react";
+import { truncate } from "fs";
+import Alert from '@material-ui/lab/Alert';
 
 const useStyles = makeStyles((theme) => ({
   icon: {
@@ -73,19 +75,22 @@ export default function Album() {
 
   const [fav, setFav] = useState([]);
 
+  const click = () => {
+    return <Alert severity="error">Favorito eliminado</Alert>
+  }
+
   const handleClick = (e) => {
     e.preventDefault();
     if (fav.includes(e.currentTarget.value)) {
       setFav(fav.filter((x) => x !== e.currentTarget.value));
-    } else setFav(fav.concat(e.currentTarget.value));
+      
+    } else {
+      setFav(fav.concat(e.currentTarget.value));
+      click();
+    }
 
-    //console.log("entrando");
-  };
-  const checkear = (e) => {
-    console.log(fav);
   };
 
-  console.log(cards.posts);
 
   return (
     <React.Fragment>
@@ -124,7 +129,6 @@ export default function Album() {
         <Footer />
         {/* End footer */}
       </div>
-      <button onClick={checkear}>Show state</button>
     </React.Fragment>
   );
 }
