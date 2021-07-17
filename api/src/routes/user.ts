@@ -92,11 +92,12 @@ UserRouter.post("/reserva", async (req, res) => {
 
 UserRouter.put("/favorites", async (req, res) => {
   const { email, favorites } = req.body;
-  const fav = await User.updateOne(
-    { email: email },
-    { $push: { favorites: favorites } }
+  const user = await User.findOne({ email: email });
+  const favfilter = favorites?.concat(
+    user.favorites.filter((item) => favorites.indexOf(item) < 0)
   );
-  console.log(email, favorites);
+  const fav = await User.updateOne({ email: email }, { favorites: favfilter });
+  console.log(email, favfilter);
   res.json(fav);
 });
 
