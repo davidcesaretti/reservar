@@ -60,20 +60,22 @@ export default function Album() {
   const classes = useStyles();
   const cards = useSelector((state: any) => state.cardsHotel);
   const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(
-      fetchCardsHotels(
-        undefined,
-        undefined,
-        undefined,
-        undefined,
-        undefined,
-        undefined
-      )
-    );
-  }, []);
+  // useEffect(() => {
+  //   dispatch(
+  //     fetchCardsHotels(
+  //       undefined,
+  //       undefined,
+  //       undefined,
+  //       undefined,
+  //       undefined,
+  //       undefined,
+  //       undefined,
+  //       undefined
+  //     )
+  //   );
+  // }, []);
 
-  console.log(cards.posts);
+  // console.log(cards.posts);
 
   return (
     <React.Fragment>
