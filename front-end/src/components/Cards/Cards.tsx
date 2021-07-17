@@ -20,6 +20,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchCardsHotels } from "../../actions";
 import { hotelsReducer } from "../../reducers/hotels";
 import NavBar from "../Nav/Nav2";
+import { useState } from "react";
+import { truncate } from "fs";
+import Alert from "@material-ui/lab/Alert";
+import { FlashMessage } from "./flashmsg";
 
 const useStyles = makeStyles((theme) => ({
   icon: {
@@ -77,6 +81,30 @@ export default function Album() {
 
   // console.log(cards.posts);
 
+  const [fav, setFav] = useState([]);
+  const [success, setSuccess] = useState(false);
+  const [message, setMessage] = useState("");
+
+  const resetState = () => {
+    setSuccess(false);
+    setMessage("");
+  };
+
+  const handleClick = (e) => {
+    e.preventDefault();
+    if (fav.includes(e.currentTarget.value)) {
+      setFav(fav.filter((x) => x !== e.currentTarget.value));
+      setMessage("error");
+      setSuccess(true);
+      setTimeout(resetState, 3000);
+    } else {
+      setFav(fav.concat(e.currentTarget.value));
+      setMessage("success");
+      setSuccess(true);
+      setTimeout(resetState, 3000);
+    }
+  };
+
   return (
     <React.Fragment>
       <CssBaseline />
@@ -101,6 +129,7 @@ export default function Album() {
                       accommodates={e.accommodates}
                       beds={e.beds}
                       price={e.price}
+                      click={handleClick}
                     />
                   </Card>
                 </Grid>
@@ -113,6 +142,7 @@ export default function Album() {
         <Footer />
         {/* End footer */}
       </div>
+      {success ? <FlashMessage message={message} /> : ""}
     </React.Fragment>
   );
 }

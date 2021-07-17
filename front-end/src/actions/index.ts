@@ -35,6 +35,10 @@ export interface UserEmail {
   type: ActionTypes.usersLogged;
   payload: string;
 }
+export interface Favourites {
+  type: ActionTypes.addFav;
+  payload: [];
+}
 export interface Credentials {
   username: string;
   password: string;
@@ -166,6 +170,16 @@ export const clearDetail = () => {
   return {
     type: ActionTypes.detailHotel,
     payload: [],
+  };
+};
+
+export const addFavourites = (data) => {
+  return async (dispatch: Dispatch) => {
+    console.log("Dispatch favourites", data);
+    dispatch<Favourites>({
+      type: ActionTypes.addFav,
+      payload: data,
+    });
   };
 };
 
