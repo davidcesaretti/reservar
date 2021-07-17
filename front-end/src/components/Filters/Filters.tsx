@@ -136,23 +136,25 @@ let Categories = [
 //fetchCardsHotels(page, price, amenities, type, accommodates, score);
 export default function CheckboxList() {
   const fechasAnteriores = useSelector((state: any) => state.fechas);
+  const cards = useSelector((state: any) => state.cardsHotel);
   const classes = useStyles();
   const dispatch = useDispatch();
   const [paginado, setPaginado] = useState(1);
-  // useEffect(() => {
-  //   dispatch(
-  //     fetchCardsHotels(
-  //       paginado,
-  //       undefined,
-  //       undefined,
-  //       undefined,
-  //       undefined,
-  //       undefined,
-  //       undefined,
-  //       undefined
-  //     )
-  //   );
-  // }, [paginado]);
+
+  if (cards.length === 0 || cards.posts?.length === 0) {
+    dispatch(
+      fetchCardsHotels(
+        paginado,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined
+      )
+    );
+  }
 
   const [dataFilter, setDataFilter] = useState({
     price: undefined,
