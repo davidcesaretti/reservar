@@ -1,36 +1,73 @@
 import express, { Request, Response, NextFunction, Router } from "express";
 import { User, Reserva } from "../models/Users";
 import { Properties } from "../models/Properties";
+import { Propertiestests } from "../models/propertiestests";
 
 //-------------------------------------------
 
 const UserRouter = Router();
 UserRouter.use(express.json());
-const { SECRET_TOKEN } = process.env;
 
 UserRouter.post("/register", async (req: Request, res: Response) => {
-  const { name, email, photo } = req.body;
-
-  console.log(name, "  NAME BACK");
-
+  const {
+    name,
+    email,
+    phone_number,
+    nationality,
+    identity_document_type,
+    identity_document_number,
+    date_birth,
+    residence_address,
+    city_and_country_of_residence,
+    emergency_contact,
+    emergency_phone_number,
+    relationship,
+    favorites,
+  } = req.body;
   try {
     const emailUser = await User.findOne({ email: email });
     if (emailUser) {
-      res.status(400).send(console.log("El email ya esta en uso"));
-      return;
+      const userUpdate = await User.updateOne(
+        { email: email },
+        {
+          $set: {
+            name,
+            nationality,
+            phone_number,
+            identity_document_type,
+            identity_document_number,
+            date_birth,
+            residence_address,
+            city_and_country_of_residence,
+            emergency_contact,
+            emergency_phone_number,
+            relationship,
+            favorites,
+          },
+        }
+      );
+      res.json(userUpdate);
+    } else {
+      const user = new User({
+        name,
+        email,
+        phone_number,
+        nationality,
+        identity_document_type,
+        identity_document_number,
+        date_birth,
+        residence_address,
+        city_and_country_of_residence,
+        emergency_contact,
+        emergency_phone_number,
+        relationship,
+        favorites,
+      });
+      await user.save();
+      return res.json(user);
     }
-    const user = new User({
-      name,
-      email,
-      photo,
-    });
-    await user.save();
-    console.log(user, "   USER BACK");
-    res.json(user);
-    return;
   } catch (err) {
-    res.send(err);
-    return;
+    res.json(err);
   }
 });
 
@@ -39,23 +76,27 @@ UserRouter.post("/reserva", async (req, res) => {
 
   const finded = await User.findOne({ email: email });
   try {
-    const reservaFind = await Reserva.find({
-      $or: [
-        {
-          fechaSalida: {
-            $gte: new Date(fechaSalida),
-            $lte: new Date(fechaLlegada),
-          },
+    const reservaFind = await Propertiestests.find({
+      _id: Prop_id,
+      available: {
+        $elemMatch: {
+          $or: [
+            {
+              fechaSalida: {
+                $gte: new Date(fechaSalida),
+                $lte: new Date(fechaLlegada),
+              },
+            },
+            {
+              fechaLlegada: {
+                $gte: new Date(fechaSalida),
+                $lte: new Date(fechaLlegada),
+              },
+            },
+          ],
         },
-        {
-          fechaLlegada: {
-            $gte: new Date(fechaSalida),
-            $lte: new Date(fechaLlegada),
-          },
-        },
-      ],
+      },
     });
-
     if (reservaFind.length) {
       res.json({
         message: "No hay reservas disponibles en este lapso de tiempo",
@@ -65,21 +106,20 @@ UserRouter.post("/reserva", async (req, res) => {
       const reserva = new Reserva({
         fechaSalida,
         fechaLlegada,
-        info_user: finded._id,
+        info_user: finded.email,
       });
       await reserva.save();
 
-      await Properties.updateOne(
+      await Propertiestests.updateOne(
         { _id: Prop_id },
-        { $push: { availability: reserva } }
+        { $push: { available: reserva } }
       );
-      console.log(reserva);
 
       await User.updateOne(
         { email: email },
         { $push: { reserveId: reserva._id } }
       );
-      //
+
       res.json({
         message: "reserva exitosa!",
         checkIn: fechaSalida,

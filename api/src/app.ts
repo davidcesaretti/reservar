@@ -7,7 +7,8 @@ import UserRouter from "./routes/user";
 import faker from "faker";
 import { dataAirbnb } from "../db";
 import routes from "./routes/index";
-//import { createdTest } from "../test";
+import { city, createdTest } from "../test";
+import { Cities } from "./models/Cities";
 
 interface error {
   status: number;
@@ -92,10 +93,21 @@ app.get("/", async (req: Request, res: Response) => {
 
 app.get("/test", async (req: Request, res: Response) => {
   // createdTest();
-  dataAirbnb
-    .find({})
-    .limit(100)
-    .then((data) => res.json(data));
+  //city();
+  //   const arrayCities = []
+  //   Cities.find({}).then(data:any=>
+  //   res.json(data)
+  // ))
+  // let array = [];
+  // let arraycities;
+  // Cities.find({})
+  //   .then((data: any) => data.map((x) => array.push(x.name)))
+  //   .then(() => {
+  //     arraycities = new Set(array);
+  //     arraycities = [...arraycities];
+  //     arraycities = arraycities.filter((x) => x.length < 15 && x.length > 1);
+  //     res.json(arraycities);
+  //   });
 });
 
 export default app;
