@@ -62,7 +62,7 @@ export default function Album() {
   const cards = useSelector((state: any) => state.cardsHotel);
   const email = useSelector((state: any) => state.userlogged);
   const dispatch = useDispatch();
-  useEffect(() => {
+  /* useEffect(() => {
     dispatch(
       fetchCardsHotels(
         undefined,
@@ -73,7 +73,7 @@ export default function Album() {
         undefined
       )
     );
-  }, []);
+  }, []);*/
 
   const [fav, setFav] = useState([]);
   const [success, setSuccess] = useState(false);
@@ -95,7 +95,6 @@ export default function Album() {
       setFav(fav.concat(e.currentTarget.value));
       setMessage("success");
       setSuccess(true);
-      dispatch(addFavourites(obje));
       setTimeout(resetState, 3000);
     }
   };
@@ -103,6 +102,9 @@ export default function Album() {
     favos: fav,
     email: email,
   };
+  useEffect(() => {
+    dispatch(addFavourites(obje));
+  }, [obje]);
 
   return (
     <React.Fragment>
