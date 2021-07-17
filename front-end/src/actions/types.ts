@@ -7,6 +7,7 @@ export enum ActionTypes {
   signUser,
   usersLogged,
   detailHotel,
+  addFav,
 }
 
 export type Action = FetchUsersAction;
