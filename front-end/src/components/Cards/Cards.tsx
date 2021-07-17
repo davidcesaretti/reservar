@@ -22,7 +22,8 @@ import { hotelsReducer } from "../../reducers/hotels";
 import NavBar from "../Nav/Nav2";
 import { useState } from "react";
 import { truncate } from "fs";
-import Alert from '@material-ui/lab/Alert';
+import Alert from "@material-ui/lab/Alert";
+import { FlashMessage } from "./flashmsg";
 
 const useStyles = makeStyles((theme) => ({
   icon: {
@@ -74,23 +75,28 @@ export default function Album() {
   }, []);
 
   const [fav, setFav] = useState([]);
+  const [success, setSuccess] = useState(false);
+  const [message, setMessage] = useState("");
 
-  const click = () => {
-    return <Alert severity="error">Favorito eliminado</Alert>
-  }
+  const resetState = () => {
+    setSuccess(false);
+    setMessage("");
+  };
 
   const handleClick = (e) => {
     e.preventDefault();
     if (fav.includes(e.currentTarget.value)) {
       setFav(fav.filter((x) => x !== e.currentTarget.value));
-      
+      setMessage("error");
+      setSuccess(true);
+      setTimeout(resetState, 3000);
     } else {
       setFav(fav.concat(e.currentTarget.value));
-      click();
+      setMessage("success");
+      setSuccess(true);
+      setTimeout(resetState, 3000);
     }
-
   };
-
 
   return (
     <React.Fragment>
@@ -129,6 +135,7 @@ export default function Album() {
         <Footer />
         {/* End footer */}
       </div>
+      {success ? <FlashMessage message={message} /> : ""}
     </React.Fragment>
   );
 }
