@@ -4,6 +4,8 @@ import { useSelector } from 'react-redux';
 import { useParams } from "react-router"
 import { clearDetail, detailHotel } from '../../actions';
 import {Link} from "react-router-dom"
+import Spinner from '../Spinner/Spinner'
+import Error404 from '../Error404/Error404';
 
 
 const DetailHotel = () => {
@@ -18,9 +20,9 @@ const DetailHotel = () => {
     },[dispatch, id])
 
     if(detailhotel === null) {
-        return <h1>Error</h1>
+        return <Error404 />
     } else if(detailhotel.length < 1) {
-        return <h1>Cargando...</h1>
+        return <Spinner />
     } else {
         return (
         <div>
