@@ -14,7 +14,7 @@ export interface StoreState {
   signed: boolean;
   userlogged: string;
   categorieDetail: cardsHotel[];
-  favourites: Favourites[];
+  favourites: Favourites;
 }
 
 export const reducers = combineReducers<StoreState>({
