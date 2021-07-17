@@ -5,33 +5,29 @@ import {Link} from 'react-router-dom'
 import style from './Perfil.module.css'
 import {UserEmailGlobal, updateUser} from '../../actions/index'
 import { useAuth } from "../../firebase/index";
+import Swal from 'sweetalert2'
 
 
 
 const Perfil = () => {
     const auth = useAuth()
+
     const dispatch = useDispatch()
-    
+
     const [info, setInfo] = useState({
         name: '',
         email: '',
-        phone: 0,
+        phone: undefined,
         dcmType: '',
-        dcmNumber: 0,
+        dcmNumber: undefined,
         nationality: '',
         birthday: '',
         adress: '',
         residence: '',
-        emergencyPhone: 0,
+        emergencyPhone: undefined,
         recoveryMail: '',
         civilStatus: ''
     })
-
-    /* const signOut = (e) => {
-        e.preventDefault()
-        dispatch(UserEmailGlobal(''))
-    } */
-
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setInfo({
@@ -94,9 +90,24 @@ const Perfil = () => {
             return
         }
 
-        dispatch(updateUser(info))
+        let email = auth.user.email;
 
-        alert('Your information was updated!')
+        Swal.fire({
+            title: 'Do you want to save the changes?',
+            showDenyButton: true,
+            showCancelButton: true,
+            confirmButtonText: `Save`,
+            denyButtonText: `Don't save`,
+        }).then((result) => {
+            /* Read more about isConfirmed, isDenied below */
+            if (result.isConfirmed) {
+                dispatch(updateUser({...info, userEmail: email}))
+                Swal.fire('Saved!', '', 'success')
+            } else if (result.isDenied) {
+                Swal.fire('Changes are not saved', '', 'info')
+            }
+        })
+
     }
     console.log(auth.user)
     return (
