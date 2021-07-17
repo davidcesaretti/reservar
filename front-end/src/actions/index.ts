@@ -34,6 +34,10 @@ export interface UserEmail {
   type: ActionTypes.usersLogged;
   payload: string;
 }
+export interface Favourites {
+  type: ActionTypes.addFav;
+  payload: [];
+}
 export interface Credentials {
   username: string;
   password: string;
@@ -128,22 +132,32 @@ export const UserEmailGlobal = (data) => {
 
 export const detailHotel = (id) => {
   return async (dispatch: Dispatch) => {
-    const response = await axios.get<cardsHotel[]>(`${url}/filter/properties/${id}`);
+    const response = await axios.get<cardsHotel[]>(
+      `${url}/filter/properties/${id}`
+    );
     dispatch<FetchDetailHotel>({
       type: ActionTypes.detailHotel,
       payload: response.data,
-    })
-  }
-}
+    });
+  };
+};
 
 export const clearDetail = () => {
   return {
-      type: ActionTypes.detailHotel,
-      payload: []
-  } 
-}
+    type: ActionTypes.detailHotel,
+    payload: [],
+  };
+};
 
-
+export const addFavourites = (data) => {
+  return async (dispatch: Dispatch) => {
+    console.log("Dispatch favourites", data);
+    dispatch<Favourites>({
+      type: ActionTypes.addFav,
+      payload: data,
+    });
+  };
+};
 
 // export function deleteUsers(data: any) {
 //   return function (dispatch: Dispatch) {
