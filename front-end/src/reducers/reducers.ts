@@ -1,3 +1,5 @@
+import { Favourites } from "./../actions/index";
+import { favReducer } from "./favReducer";
 import { usersLoggedRed } from "./userlogged";
 import { combineReducers } from "redux";
 import { usersReducer } from "./users";
@@ -14,6 +16,7 @@ export interface StoreState {
   signed: boolean;
   userlogged: string;
   categorieDetail: cardsHotel[];
+  favourites: Favourites;
 }
 
 export const reducers = combineReducers<StoreState>({
@@ -23,6 +26,7 @@ export const reducers = combineReducers<StoreState>({
   signed: signedReducer,
   userlogged: usersLoggedRed,
   categorieDetail: detailReducer,
+  favourites: favReducer,
 });
 
 export default reducers;
