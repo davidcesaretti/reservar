@@ -16,10 +16,12 @@ import Tipos1 from "../../Image/tipos1.jpeg";
 import Tipos2 from "../../Image/tipos2.jpeg";
 import Tipos3 from "../../Image/tipos3.jpeg";
 import Chica from "../../Image/chica.jpeg";
-import { useDispatch } from "react-redux";
-import { fetchCardsHotels } from "../../actions";
+import { useDispatch, useSelector } from "react-redux";
+import { FechasReserva, fetchCardsHotels } from "../../actions";
 import { Calendary } from "../Calendary/Calendary";
 import MenuAppBar from "../Nav/Nav2";
+import { useState } from "react";
+import { Link } from "react-router-dom";
 
 const useStyle = makeStyles({
   containerFilters: {
@@ -73,24 +75,55 @@ const useStyle = makeStyles({
 });
 //fetchCardsHotels(page, price, amenities, type, accommodates, score);
 const Home = () => {
+  const [cities, setCities] = useState(undefined);
+  const [guest, setGuest] = useState(undefined);
+  const fechas = useSelector((state: any) => state.fechas);
+  console.log(fechas);
   const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(fetchCardsHotels("1", "asc", "TV", "Apartment", 4, 0));
-  }, []);
+  // useEffect(() => {
+  //   dispatch(
+  //     fetchCardsHotels(
+  //       "1",
+  //       "asc",
+  //       "TV",
+  //       "Apartment",
+  //       4,
+  //       0,
+  //       undefined,
+  //       undefined
+  //     )
+  //   );
+  // }, []);
 
-  const onClickHandler = () => {
+  // const onClickHandler = () => {
+  //   dispatch(
+  //     fetchCardsHotels(
+  //       undefined,
+  //       undefined,
+  //       undefined,
+  //       undefined,
+  //       undefined,
+  //       undefined,
+  //       undefined,
+  //       undefined
+  //     )
+  //   );
+  // };
+  function busqueda() {
+    dispatch(FechasReserva({ ...fechas, cities, guest }));
     dispatch(
       fetchCardsHotels(
         undefined,
         undefined,
         undefined,
         undefined,
+        guest,
         undefined,
-        undefined
+        cities,
+        fechas
       )
     );
-  };
-
+  }
   const classes = useStyle();
 
   return (
@@ -137,6 +170,7 @@ const Home = () => {
               }}
             >
               <TextField
+                onChange={(e) => setCities(e.target.value)}
                 id=""
                 label="Where are you going?"
                 variant="standard"
@@ -162,6 +196,7 @@ const Home = () => {
               /> */}
               <Calendary />
               <TextField
+                onChange={(e) => setGuest(e.target.value)}
                 id=""
                 label="Guests"
                 variant="standard"
@@ -169,23 +204,24 @@ const Home = () => {
                 margin="none"
                 size="small"
               />
-              <Button
-                variant="contained"
-                color="secondary"
-                size="small"
-                href="/Categories"
-                style={{
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  height: "70%",
-                  alignSelf: "center",
-                  borderRadius: "1em",
-                }}
-                onClick={onClickHandler}
-              >
-                <SearchIcon />
-              </Button>
+              <Link to={"/categories"}>
+                <Button
+                  variant="contained"
+                  color="secondary"
+                  size="small"
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    height: "70%",
+                    alignSelf: "center",
+                    borderRadius: "1em",
+                  }}
+                  onClick={() => busqueda()}
+                >
+                  <SearchIcon />
+                </Button>
+              </Link>
             </FormLabel>
           </FormControl>
         </Grid>
