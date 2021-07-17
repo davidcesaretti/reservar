@@ -4,30 +4,18 @@ import bcrypt from "bcryptjs";
 interface IUser extends Document {
   name: string;
   email: string;
-  photo: string;
+  // photo: string;
+  // reserveId: [Object];
 }
 
 const user = new Schema<IUser>(
   {
-    name: { type: String, required: true },
-    email: { type: String, required: true, unique: true },
-    photo: { type: String, required: true },
-    reserveId: { type: [Object] },
-  },
-  { versionKey: false }
-);
-
-export const User = model<IUser>("User", user);
-
-const userRegistered = new Schema(
-  {
-    name: { type: String, required: true },
-    email: { type: String, required: true, unique: true },
-    phone_number: { type: Number, required: true, unique: true },
-    nationality: { type: String, required: true },
+    name: { type: String },
+    email: { type: String },
+    phone_number: { type: Number },
+    nationality: { type: String },
     identity_document_type: {
       type: String,
-      required: true,
       enum: [
         "Cédula de Identidad",
         "Documento nacional de Identidad",
@@ -35,19 +23,20 @@ const userRegistered = new Schema(
         "Registro de Identidad Civil",
       ],
     },
-    identity_document_number: { type: Number, required: true, unique: true },
-    date_birth: { type: Date, required: true },
-    residence_address: { type: String, required: true },
-    city_and_country_of_residence: { type: String, required: true },
-    emergency_contact: { type: String, required: true },
-    emergency_phone_number: { type: Number, required: true },
+    identity_document_number: { type: Number },
+    date_birth: { type: Date },
+    residence_address: { type: String },
+    city_and_country_of_residence: { type: String },
+    emergency_contact: { type: String },
+    emergency_phone_number: { type: Number },
     relationship: { type: String, enum: ["Family", "Friend"] },
     role: { type: String, enum: ["Traveler", "Host"] },
+    favorites: { type: Array },
+    reserveId: { type: [Object] },
   },
   { versionKey: false }
 );
-
-export const UserRegistered = model("UserRegistered", userRegistered);
+export const User = model<IUser>("User", user);
 
 const reserva = new Schema(
   {
