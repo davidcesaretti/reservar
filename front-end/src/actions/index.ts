@@ -143,6 +143,8 @@ export const clearDetail = () => {
   } 
 }
 
+
+
 // export function deleteUsers(data: any) {
 //   return function (dispatch: Dispatch) {
 //     return fetch(url, {
