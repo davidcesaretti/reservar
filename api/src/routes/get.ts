@@ -8,36 +8,40 @@ import { Propertiestests } from "../models/propertiestests";
 // import config from "../lib/config";
 const router = Router();
 
-router.get("/", (req: Request, res: Response, next: NextFunction) => {
-  let { amenities, price, type } = req.query;
+router.post("/", (req: Request, res: Response, next: NextFunction) => {
+  let { amenities, price, type, city } = req.query;
   let { fechaSalida, fechaLlegada } = req.body;
   const fechaBusqueda = {
     available: {
-      $elemMatch: {
-        $or: [
-          {
-            fechaSalida: {
-              $gte: new Date(fechaSalida),
-              $lte: new Date(fechaLlegada),
+      $not: {
+        $elemMatch: {
+          $or: [
+            {
+              fechaSalida: {
+                $gte: new Date(fechaSalida),
+                $lte: new Date(fechaLlegada),
+              },
             },
-          },
-          {
-            fechaLlegada: {
-              $gte: new Date(fechaSalida),
-              $lte: new Date(fechaLlegada),
+            {
+              fechaLlegada: {
+                $gte: new Date(fechaSalida),
+                $lte: new Date(fechaLlegada),
+              },
             },
-          },
-        ],
+          ],
+        },
       },
     },
   };
+
   if (
     req.query.page ||
     req.query.accommodates ||
     req.query.amenities ||
     req.query.score ||
     req.query.price ||
-    req.query.type
+    req.query.type ||
+    req.query.city
   ) {
     let accommodates: any = req.query.accommodates;
     accommodates ? (accommodates = parseInt(accommodates)) : undefined;
@@ -46,6 +50,7 @@ router.get("/", (req: Request, res: Response, next: NextFunction) => {
 
     let obj = {};
     let array = [
+      { city: city },
       { score: score },
       { amenities: amenities },
       { type: type },
@@ -69,64 +74,24 @@ router.get("/", (req: Request, res: Response, next: NextFunction) => {
 
     console.log(obj);
     if (price) {
-      //Properties.find(obj)
-      Propertiestests.find(obj)
+      //Propertiestests.find(obj)
+      Properties.find(obj)
         .sort({ price: req.query.price })
         .then((data: any) => res.json(paginado(req, res, data)))
         .catch((err) => console.error(err));
       return;
     }
-    // Properties.find(obj)
-    Propertiestests.find(obj)
+    Properties.find(obj)
+      //Propertiestests.find(obj)
       .then((data: any) => res.json(paginado(req, res, data)))
       .catch((err) => console.error(err));
     return;
   }
-  //_________________
+
   if (req.body.fechaSalida && req.body.fechaLlegada) {
-    Propertiestests.find(fechaBusqueda).then((data) => res.json(data));
-    //______________
+    const obj = { ...fechaBusqueda };
+    Propertiestests.find(obj).then((data) => res.json(data));
 
-    // Propertiestests.aggregate([
-    //   {
-    //     $match: {
-    //       available: {
-    //         $or: [
-    //           {
-    //             fechaSalida: {
-    //               $gte: new Date(fechaSalida),
-    //               $lte: new Date(fechaLlegada),
-    //             },
-    //           },
-    //           {
-    //             fechaLlegada: {
-    //               $gte: new Date(fechaSalida),
-    //               $lte: new Date(fechaLlegada),
-    //             },
-    //           },
-    //         ],
-    //       },
-    //     },
-    //   },
-    // ]).then((data) => res.json(data));
-
-    // Reserva.find({
-    //   $or: [
-    //     {
-    //       fechaSalida: {
-    //         $gte: new Date(fechaSalida),
-    //         $lte: new Date(fechaLlegada),
-    //       },
-    //     },
-    //     {
-    //       fechaLlegada: {
-    //         $gte: new Date(fechaSalida),
-    //         $lte: new Date(fechaLlegada),
-    //       },
-    //     },
-    //   ],
-    // }).then((data) => res.json(data));
-    //_________________
     return;
   }
   Properties.find({}).then((data: any) => res.json(paginado(req, res, data)));

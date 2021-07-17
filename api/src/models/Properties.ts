@@ -41,6 +41,9 @@ const properties = new Schema(
     address: {
       type: String,
     },
+    city: {
+      type: String,
+    },
     score: {
       type: Number,
     },
