@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router";
@@ -10,6 +10,11 @@ import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 import Rating from '@material-ui/lab/Rating';
 import Box from '@material-ui/core/Box';
+import LiveTvIcon from '@material-ui/icons/LiveTv';
+import AcUnitIcon from '@material-ui/icons/AcUnit';
+import Service from "../Service/Services";
+import Calendary from "../Calendary/Calendary";
+
 
 const labels = {
   0.5: 'Useless',
@@ -35,8 +40,8 @@ const useStyles = makeStyles({
 const DetailHotel = () => {
   const detailhotel = useSelector((state: any) => state.categorieDetail);
   const dispatch = useDispatch();
-  const [value, setValue] = React.useState(0);
-  const [hover, setHover] = React.useState(-1);
+  const [value, setValue] = useState(0);
+  const [hover, setHover] = useState(-1);
   const classes = useStyles();
   const { id } = useParams();
   useEffect(() => {
@@ -46,6 +51,7 @@ const DetailHotel = () => {
     };
   }, [dispatch, id]);
 
+
   if (detailhotel === null) {
     return <h1>Error</h1>;
   } else if (detailhotel.length < 1) {
@@ -53,11 +59,12 @@ const DetailHotel = () => {
   } else {
     return (
       <div>
+      <div className={style.gridconteiner}>
         <NavBar />
         <div className={style.contimg}>
           <img
             src={detailhotel[0]?.image}
-            style={{ width: 550 }}
+            style={{ width: 650, height:350 }}
             alt="No image"
           />
         </div>
@@ -108,18 +115,20 @@ const DetailHotel = () => {
             </div>
         </div>
         <div>Score {detailhotel[0]?.score}</div>
-        {/* <h2 className={style.service}>OUTSTANDING SERVICIE</h2>
-        <div className={style.hr1}></div>
-        <div className={style.hr2}></div> */}
-        {/*  <div>{detailhotel[0]?.amenities.map((e) => (
-                <div>
-                    {e === "TV" && <LiveTvIcon/> || e === "Air conditioning" && <AcUnitIcon/> || e}
-                </div>
-                
-            ))}
-            </div> */}
+        <div className={style.flex}>
+            <div className={style.flexhijo}>
+                <h2 className={style.service}>OUTSTANDING SERVICIE</h2>
+                <div className={style.hr1}></div>
+                <div className={style.hr2}></div> 
+                <Service amenities={detailhotel[0].amenities}/>
+            </div>
+        </div>
         <Link to={"/categories"}>Back</Link>
-        <div>Accommodates {detailhotel[0]?.accommodates}</div>
+        {/* <div>Accommodates {detailhotel[0]?.accommodates}</div> */}
+      </div>
+      <div>
+        <Calendary/>                    
+      </div>
       </div>
     );
   }
