@@ -134,6 +134,12 @@ const Register = () => {
     }
   }, [userlogged]);
 
+  useEffect(() => {
+    if (userInfo?.email?.length > 2) {
+      dispatch(signUser(userInfo));
+    }
+  }, [userInfo]);
+
   /* console.log(firebase.auth().currentUser) */
 
   const handleClick = () => {
