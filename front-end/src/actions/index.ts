@@ -39,18 +39,18 @@ export interface Credentials {
   password: string;
 }
 export interface userInfo {
-  name: string;
-  email: string;
-  phone: number;
-  dcmType: string;
-  dcmNumber: number;
-  nationality: string;
-  birthday: string;
-  adress: string;
-  residence: string;
-  emergencyPhone: number;
-  recoveryMail: string;
-  civilStatus: string;
+    name: string;
+    email: string;
+    phone: number;
+    dcmType: string;
+    dcmNumber: number;
+    nationality: string;
+    birthday: string;
+    adress: string;
+    residence: string;
+    emergencyPhone: number;
+    recoveryMail: string;
+    civilStatus: string;
 }
 const url = "http://localhost:3001";
 
@@ -149,10 +149,16 @@ export const detailHotel = (id) => {
     })
   }
 }
-export const updateUser = (userInfo) => {
+export const updateUser = (userInfo: object ) => {
   return async (dispatch: Dispatch) => {
-    let data = {
-      
+    try{
+      const updatedUser = await axios.post(
+        "http://localhost:3001/register",
+        userInfo
+      );
+      console.log(userInfo)
+    } catch (e) {
+      console.error(e)
     }
   }
 }

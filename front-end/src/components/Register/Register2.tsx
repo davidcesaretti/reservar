@@ -131,9 +131,9 @@ const Register = () => {
     }
   }, [userlogged]);
 
-  useEffect(() => {
+  /* useEffect(() => {
     dispatch(signUser(userInfo));
-  }, [userInfo]);
+  }, [userInfo]); */
 
   const handleClick = () => {
     firebase.auth().signOut();
