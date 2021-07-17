@@ -4,6 +4,7 @@ import bcrypt from "bcryptjs";
 interface IUser extends Document {
   name: string;
   email: string;
+  favorites: Array<String>;
   // photo: string;
   // reserveId: [Object];
 }
