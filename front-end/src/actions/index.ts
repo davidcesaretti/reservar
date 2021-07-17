@@ -71,7 +71,9 @@ export const fetchCardsHotels = (
   amenities,
   type,
   accommodates,
-  score
+  score,
+  city,
+  fecha
 ) => {
   console.log(amenities);
 
@@ -85,22 +87,34 @@ export const fetchCardsHotels = (
       : "nada"
   }${price !== undefined ? `price=${price}` : "nada"}&${
     type !== undefined ? `type=${type}` : "nada"
-    // }&${
-    //   type !== undefined ? `type=${type}` : "nada"
-    // }&${
-    //   type !== undefined ? `type=${type}` : "nada"
-  }`;
+  }&${city !== undefined ? `city=${city}` : "nada"}`;
 
   string1 = string1.split(",").join("");
 
   return async (dispatch: Dispatch) => {
-    const response = await axios.get<cardsHotel[]>(url + string1);
+    const response = await axios.post<cardsHotel[]>(url + string1, fecha);
     dispatch<FetchCardsHotelAction>({
       type: ActionTypes.fetchCardsHotels,
       payload: response.data,
     });
   };
 };
+export function postRaza(data) {
+  return function (dispatch) {
+    return fetch("https://dogs-breeds-jesus.herokuapp.com/dog", {
+      method: "POST",
+      body: JSON.stringify(data),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .catch((error) => console.error("Error:", error))
+      .then((json) => {
+        dispatch({ type: "POST_RAZA", payload: json });
+      });
+  };
+}
 export const signUser = (data) => {
   return async (dispatch: Dispatch) => {
     console.log("action " + data);

@@ -98,16 +98,16 @@ app.get("/test", async (req: Request, res: Response) => {
   //   Cities.find({}).then(data:any=>
   //   res.json(data)
   // ))
-  let array = [];
-  let arraycities;
-  Cities.find({})
-    .then((data: any) => data.map((x) => array.push(x.name)))
-    .then(() => {
-      arraycities = new Set(array);
-      arraycities = [...arraycities];
-      arraycities = arraycities.filter((x) => x.length < 15 && x.length > 1);
-      res.json(arraycities);
-    });
+  // let array = [];
+  // let arraycities;
+  // Cities.find({})
+  //   .then((data: any) => data.map((x) => array.push(x.name)))
+  //   .then(() => {
+  //     arraycities = new Set(array);
+  //     arraycities = [...arraycities];
+  //     arraycities = arraycities.filter((x) => x.length < 15 && x.length > 1);
+  //     res.json(arraycities);
+  //   });
 });
 
 export default app;

@@ -13,7 +13,7 @@ import Checkbox, { CheckboxProps } from "@material-ui/core/Checkbox";
 import ExpandLessIcon from "@material-ui/icons/ExpandLess";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { fetchCardsHotels } from "../../actions";
 import { useState } from "react";
 import FormControl from "@material-ui/core/FormControl";
@@ -135,21 +135,24 @@ let Categories = [
 ];
 //fetchCardsHotels(page, price, amenities, type, accommodates, score);
 export default function CheckboxList() {
+  const fechasAnteriores = useSelector((state: any) => state.fechas);
   const classes = useStyles();
   const dispatch = useDispatch();
   const [paginado, setPaginado] = useState(1);
-  useEffect(() => {
-    dispatch(
-      fetchCardsHotels(
-        paginado,
-        undefined,
-        undefined,
-        undefined,
-        undefined,
-        undefined
-      )
-    );
-  }, [paginado]);
+  // useEffect(() => {
+  //   dispatch(
+  //     fetchCardsHotels(
+  //       paginado,
+  //       undefined,
+  //       undefined,
+  //       undefined,
+  //       undefined,
+  //       undefined,
+  //       undefined,
+  //       undefined
+  //     )
+  //   );
+  // }, [paginado]);
 
   const [dataFilter, setDataFilter] = useState({
     price: undefined,
@@ -235,7 +238,9 @@ export default function CheckboxList() {
         dataFilter.amenities,
         dataFilter.type,
         dataFilter.accommodates,
-        dataFilter.score
+        dataFilter.score,
+        fechasAnteriores.cities,
+        undefined
       )
     );
 
