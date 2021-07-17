@@ -72,7 +72,7 @@ export default function Album() {
   //   );
   // }, []);
 
-  console.log(cards.posts);
+  // console.log(cards.posts);
 
   return (
     <React.Fragment>
