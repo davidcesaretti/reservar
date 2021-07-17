@@ -10,7 +10,6 @@ const UserRouter = Router();
 UserRouter.use(express.json());
 const { SECRET_TOKEN } = process.env;
 
-
 UserRouter.post("/register", async (req: Request, res: Response) => {
   const { name, email, photo } = req.body;
 
@@ -25,7 +24,6 @@ UserRouter.post("/register", async (req: Request, res: Response) => {
       name,
       email,
       photo,
-  
     });
     await user.save();
     console.log(user, "   USER BACK");
@@ -35,13 +33,10 @@ UserRouter.post("/register", async (req: Request, res: Response) => {
   }
 });
 
-
-
-
 UserRouter.post("/reserva", async (req, res) => {
-  const { fechaSalida,  fechaLlegada, email,Prop_id} = req.body;
+  const { fechaSalida, fechaLlegada, email, Prop_id } = req.body;
 
-  const finded = await User.findOne({ email:email });
+  const finded = await User.findOne({ email: email });
   try {
     const reservaFind = await Reserva.find({
       $or: [
@@ -59,38 +54,50 @@ UserRouter.post("/reserva", async (req, res) => {
         },
       ],
     });
-    
+
     if (reservaFind.length) {
       res.json({
         message: "No hay reservas disponibles en este lapso de tiempo",
-        fechasOcupadas: reservaFind
+        fechasOcupadas: reservaFind,
       });
     } else {
-    
       const reserva = new Reserva({
         fechaSalida,
         fechaLlegada,
         info_user: finded._id,
-        
-       
       });
-      await reserva.save()
-      
+      await reserva.save();
+
       await Properties.updateOne(
         { _id: Prop_id },
-        { $push: { availability:reserva } })
-        console.log(reserva)
+        { $push: { availability: reserva } }
+      );
+      console.log(reserva);
 
-        await User.updateOne(
-          {email: email},
-          {$push:{reserveId: reserva._id }}
-          )
-          // 
-      res.json({message:"reserva exitosa!", checkIn:fechaSalida, checkOut: fechaLlegada});
+      await User.updateOne(
+        { email: email },
+        { $push: { reserveId: reserva._id } }
+      );
+      //
+      res.json({
+        message: "reserva exitosa!",
+        checkIn: fechaSalida,
+        checkOut: fechaLlegada,
+      });
     }
   } catch (err) {
     res.send(err);
   }
+});
+
+UserRouter.put("/favorites", async (req, res) => {
+  const { email, favorites } = req.body;
+  const fav = await User.updateOne(
+    { email: email },
+    { $push: { favorites: favorites } }
+  );
+  console.log(email, favorites);
+  res.json(fav);
 });
 
 // UserRouter.get("/test", async (req: Request, res: Response) => {
@@ -105,6 +112,5 @@ UserRouter.post("/reserva", async (req, res) => {
 //       },
 //     ]).then((data) => res.json(data));
 //   }
-
 
 export default UserRouter;

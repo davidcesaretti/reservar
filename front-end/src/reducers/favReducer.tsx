@@ -1,7 +1,7 @@
-import { Favourites } from "../actions/index";
+import { Favourites } from "../actions";
 import { ActionTypes } from "../actions/types";
 
-export const favReducer = (state: [], action: Favourites) => {
+export const favReducer = (state: Object = {}, action: Favourites) => {
   switch (action.type) {
     case ActionTypes.addFav:
       console.log("entro fav");

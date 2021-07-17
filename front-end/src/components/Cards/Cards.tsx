@@ -17,7 +17,7 @@ import CardComp from "../CardComp/CardComp";
 import Footer from "../Footer/Footer";
 import CheckboxList from "../Filters/Filters";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchCardsHotels } from "../../actions";
+import { addFavourites, fetchCardsHotels } from "../../actions";
 import { hotelsReducer } from "../../reducers/hotels";
 import NavBar from "../Nav/Nav2";
 import { useState } from "react";
@@ -60,6 +60,7 @@ const useStyles = makeStyles((theme) => ({
 export default function Album() {
   const classes = useStyles();
   const cards = useSelector((state: any) => state.cardsHotel);
+  const email = useSelector((state: any) => state.userlogged);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(
@@ -94,8 +95,13 @@ export default function Album() {
       setFav(fav.concat(e.currentTarget.value));
       setMessage("success");
       setSuccess(true);
+      dispatch(addFavourites(obje));
       setTimeout(resetState, 3000);
     }
+  };
+  const obje = {
+    favos: fav,
+    email: email,
   };
 
   return (

@@ -36,7 +36,7 @@ export interface UserEmail {
 }
 export interface Favourites {
   type: ActionTypes.addFav;
-  payload: [];
+  payload: any;
 }
 export interface Credentials {
   username: string;
@@ -152,10 +152,15 @@ export const clearDetail = () => {
 export const addFavourites = (data) => {
   return async (dispatch: Dispatch) => {
     console.log("Dispatch favourites", data);
+    let favs = {
+      favorites: data.favos,
+      email: data.email,
+    };
     dispatch<Favourites>({
       type: ActionTypes.addFav,
       payload: data,
     });
+    const newFavs = await axios.put("http://localhost:3001/favorites", favs);
   };
 };
 
