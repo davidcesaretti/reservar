@@ -254,12 +254,37 @@ export default function CheckboxList() {
     // if (pagination.page > 2 && pagination.page !== undefined) {
 
     setPaginado(paginado - 1);
-
+    dispatch(
+      //fetchCardsHotels(page, price, amenities, type, accommodates, score);
+      fetchCardsHotels(
+        paginado,
+        dataFilter.price,
+        dataFilter.amenities,
+        dataFilter.type,
+        dataFilter.accommodates,
+        dataFilter.score,
+        fechasAnteriores.cities,
+        undefined
+      )
+    );
     //}
   };
 
   const onNext = (e) => {
     setPaginado(paginado + 1);
+    dispatch(
+      //fetchCardsHotels(page, price, amenities, type, accommodates, score);
+      fetchCardsHotels(
+        paginado,
+        dataFilter.price,
+        dataFilter.amenities,
+        dataFilter.type,
+        dataFilter.accommodates,
+        dataFilter.score,
+        fechasAnteriores.cities,
+        undefined
+      )
+    );
   };
 
   return (
