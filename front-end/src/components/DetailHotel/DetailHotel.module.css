@@ -3,6 +3,7 @@
   justify-content: center;
   padding: 5%;
   margin-left: 45%;
+  margin-bottom: 5%;
 }
 .contnd {
   margin-top: -34%;
@@ -24,6 +25,7 @@
   font-weight: 500;
   margin-right: 56%;
   font-family: "Roboto";
+  position:static;
 }
 .hr {
   margin-left: 4%;
@@ -134,8 +136,16 @@
   font-family: "Roboto";
 }
 .slice{
-  display: grid;
-  grid-template-columns: 1rf 1rf;
-  grid-template-rows: 1rf 1rf;
-  margin-left: 30rem;
+  position: absolute;
+  margin-top: -10rem;
+  margin-left: 50rem;
+  column-count: 2;
+  text-align: justify;
+  column-gap: 3em;
+  column-rule: 3px inset rgba(0, 0, 0, 1);
+  
+}
+.flex{
+  position: static;
+  padding-top: 5%;
 }

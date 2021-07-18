@@ -125,7 +125,7 @@ const [open, setOpen] = useState(false);
         <div className={style.contimg}>
           <img
             src={detailhotel[0]?.image}
-            style={{ width: 650, height:350 }}
+            style={{ width: 650, height:350}}
             alt="No image"
           />
         </div>

@@ -68,7 +68,7 @@ export default function CardComp({_id, name, type, beds, price, image, score, ad
   const classes = useStyles();
   
       return (
-        <Link to={`/categories/${_id}`}>
+        <Link style={{textDecoration: "none"}}to={`/categories/${_id}`}>
       <Card className={classes.root}>
       <CardActionArea>
         <CardMedia
