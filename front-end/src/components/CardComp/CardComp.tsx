@@ -11,29 +11,22 @@ import Collapse from "@material-ui/core/Collapse";
 import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
-import { red } from "@material-ui/core/colors";
+
 import FavoriteIcon from "@material-ui/icons/Favorite";
-import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
-import ShareIcon from "@material-ui/icons/Share";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import MoreVertIcon from "@material-ui/icons/MoreVert";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchUsers } from "../../actions/index";
+
+import { useSelector } from "react-redux";
 
 import ApartmentIcon from "@material-ui/icons/Apartment";
 import StarBorderIcon from "@material-ui/icons/StarBorder";
 import AddLocationIcon from "@material-ui/icons/AddLocation";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
-import AirlineSeatIndividualSuiteIcon from "@material-ui/icons/AirlineSeatIndividualSuite";
+
 import HotelIcon from "@material-ui/icons/Hotel";
 import MonetizationOnIcon from "@material-ui/icons/MonetizationOn";
 import { Link } from "react-router-dom";
-import { isTypeOfExpression } from "typescript";
 
 // import { RootState } from '../../store';
 
-
- 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
@@ -85,9 +78,8 @@ export default function CardComp({
 }) {
   const classes = useStyles();
 
-  const [fav, setFav] = useState(false)
+  const [fav, setFav] = useState(false);
   const favs = useSelector((state: any) => state.favourites);
-
 
   // const handleClick =(e) => {
   //   e.preventDefault();
@@ -96,22 +88,19 @@ export default function CardComp({
   //   }
   // }
   useEffect(() => {
-    if (favs.favos.includes(_id)){
-      setFav(!fav)
-
+    if (favs?.favos?.includes(_id)) {
+      setFav(!fav);
     }
-  }, [favs])
-
-
+  }, [favs]);
+  // {fav ? classes.iconfavclicked : classes.iconfav}
   return (
     <Card className={classes.root}>
       <CardActionArea>
         <CardMedia className={classes.media} image={image} title="Room Deluxe">
           <IconButton
             aria-label="add to favorites"
-            className={ fav? classes.iconfavclicked : classes.iconfav}
+            className={classes.iconfav}
             onClick={click}
-
             value={_id}
           >
             <FavoriteIcon />
