@@ -10,6 +10,8 @@ import Autocomplete from '@material-ui/lab/Autocomplete';
 
 const useStyles = makeStyles((theme) => ({
 
+
+
   dator:{
         color: "#000000",
         border:"inherent",
@@ -122,8 +124,8 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexWrap:'wrap',
     width:50,
-    height:30,
-    marginLeft:45,
+    height:50,
+    marginLeft:5,
     marginTop:10,
     marginBottom:0,
  
@@ -151,7 +153,14 @@ const useStyles = makeStyles((theme) => ({
     width:400,
     height:200,
     marginTop:20,
-  }
+  },
+  option: {
+    fontSize: 14,
+    '& > span': {
+      marginRight: 5,
+      fontSize: 15,
+    },
+  },
 
 }));
 
@@ -164,19 +173,10 @@ function countryToFlag(isoCode: string) {
     : isoCode;
 }
 
-const useStylesPais = makeStyles({
-  option: {
-    fontSize: 15,
-    '& > span': {
-      marginRight: 10,
-      fontSize: 18,
-    },
-  },
-});
-
 
 export default function PaymentForm() {
   const classes = useStyles();
+
   return (
     <React.Fragment>
       <Conteiner className={classes.nav}>
@@ -212,7 +212,35 @@ export default function PaymentForm() {
           <Paper elevation={0} className={classes.textN}>Telefono movil</Paper>
         </Grid>
         <Grid item xs={3}>
-        <TextField id="codigo"  size="small" variant="outlined" className={classes.textCod}/>
+        <Autocomplete
+      id="country-select-demo"
+      style={{ width: 300 }}
+      options={countries as CountryType[]}
+      classes={{
+        option: classes.option,
+      }}
+      autoHighlight
+      getOptionLabel={(option) => option.phone}
+      renderOption={(option) => (
+        <React.Fragment>
+          <span>{countryToFlag(option.code)}</span>
+          {option.phone}
+        </React.Fragment>
+      )}
+      renderInput={(params) => (
+        <TextField
+          {...params}
+          label="Country"
+          variant="outlined"
+          size="small"
+          className={classes.textCod}
+          inputProps={{
+            ...params.inputProps,
+            autoComplete: 'new-password', // disable autocomplete and autofill
+          }}
+        />
+      )}
+    />
         </Grid>
         <Grid item xs={3}>
         <TextField id="telefono"  size="small" variant="outlined" className={classes.textTel}/>
