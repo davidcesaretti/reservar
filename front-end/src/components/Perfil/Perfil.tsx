@@ -121,7 +121,7 @@ const Perfil = () => {
                         <div className={style.buttonsNavBar}>
                             <Link to="/" className={style.navButton1}>Home</Link>
                             <div className={style.line}></div>
-                            <Link to="/" className={style.navButton}>Categories</Link>
+                            <Link to="/categories" className={style.navButton}>Categories</Link>
                         </div>
                     </div>
                     <div className={style.separator}></div>
