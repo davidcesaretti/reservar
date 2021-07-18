@@ -1,4 +1,5 @@
-import { Favourites } from "./../actions/index";
+import { booleanoRed } from "./booleano";
+import { Favourites, Booleano } from "./../actions/index";
 import { favReducer } from "./favReducer";
 import { usersLoggedRed } from "./userlogged";
 import { combineReducers } from "redux";
@@ -17,6 +18,7 @@ export interface StoreState {
   userlogged: string;
   categorieDetail: cardsHotel[];
   favourites: Favourites;
+  booleanState: boolean;
 }
 
 export const reducers = combineReducers<StoreState>({
@@ -27,6 +29,7 @@ export const reducers = combineReducers<StoreState>({
   userlogged: usersLoggedRed,
   categorieDetail: detailReducer,
   favourites: favReducer,
+  booleanState: booleanoRed,
 });
 
 export default reducers;
