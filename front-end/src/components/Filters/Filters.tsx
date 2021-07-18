@@ -141,7 +141,7 @@ export default function CheckboxList() {
   const dispatch = useDispatch();
   const [paginado, setPaginado] = useState(1);
 
-  if (cards.length === 0 || cards.posts?.length === 0) {
+  if (!cards.page) {
     dispatch(
       fetchCardsHotels(
         paginado,
