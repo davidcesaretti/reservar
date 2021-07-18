@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {storage} from '../../firebase/index'
 import {Link} from 'react-router-dom'
-import style from './Perfil.module.css'
+import style from './UpdateProfile.module.css'
 import {UserEmailGlobal, updateUser} from '../../actions/index'
 import { useAuth } from "../../firebase/index";
 import Swal from 'sweetalert2'
@@ -111,36 +111,7 @@ const Perfil = () => {
     }
     return (
         <div>
-            <div className={style.navBar}>
-                <div >
-                    <img className={style.picture} src={auth.user.photoURL} alt="profile"/>
-                </div>
-                <div className={style.menu}>
-                    <div className={style.title}>
-                        <h4 className={style.bienvenida}>Bienvenido {auth.user.displayName}</h4>
-                        <div className={style.buttonsNavBar}>
-                            <Link to="/" className={style.navButton1}>Home</Link>
-                            <div className={style.line}></div>
-                            <Link to="/categories" className={style.navButton}>Categories</Link>
-                        </div>
-                    </div>
-                    <div className={style.separator}></div>
-                    <nav className={style.options}>
-                            <Link to="/perfil" className={style.option}>Edit Profile</Link>
-                            <div className={style.line}></div>
-                            <Link to="/booking" className={style.option}>My Bookings</Link>
-                            <div className={style.line}></div>
-                            <Link to="/favourites" className={style.option}>Favourites</Link>
-                            <div className={style.line}></div>
-                            <Link to="/travels" className={style.option}>History of travels</Link>
-                            <div className={style.line}></div>
-                            <Link to="/privacity" className={style.option}>Privacity</Link>
-                            <div className={style.line}></div>
-                            <button className={style.buttonOption} onClick={() => auth.signout()}>Signout</button>
-                            
-                    </nav>
-                </div>
-            </div>
+            
             <h2 className={style.header}>My Profile</h2>
             <form 
                 className={style.ctn}
@@ -277,9 +248,6 @@ const Perfil = () => {
                 </button>
             </div>
             </form>
-            <div className={style.footer}>
-                <p className={style.infoFooter}>COPYRIGHT 2021</p>
-            </div>
         </div>
     )
 

@@ -1,0 +1,71 @@
+.header{
+    text-align: center;
+    font-size: 2em;
+}
+.ctn {
+    height:500px;
+    display:flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    padding-left: 3em;
+    padding-right: 3em;
+}
+.field{
+    display:flex;
+    flex-direction: column;
+    padding-left: 4em;
+    padding-right: 4em;
+    margin-left: 2em;
+    margin-right:2em;
+    width:15em;
+}
+.nameField{
+    padding-bottom:1em;
+}
+.inputField{
+    height: 25px;
+    border-radius: 4px;
+    padding-left: 10px;
+}
+.ctnUpdate{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
+.update{
+    width: 8em;
+    height: 3em;
+    background: #B2B451;
+    border: 1px solid #000000;
+    box-sizing: border-box;
+    border-radius: 10px;
+    text-align: center;
+    color: #FFF;
+    padding: 1em;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1em;
+    margin-bottom: 3em;
+    cursor: pointer;
+}
+.update:hover{
+    background:rgb(88, 114, 43)
+}
+.footer {
+    position: relative;
+    height: 1.5em;
+    background: rgba(48, 58, 31, 0.85);
+    width: 101.09%;
+    bottom: -0.5em;
+    left: -0.5em;
+    right: -0.5em;
+    padding-top: 1.5em;
+    padding-bottom: 1.5em;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+}
+.infoFooter {
+    color: #FFF;
+
+}
