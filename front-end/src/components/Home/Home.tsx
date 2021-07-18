@@ -126,8 +126,6 @@ const Home = () => {
   }
   const classes = useStyle();
 
- 
-
   return (
     <div>
       <Grid container justifyContent="center" spacing={5}>
@@ -362,7 +360,6 @@ const Home = () => {
           <Footer />
         </Grid>
       </Grid>
-      
     </div>
   );
 };

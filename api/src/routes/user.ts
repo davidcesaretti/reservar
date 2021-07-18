@@ -3,7 +3,6 @@ import { User, Reserva } from "../models/Users";
 import { Properties } from "../models/Properties";
 import { Propertiestests } from "../models/propertiestests";
 
-
 //-------------------------------------------
 
 const UserRouter = Router();
@@ -27,7 +26,7 @@ UserRouter.post("/register", async (req: Request, res: Response) => {
   } = req.body;
   try {
     const emailUser = await User.findOne({ email: email });
-    if (emailUser) {
+    if (emailUser && email.length < 0) {
       res.json("el email ya esta en uso");
     } else {
       const user = new User({
@@ -52,9 +51,6 @@ UserRouter.post("/register", async (req: Request, res: Response) => {
     res.json(err);
   }
 });
-
-
-
 
 /* UserRouter.post("/reserva", async (req, res) => {
   const { fechaSalida,  fechaLlegada, email,Prop_id} = req.body;
@@ -118,15 +114,14 @@ UserRouter.post("/register", async (req: Request, res: Response) => {
   }
 }); */
 
-
-UserRouter.put("/favorites", async (req, res)=> {
-  const {email , favorites} = req.body
+UserRouter.put("/favorites", async (req, res) => {
+  const { email, favorites } = req.body;
   const fav = await User.updateOne(
-    {email: email},
-  { $push: { favorites: favorites } },
-  )
-  res.json(fav)
-})
+    { email: email },
+    { $push: { favorites: favorites } }
+  );
+  res.json(fav);
+});
 
 UserRouter.put("/favorites", async (req, res) => {
   try {
@@ -135,11 +130,10 @@ UserRouter.put("/favorites", async (req, res) => {
     // const favfilter = favorites?.concat(
     //   user.favorites.filter((item) => favorites.indexOf(item) < 0)
     // )
-    await User.updateOne({ email: email },{ favorites: favorites });
+    await User.updateOne({ email: email }, { favorites: favorites });
 
     console.log(email);
     res.json(favorites);
-
   } catch (error) {
     res.send(error);
   }
@@ -157,6 +151,5 @@ UserRouter.put("/favorites", async (req, res) => {
 //       },
 //     ]).then((data) => res.json(data));
 //   }
-
 
 export default UserRouter;

@@ -88,8 +88,8 @@ const Register = () => {
 
   const [logged, setLogged] = useState(false);
   const dispatch = useDispatch();
-  /*let signed = useSelector((state: any) => state.signed);
-    console.log('hol '+ signed) */
+  let signed = useSelector((state: any) => state.signed);
+  console.log("hol " + signed);
 
   const uiConfig = {
     signInFlow: "popup",
@@ -101,16 +101,17 @@ const Register = () => {
     callbacks: {},
   };
 
-  useEffect(() => {
+  /* useEffect(() => {
     firebase.auth().onAuthStateChanged((user) => {
       setSignedIn(!!user);
     });
   }, [dispatch]);
 
-  /* firebase.auth().currentUser && setLogged(true)
+   firebase.auth().currentUser && setLogged(true)  
     logged && setUserInfo(firebase.auth().currentUser)
     logged && dispatch(signUser(userInfo))
     setLogged(false) */
+
   let userlogged = firebase.auth().currentUser;
 
   const [userInfo, setUserInfo] = useState({
@@ -127,9 +128,9 @@ const Register = () => {
       photo: userlogged?.photoURL,
     });
     if (userlogged?.email.length > 2) {
-      dispatch(UserEmailGlobal(userlogged?.email));
+      dispatch(signUser(userInfo));
     }
-  }, [userlogged]);
+  }, [userInfo]);
 
   /* useEffect(() => {
     dispatch(signUser(userInfo));
