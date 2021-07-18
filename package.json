@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "@sweetalert/with-react": "^0.1.1",
+    "react-firebase-hooks": "^3.0.4",
+    "sweetalert": "^2.1.2",
+    "sweetalert2": "^11.0.18"
+  }
+}
