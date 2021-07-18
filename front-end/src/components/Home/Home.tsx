@@ -126,9 +126,7 @@ const Home = () => {
   }
   const classes = useStyle();
 
-  let changeBoolean = () => {
-    dispatch(setBoolean(true));
-  };
+ 
 
   return (
     <div>
@@ -364,7 +362,7 @@ const Home = () => {
           <Footer />
         </Grid>
       </Grid>
-      <button onClick={changeBoolean}>cHECK BOOLEAN</button>
+      
     </div>
   );
 };
