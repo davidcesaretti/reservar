@@ -4,13 +4,15 @@ import bcrypt from "bcryptjs";
 interface IUser extends Document {
   name: string;
   email: string;
+  favorites: Array<String>;
   // photo: string;
   // reserveId: [Object];
+
 }
 
 const user = new Schema<IUser>(
   {
-    name: { type: String },
+    name: { type: String  },
     email: { type: String },
     phone_number: { type: Number },
     nationality: { type: String },
@@ -31,12 +33,14 @@ const user = new Schema<IUser>(
     emergency_phone_number: { type: Number },
     relationship: { type: String, enum: ["Family", "Friend"] },
     role: { type: String, enum: ["Traveler", "Host"] },
-    favorites: { type: Array },
+    favorites: { type: [] },
     reserveId: { type: [Object] },
+    alternative_email: {type: String}
   },
   { versionKey: false }
 );
 export const User = model<IUser>("User", user);
+
 
 const reserva = new Schema(
   {
