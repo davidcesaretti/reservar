@@ -158,7 +158,7 @@ export default function Reserva({price,fechaLlegada,fechaSalida,huespedes}){
           <Paper elevation={0} className={classes.paper2R}>{fechaL}</Paper>  
         </Grid>
         <Grid item xs={6}>
-          <Paper elevation={0} className={classes.paper2R}>{fechaL}</Paper>
+          <Paper elevation={0} className={classes.paper2R}>{fechaS}</Paper>
         </Grid>
         </Grid>
         <Paper elevation={0} className={classes.paper2R}>_______________________________________________</Paper>
