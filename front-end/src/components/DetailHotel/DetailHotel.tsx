@@ -21,20 +21,6 @@ import Footer from "../Footer/Footer";
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
 
-
-const labels = {
-  0.5: 'Useless',
-  1: 'Useless+',
-  1.5: 'Poor',
-  2: 'Poor+',
-  2.5: 'Ok',
-  3: 'Ok+',
-  3.5: 'Good',
-  4: 'Good+',
-  4.5: 'Excellent',
-  5: 'Excellent+',
-};
-
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
@@ -69,6 +55,16 @@ const useStyles = makeStyles((theme: Theme) =>
       margin: "1rem",
       fontSize: "12px"
     },
+    calen: {
+      boxShadow: theme.shadows[5],
+      marginRight:"10px", 
+      marginLeft:"10px",
+    },
+    star: {
+      position: "absolute",
+      marginTop: "-8rem",
+      padding: "10%"
+    }
   }),
 );
 
@@ -81,9 +77,7 @@ const DetailHotel = () => {
 
   var hora = new Date()
   const [arrivalDate, setArrivalDate] = React.useState<Date | String>(new Date(hora).toISOString());
-  const [departureDate, setdepartureDate] = React.useState<Date | String>(
-    new Date(hora).toISOString()
-  );
+  const [departureDate, setdepartureDate] = React.useState<Date | String>(new Date(hora).toISOString());
 
   const handleDateChange = (date: Date) => {
     setArrivalDate(new Date(date).toISOString());
@@ -97,7 +91,7 @@ const DetailHotel = () => {
 function disableDates(date:Date) {
   return date.getDate() === 15 || date.getDate() === 16 || date.getDate() === 17 || date.getDate() === 18
 }
-var i = [0,1,2,3];
+
 const [open, setOpen] = useState(false);
 
   const handleOpen = () => {
@@ -125,7 +119,8 @@ const [open, setOpen] = useState(false);
   } else {
     return (
       <div>
-      <div className={style.gridconteiner}>
+        <div className={style.gridconteiner}>
+      <div>
         <NavBar />
         <div className={style.contimg}>
           <img
@@ -169,6 +164,7 @@ const [open, setOpen] = useState(false);
             <Rating
                 name="hover-feedback"
                 value={value}
+                className={classes.star}
                 precision={0.5}
                 onChange={(event, newValue) => {
                     setValue(newValue);
@@ -177,23 +173,22 @@ const [open, setOpen] = useState(false);
                     setHover(newHover);
                 }}
                 />
-                {value !== null && <Box ml={2}>{labels[hover !== -1 ? hover : value]}</Box>}
             </div>
         </div>
-        <div>Score {detailhotel[0]?.score}</div>
+        {/* <div className={style.score}>Score {detailhotel[0]?.score}</div> */}
         <div className={style.flex}>
             <div className={style.flexhijo}>
-                <h2 className={style.service}>OUTSTANDING SERVICIE</h2>
+                <h2 className={style.service}>OUTSTANDING SERVICES</h2>
                   <Button className={classes.buton}
                   onClick={() => handleOpen()}>
                     See all
                   </Button>
             </div>
-                  <div>
-                      {/* <Service amenities={detailhotel[0]?.amenities}/> */}
+                  <div className={style.slice}>
+                      <Service amenities={detailhotel[0]?.amenities.slice(0,4)}/>
                   </div>
                 <div className={style.hr1}></div>
-                <div className={style.hr2}></div> 
+                <div className={style.hr3}></div> 
                 <div>
                   <Modal
                   className={classes.modal}
@@ -213,6 +208,7 @@ const [open, setOpen] = useState(false);
               </Modal>
             </div>
         </div>
+        </div>
         {/* <div>Accommodates {detailhotel[0]?.accommodates}</div> */}
       </div>
       <div className={style.flexcal}>
@@ -222,7 +218,7 @@ const [open, setOpen] = useState(false);
           variant="static"
           format="dd/MM/yyyy"
           margin="none"
-          style={{marginRight:"10px", marginLeft:"10px"}}
+          className={classes.calen}
           id="date-picker-inline"
           label="Check in"
           value={arrivalDate}
@@ -238,7 +234,7 @@ const [open, setOpen] = useState(false);
           variant="static"
           format="dd/MM/yyyy"
           margin="none"
-          style={{marginRight:"10px", marginLeft:"10px"}}
+          className={classes.calen}
           id="date-picker-inline"
           label="Check out"
           value={departureDate}
@@ -255,7 +251,7 @@ const [open, setOpen] = useState(false);
       </div>
       <div>
           <hr className={style.hr2}/>
-          <h2 style={{textAlign: "center"}}>OTHER ACCOMMODATIONS THAT MIGHT INTEREST YOU</h2>
+          <h2 style={{textAlign: "center", fontFamily: "Roboto"}}>OTHER ACCOMMODATIONS THAT MIGHT INTEREST YOU</h2>
           <div>
           <Grid
           xs={12}
