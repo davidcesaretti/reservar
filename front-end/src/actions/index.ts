@@ -30,6 +30,10 @@ export interface SignedInUser {
   type: ActionTypes.signUser;
   payload: boolean;
 }
+export interface Booleano {
+  type: ActionTypes.booleanState;
+  payload: boolean;
+}
 
 export interface UserEmail {
   type: ActionTypes.usersLogged;
@@ -185,6 +189,15 @@ export const addFavourites = (data) => {
       payload: data,
     });
     const newFavs = await axios.put("http://localhost:3001/favorites", favs);
+  };
+};
+
+export const setBoolean = (data) => {
+  return async (dispatch: Dispatch) => {
+    dispatch<Booleano>({
+      type: ActionTypes.booleanState,
+      payload: data,
+    });
   };
 };
 

@@ -9,6 +9,7 @@ export enum ActionTypes {
   detailHotel,
   calendary,
   addFav,
+  booleanState,
 }
 
 export type Action = FetchUsersAction;
