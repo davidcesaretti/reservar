@@ -3,6 +3,7 @@ import { User, Reserva } from "../models/Users";
 import { Properties } from "../models/Properties";
 import { Propertiestests } from "../models/propertiestests";
 
+
 //-------------------------------------------
 
 const UserRouter = Router();
@@ -71,10 +72,13 @@ UserRouter.post("/register", async (req: Request, res: Response) => {
   }
 });
 
-UserRouter.post("/reserva", async (req, res) => {
-  const { fechaSalida, fechaLlegada, email, Prop_id } = req.body;
 
-  const finded = await User.findOne({ email: email });
+
+
+/* UserRouter.post("/reserva", async (req, res) => {
+  const { fechaSalida,  fechaLlegada, email,Prop_id} = req.body;
+
+  const finded = await User.findOne({ email:email });
   try {
     const reservaFind = await Propertiestests.find({
       _id: Prop_id,
@@ -100,9 +104,10 @@ UserRouter.post("/reserva", async (req, res) => {
     if (reservaFind.length) {
       res.json({
         message: "No hay reservas disponibles en este lapso de tiempo",
-        fechasOcupadas: reservaFind,
+        fechasOcupadas: reservaFind
       });
     } else {
+    
       const reserva = new Reserva({
         fechaSalida,
         fechaLlegada,
@@ -129,7 +134,17 @@ UserRouter.post("/reserva", async (req, res) => {
   } catch (err) {
     res.send(err);
   }
-});
+}); */
+
+
+UserRouter.put("/favorites", async (req, res)=> {
+  const {email , favorites} = req.body
+  const fav = await User.updateOne(
+    {email: email},
+  { $push: { favorites: favorites } },
+  )
+  res.json(fav)
+})
 
 // UserRouter.get("/test", async (req: Request, res: Response) => {
 //   Properties.aggregate([
@@ -143,5 +158,6 @@ UserRouter.post("/reserva", async (req, res) => {
 //       },
 //     ]).then((data) => res.json(data));
 //   }
+
 
 export default UserRouter;
