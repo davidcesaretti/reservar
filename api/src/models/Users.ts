@@ -6,11 +6,12 @@ interface IUser extends Document {
   email: string;
   // photo: string;
   // reserveId: [Object];
+
 }
 
 const user = new Schema<IUser>(
   {
-    name: { type: String },
+    name: { type: String  },
     email: { type: String },
     phone_number: { type: Number },
     nationality: { type: String },
@@ -37,6 +38,7 @@ const user = new Schema<IUser>(
   { versionKey: false }
 );
 export const User = model<IUser>("User", user);
+
 
 const reserva = new Schema(
   {
