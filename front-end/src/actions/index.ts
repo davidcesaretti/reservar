@@ -30,14 +30,36 @@ export interface SignedInUser {
   type: ActionTypes.signUser;
   payload: boolean;
 }
+export interface Booleano {
+  type: ActionTypes.booleanState;
+  payload: boolean;
+}
 
 export interface UserEmail {
   type: ActionTypes.usersLogged;
   payload: string;
 }
+export interface Favourites {
+  type: ActionTypes.addFav;
+  payload: any;
+}
 export interface Credentials {
   username: string;
   password: string;
+}
+export interface userInfo {
+    name: string;
+    email: string;
+    phone: number;
+    dcmType: string;
+    dcmNumber: number;
+    nationality: string;
+    birthday: string;
+    adress: string;
+    residence: string;
+    emergencyPhone: number;
+    recoveryMail: string;
+    civilStatus: string;
 }
 const url = "http://localhost:3001";
 
@@ -116,7 +138,6 @@ export function postRaza(data) {
 }
 export const signUser = (data) => {
   return async (dispatch: Dispatch) => {
-    console.log("action " + data);
     let userInfo = {
       email: data.email,
       name: data.name,
@@ -126,7 +147,7 @@ export const signUser = (data) => {
       "http://localhost:3001/register",
       userInfo
     );
-    console.log(newUser, "new user");
+
     dispatch<SignedInUser>({
       type: ActionTypes.signUser,
       payload: false,
@@ -136,7 +157,6 @@ export const signUser = (data) => {
 
 export const UserEmailGlobal = (data) => {
   return async (dispatch: Dispatch) => {
-    console.log("Dispatch data email", data);
     dispatch<UserEmail>({
       type: ActionTypes.usersLogged,
       payload: data,
@@ -160,11 +180,48 @@ export const detailHotel = (id) => {
     });
   };
 };
+export const updateUser = (userInfo: object, userEmail ) => {
+  return async (dispatch: Dispatch) => {
+    try{
+      const updatedUser = await axios.post(
+        "http://localhost:3001/register",
+        {userInfo, userEmail}
+      );
+      console.log(userInfo)
+    } catch (e) {
+      console.error(e)
+    }
+  }
+}
 
 export const clearDetail = () => {
   return {
     type: ActionTypes.detailHotel,
     payload: [],
+  };
+};
+
+export const addFavourites = (data) => {
+  return async (dispatch: Dispatch) => {
+    console.log("Dispatch favourites", data);
+    let favs = {
+      favorites: data.favos,
+      email: data.email,
+    };
+    dispatch<Favourites>({
+      type: ActionTypes.addFav,
+      payload: data,
+    });
+    const newFavs = await axios.put("http://localhost:3001/favorites", favs);
+  };
+};
+
+export const setBoolean = (data) => {
+  return async (dispatch: Dispatch) => {
+    dispatch<Booleano>({
+      type: ActionTypes.booleanState,
+      payload: data,
+    });
   };
 };
 
