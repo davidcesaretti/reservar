@@ -82,7 +82,7 @@ export default function Album() {
 
   const [fav, setFav]: any = useState({
     favos: [],
-    email: "vaquerp@gmail.com",
+    email: "dario.velazquez10@gmail.com",
   });
   const [success, setSuccess] = useState(false);
   const [message, setMessage] = useState("");
