@@ -218,7 +218,7 @@ export default function Pay({_id, name, type, beds, price, image, score, address
                  </Grid> 
              </Grid>
           <Button  onClick={onSubmit} variant="contained" color="secondary"className={classes.titleBut}>Confirmar Reservacion</Button>
-          <Paper elevation={0} className={classes.titleCondi}>*Tu reserva se ha realizado directamente en el Alojamiento y al completarla acepatas las condiciones de la reserva , las condiciones generales y las politicas de privacidad</Paper>
+          <Paper elevation={0} className={classes.titleCondi}>*Tu reserva se ha realizado directamente en el Alojamiento y al completarla aceptas las condiciones de la reserva , las condiciones generales y las politicas de privacidad</Paper>
           <Paper elevation={0}>____________________________________________________________________________________________________________________________________________</Paper>
         </Container>
       </main>
