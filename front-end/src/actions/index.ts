@@ -149,12 +149,12 @@ export const detailHotel = (id) => {
     })
   }
 }
-export const updateUser = (userInfo: object ) => {
+export const updateUser = (userInfo: object, userEmail ) => {
   return async (dispatch: Dispatch) => {
     try{
       const updatedUser = await axios.post(
         "http://localhost:3001/register",
-        userInfo
+        {userInfo, userEmail}
       );
       console.log(userInfo)
     } catch (e) {

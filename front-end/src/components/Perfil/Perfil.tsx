@@ -16,17 +16,17 @@ const Perfil = () => {
 
     const [info, setInfo] = useState({
         name: '',
-        email: '',
-        phone: undefined,
-        dcmType: '',
-        dcmNumber: undefined,
+        recuperation_email: '',
+        phone_number: undefined,
+        identity_document_type: '',
+        identity_document_number: undefined,
         nationality: '',
-        birthday: '',
-        adress: '',
-        residence: '',
-        emergencyPhone: undefined,
-        recoveryMail: '',
-        civilStatus: ''
+        date_birth: '',
+        residence_address: '',
+        city_and_country_of_residence: '',
+        emergency_phone_number: undefined,
+        emergency_contact: '',
+        relationship: ''
     })
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -45,19 +45,19 @@ const Perfil = () => {
             alert('write your name, it must be a string')
             return
         }
-        if (!emailRegex.test(info.email) && info.email !== '') {
+        if (!emailRegex.test(info.recuperation_email) && info.recuperation_email !== '') {
             alert('write a valid email')
             return
         }
-        if (info.phone < 1000000 && info.phone !== 0) {
+        if (info.phone_number < 1000000 && info.phone_number !== 0) {
             alert('write your phone number')
             return
         }
-        if (typeof info.dcmType !== "string" && info.dcmType !== '') {
+        if (typeof info.identity_document_type !== "string" && info.identity_document_type !== '') {
             alert('write your document type')
             return
         }
-        if (info.dcmNumber < 1000000 && info.dcmNumber !== 0) {
+        if (info.identity_document_number < 1000000 && info.identity_document_number !== 0) {
             alert('write your document number')
             return
         }
@@ -65,32 +65,32 @@ const Perfil = () => {
             alert('write your nationality')
             return
         }
-        if (typeof info.birthday !== "string" && info.birthday !== '') {
+        if (typeof info.date_birth !== "string" && info.date_birth !== '') {
             alert('write your birth date')
             return
         }
-        if (typeof info.adress !== "string" && info.adress !== '') {
+        if (typeof info.residence_address !== "string" && info.residence_address !== '') {
             alert('write your adress')
             return
         }
-        if (typeof info.residence !== "string" && info.residence !== '') {
+        if (typeof info.city_and_country_of_residence !== "string" && info.city_and_country_of_residence !== '') {
             alert('write your residence')
             return
         }
-        if (info.emergencyPhone < 1000000 && info.emergencyPhone !== 0) {
+        if (info.emergency_phone_number < 1000000 && info.emergency_phone_number !== 0) {
             alert('wirte an alternative phone in case of emergency')
             return
         }
-        if (!emailRegex.test(info.email) && info.email !== '') {
+        if (!emailRegex.test(info.emergency_contact) && info.emergency_contact !== '') {
             alert('write an alternative mail in case you need to recover your account')
             return
         }
-        if (typeof info.civilStatus !== "string" && info.civilStatus !== '') {
+        if (typeof info.relationship !== "string" && info.relationship !== '') {
             alert('write your civil status')
             return
         }
 
-        let email = auth.user.email;
+        let userEmail = auth.user.email;
 
         Swal.fire({
             title: 'Do you want to save the changes?',
@@ -101,7 +101,7 @@ const Perfil = () => {
         }).then((result) => {
             /* Read more about isConfirmed, isDenied below */
             if (result.isConfirmed) {
-                dispatch(updateUser({...info, userEmail: email}))
+                dispatch(updateUser(info, userEmail))
                 Swal.fire('Saved!', '', 'success')
             } else if (result.isDenied) {
                 Swal.fire('Changes are not saved', '', 'info')
@@ -109,7 +109,6 @@ const Perfil = () => {
         })
 
     }
-    console.log(auth.user)
     return (
         <div>
             <div className={style.navBar}>
@@ -158,12 +157,12 @@ const Perfil = () => {
                 />
                 </div>
                 <div className={style.field}>
-                    <label className={style.nameField}>Email</label>
+                    <label className={style.nameField}>Recuperation Email</label>
                     <input 
                         placeholder="henry@gmail.com" 
                         className={style.inputField}
-                        name="email"
-                        value={info.email}
+                        name="recuperation_email"
+                        value={info.recuperation_email}
                         onChange={(e) => {handleChange(e)}}
                 />
                 </div>
@@ -173,8 +172,8 @@ const Perfil = () => {
                         type="tel" 
                         placeholder="+543402538301" 
                         className={style.inputField}
-                        name="phone"
-                        value={info.phone}
+                        name="phone_number"
+                        value={info.phone_number}
                         onChange={(e) => {handleChange(e)}}
                 />
                 </div>
@@ -183,8 +182,8 @@ const Perfil = () => {
                     <input 
                         placeholder="DNI" 
                         className={style.inputField}
-                        name="dcmType"
-                        value={info.dcmType}
+                        name="identity_document_type"
+                        value={info.identity_document_type}
                         onChange={(e) => {handleChange(e)}}
                 />
                 </div>
@@ -193,8 +192,8 @@ const Perfil = () => {
                     <input 
                         placeholder="37594328" 
                         className={style.inputField}
-                        name="dcmNumber"
-                        value={info.dcmNumber}
+                        name="identity_document_number"
+                        value={info.identity_document_number}
                         onChange={(e) => {handleChange(e)}}
                 />
                 </div>
@@ -214,8 +213,8 @@ const Perfil = () => {
                         placeholder="04/10/1995" 
                         type="date" 
                         className={style.inputField}
-                        name="birthday"
-                        value={info.birthday}
+                        name="date_birth"
+                        value={info.date_birth}
                         onChange={(e) => {handleChange(e)}}
                 />
                 </div>
@@ -224,8 +223,8 @@ const Perfil = () => {
                     <input 
                         placeholder="Italia 165" 
                         className={style.inputField}
-                        name="adress"
-                        value={info.adress}
+                        name="residence_address"
+                        value={info.residence_address}
                         onChange={(e) => {handleChange(e)}}
                 />
                 </div>
@@ -234,8 +233,8 @@ const Perfil = () => {
                     <input 
                         placeholder="General Lagos, Argentina" 
                         className={style.inputField}
-                        name="residence"
-                        value={info.residence}
+                        name="city_and_country_of_residence"
+                        value={info.city_and_country_of_residence}
                         onChange={(e) => {handleChange(e)}}
                 />
                 </div>
@@ -244,28 +243,28 @@ const Perfil = () => {
                     <input 
                         placeholder="+54341598621" 
                         className={style.inputField}
-                        name="emergencyPhone"
-                        value={info.emergencyPhone}
+                        name="emergency_phone_number"
+                        value={info.emergency_phone_number}
                         onChange={(e) => {handleChange(e)}}
                 />
                 </div>
                 <div className={style.field}>
-                    <label className={style.nameField}>Recovery mail </label>
+                    <label className={style.nameField}>Contact email </label>
                     <input 
                         placeholder="plataforma5@gmail.com" 
                         className={style.inputField} 
-                        name="recoveryMail"
-                        value={info.recoveryMail}
+                        name="emergency_contact"
+                        value={info.emergency_contact}
                         onChange={(e) => {handleChange(e)}}
                 />
                 </div>
                 <div className={style.field}>
-                    <label className={style.nameField}>Civil status</label>
+                    <label className={style.nameField}>Relationship with contact</label>
                     <input 
                         placeholder="Married" 
                         className={style.inputField}
-                        name="civilStatus"
-                        value={info.civilStatus}
+                        name="relationship"
+                        value={info.relationship}
                         onChange={(e) => {handleChange(e)}}
                 />
                 </div>
