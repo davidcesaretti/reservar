@@ -125,7 +125,6 @@ export function postRaza(data) {
 }
 export const signUser = (data) => {
   return async (dispatch: Dispatch) => {
-    console.log("action " + data);
     let userInfo = {
       email: data.email,
       name: data.name,
@@ -135,7 +134,7 @@ export const signUser = (data) => {
       "http://localhost:3001/register",
       userInfo
     );
-    console.log(newUser, "new user");
+
     dispatch<SignedInUser>({
       type: ActionTypes.signUser,
       payload: false,
@@ -145,7 +144,6 @@ export const signUser = (data) => {
 
 export const UserEmailGlobal = (data) => {
   return async (dispatch: Dispatch) => {
-    console.log("Dispatch data email", data);
     dispatch<UserEmail>({
       type: ActionTypes.usersLogged,
       payload: data,

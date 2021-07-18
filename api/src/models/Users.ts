@@ -34,6 +34,7 @@ const user = new Schema<IUser>(
     role: { type: String, enum: ["Traveler", "Host"] },
     favorites: { type: [] },
     reserveId: { type: [Object] },
+    alternative_email: {type: String}
   },
   { versionKey: false }
 );
