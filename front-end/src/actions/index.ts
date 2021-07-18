@@ -43,23 +43,27 @@ export interface Favourites {
   type: ActionTypes.addFav;
   payload: any;
 }
+export interface USERFAVS {
+  type: ActionTypes.favUser;
+  payload: any;
+}
 export interface Credentials {
   username: string;
   password: string;
 }
 export interface userInfo {
-    name: string;
-    email: string;
-    phone: number;
-    dcmType: string;
-    dcmNumber: number;
-    nationality: string;
-    birthday: string;
-    adress: string;
-    residence: string;
-    emergencyPhone: number;
-    recoveryMail: string;
-    civilStatus: string;
+  name: string;
+  email: string;
+  phone: number;
+  dcmType: string;
+  dcmNumber: number;
+  nationality: string;
+  birthday: string;
+  adress: string;
+  residence: string;
+  emergencyPhone: number;
+  recoveryMail: string;
+  civilStatus: string;
 }
 const url = "http://localhost:3001";
 
@@ -97,8 +101,6 @@ export const fetchCardsHotels = (
   city,
   fecha
 ) => {
-  console.log(amenities);
-
   let string1 = `/filter?page=${page}&${
     score !== undefined ? `score=${score}` : "nada"
   }&${accommodates !== undefined ? `accommodates=${accommodates}` : "nada"}&${
@@ -181,19 +183,19 @@ export const detailHotel = (id) => {
     });
   };
 };
-export const updateUser = (userInfo: object, userEmail ) => {
+export const updateUser = (userInfo: object, userEmail) => {
   return async (dispatch: Dispatch) => {
-    try{
-      const updatedUser = await axios.post(
-        "http://localhost:3001/register",
-        {userInfo, userEmail}
-      );
-      console.log(userInfo)
+    try {
+      const updatedUser = await axios.post("http://localhost:3001/register", {
+        userInfo,
+        userEmail,
+      });
+      console.log(userInfo);
     } catch (e) {
-      console.error(e)
+      console.error(e);
     }
-  }
-}
+  };
+};
 
 export const clearDetail = () => {
   return {
@@ -223,6 +225,22 @@ export const setBoolean = (data) => {
       type: ActionTypes.booleanState,
       payload: data,
     });
+  };
+};
+
+export const getFavos = (data) => {
+  return async (dispatch: Dispatch) => {
+    console.log(data, "   DATA");
+    let user = {
+      email: data,
+    };
+    const favUsers = await axios.post(
+      "http://localhost:3001/getfavorites",
+      user
+    );
+    console.log(favUsers, "    FAV USERS");
+
+    dispatch({ type: ActionTypes.favUser, payload: favUsers.data });
   };
 };
 

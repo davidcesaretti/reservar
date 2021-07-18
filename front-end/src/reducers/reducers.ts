@@ -19,6 +19,7 @@ export interface StoreState {
   categorieDetail: cardsHotel[];
   favourites: Favourites;
   booleanState: boolean;
+  userfavos: [];
 }
 
 export const reducers = combineReducers<StoreState>({
@@ -30,6 +31,7 @@ export const reducers = combineReducers<StoreState>({
   categorieDetail: detailReducer,
   favourites: favReducer,
   booleanState: booleanoRed,
+  userfavos: favReducer,
 });
 
 export default reducers;

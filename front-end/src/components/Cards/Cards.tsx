@@ -26,6 +26,7 @@ import Alert from "@material-ui/lab/Alert";
 import { FlashMessage } from "./flashmsg";
 import IconButton from "@material-ui/core/IconButton";
 import FavoriteIcon from "@material-ui/icons/Favorite";
+import { useAuth } from "../../firebase/index";
 
 const useStyles = makeStyles((theme) => ({
   icon: {
@@ -65,8 +66,11 @@ const useStyles = makeStyles((theme) => ({
 export default function Album() {
   const classes = useStyles();
   const cards = useSelector((state: any) => state.cardsHotel);
-  const email = useSelector((state: any) => state.userlogged);
+
   const dispatch = useDispatch();
+  const auth = useAuth();
+
+  const email = auth.user.email;
   /* useEffect(() => {
     dispatch(
       fetchCardsHotels(
@@ -82,7 +86,7 @@ export default function Album() {
 
   const [fav, setFav]: any = useState({
     favos: [],
-    email: "dario.velazquez10@gmail.com",
+    email: email,
   });
   const [success, setSuccess] = useState(false);
   const [message, setMessage] = useState("");
