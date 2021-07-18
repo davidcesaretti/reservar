@@ -10,6 +10,8 @@ export enum ActionTypes {
   calendary,
   addFav,
   booleanState,
+  updateUser,
+  
 }
 
 export type Action = FetchUsersAction;

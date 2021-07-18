@@ -3,6 +3,7 @@ import { User, Reserva } from "../models/Users";
 import { Properties } from "../models/Properties";
 import { Propertiestests } from "../models/propertiestests";
 
+
 //-------------------------------------------
 
 const UserRouter = Router();
@@ -97,7 +98,12 @@ res.json(userupdate)
 UserRouter.post("/reserva", async (req, res) => {
   const { fechaSalida, fechaLlegada, email, Prop_id } = req.body;
 
-  const finded = await User.findOne({ email: email });
+
+
+ UserRouter.post("/reserva", async (req, res) => {
+  const { fechaSalida,  fechaLlegada, email,Prop_id} = req.body;
+
+  const finded = await User.findOne({ email:email });
   try {
     const reservaFind = await Propertiestests.find({
       _id: Prop_id,
@@ -124,9 +130,10 @@ UserRouter.post("/reserva", async (req, res) => {
     if (reservaFind.length) {
       res.json({
         message: "No hay reservas disponibles en este lapso de tiempo",
-        fechasOcupadas: reservaFind,
+        fechasOcupadas: reservaFind
       });
     } else {
+    
       const reserva = new Reserva({
         fechaSalida,
         fechaLlegada,
@@ -154,6 +161,16 @@ UserRouter.post("/reserva", async (req, res) => {
     res.send(err);
   }
 });
+
+
+UserRouter.put("/favorites", async (req, res)=> {
+  const {email , favorites} = req.body
+  const fav = await User.updateOne(
+    {email: email},
+  { $push: { favorites: favorites } },
+  )
+  res.json(fav)
+})
 
 UserRouter.put("/favorites", async (req, res) => {
   try {
