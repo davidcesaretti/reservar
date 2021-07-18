@@ -8,6 +8,8 @@ export enum ActionTypes {
   usersLogged,
   detailHotel,
   calendary,
+  addFav,
+  booleanState,
   updateUser,
   
 }
