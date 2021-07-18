@@ -89,13 +89,19 @@ export default function CardComp({
   const favs = useSelector((state: any) => state.favourites);
 
 
-  const handleClick =(e) => {
-    e.preventDefault();
-    if (favs.favos.includes(e.currentTarget.value)) {
+  // const handleClick =(e) => {
+  //   e.preventDefault();
+  //   if (favs.favos.includes(e.currentTarget.value)) {
+  //     setFav(!fav)
+  //   }
+  // }
+  useEffect(() => {
+    if (favs.favos.includes(_id)){
       setFav(!fav)
+
     }
-  }
-  
+  }, [favs])
+
 
   return (
     <Card className={classes.root}>

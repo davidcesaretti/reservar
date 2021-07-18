@@ -86,27 +86,25 @@ export default function Album() {
     setSuccess(false);
     setMessage("");
   };
-  const obje = {
-    favos: fav,
-    email: email,
-  };
+
   const handleClick = (e) => {
     e.preventDefault();
     if (fav.includes(e.currentTarget.value)) {
       setFav(fav.filter((x) => x !== e.currentTarget.value));
       setMessage("error");
-      setSuccess(!success);
+      setSuccess(true);
       setTimeout(resetState, 3000);
     } else {
       setFav(fav.concat(e.currentTarget.value));
       setMessage("success");
-      setSuccess(!success);
+      setSuccess(true);
       setTimeout(resetState, 3000);
     }
-    dispatch(addFavourites(obje));
   };
-
-  
+  const obje = {
+    favos: fav,
+    email: email,
+  };
   useEffect(() => {
     dispatch(addFavourites(obje));
   }, [obje]);
