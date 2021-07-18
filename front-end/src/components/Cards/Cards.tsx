@@ -24,6 +24,8 @@ import { useState } from "react";
 import { truncate } from "fs";
 import Alert from "@material-ui/lab/Alert";
 import { FlashMessage } from "./flashmsg";
+import IconButton from "@material-ui/core/IconButton";
+import FavoriteIcon from "@material-ui/icons/Favorite";
 
 const useStyles = makeStyles((theme) => ({
   icon: {
@@ -78,7 +80,10 @@ export default function Album() {
     );
   }, []);*/
 
-  const [fav, setFav] = useState([]);
+  const [fav, setFav]: any = useState({
+    favos: [],
+    email: "vaquerp@gmail.com",
+  });
   const [success, setSuccess] = useState(false);
   const [message, setMessage] = useState("");
 
@@ -89,25 +94,31 @@ export default function Album() {
 
   const handleClick = (e) => {
     e.preventDefault();
-    if (fav.includes(e.currentTarget.value)) {
-      setFav(fav.filter((x) => x !== e.currentTarget.value));
+    if (fav?.favos?.includes(e.currentTarget.value)) {
+      setFav({
+        ...fav,
+        favos: fav.favos.filter((x) => x !== e.currentTarget.value),
+      });
+
       setMessage("error");
       setSuccess(true);
+
       setTimeout(resetState, 3000);
     } else {
-      setFav(fav.concat(e.currentTarget.value));
+      setFav({ ...fav, favos: fav.favos.concat(e.currentTarget.value) });
+
       setMessage("success");
       setSuccess(true);
       setTimeout(resetState, 3000);
     }
   };
-  const obje = {
-    favos: fav,
-    email: email,
-  };
   useEffect(() => {
-    dispatch(addFavourites(obje));
-  }, [obje]);
+    dispatch(addFavourites(fav));
+  }, [fav]);
+
+  const checkear = () => {
+    console.log(fav);
+  };
 
   return (
     <React.Fragment>
@@ -147,6 +158,7 @@ export default function Album() {
         {/* End footer */}
       </div>
       {success ? <FlashMessage message={message} /> : ""}
+      <button onClick={checkear}>Chequear</button>
     </React.Fragment>
   );
 }
