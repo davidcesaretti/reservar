@@ -35,7 +35,7 @@ const Service = (props = {amenities: []}) => {
     return (
         <div>
             {   
-                props.amenities.map((e) => (
+                props.amenities?.map((e) => (
                 <div>
                     {
                     e === "TV" && <p className={style.p}><TvIcon/>{e}</p> || e === "Air conditioning" && <p className={style.p}><AcUnitIcon/>{e}</p> || 
