@@ -141,7 +141,7 @@ export default function CheckboxList() {
   const dispatch = useDispatch();
   const [paginado, setPaginado] = useState(1);
 
-  if (cards.length === 0 || cards.posts?.length === 0) {
+  if (cards?.posts?.length === 0 || Array.isArray(cards)) {
     dispatch(
       fetchCardsHotels(
         paginado,
@@ -294,7 +294,7 @@ export default function CheckboxList() {
       <Container maxWidth="xs" className={classes.filterbox}>
         <h3 className={classes.nombredecat}>Filter by...</h3>
         {Categories.map((cat) => (
-          <>
+          <div key={cat.title}>
             <Grid
               container
               direction="column"
@@ -358,7 +358,7 @@ export default function CheckboxList() {
               </List>
             </Grid>
             <Divider />
-          </>
+          </div>
         ))}
         <Button variant="text" color="inherit" type="submit">
           Estado

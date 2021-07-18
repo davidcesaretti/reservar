@@ -75,14 +75,14 @@ const useStyle = makeStyles({
   },
 });
 const Register = () => {
-  if (!firebase.apps.length) {
+  /* if (!firebase.apps.length) {
     firebase.initializeApp({
       apiKey: "AIzaSyBh2wY42foyI4uwoW9wfIKtCz2ie-mXELw",
       authDomain: "reservar-319305.firebaseapp.com",
     });
   } else {
     firebase.app();
-  }
+  } */
 
   const [signedIn, setSignedIn] = useState(false);
 
