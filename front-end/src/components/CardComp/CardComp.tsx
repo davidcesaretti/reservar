@@ -32,6 +32,8 @@ import { isTypeOfExpression } from "typescript";
 
 // import { RootState } from '../../store';
 
+
+ 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
@@ -60,6 +62,12 @@ const useStyles = makeStyles((theme: Theme) =>
       background: "#8b96c175",
       fontSize: "1.2rem",
     },
+    iconfavclicked: {
+      color: "yellow",
+      padding: "5px",
+      background: "#8b96c175",
+      fontSize: "1.2rem",
+    },
   })
 );
 
@@ -77,7 +85,15 @@ export default function CardComp({
 }) {
   const classes = useStyles();
 
-  //const [fav, setFav] = React.useState<Array | String>([])
+  const [fav, setFav] = useState(false)
+  const favs = useSelector((state: any) => state.favourites);
+
+  const handleClick =(e) => {
+    e.preventDefault();
+    if (favs.favos.includes(e.currentTarget.value)) {
+      setFav(!fav)
+    }
+  }
 
   return (
     <Card className={classes.root}>
@@ -85,8 +101,9 @@ export default function CardComp({
         <CardMedia className={classes.media} image={image} title="Room Deluxe">
           <IconButton
             aria-label="add to favorites"
-            className={classes.iconfav}
+            className={ fav? classes.iconfavclicked : classes.iconfav}
             onClick={click}
+
             value={_id}
           >
             <FavoriteIcon />
