@@ -17,9 +17,15 @@ import CardComp from "../CardComp/CardComp";
 import Footer from "../Footer/Footer";
 import CheckboxList from "../Filters/Filters";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchCardsHotels } from "../../actions";
+import { addFavourites, fetchCardsHotels } from "../../actions";
 import { hotelsReducer } from "../../reducers/hotels";
 import NavBar from "../Nav/Nav2";
+import { useState } from "react";
+import { truncate } from "fs";
+import Alert from "@material-ui/lab/Alert";
+import { FlashMessage } from "./flashmsg";
+import IconButton from "@material-ui/core/IconButton";
+import FavoriteIcon from "@material-ui/icons/Favorite";
 
 const useStyles = makeStyles((theme) => ({
   icon: {
@@ -59,23 +65,60 @@ const useStyles = makeStyles((theme) => ({
 export default function Album() {
   const classes = useStyles();
   const cards = useSelector((state: any) => state.cardsHotel);
+  const email = useSelector((state: any) => state.userlogged);
   const dispatch = useDispatch();
-  // useEffect(() => {
-  //   dispatch(
-  //     fetchCardsHotels(
-  //       undefined,
-  //       undefined,
-  //       undefined,
-  //       undefined,
-  //       undefined,
-  //       undefined,
-  //       undefined,
-  //       undefined
-  //     )
-  //   );
-  // }, []);
+  /* useEffect(() => {
+    dispatch(
+      fetchCardsHotels(
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined
+      )
+    );
+  }, []);*/
 
-  // console.log(cards.posts);
+  const [fav, setFav]: any = useState({
+    favos: [],
+    email: "vaquerp@gmail.com",
+  });
+  const [success, setSuccess] = useState(false);
+  const [message, setMessage] = useState("");
+
+  const resetState = () => {
+    setSuccess(false);
+    setMessage("");
+  };
+
+  const handleClick = (e) => {
+    e.preventDefault();
+    if (fav?.favos?.includes(e.currentTarget.value)) {
+      setFav({
+        ...fav,
+        favos: fav.favos.filter((x) => x !== e.currentTarget.value),
+      });
+
+      setMessage("error");
+      setSuccess(true);
+
+      setTimeout(resetState, 3000);
+    } else {
+      setFav({ ...fav, favos: fav.favos.concat(e.currentTarget.value) });
+
+      setMessage("success");
+      setSuccess(true);
+      setTimeout(resetState, 3000);
+    }
+  };
+  useEffect(() => {
+    dispatch(addFavourites(fav));
+  }, [fav]);
+
+  const checkear = () => {
+    console.log(fav);
+  };
 
   return (
     <React.Fragment>
@@ -101,6 +144,7 @@ export default function Album() {
                       accommodates={e.accommodates}
                       beds={e.beds}
                       price={e.price}
+                      click={handleClick}
                     />
                   </Card>
                 </Grid>
@@ -113,6 +157,8 @@ export default function Album() {
         <Footer />
         {/* End footer */}
       </div>
+      {success ? <FlashMessage message={message} /> : ""}
+      <button onClick={checkear}>Chequear</button>
     </React.Fragment>
   );
 }
