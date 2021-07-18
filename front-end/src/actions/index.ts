@@ -39,6 +39,20 @@ export interface Credentials {
   username: string;
   password: string;
 }
+export interface userInfo {
+    name: string;
+    email: string;
+    phone: number;
+    dcmType: string;
+    dcmNumber: number;
+    nationality: string;
+    birthday: string;
+    adress: string;
+    residence: string;
+    emergencyPhone: number;
+    recoveryMail: string;
+    civilStatus: string;
+}
 const url = "http://localhost:3001";
 
 export const onLogin = async (data: Credentials) => {
@@ -161,6 +175,19 @@ export const detailHotel = (id) => {
     });
   };
 };
+export const updateUser = (userInfo: object, userEmail ) => {
+  return async (dispatch: Dispatch) => {
+    try{
+      const updatedUser = await axios.post(
+        "http://localhost:3001/register",
+        {userInfo, userEmail}
+      );
+      console.log(userInfo)
+    } catch (e) {
+      console.error(e)
+    }
+  }
+}
 
 export const clearDetail = () => {
   return {

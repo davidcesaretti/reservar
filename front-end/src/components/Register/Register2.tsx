@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 import firebase from "firebase";
 import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
+import { storage } from '../../firebase/index'
 import { Button, Container, Typography, Grid } from "@material-ui/core";
 import { signUser, UserEmail, UserEmailGlobal } from "../../actions/index";
 import { makeStyles } from "@material-ui/core/styles";
@@ -130,9 +131,9 @@ const Register = () => {
     }
   }, [userlogged]);
 
-  useEffect(() => {
+  /* useEffect(() => {
     dispatch(signUser(userInfo));
-  }, [userInfo]);
+  }, [userInfo]); */
 
   const handleClick = () => {
     firebase.auth().signOut();
