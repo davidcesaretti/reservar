@@ -88,12 +88,14 @@ export default function CardComp({
   const [fav, setFav] = useState(false)
   const favs = useSelector((state: any) => state.favourites);
 
+
   const handleClick =(e) => {
     e.preventDefault();
     if (favs.favos.includes(e.currentTarget.value)) {
       setFav(!fav)
     }
   }
+  
 
   return (
     <Card className={classes.root}>
