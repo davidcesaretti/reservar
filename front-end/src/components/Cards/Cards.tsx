@@ -14,7 +14,12 @@ import CardComp from "../CardComp/CardComp";
 import Footer from "../Footer/Footer";
 import CheckboxList from "../Filters/Filters";
 import { useDispatch, useSelector } from "react-redux";
-import { addFavourites, FechasReserva, fetchCardsHotels } from "../../actions";
+import {
+  addFavourites,
+  FechasReserva,
+  fetchCardsHotels,
+  getFavos,
+} from "../../actions";
 import { hotelsReducer } from "../../reducers/hotels";
 import NavBar from "../Nav/Nav2";
 import { truncate } from "fs";
@@ -66,6 +71,18 @@ const useStyles = makeStyles((theme) => ({
   navbar: {
     height: "80%",
   },
+  iconfav: {
+    color: "black",
+    padding: "5px",
+    background: "#8b96c175",
+    fontSize: "1.2rem",
+  },
+  iconfavclicked: {
+    color: "red",
+    padding: "5px",
+    background: "#8b96c175",
+    fontSize: "1.2rem",
+  },
 }));
 
 export default function Album() {
@@ -73,7 +90,7 @@ export default function Album() {
   const cards = useSelector((state: any) => state.cardsHotel);
   const auth = useAuth();
   const dispatch = useDispatch();
-
+  const userfavs = useSelector((state: any) => state.userfavossss);
   const [cities, setCities] = useState(undefined);
   const [guest, setGuest] = useState(undefined);
   const email = auth?.user?.email;
@@ -106,6 +123,9 @@ export default function Album() {
     setSuccess(false);
     setMessage("");
   };
+  useEffect(() => {
+    dispatch(getFavos(email));
+  }, [fav]);
 
   const handleClick = (e) => {
     e.preventDefault();
@@ -131,6 +151,12 @@ export default function Album() {
     dispatch(addFavourites(fav));
     console.log(fav, "    DISPATCH FAVOS");
   }, [fav]);
+
+  let arrayfavs = [];
+
+  useEffect(() => {
+    userfavs.map((e) => arrayfavs.push(e._id));
+  }, [userfavs]);
 
   return (
     <React.Fragment>
@@ -219,6 +245,16 @@ export default function Album() {
                       click={handleClick}
                     />
                   </Card>
+                  <IconButton
+                    aria-label="add to favorites"
+                    className={
+                      arrayfavs.includes(e._id)
+                        ? classes.iconfavclicked
+                        : classes.iconfav
+                    }
+                  >
+                    <FavoriteIcon />
+                  </IconButton>
                 </Grid>
               ))}
           </Grid>

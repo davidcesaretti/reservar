@@ -21,6 +21,7 @@ import {
   addFavourites,
   FechasReserva,
   fetchCardsHotels,
+  getFavos,
   setBoolean,
 } from "../../actions";
 import { Calendary } from "../Calendary/Calendary";
@@ -88,6 +89,10 @@ const Home = () => {
   const dispatch = useDispatch();
   const auth = useAuth();
   const email = auth?.user?.email;
+
+  useEffect(() => {
+    dispatch(getFavos(email));
+  }, []);
 
   dispatch(addFavourites({ favos: [], email: email }));
   // useEffect(() => {

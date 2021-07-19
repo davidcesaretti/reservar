@@ -55,7 +55,7 @@ const useStyles = makeStyles((theme: Theme) =>
       fontSize: "1.2rem",
     },
     iconfavclicked: {
-      color: "yellow",
+      color: "red",
       padding: "5px",
       background: "#8b96c175",
       fontSize: "1.2rem",
@@ -76,6 +76,7 @@ export default function CardComp({
   click,
 }) {
   const classes = useStyles();
+  const userfavs = useSelector((state: any) => state.userfavossss);
 
   const [fav, setFav] = useState(false);
   const favs = useSelector((state: any) => state.favourites);
@@ -91,7 +92,14 @@ export default function CardComp({
       setFav(!fav);
     }
   }, [favs]);
+
+  /* className={
+    userfavs.forEach((card) => card._id === _id)
+      ? classes.iconfavclicked
+      : classes.iconfav
+  }  */
   // {fav ? classes.iconfavclicked : classes.iconfav}
+
   return (
     <Card className={classes.root}>
       <CardActionArea>
