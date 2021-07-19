@@ -31,6 +31,7 @@ import FormLabel from "@material-ui/core/FormLabel";
 import { Box, Button, Grid } from "@material-ui/core";
 import SearchIcon from "@material-ui/icons/Search";
 import { Link } from "react-router-dom";
+import { useAuth } from "../../firebase/index";
 
 const useStyles = makeStyles((theme) => ({
   icon: {
@@ -70,20 +71,20 @@ const useStyles = makeStyles((theme) => ({
 export default function Album() {
   const classes = useStyles();
   const cards = useSelector((state: any) => state.cardsHotel);
-  const email = useSelector((state: any) => state.userlogged);
+
   const dispatch = useDispatch();
 
-  const [fav, setFav]: any = useState({
-    favos: [],
-    email: "dario.velazquez10@gmail.com",
-  });
   const [cities, setCities] = useState(undefined);
   const [guest, setGuest] = useState(undefined);
-  const [success, setSuccess] = useState(false);
-  const [message, setMessage] = useState("");
+
   const fechas = useSelector((state: any) => state.fechas);
   function busqueda() {
     dispatch(FechasReserva({ ...fechas, cities, guest }));
+  }
+  const auth = useAuth();
+
+  const email = auth.user.email;
+  /* useEffect(() => {
     dispatch(
       fetchCardsHotels(
         undefined,
@@ -97,6 +98,15 @@ export default function Album() {
       )
     );
   }
+  }, []);*/
+
+  const [fav, setFav]: any = useState({
+    favos: [],
+    email: email,
+  });
+  const [success, setSuccess] = useState(false);
+  const [message, setMessage] = useState("");
+
   const resetState = () => {
     setSuccess(false);
     setMessage("");
