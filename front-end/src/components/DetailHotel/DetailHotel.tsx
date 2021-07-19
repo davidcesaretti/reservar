@@ -16,13 +16,12 @@ import Recom3 from "../../Image/recom3.jpeg";
 import Recom4 from "../../Image/recom4.jpeg";
 import Service from "../Service/Services";
 import DateFnsUtils from "@date-io/date-fns";
-import {
-  MuiPickersUtilsProvider,
-  KeyboardDatePicker,
-} from "@material-ui/pickers";
+import { MuiPickersUtilsProvider, KeyboardDatePicker } from "@material-ui/pickers";
 import Footer from "../Footer/Footer";
 import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
+import Spinner from '../Spinner/Spinner'
+import Error404 from '../Error404/Error404';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -122,11 +121,11 @@ const DetailHotel = () => {
     };
   }, [dispatch, id]);
 
-  if (detailhotel === null) {
-    return <h1>Error</h1>;
-  } else if (detailhotel.length < 1) {
-    return <h1>Cargando...</h1>;
-  } else {
+  if(detailhotel === null) {
+    return <Error404 />
+} else if(detailhotel.length < 1) {
+    return <Spinner />
+} else {
     return (
       <div>
         <div className={style.gridconteiner}>

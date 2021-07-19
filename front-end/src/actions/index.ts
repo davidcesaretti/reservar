@@ -8,6 +8,7 @@ export interface fake {
   precio: string;
   ciudad: string;
 }
+
 export interface FetchUsersAction {
   type: ActionTypes.fetchUsers;
   payload: fake[];
@@ -29,14 +30,36 @@ export interface SignedInUser {
   type: ActionTypes.signUser;
   payload: boolean;
 }
+export interface Booleano {
+  type: ActionTypes.booleanState;
+  payload: boolean;
+}
 
 export interface UserEmail {
   type: ActionTypes.usersLogged;
   payload: string;
 }
+export interface Favourites {
+  type: ActionTypes.addFav;
+  payload: any;
+}
 export interface Credentials {
   username: string;
   password: string;
+}
+export interface userInfo {
+    name: string;
+    email: string;
+    phone: number;
+    dcmType: string;
+    dcmNumber: number;
+    nationality: string;
+    birthday: string;
+    adress: string;
+    residence: string;
+    emergencyPhone: number;
+    recoveryMail: string;
+    civilStatus: string;
 }
 const url = "http://localhost:3001";
 
@@ -70,10 +93,11 @@ export const fetchCardsHotels = (
   amenities,
   type,
   accommodates,
-  score
+  score,
+  city,
+  fecha
 ) => {
-  console.log(amenities);
-
+  // console.log(amenities);
   let string1 = `/filter?page=${page}&${
     score !== undefined ? `score=${score}` : "nada"
   }&${accommodates !== undefined ? `accommodates=${accommodates}` : "nada"}&${
@@ -84,21 +108,36 @@ export const fetchCardsHotels = (
       : "nada"
   }${price !== undefined ? `price=${price}` : "nada"}&${
     type !== undefined ? `type=${type}` : "nada"
-  }`;
+  }&${city !== undefined ? `city=${city}` : "nada"}`;
 
   string1 = string1.split(",").join("");
 
   return async (dispatch: Dispatch) => {
-    const response = await axios.get<cardsHotel[]>(url + string1);
+    const response = await axios.post<cardsHotel[]>(url + string1, fecha);
     dispatch<FetchCardsHotelAction>({
       type: ActionTypes.fetchCardsHotels,
       payload: response.data,
     });
   };
 };
+export function postRaza(data) {
+  return function (dispatch) {
+    return fetch("https://dogs-breeds-jesus.herokuapp.com/dog", {
+      method: "POST",
+      body: JSON.stringify(data),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .catch((error) => console.error("Error:", error))
+      .then((json) => {
+        dispatch({ type: "POST_RAZA", payload: json });
+      });
+  };
+}
 export const signUser = (data) => {
   return async (dispatch: Dispatch) => {
-    console.log("action " + data);
     let userInfo = {
       email: data.email,
       name: data.name,
@@ -108,7 +147,7 @@ export const signUser = (data) => {
       "http://localhost:3001/register",
       userInfo
     );
-    console.log(newUser, "new user");
+
     dispatch<SignedInUser>({
       type: ActionTypes.signUser,
       payload: false,
@@ -118,30 +157,73 @@ export const signUser = (data) => {
 
 export const UserEmailGlobal = (data) => {
   return async (dispatch: Dispatch) => {
-    console.log("Dispatch data email", data);
     dispatch<UserEmail>({
       type: ActionTypes.usersLogged,
       payload: data,
     });
   };
 };
-
+export const FechasReserva = (data: Object) => {
+  return {
+    type: ActionTypes.calendary,
+    payload: data,
+  };
+};
 export const detailHotel = (id) => {
   return async (dispatch: Dispatch) => {
-    const response = await axios.get<cardsHotel[]>(`${url}/filter/properties/${id}`);
+    const response = await axios.get<cardsHotel[]>(
+      `${url}/filter/properties/${id}`
+    );
     dispatch<FetchDetailHotel>({
       type: ActionTypes.detailHotel,
       payload: response.data,
-    })
+    });
+  };
+};
+export const updateUser = (userInfo: object, userEmail ) => {
+  return async (dispatch: Dispatch) => {
+    try{
+      const updatedUser = await axios.post(
+        "http://localhost:3001/register",
+        {userInfo, userEmail}
+      );
+      console.log(userInfo)
+    } catch (e) {
+      console.error(e)
+    }
   }
 }
 
 export const clearDetail = () => {
   return {
-      type: ActionTypes.detailHotel,
-      payload: []
-  } 
-}
+    type: ActionTypes.detailHotel,
+    payload: [],
+  };
+};
+
+export const addFavourites = (data) => {
+  return async (dispatch: Dispatch) => {
+    console.log("Dispatch favourites", data);
+    let favs = {
+      favorites: data.favos,
+      email: data.email,
+    };
+    dispatch<Favourites>({
+      type: ActionTypes.addFav,
+      payload: data,
+    });
+    const newFavs = await axios.put("http://localhost:3001/favorites", favs);
+  };
+};
+
+export const setBoolean = (data) => {
+  return async (dispatch: Dispatch) => {
+    dispatch<Booleano>({
+      type: ActionTypes.booleanState,
+      payload: data,
+    });
+  };
+};
 
 // export function deleteUsers(data: any) {
 //   return function (dispatch: Dispatch) {

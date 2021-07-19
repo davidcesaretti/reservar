@@ -1,65 +1,111 @@
 import express, { Request, Response, NextFunction, Router } from "express";
 import { User, Reserva } from "../models/Users";
 import { Properties } from "../models/Properties";
-import jwt from "jsonwebtoken";
-import verifyToken from "../controllers/verifyToken";
+import { Propertiestests } from "../models/propertiestests";
+
 
 //-------------------------------------------
 
 const UserRouter = Router();
 UserRouter.use(express.json());
-const { SECRET_TOKEN } = process.env;
-
 
 UserRouter.post("/register", async (req: Request, res: Response) => {
-  const { name, email, photo } = req.body;
-
-  console.log(name, "  NAME BACK");
-
-  try {
-    const emailUser = await User.findOne({ email: email });
-    if (emailUser) {
-      res.status(400).send("El email ya esta en uso");
-    }
-    const user = new User({
-      name,
-      email,
-      photo,
+  const {
+    name,
+    email,
+    phone_number,
+    nationality,
+    identity_document_type,
+    identity_document_number,
+    date_birth,
+    residence_address,
+    city_and_country_of_residence,
+    emergency_contact,
+    emergency_phone_number,
+    relationship,
+    favorites,
+    alternative_email,
+  } = req.body;
   
-    });
-    await user.save();
-    console.log(user, "   USER BACK");
-    res.json(user);
-  } catch (err) {
-    res.send(err);
-  }
+    const emailUser = await User.findOne({ email: email });
+      if(!emailUser && email){
+      const user = new User({
+        name,
+        email,
+        phone_number,
+        nationality,
+        identity_document_type,
+        identity_document_number,
+        date_birth,
+        residence_address,
+        city_and_country_of_residence,
+        emergency_contact,
+        emergency_phone_number,
+        relationship,
+        favorites,
+        alternative_email,
+      });
+      await user.save();
+      console.log("creado")
+      return res.json(user);
+    }
+    else if(emailUser) {
+      const userupdate = await User.updateOne(
+        {email: email},
+        {$set:{
+          name,
+          nationality,
+          phone_number,
+          identity_document_type,
+          identity_document_number,
+          date_birth,
+          residence_address,
+          city_and_country_of_residence,
+          emergency_contact,
+          emergency_phone_number,
+          relationship,
+          favorites,
+          alternative_email,
+        }},
+      )
+      res.json(userupdate)
+    }
+    else{
+      res.send("no se pudo crear usuario")
+    }
+   
 });
 
 
 
 
-UserRouter.post("/reserva", async (req, res) => {
+ UserRouter.post("/reserva", async (req, res) => {
   const { fechaSalida,  fechaLlegada, email,Prop_id} = req.body;
 
   const finded = await User.findOne({ email:email });
   try {
-    const reservaFind = await Reserva.find({
-      $or: [
-        {
-          fechaSalida: {
-            $gte: new Date(fechaSalida),
-            $lte: new Date(fechaLlegada),
-          },
+    const reservaFind = await Properties.find({
+      _id: Prop_id,
+      available: {
+        $elemMatch: {
+          $or: [
+            {
+              fechaSalida: {
+                $gte: new Date(fechaSalida),
+                $lte: new Date(fechaLlegada),
+              },
+            },
+            {
+              fechaLlegada: {
+                $gte: new Date(fechaSalida),
+                $lte: new Date(fechaLlegada),
+              },
+            },
+          ],
         },
-        {
-          fechaLlegada: {
-            $gte: new Date(fechaSalida),
-            $lte: new Date(fechaLlegada),
-          },
-        },
-      ],
+      },
     });
-    
+
     if (reservaFind.length) {
       res.json({
         message: "No hay reservas disponibles en este lapso de tiempo",
@@ -70,41 +116,55 @@ UserRouter.post("/reserva", async (req, res) => {
       const reserva = new Reserva({
         fechaSalida,
         fechaLlegada,
-        info_user: finded._id,
-        
-       
+        info_user: finded.email,
       });
-      await reserva.save()
-      
+      await reserva.save();
+
       await Properties.updateOne(
         { _id: Prop_id },
-        { $push: { availability:reserva } })
-        console.log(reserva)
+        { $push: { available: reserva } }
+      );
 
-        await User.updateOne(
-          {email: email},
-          {$push:{reserveId: reserva._id }}
-          )
-          // 
-      res.json({message:"reserva exitosa!", checkIn:fechaSalida, checkOut: fechaLlegada});
+      await User.updateOne(
+        { email: email },
+        { $push: { reserveId: reserva._id } }
+      );
+
+      res.json({
+        message: "reserva exitosa!",
+        checkIn: fechaSalida,
+        checkOut: fechaLlegada,
+      });
     }
   } catch (err) {
     res.send(err);
   }
 });
 
-// UserRouter.get("/test", async (req: Request, res: Response) => {
-//   Properties.aggregate([
-//       {
-//         $lookup: {
-//           from: "users",
-//           localField: "availability[0].info_user",
-//           foreignField: "_id",
-//           as: "prueba",
-//         },
-//       },
-//     ]).then((data) => res.json(data));
-//   }
 
+
+UserRouter.post("/favorites", async (req, res) => {
+  try {
+    const { email, favorites } = req.body;
+    // const user = await User.findOne({ email: email });
+    // const favfilter = favorites?.concat(
+    //   user.favorites.filter((item) => favorites.indexOf(item) < 0)
+    // )
+    const favFilter = favorites.filter((item, index) => favorites.indexOf(item) === index)
+    await User.updateOne({ email: email },{ favorites: favFilter });
+    res.json(favFilter);
+
+  } catch (error) {
+    res.send(error);
+  }
+});
+
+
+UserRouter.get("/getfavorites", async (req, res)=>{
+  const {email}= req.body
+ const us = await User.findOne({email:email})
+ const props = await Properties.find({_id: us.favorites})
+ res.json(props)
+})
 
 export default UserRouter;
