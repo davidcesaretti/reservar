@@ -1,5 +1,5 @@
 import { booleanoRed } from "./booleano";
-import { Favourites, Booleano } from "./../actions/index";
+import { Favourites, Booleano, USERFAVS } from "./../actions/index";
 import { favReducer } from "./favReducer";
 import { usersLoggedRed } from "./userlogged";
 import { combineReducers } from "redux";
@@ -9,6 +9,7 @@ import { fake } from "../actions";
 import { cardsHotel, hotelsReducer } from "./hotels";
 import { detailReducer } from "./detail";
 import { fechasReducer } from "./fechas";
+import { userFavReducer } from "./userFavs";
 
 export interface StoreState {
   fechas: any;
@@ -19,7 +20,7 @@ export interface StoreState {
   categorieDetail: cardsHotel[];
   favourites: Favourites;
   booleanState: boolean;
-  userfavos: [];
+  userfavossss: Array<any>;
 }
 
 export const reducers = combineReducers<StoreState>({
@@ -31,7 +32,7 @@ export const reducers = combineReducers<StoreState>({
   categorieDetail: detailReducer,
   favourites: favReducer,
   booleanState: booleanoRed,
-  userfavos: favReducer,
+  userfavossss: userFavReducer,
 });
 
 export default reducers;

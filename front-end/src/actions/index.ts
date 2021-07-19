@@ -45,7 +45,7 @@ export interface Favourites {
 }
 export interface USERFAVS {
   type: ActionTypes.favUser;
-  payload: any;
+  payload: Array<Object>;
 }
 export interface Credentials {
   username: string;
@@ -215,7 +215,7 @@ export const addFavourites = (data) => {
       type: ActionTypes.addFav,
       payload: data,
     });
-    const newFavs = await axios.put("http://localhost:3001/favorites", favs);
+    const newFavs = await axios.post("http://localhost:3001/favorites", favs);
   };
 };
 
@@ -238,7 +238,7 @@ export const getFavos = (data) => {
       "http://localhost:3001/getfavorites",
       user
     );
-    console.log(favUsers, "    FAV USERS");
+    console.log(favUsers.data, "    FAV USERS");
 
     dispatch({ type: ActionTypes.favUser, payload: favUsers.data });
   };
