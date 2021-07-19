@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import "date-fns";
 import DateFnsUtils from "@date-io/date-fns";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   MuiPickersUtilsProvider,
   KeyboardDatePicker,
@@ -38,8 +38,15 @@ export function Calendary() {
       date.getDate() === 18
     );
   }
+  const fechas = useSelector((state: any) => state.fechas);
   useEffect(() => {
-    dispatch(FechasReserva({ checkin: arrivalDate, checkout: departureDate }));
+    dispatch(
+      FechasReserva({
+        ...fechas,
+        checkin: arrivalDate,
+        checkout: departureDate,
+      })
+    );
   }, [arrivalDate, departureDate]);
   return (
     <MuiPickersUtilsProvider utils={DateFnsUtils}>

@@ -141,7 +141,7 @@ export default function CheckboxList() {
   const dispatch = useDispatch();
   const [paginado, setPaginado] = useState(1);
 
-  if (!cards.page) {
+  if (Array.isArray(cards)) {
     dispatch(
       fetchCardsHotels(
         paginado,
@@ -239,7 +239,7 @@ export default function CheckboxList() {
         dataFilter.price,
         dataFilter.amenities,
         dataFilter.type,
-        dataFilter.accommodates,
+        dataFilter.accommodates || fechasAnteriores.guest,
         dataFilter.score,
         fechasAnteriores.cities,
         undefined
@@ -263,7 +263,7 @@ export default function CheckboxList() {
         dataFilter.price,
         dataFilter.amenities,
         dataFilter.type,
-        dataFilter.accommodates,
+        dataFilter.accommodates || fechasAnteriores.guest,
         dataFilter.score,
         fechasAnteriores.cities,
         undefined
@@ -281,7 +281,7 @@ export default function CheckboxList() {
         dataFilter.price,
         dataFilter.amenities,
         dataFilter.type,
-        dataFilter.accommodates,
+        dataFilter.accommodates || fechasAnteriores.guest,
         dataFilter.score,
         fechasAnteriores.cities,
         undefined
