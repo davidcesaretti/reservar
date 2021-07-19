@@ -71,7 +71,7 @@ export default function MenuAppBar() {
             >
               Sign Out
             </Button>
-            <Link to="/perfil" className={classes.linkDecoration}>
+            <Link to="/User" className={classes.linkDecoration}>
             <Button variant="contained" color="secondary" className={classes.link1}>
               My Profile
             </Button>
