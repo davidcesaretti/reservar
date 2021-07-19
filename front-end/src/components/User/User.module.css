@@ -1,15 +1,21 @@
-
+html {
+    min-height: 100%;
+    position: relative;
+}
 body{
     font-family:Arial, Helvetica, sans-serif;
+    min-height: 100%;
+    margin: 0;
+    margin-bottom: 40px;
 }
 .navBar {
     position: relative;
-    top: -0.5em;
-    left: -0.5em;
-    right: -0.5em;
+    top: 0;
+    left: 0;
+    right: 0;
     background: #313B1E;
     display:flex;
-    width: 101.09%;
+    width: 100;
 }
 .title{
     display:flex;
@@ -43,7 +49,7 @@ body{
     text-decoration: none;
     color: #FFF;
     font-size: 1.2em;
-    margin-left:2.5em;
+    margin-left:1em;
     margin-right:2em;
 }
 .navButton1:hover{
@@ -97,67 +103,14 @@ ul li{
 .buttonOption:hover {
     color: #e3e3e3;
 }
-.header{
-    text-align: center;
-    font-size: 2em;
-}
-.ctn {
-    height:500px;
-    display:flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    padding-left: 3em;
-    padding-right: 3em;
-}
-.field{
-    display:flex;
-    flex-direction: column;
-    padding-left: 4em;
-    padding-right: 4em;
-    margin-left: 2em;
-    margin-right:2em;
-    width:15em;
-}
-.nameField{
-    padding-bottom:1em;
-}
-.inputField{
-    height: 25px;
-    border-radius: 4px;
-    padding-left: 10px;
-}
-.ctnUpdate{
-    display:flex;
-    justify-content: center;
-    align-items: center;
-}
-.update{
-    width: 8em;
-    height: 3em;
-    background: #B2B451;
-    border: 1px solid #000000;
-    box-sizing: border-box;
-    border-radius: 10px;
-    text-align: center;
-    color: #FFF;
-    padding: 1em;
-    text-decoration: none;
-    font-weight: bold;
-    font-size: 1em;
-    margin-bottom: 3em;
-    cursor: pointer;
-}
-.update:hover{
-    background:rgb(88, 114, 43)
-}
 .footer {
-    position: relative;
+    position: absolute;
     height: 1.5em;
     background: rgba(48, 58, 31, 0.85);
-    width: 101.09%;
-    bottom: -0.5em;
-    left: -0.5em;
-    right: -0.5em;
+    width: 100;
+    bottom: 0;
+    left: 0;
+    right: 0;
     padding-top: 1.5em;
     padding-bottom: 1.5em;
     display:flex;
