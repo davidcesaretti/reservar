@@ -9,7 +9,6 @@ import Album from "./components/Cards/Cards";
 import Filters from "./components/Filters/Filters";
 import DetailHotel from "./components/DetailHotel/DetailHotel";
 import { useAuth } from "./firebase/index";
-import Perfil from './components/UpdateProfile/UpdateProfile';
 import User from "./components/User/User";
 function App() {
 

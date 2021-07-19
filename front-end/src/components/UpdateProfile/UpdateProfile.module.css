@@ -51,21 +51,3 @@
 .update:hover{
     background:rgb(88, 114, 43)
 }
-.footer {
-    position: relative;
-    height: 1.5em;
-    background: rgba(48, 58, 31, 0.85);
-    width: 101.09%;
-    bottom: -0.5em;
-    left: -0.5em;
-    right: -0.5em;
-    padding-top: 1.5em;
-    padding-bottom: 1.5em;
-    display:flex;
-    align-items: center;
-    justify-content: center;
-}
-.infoFooter {
-    color: #FFF;
-
-}
