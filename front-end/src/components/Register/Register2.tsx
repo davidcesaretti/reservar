@@ -9,11 +9,12 @@ import { signUser, UserEmail, UserEmailGlobal } from "../../actions/index";
 import { makeStyles } from "@material-ui/core/styles";
 import backImg from "../../Image/fondoLogin.jpeg";
 import "@fontsource/roboto";
+import { useAuth } from "../../firebase/index";
 
 const useStyle = makeStyles((theme) => ({
   login: {
     background: "rgba(71, 84, 55, 0.9)",
-    height: "25em",
+    height: "26em",
     textAlign: "center",
     padding: "1em",
     width: "35em",
@@ -58,7 +59,7 @@ const useStyle = makeStyles((theme) => ({
   title2: {
     color: "#FFF",
     fontSize: "1.3em",
-    marginBottom: "2em",
+    marginBottom: theme.spacing(2),
   },
   infoFooter: {
     color: "#FFF",
@@ -80,16 +81,13 @@ const useStyle = makeStyles((theme) => ({
   completediv: {
     marginTop: theme.spacing(2),
   },
+  buttonOut: {
+    marginBottom: theme.spacing(1),
+  },
 }));
 const Register = () => {
-  if (!firebase.apps.length) {
-    firebase.initializeApp({
-      apiKey: "AIzaSyBh2wY42foyI4uwoW9wfIKtCz2ie-mXELw",
-      authDomain: "reservar-319305.firebaseapp.com",
-    });
-  } else {
-    firebase.app();
-  }
+  const auth = useAuth();
+  const user = auth.user;
 
   const [signedIn, setSignedIn] = useState(false);
 
@@ -119,9 +117,6 @@ const Register = () => {
     logged && dispatch(signUser(userInfo))
     setLogged(false) */
   let userlogged = firebase.auth().currentUser;
-  const checkea = () => {
-    console.log(userlogged);
-  };
 
   const [userInfo, setUserInfo] = useState({
     name: "",
@@ -172,18 +167,21 @@ const Register = () => {
         <Typography className={classes.title1}>
           We welcome you to RESERVAR!
         </Typography>
-        <Typography className={classes.title2}>Login or Register</Typography>
+
         <Container maxWidth="xs" className={classes.buttonsLogin}>
-          {signedIn ? (
+          {user ? (
             <Grid>
               <Button
                 onClick={() => {
                   handleClick();
                 }}
+                color="secondary"
+                variant="contained"
+                className={classes.buttonOut}
               >
                 Sign Out
               </Button>
-              <Typography>
+              <Typography className={classes.title2}>
                 Hello, {firebase.auth().currentUser.displayName}
               </Typography>
               <img src={firebase.auth().currentUser.photoURL} alt="user" />
@@ -197,6 +195,9 @@ const Register = () => {
             </Grid>
           ) : (
             <Grid>
+              <Typography className={classes.title2}>
+                Login or Register
+              </Typography>
               <StyledFirebaseAuth
                 uiConfig={uiConfig}
                 firebaseAuth={firebase.auth()}

@@ -41,7 +41,7 @@ UserRouter.post("/register", async (req: Request, res: Response) => {
       emergency_contact,
       emergency_phone_number,
       relationship,
-      favorites,
+      favorites: Array,
       alternative_email,
     });
     await user.save();
@@ -63,7 +63,7 @@ UserRouter.post("/register", async (req: Request, res: Response) => {
           emergency_contact,
           emergency_phone_number,
           relationship,
-          favorites,
+          favorites: [],
           alternative_email,
         },
       }
