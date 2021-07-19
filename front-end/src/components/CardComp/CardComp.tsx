@@ -112,7 +112,7 @@ export default function CardComp({
             {score}
           </IconButton>
         </CardMedia>
-        <Link to={`/categories/${_id}`}>
+        <Link style={{textDecoration: "none"}}to={`/categories/${_id}`}>
           <CardContent style={{ padding: "15px" }}>
             <Typography
               gutterBottom
