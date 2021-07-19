@@ -173,8 +173,9 @@ UserRouter.post("/favorites", async (req, res) => {
   }
 });
 
-UserRouter.get("/getfavorites", async (req, res) => {
+UserRouter.post("/getfavorites", async (req, res) => {
   const { email } = req.body;
+  console.log(req.body, "   EMAIL BACK");
   const us = await User.findOne({ email: email });
   const props = await Properties.find({ _id: us.favorites });
   res.json(props);
