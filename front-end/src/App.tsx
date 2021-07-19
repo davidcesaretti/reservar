@@ -12,6 +12,7 @@ import { useAuth } from "./firebase/index";
 import Perfil from "./components/Perfil/Perfil";
 import Pay from "./components/Payments/Payment";
 
+import Favorites from "./components/Favorites/Favorites";
 function App() {
   const auth = useAuth();
 
@@ -28,6 +29,7 @@ function App() {
       <Route exact path="/Filters" component={Filters} />
       <Route exact path="/Categories" component={Album} />
       <Route exact path="/payments" component={Pay} />
+      <Route exact path="/favourites" component={Favorites} />
     </Switch>
   );
 }

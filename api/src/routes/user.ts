@@ -147,10 +147,31 @@ UserRouter.post("/reserva", async (req, res) => {
     );
     await User.updateOne({ email: email }, { favorites: favFilter });
     res.json(favFilter);
+UserRouter.put("/favorites", async (req, res) => {
+  const { email, favorites } = req.body;
+  const fav = await User.updateOne(
+    { email: email },
+    { $push: { favorites: favorites } }
+  );
+  res.json(fav);
+});
+*/
+UserRouter.post("/favorites", async (req, res) => {
+  try {
+    const { email, favorites } = req.body;
+    const user = await User.findOne({ email: email });
+    const favfilter = favorites?.concat(
+      user.favorites.filter((item) => favorites.indexOf(item) < 0)
+    );
+
+    await User.updateOne({ email: email }, { favorites: favfilter });
+
+    console.log(email);
+    res.json(favfilter);
   } catch (error) {
     res.send(error);
   }
-});  */
+});
 
 UserRouter.get("/getfavorites", async (req, res) => {
   const { email } = req.body;
