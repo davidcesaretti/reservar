@@ -47,6 +47,7 @@ const reserva = new Schema(
     fechaSalida: { type: Date },
     fechaLlegada: { type: Date },
     info_user: { type: Object },
+    guests: {type: Number}
   },
   { versionKey: false }
 );
