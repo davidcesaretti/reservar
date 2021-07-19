@@ -7,8 +7,14 @@ const mercadopago = require("mercadopago");
 mercadopago.configure({
   access_token: config.prod_access_token,
 });
+router.post("/noti", (req: Request, res: Response) => {
+  const { topic, id } = req.query;
+  //enviar correo???
+  console.log(topic, id);
+  res.status(200);
+});
 // ESTA EN GET PARA TESTEO, DEBERIA SER UN POST
-router.get("/", (req: Request, res: Response, next: NextFunction) => {
+router.post("/", (req: Request, res: Response, next: NextFunction) => {
   // Crea un objeto de preferencia
   const { title, unit_price, quantity } = req.body;
   let preference = {
@@ -19,12 +25,19 @@ router.get("/", (req: Request, res: Response, next: NextFunction) => {
         quantity: quantity || 1,
       },
     ],
+    back_urls: {
+      success: "https://trekker-59f4e.web.app",
+      failure: "https://trekker-59f4e.web.app",
+      pending: "https://trekker-59f4e.web.app",
+    },
+    auto_return: "all",
+    notification_url: "https://localhost:3001/mp/noti",
   };
 
   mercadopago.preferences
     .create(preference)
     .then(function (response) {
-      res.redirect(response.body.init_point);
+        res.redirect(response.body.sandbox_init_point);
     })
     .catch((error) => next(error));
 });
