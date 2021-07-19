@@ -51,7 +51,6 @@ const Favorites = () => {
     } else {
       return (
         <div>
-          <NavBar/>
           <Grid >
             <Typography className={classes.title} variant='h4' align='center'>
               Favourite properties
