@@ -152,12 +152,6 @@ export default function Album() {
     console.log(fav, "    DISPATCH FAVOS");
   }, [fav]);
 
-  let arrayfavs = [];
-
-  useEffect(() => {
-    userfavs.map((e) => arrayfavs.push(e._id));
-  }, [userfavs]);
-
   return (
     <React.Fragment>
       <CssBaseline />
@@ -245,16 +239,6 @@ export default function Album() {
                       click={handleClick}
                     />
                   </Card>
-                  <IconButton
-                    aria-label="add to favorites"
-                    className={
-                      arrayfavs.includes(e._id)
-                        ? classes.iconfavclicked
-                        : classes.iconfav
-                    }
-                  >
-                    <FavoriteIcon />
-                  </IconButton>
                 </Grid>
               ))}
           </Grid>

@@ -78,7 +78,6 @@ export default function CardComp({
   const classes = useStyles();
   const userfavs = useSelector((state: any) => state.userfavossss);
 
-  const [fav, setFav] = useState(false);
   const favs = useSelector((state: any) => state.favourites);
 
   // const handleClick =(e) => {
@@ -87,11 +86,18 @@ export default function CardComp({
   //     setFav(!fav)
   //   }
   // }
+
+  let arrayfavs = [];
+
   useEffect(() => {
-    if (favs?.favos?.includes(_id)) {
-      setFav(!fav);
+    userfavs.map((e) => arrayfavs.push(e._id));
+    if (arrayfavs.includes(_id)) {
+      setChecked(true);
+      console.log(checked, " checkeado");
     }
-  }, [favs]);
+  }, [userfavs]);
+
+  const [checked, setChecked] = useState(true);
 
   /* className={
     userfavs.forEach((card) => card._id === _id)
@@ -106,9 +112,8 @@ export default function CardComp({
         <CardMedia className={classes.media} image={image} title="Room Deluxe">
           <IconButton
             aria-label="add to favorites"
-            className={classes.iconfav}
+            className={checked ? classes.iconfavclicked : classes.iconfav}
             onClick={click}
-            value={_id}
           >
             <FavoriteIcon />
           </IconButton>
