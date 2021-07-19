@@ -290,100 +290,102 @@ export default function CheckboxList() {
   };
 
   return (
-    <form onSubmit={submitData}>
-      <Container maxWidth="xs" className={classes.filterbox}>
-        <h3 className={classes.nombredecat}>Filter by...</h3>
-        {Categories.map((cat) => (
-          <>
-            <Grid
-              container
-              direction="column"
-              justifyContent="space-evenly"
-              alignItems="flex-start"
-            >
-              <h4 className={classes.nombredecat}>{cat.title}</h4>
-              {cat.iconos && (
-                <>
-                  <button
-                    className={classes.btn}
-                    value="asc"
-                    name="price"
-                    onClick={setDataHandler}
-                  >
-                    Min - Max
-                  </button>
-                  <button
-                    className={classes.btn}
-                    value="desc"
-                    name="price"
-                    onClick={setDataHandler}
-                  >
-                    Max - Min
-                  </button>
-                </>
-              )}
-              <List>
-                {console.log(cat.keyword)}
-                {cat.title !== "Type" && cat.title !== "Score" ? (
-                  cat?.filtros?.map((value) => (
-                    <ListItem className={classes.nombredetipo} key={value}>
-                      <GreenCheckbox
-                        edge="start"
-                        value={value}
-                        checked={cat.checked}
-                        name={cat.keyword}
-                        onChange={handleChecks}
-                        className={classes.select}
-                      />
-                      <ListItemText primary={value} />
-                    </ListItem>
-                  ))
-                ) : (
-                  <ListItem className={classes.nombredetipo}>
-                    <FormControl>
-                      <InputLabel>-</InputLabel>
-                      <Select
-                        name={cat.keyword}
-                        onChange={setDataHandler}
-                        className={classes.select}
-                      >
-                        {cat?.filtros?.map((value) => (
-                          <MenuItem value={value.id}>{value.msg}</MenuItem>
-                        ))}
-                      </Select>
-                    </FormControl>
-                    <ListItemText />
-                  </ListItem>
+    <div>
+      <form onSubmit={submitData}>
+        <Container maxWidth="xs" className={classes.filterbox}>
+          <h3 className={classes.nombredecat}>Filter by...</h3>
+          {Categories.map((cat) => (
+            <>
+              <Grid
+                container
+                direction="column"
+                justifyContent="space-evenly"
+                alignItems="flex-start"
+              >
+                <h4 className={classes.nombredecat}>{cat.title}</h4>
+                {cat.iconos && (
+                  <>
+                    <button
+                      className={classes.btn}
+                      value="asc"
+                      name="price"
+                      onClick={setDataHandler}
+                    >
+                      Min - Max
+                    </button>
+                    <button
+                      className={classes.btn}
+                      value="desc"
+                      name="price"
+                      onClick={setDataHandler}
+                    >
+                      Max - Min
+                    </button>
+                  </>
                 )}
-              </List>
-            </Grid>
-            <Divider />
-          </>
-        ))}
-        <Button variant="text" color="inherit" type="submit">
-          Estado
-        </Button>
-        <Button
-          variant="text"
-          color="inherit"
-          onClick={(e) => {
-            onPrev(e);
-          }}
-        >
-          {" "}
-          Prev{" "}
-        </Button>
-        <Button
-          variant="text"
-          color="inherit"
-          onClick={(e) => {
-            onNext(e);
-          }}
-        >
-          {" "}
-          Next{" "}
-        </Button>
-      </Container>
-    </form>
+                <List>
+                  {console.log(cat.keyword)}
+                  {cat.title !== "Type" && cat.title !== "Score" ? (
+                    cat?.filtros?.map((value) => (
+                      <ListItem className={classes.nombredetipo} key={value}>
+                        <GreenCheckbox
+                          edge="start"
+                          value={value}
+                          checked={cat.checked}
+                          name={cat.keyword}
+                          onChange={handleChecks}
+                          className={classes.select}
+                        />
+                        <ListItemText primary={value} />
+                      </ListItem>
+                    ))
+                  ) : (
+                    <ListItem className={classes.nombredetipo}>
+                      <FormControl>
+                        <InputLabel>-</InputLabel>
+                        <Select
+                          name={cat.keyword}
+                          onChange={setDataHandler}
+                          className={classes.select}
+                        >
+                          {cat?.filtros?.map((value) => (
+                            <MenuItem value={value.id}>{value.msg}</MenuItem>
+                          ))}
+                        </Select>
+                      </FormControl>
+                      <ListItemText />
+                    </ListItem>
+                  )}
+                </List>
+              </Grid>
+              <Divider />
+            </>
+          ))}
+          <Button variant="text" color="inherit" type="submit">
+            Estado
+          </Button>
+          <Button
+            variant="text"
+            color="inherit"
+            onClick={(e) => {
+              onPrev(e);
+            }}
+          >
+            {" "}
+            Prev{" "}
+          </Button>
+          <Button
+            variant="text"
+            color="inherit"
+            onClick={(e) => {
+              onNext(e);
+            }}
+          >
+            {" "}
+            Next{" "}
+          </Button>
+        </Container>
+      </form>
+    </div>
   );
 }
