@@ -17,11 +17,17 @@ import Tipos2 from "../../Image/tipos2.jpeg";
 import Tipos3 from "../../Image/tipos3.jpeg";
 import Chica from "../../Image/chica.jpeg";
 import { useDispatch, useSelector } from "react-redux";
-import { FechasReserva, fetchCardsHotels, setBoolean } from "../../actions";
+import {
+  addFavourites,
+  FechasReserva,
+  fetchCardsHotels,
+  setBoolean,
+} from "../../actions";
 import { Calendary } from "../Calendary/Calendary";
 import MenuAppBar from "../Nav/Nav2";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { useAuth } from "../../firebase/index";
 
 const useStyle = makeStyles({
   containerFilters: {
@@ -80,6 +86,10 @@ const Home = () => {
   const fechas = useSelector((state: any) => state.fechas);
   console.log(fechas);
   const dispatch = useDispatch();
+  const auth = useAuth();
+  const email = auth?.user?.email;
+
+  dispatch(addFavourites({ favos: [], email: email }));
   // useEffect(() => {
   //   dispatch(
   //     fetchCardsHotels(
@@ -125,8 +135,6 @@ const Home = () => {
     );
   }
   const classes = useStyle();
-
- 
 
   return (
     <div>
@@ -362,7 +370,6 @@ const Home = () => {
           <Footer />
         </Grid>
       </Grid>
-      
     </div>
   );
 };
