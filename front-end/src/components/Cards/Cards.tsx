@@ -76,14 +76,11 @@ export default function Album() {
 
   const [cities, setCities] = useState(undefined);
   const [guest, setGuest] = useState(undefined);
-
+  const email = auth?.user?.email;
   const fechas = useSelector((state: any) => state.fechas);
   function busqueda() {
     dispatch(FechasReserva({ ...fechas, cities, guest }));
-  }
-
-  const email = auth?.user?.email;
-  /* useEffect(() => {
+    console.log("Dispatch busqueda");
     dispatch(
       fetchCardsHotels(
         undefined,
@@ -97,7 +94,6 @@ export default function Album() {
       )
     );
   }
-  }, []);*/
 
   const [fav, setFav]: any = useState({
     favos: [],
@@ -133,13 +129,8 @@ export default function Album() {
   };
   useEffect(() => {
     dispatch(addFavourites(fav));
-    console.log(fav);
+    console.log(fav, "    DISPATCH FAVOS");
   }, [fav]);
-
-  const checkear = () => {
-    console.log(fav);
-    console.log(auth.user.email);
-  };
 
   return (
     <React.Fragment>
@@ -239,7 +230,6 @@ export default function Album() {
         {/* End footer */}
       </div>
       {success ? <FlashMessage message={message} /> : ""}
-      <button onClick={checkear}>CHECK</button>
     </React.Fragment>
   );
 }
