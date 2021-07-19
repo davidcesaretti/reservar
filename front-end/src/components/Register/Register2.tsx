@@ -3,14 +3,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 import firebase from "firebase";
 import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
-import { storage } from '../../firebase/index'
+import { storage } from "../../firebase/index";
 import { Button, Container, Typography, Grid } from "@material-ui/core";
 import { signUser, UserEmail, UserEmailGlobal } from "../../actions/index";
 import { makeStyles } from "@material-ui/core/styles";
 import backImg from "../../Image/fondoLogin.jpeg";
 import "@fontsource/roboto";
 
-const useStyle = makeStyles({
+const useStyle = makeStyles((theme) => ({
   login: {
     background: "rgba(71, 84, 55, 0.9)",
     height: "25em",
@@ -73,7 +73,14 @@ const useStyle = makeStyles({
     color: "#FFF",
     textDecoration: "none",
   },
-});
+  link1: {
+    color: "white",
+    textDecoration: "none",
+  },
+  completediv: {
+    marginTop: theme.spacing(2),
+  },
+}));
 const Register = () => {
   if (!firebase.apps.length) {
     firebase.initializeApp({
@@ -112,6 +119,9 @@ const Register = () => {
     logged && dispatch(signUser(userInfo))
     setLogged(false) */
   let userlogged = firebase.auth().currentUser;
+  const checkea = () => {
+    console.log(userlogged);
+  };
 
   const [userInfo, setUserInfo] = useState({
     name: "",
@@ -126,14 +136,12 @@ const Register = () => {
       email: userlogged?.email,
       photo: userlogged?.photoURL,
     });
-    if (userlogged?.email.length > 2) {
-      dispatch(UserEmailGlobal(userlogged?.email));
-    }
   }, [userlogged]);
 
   useEffect(() => {
     if (userInfo?.email?.length > 2) {
       dispatch(signUser(userInfo));
+      console.log("despachando", userInfo);
     }
   }, [userInfo]);
 
@@ -179,6 +187,13 @@ const Register = () => {
                 Hello, {firebase.auth().currentUser.displayName}
               </Typography>
               <img src={firebase.auth().currentUser.photoURL} alt="user" />
+              <div className={classes.completediv}>
+                <Link to="/perfil" className={classes.link1}>
+                  <Button variant="contained" color="secondary">
+                    Complete your Profile!
+                  </Button>
+                </Link>
+              </div>
             </Grid>
           ) : (
             <Grid>
