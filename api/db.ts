@@ -20,5 +20,5 @@ mongoose
   )
   .catch((err) => console.error(err));
 
-const airbnb = new Schema({}, { collection: "properties" });
+const airbnb = new Schema({}, { collection: "listingsAndReviews" });
 export const dataAirbnb = model("DatafaCostumer", airbnb);

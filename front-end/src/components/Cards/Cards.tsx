@@ -1,26 +1,36 @@
 import React, { useEffect } from "react";
 import AppBar from "@material-ui/core/AppBar";
-import Button from "@material-ui/core/Button";
 import CameraIcon from "@material-ui/icons/PhotoCamera";
 import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import CssBaseline from "@material-ui/core/CssBaseline";
-import Grid from "@material-ui/core/Grid";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
-import Link from "@material-ui/core/Link";
 import CardComp from "../CardComp/CardComp";
 import Footer from "../Footer/Footer";
 import CheckboxList from "../Filters/Filters";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchCardsHotels } from "../../actions";
+import { addFavourites, FechasReserva, fetchCardsHotels } from "../../actions";
 import { hotelsReducer } from "../../reducers/hotels";
 import NavBar from "../Nav/Nav2";
-
+import { truncate } from "fs";
+import Alert from "@material-ui/lab/Alert";
+import { FlashMessage } from "./flashmsg";
+import IconButton from "@material-ui/core/IconButton";
+import FavoriteIcon from "@material-ui/icons/Favorite";
+import Calendary from "../Calendary/Calendary";
+import MenuAppBar from "../Nav/Nav2";
+import { useState } from "react";
+import TextField from "@material-ui/core/TextField";
+import FormControl from "@material-ui/core/FormControl";
+import FormLabel from "@material-ui/core/FormLabel";
+import { Box, Button, Grid } from "@material-ui/core";
+import SearchIcon from "@material-ui/icons/Search";
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   icon: {
@@ -52,31 +62,139 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.background.paper,
     padding: theme.spacing(6),
   },
+  navbar: {
+    height: "80%",
+  },
 }));
 
 export default function Album() {
   const classes = useStyles();
-  const cards = useSelector((state: any) => state.cardsHotel) 
+  const cards = useSelector((state: any) => state.cardsHotel);
+  const email = useSelector((state: any) => state.userlogged);
   const dispatch = useDispatch();
+
+  const [fav, setFav]: any = useState({
+    favos: [],
+    email: "dario.velazquez10@gmail.com",
+  });
+  const [cities, setCities] = useState(undefined);
+  const [guest, setGuest] = useState(undefined);
+  const [success, setSuccess] = useState(false);
+  const [message, setMessage] = useState("");
+  const fechas = useSelector((state: any) => state.fechas);
+  function busqueda() {
+    dispatch(FechasReserva({ ...fechas, cities, guest }));
+    dispatch(
+      fetchCardsHotels(
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        guest,
+        undefined,
+        cities,
+        fechas
+      )
+    );
+  }
+  const resetState = () => {
+    setSuccess(false);
+    setMessage("");
+  };
+
+  const handleClick = (e) => {
+    e.preventDefault();
+    if (fav?.favos?.includes(e.currentTarget.value)) {
+      setFav({
+        ...fav,
+        favos: fav.favos.filter((x) => x !== e.currentTarget.value),
+      });
+
+      setMessage("error");
+      setSuccess(true);
+
+      setTimeout(resetState, 3000);
+    } else {
+      setFav({ ...fav, favos: fav.favos.concat(e.currentTarget.value) });
+
+      setMessage("success");
+      setSuccess(true);
+      setTimeout(resetState, 3000);
+    }
+  };
   useEffect(() => {
-    dispatch(fetchCardsHotels(
-      undefined, 
-      undefined, 
-      undefined,
-      undefined,
-      undefined,
-      undefined
-      ));
-  }, []);
+    dispatch(addFavourites(fav));
+  }, [fav]);
 
-
-  console.log(cards.posts);
+  const checkear = () => {
+    console.log(fav);
+  };
 
   return (
     <React.Fragment>
       <CssBaseline />
-      <CheckboxList />
       <NavBar />
+      <CheckboxList />
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          paddingTop: "16px",
+          paddingBottom: "0",
+        }}
+      >
+        <FormControl>
+          <FormLabel
+            style={{
+              display: "flex",
+              border: "solid",
+              backgroundColor: "whitesmoke",
+              padding: "0.5rem 0.8rem",
+              borderRadius: "1em",
+              alignItems: "center",
+            }}
+          >
+            <TextField
+              onChange={(e) => setCities(e.target.value)}
+              id=""
+              label="Where are you going?"
+              variant="standard"
+              color="secondary"
+              margin="none"
+              size="small"
+            />
+            <Calendary />
+            <TextField
+              onChange={(e) => setGuest(e.target.value)}
+              id=""
+              label="Guests"
+              variant="standard"
+              color="primary"
+              margin="none"
+              size="small"
+            />
+            <Link to={"/categories"}>
+              <Button
+                variant="contained"
+                color="secondary"
+                size="small"
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  height: "70%",
+                  alignSelf: "center",
+                  borderRadius: "1em",
+                }}
+                onClick={() => busqueda()}
+              >
+                <SearchIcon />
+              </Button>
+            </Link>
+          </FormLabel>
+        </FormControl>
+      </div>
+      {/* fksjahfjkashfkjashfasfrjkasfhapsfhlasfhlkasfhlkashflksflashflkasfhlkashlkashflkfa */}
       <main style={{ marginLeft: "200px" }}>
         {/* Hero unit */}
         <Container className={classes.cardGrid} maxWidth="md">
@@ -96,6 +214,7 @@ export default function Album() {
                       accommodates={e.accommodates}
                       beds={e.beds}
                       price={e.price}
+                      click={handleClick}
                     />
                   </Card>
                 </Grid>
@@ -108,6 +227,8 @@ export default function Album() {
         <Footer />
         {/* End footer */}
       </div>
+      {success ? <FlashMessage message={message} /> : ""}
+      <button onClick={checkear}>Chequear</button>
     </React.Fragment>
   );
 }

@@ -7,7 +7,8 @@ import UserRouter from "./routes/user";
 import faker from "faker";
 import { dataAirbnb } from "../db";
 import routes from "./routes/index";
-//import { createdTest } from "../test";
+import { city, createdTest } from "../test";
+import { Cities } from "./models/Cities";
 
 interface error {
   status: number;
@@ -22,7 +23,7 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(morgan("dev"));
 app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "http://localhost:3000"); // update to match the domain you will make the request from
+  res.header("Access-Control-Allow-Origin", "http://localhost:3000"); //"*" // update to match the domain you will make the request from
   res.header("Access-Control-Allow-Credentials", "true");
   res.header(
     "Access-Control-Allow-Headers",
@@ -37,7 +38,7 @@ app.use("/", routes);
 
 app.use(
   cors({
-    origin: config.cors,
+    origin: config.cors, //"*"
     credentials: true,
     methods: ["GET", "POST", "OPTIONS", "PUT", "DELETE"],
     allowedHeaders: ["Origin", "X-Requested-With", "Content-Type", "Accept"],
@@ -92,10 +93,21 @@ app.get("/", async (req: Request, res: Response) => {
 
 app.get("/test", async (req: Request, res: Response) => {
   // createdTest();
-  dataAirbnb
-    .find({})
-    .limit(100)
-    .then((data) => res.json(data));
+  //city();
+  //   const arrayCities = []
+  //   Cities.find({}).then(data:any=>
+  //   res.json(data)
+  // ))
+  // let array = [];
+  // let arraycities;
+  // Cities.find({})
+  //   .then((data: any) => data.map((x) => array.push(x.name)))
+  //   .then(() => {
+  //     arraycities = new Set(array);
+  //     arraycities = [...arraycities];
+  //     arraycities = arraycities.filter((x) => x.length < 15 && x.length > 1);
+  //     res.json(arraycities);
+  //   });
 });
 
 export default app;
