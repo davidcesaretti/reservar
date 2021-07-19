@@ -97,8 +97,7 @@ export const fetchCardsHotels = (
   city,
   fecha
 ) => {
-  console.log(amenities);
-
+  // console.log(amenities);
   let string1 = `/filter?page=${page}&${
     score !== undefined ? `score=${score}` : "nada"
   }&${accommodates !== undefined ? `accommodates=${accommodates}` : "nada"}&${
