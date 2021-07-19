@@ -26,11 +26,9 @@ UserRouter.post("/register", async (req: Request, res: Response) => {
     favorites,
     alternative_email,
   } = req.body;
-  try {
+  
     const emailUser = await User.findOne({ email: email });
-    if (emailUser && email.length <= 0 ) {
-      res.json("el email ya esta en uso");
-    } else {
+      if(!emailUser && email){
       const user = new User({
         name,
         email,
@@ -48,55 +46,36 @@ UserRouter.post("/register", async (req: Request, res: Response) => {
         alternative_email,
       });
       await user.save();
+      console.log("creado")
       return res.json(user);
     }
-  } catch (err) {
-    res.json(err);
-  }
+    else if(emailUser) {
+      const userupdate = await User.updateOne(
+        {email: email},
+        {$set:{
+          name,
+          nationality,
+          phone_number,
+          identity_document_type,
+          identity_document_number,
+          date_birth,
+          residence_address,
+          city_and_country_of_residence,
+          emergency_contact,
+          emergency_phone_number,
+          relationship,
+          favorites,
+          alternative_email,
+        }},
+      )
+      res.json(userupdate)
+    }
+    else{
+      res.send("no se pudo crear usuario")
+    }
+   
 });
 
-
-
-UserRouter.put("/update", async(req,res)=> {
-  const {
-    name,
-    email,
-    phone_number,
-    nationality,
-    identity_document_type,
-    identity_document_number,
-    date_birth,
-    residence_address,
-    city_and_country_of_residence,
-    emergency_contact,
-    emergency_phone_number,
-    relationship,
-    alternative_email,
-  } = req.body;
-
-  const userupdate = await User.updateOne(
-    {email: email},
-    {$set:{
-      name,
-      nationality,
-      phone_number,
-      identity_document_type,
-      identity_document_number,
-      date_birth,
-      residence_address,
-      city_and_country_of_residence,
-      emergency_contact,
-      emergency_phone_number,
-      relationship,
-      alternative_email
-    }},
-  )
-res.json(userupdate)
-})
-
-
-UserRouter.post("/reserva", async (req, res) => {
-  const { fechaSalida, fechaLlegada, email, Prop_id } = req.body;
 
 
 
@@ -105,7 +84,7 @@ UserRouter.post("/reserva", async (req, res) => {
 
   const finded = await User.findOne({ email:email });
   try {
-    const reservaFind = await Propertiestests.find({
+    const reservaFind = await Properties.find({
       _id: Prop_id,
       available: {
         $elemMatch: {
@@ -141,7 +120,7 @@ UserRouter.post("/reserva", async (req, res) => {
       });
       await reserva.save();
 
-      await Propertiestests.updateOne(
+      await Properties.updateOne(
         { _id: Prop_id },
         { $push: { available: reserva } }
       );
@@ -163,47 +142,26 @@ UserRouter.post("/reserva", async (req, res) => {
 });
 
 
-UserRouter.put("/favorites", async (req, res)=> {
-  const {email , favorites} = req.body
-  const fav = await User.updateOne(
-    {email: email},
-  { $push: { favorites: favorites } },
-  )
-  res.json(fav)
-})
 
-UserRouter.put("/favorites", async (req, res) => {
+UserRouter.post("/favorites", async (req, res) => {
   try {
     const { email, favorites } = req.body;
     // const user = await User.findOne({ email: email });
     // const favfilter = favorites?.concat(
     //   user.favorites.filter((item) => favorites.indexOf(item) < 0)
     // )
-    await User.updateOne({ email: email },{ favorites: favorites });
-
-    console.log(email);
-    res.json(favorites);
+    const favFilter = favorites.filter((item, index) => favorites.indexOf(item) === index)
+    await User.updateOne({ email: email },{ favorites: favFilter });
+    res.json(favFilter);
 
   } catch (error) {
     res.send(error);
   }
 });
 
-// UserRouter.get("/test", async (req: Request, res: Response) => {
-//   Properties.aggregate([
-//       {
-//         $lookup: {
-//           from: "users",
-//           localField: "availability[0].info_user",
-//           foreignField: "_id",
-//           as: "prueba",
-//         },
-//       },
-//     ]).then((data) => res.json(data));
-//   }
 
 UserRouter.get("/getfavorites", async (req, res)=>{
-  const {email }= req.body
+  const {email}= req.body
  const us = await User.findOne({email:email})
  const props = await Properties.find({_id: us.favorites})
  res.json(props)
