@@ -88,8 +88,22 @@ const Home = () => {
   const dispatch = useDispatch();
   const auth = useAuth();
   const email = auth?.user?.email;
-
+  const cards = useSelector((state: any) => state.cardsHotel);
   dispatch(addFavourites({ favos: [], email: email }));
+  if (Array.isArray(cards)) {
+    dispatch(
+      fetchCardsHotels(
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined
+      )
+    );
+  }
   // useEffect(() => {
   //   dispatch(
   //     fetchCardsHotels(
