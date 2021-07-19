@@ -74,7 +74,7 @@ UserRouter.post("/register", async (req: Request, res: Response) => {
 });
 
 UserRouter.post("/reserva", async (req, res) => {
-  const { fechaSalida, fechaLlegada, email, Prop_id } = req.body;
+  const { fechaSalida, fechaLlegada, email, Prop_id, guests } = req.body;
 
   const finded = await User.findOne({ email: email });
   try {
@@ -110,6 +110,7 @@ UserRouter.post("/reserva", async (req, res) => {
         fechaSalida,
         fechaLlegada,
         info_user: finded.email,
+        guests,
       });
       await reserva.save();
 
@@ -127,6 +128,7 @@ UserRouter.post("/reserva", async (req, res) => {
         message: "reserva exitosa!",
         checkIn: fechaSalida,
         checkOut: fechaLlegada,
+        guests: guests
       });
     }
   } catch (err) {
