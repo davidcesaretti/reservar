@@ -46,7 +46,7 @@ const Perfil = () => {
             return
         }
         if (!emailRegex.test(info.recuperation_email) && info.recuperation_email !== '') {
-            alert('write a valid email')
+            alert('write an alternative mail in case you need to recover your account')
             return
         }
         if (info.phone_number < 1000000 && info.phone_number !== 0) {
@@ -78,15 +78,15 @@ const Perfil = () => {
             return
         }
         if (info.emergency_phone_number < 1000000 && info.emergency_phone_number !== 0) {
-            alert('wirte an alternative phone in case of emergency')
+            alert('write the phone of an emergency contact')
             return
         }
         if (!emailRegex.test(info.emergency_contact) && info.emergency_contact !== '') {
-            alert('write an alternative mail in case you need to recover your account')
+            alert('write the email of the emergency contact')
             return
         }
         if (typeof info.relationship !== "string" && info.relationship !== '') {
-            alert('write your civil status')
+            alert('write your relationship with the emergency contact')
             return
         }
 
