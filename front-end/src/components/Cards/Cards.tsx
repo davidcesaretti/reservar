@@ -71,7 +71,7 @@ const useStyles = makeStyles((theme) => ({
 export default function Album() {
   const classes = useStyles();
   const cards = useSelector((state: any) => state.cardsHotel);
-
+  const auth = useAuth();
   const dispatch = useDispatch();
 
   const [cities, setCities] = useState(undefined);
@@ -81,9 +81,8 @@ export default function Album() {
   function busqueda() {
     dispatch(FechasReserva({ ...fechas, cities, guest }));
   }
-  const auth = useAuth();
 
-  const email = auth.user.email;
+  const email = auth?.user?.email;
   /* useEffect(() => {
     dispatch(
       fetchCardsHotels(
@@ -134,10 +133,12 @@ export default function Album() {
   };
   useEffect(() => {
     dispatch(addFavourites(fav));
+    console.log(fav);
   }, [fav]);
 
   const checkear = () => {
     console.log(fav);
+    console.log(auth.user.email);
   };
 
   return (
@@ -238,7 +239,7 @@ export default function Album() {
         {/* End footer */}
       </div>
       {success ? <FlashMessage message={message} /> : ""}
-      <button onClick={checkear}>Chequear</button>
+      <button onClick={checkear}>CHECK</button>
     </React.Fragment>
   );
 }

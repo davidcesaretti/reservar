@@ -4,35 +4,23 @@ import Card from "@material-ui/core/Card";
 import CardMedia from "@material-ui/core/CardMedia";
 import CardContent from "@material-ui/core/CardContent";
 import CardActions from "@material-ui/core/CardActions";
-import CardActionArea from "@material-ui/core/CardActionArea";
+
 import Collapse from "@material-ui/core/Collapse";
 import Button from "@material-ui/core/Button";
-import IconButton from "@material-ui/core/IconButton";
-import Typography from "@material-ui/core/Typography";
-
-import FavoriteIcon from "@material-ui/icons/Favorite";
 
 import { useSelector } from "react-redux";
 
+import CardActionArea from "@material-ui/core/CardActionArea";
+import IconButton from "@material-ui/core/IconButton";
+import Typography from "@material-ui/core/Typography";
+import FavoriteIcon from "@material-ui/icons/Favorite";
 import ApartmentIcon from "@material-ui/icons/Apartment";
 import StarBorderIcon from "@material-ui/icons/StarBorder";
 import AddLocationIcon from "@material-ui/icons/AddLocation";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
-
 import HotelIcon from "@material-ui/icons/Hotel";
 import MonetizationOnIcon from "@material-ui/icons/MonetizationOn";
 import { Link } from "react-router-dom";
-import CardActionArea from "@material-ui/core/CardActionArea"
-import IconButton from "@material-ui/core/IconButton";
-import Typography from "@material-ui/core/Typography";
-import FavoriteIcon from "@material-ui/icons/Favorite";
-import ApartmentIcon from '@material-ui/icons/Apartment';
-import StarBorderIcon from '@material-ui/icons/StarBorder';
-import AddLocationIcon from '@material-ui/icons/AddLocation';
-import AccountCircleIcon from '@material-ui/icons/AccountCircle';
-import HotelIcon from '@material-ui/icons/Hotel';
-import MonetizationOnIcon from '@material-ui/icons/MonetizationOn';
-import {Link} from "react-router-dom"
 
 // import { RootState } from '../../store';
 
@@ -41,7 +29,7 @@ const useStyles = makeStyles((theme: Theme) =>
     root: {
       height: "100%",
       display: "flex",
-      flexDirection: "column"
+      flexDirection: "column",
     },
     media: {
       height: 160,
@@ -123,7 +111,7 @@ export default function CardComp({
             {score}
           </IconButton>
         </CardMedia>
-        <Link style={{textDecoration: "none"}}to={`/categories/${_id}`}>
+        <Link style={{ textDecoration: "none" }} to={`/categories/${_id}`}>
           <CardContent style={{ padding: "15px" }}>
             <Typography
               gutterBottom
