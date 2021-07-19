@@ -166,7 +166,7 @@ UserRouter.post("/favorites", async (req, res) => {
 
     await User.updateOne({ email: email }, { favorites: favfilter });
 
-    console.log(email);
+    console.log(favorites, " AGREGANDO FAV BACK");
     res.json(favfilter);
   } catch (error) {
     res.send(error);
