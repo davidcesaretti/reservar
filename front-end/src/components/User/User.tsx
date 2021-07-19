@@ -5,7 +5,7 @@ import style from './User.module.css'
 import Profile from '../Profile/Profile'
 import UpdateProfile from '../UpdateProfile/UpdateProfile'
 import Bookings from '../Bookings/Bookings'
-import Favourites from '../Favourites/Favourites'
+import Favorites from '../Favorites/Favorites'
 import HistoryTravels from '../HistoryTravels/HistoryTravels'
 
 const User = () => {
@@ -25,7 +25,7 @@ const User = () => {
     }
 
     const clickFavourites = () => {
-        setSection('Favourites')
+        setSection('Favorites')
     }
 
     const clickHistoryTravels = () => {
@@ -90,7 +90,7 @@ const User = () => {
             {   section === 'Profile' ? <Profile /> :
                 section === 'Update' ? <UpdateProfile /> :
                 section === 'Bookings' ? <Bookings /> :
-                section === 'Favourites' ? <Favourites /> :
+                section === 'Favorites' ? <Favorites /> :
                 <HistoryTravels />
             }
             <div className={style.footer}>
