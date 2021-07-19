@@ -22,6 +22,9 @@ import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
 import Spinner from '../Spinner/Spinner'
 import Error404 from '../Error404/Error404';
+import { FechasReserva, postReserve } from "../../actions";
+import { useAuth } from "../../firebase/index";
+
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -73,20 +76,23 @@ const useStyles = makeStyles((theme: Theme) =>
 const DetailHotel = () => {
   const detailhotel = useSelector((state: any) => state.categorieDetail);
   const dispatch = useDispatch();
+  const auth = useAuth()
+
+
   const [value, setValue] = useState(0);
   const [hover, setHover] = useState(-1);
   const [aux, setAux] = React.useState<Boolean>(false);
 
   var hora = new Date();
-  const [arrivalDate, setArrivalDate] = React.useState<Date | String>(
+  const [arrivalDate, setArrivalDate] = React.useState<Date | any>(
     new Date(hora).toISOString()
   );
-  const [departureDate, setdepartureDate] = React.useState<Date | String>(
+  const [departureDate, setdepartureDate] = React.useState<Date | any>(
     new Date(hora).toISOString()
   );
 
   const handleDateChange = (date: Date) => {
-    setArrivalDate(new Date(date).toISOString());
+    setArrivalDate(new Date(date).toISOString())
     setAux(true);
   };
   const handleChange = (date: Date) => {
@@ -121,6 +127,25 @@ const DetailHotel = () => {
     };
   }, [dispatch, id]);
 
+
+
+  useEffect(() => {
+    dispatch(FechasReserva({ checkin: arrivalDate, checkout: departureDate }));
+  }, [arrivalDate, departureDate]);
+
+
+  const obj = {
+    Prop_id: id,
+    fechaSalida: arrivalDate, 
+    fechaLlegada: departureDate,
+    email: auth.user?.email,
+    guests: 5
+  }
+  const handleSubmit = () => {
+    dispatch(postReserve(obj))
+  }
+  console.log(obj)
+
   if(detailhotel === null) {
     return <Error404 />
 } else if(detailhotel.length < 1) {
@@ -147,9 +172,11 @@ const DetailHotel = () => {
             <div className={style.gridPadre}>
               <div className={style.gridHijo1}>
                 <p>Arrival date</p>
+                <p>{arrivalDate.slice(0,10)}</p>
               </div>
               <div className={style.gridHijo2}>
                 <p>Departure date</p>
+                <p>{departureDate.slice(0,10)}</p>
               </div>
               <div className={style.gridHijo3}>
                 <p>¿How many are traveling?</p>
@@ -163,13 +190,16 @@ const DetailHotel = () => {
               </div>
               <div className={style.totalp}>
                 <p>TOTAL STAY</p>
+                <Link to={"/payments"}>
                 <Button
                   className={style.button}
                   variant="contained"
                   color="primary"
-                >
-                  Reserve
+                  onClick={() => handleSubmit()}
+                  >
+                  Reserve 
                 </Button>
+                    </Link>
               </div>
             </div>
             <div className={style.contcuad}>
