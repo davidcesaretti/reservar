@@ -78,17 +78,17 @@ const useStyles = makeStyles((theme) => ({
   titleInfo: {
     fontSize: 25,
     marginLeft: 300,
-    marginTop: 30,
+    marginTop: 0,
     textDecoration: "underline",
   },
   titleForm: {
     fontSize: 25,
-    marginLeft: 100,
+    marginLeft: -100,
     marginTop: 70,
   },
   titleBut: {
     marginLeft: 350,
-    marginTop: 30,
+    marginTop: 80,
     marginBottom: 50,
     backgroundColor: "secundary",
     color: "white",
@@ -102,6 +102,7 @@ const useStyles = makeStyles((theme) => ({
   logoMerc: {
     borderRadius: "2em",
     backgroundPosition: "center",
+    marginLeft: -200,
   },
 }));
 
@@ -144,7 +145,7 @@ export default function Pay({
   };
   const classes = useStyles();
   const bull = <span className={classes.bulletR}>|</span>;
-  const map1 = [1, 2];
+  const map1 = [1];
 
   const pago = {
     title: "mariano",
@@ -216,14 +217,17 @@ export default function Pay({
               </Grid>
             </Grid>
           </Grid>
+          <div>
+
           <Button
             onClick={onSubmit}
             variant="contained"
             color="secondary"
             className={classes.titleBut}
-          >
+            >
             Confirmar Reservacion
           </Button>
+            </div>
           <Paper elevation={0} className={classes.titleCondi}>
             *Tu reserva se ha realizado directamente en el Alojamiento y al
             completarla aceptas las condiciones de la reserva , las condiciones

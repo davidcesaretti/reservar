@@ -41,7 +41,6 @@ UserRouter.post("/register", async (req: Request, res: Response) => {
       emergency_contact,
       emergency_phone_number,
       relationship,
-      favorites: Array,
       alternative_email,
     });
     await user.save();
@@ -63,7 +62,7 @@ UserRouter.post("/register", async (req: Request, res: Response) => {
           emergency_contact,
           emergency_phone_number,
           relationship,
-          favorites: [],
+          
           alternative_email,
         },
       }
@@ -75,7 +74,7 @@ UserRouter.post("/register", async (req: Request, res: Response) => {
 });
 
 UserRouter.post("/reserva", async (req, res) => {
-  const { fechaSalida, fechaLlegada, email, Prop_id } = req.body;
+  const { fechaSalida, fechaLlegada, email, Prop_id, guests } = req.body;
 
   const finded = await User.findOne({ email: email });
   try {
@@ -111,6 +110,7 @@ UserRouter.post("/reserva", async (req, res) => {
         fechaSalida,
         fechaLlegada,
         info_user: finded.email,
+        guests,
       });
       await reserva.save();
 
@@ -128,6 +128,7 @@ UserRouter.post("/reserva", async (req, res) => {
         message: "reserva exitosa!",
         checkIn: fechaSalida,
         checkOut: fechaLlegada,
+        guests: guests
       });
     }
   } catch (err) {
@@ -173,8 +174,9 @@ UserRouter.post("/favorites", async (req, res) => {
   }
 });
 
-UserRouter.get("/getfavorites", async (req, res) => {
+UserRouter.post("/getfavorites", async (req, res) => {
   const { email } = req.body;
+  console.log(req.body, "   EMAIL BACK");
   const us = await User.findOne({ email: email });
   const props = await Properties.find({ _id: us.favorites });
   res.json(props);

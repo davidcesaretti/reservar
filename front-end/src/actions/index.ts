@@ -65,7 +65,7 @@ export interface userInfo {
   recoveryMail: string;
   civilStatus: string;
 }
-const url = "http://localhost:3001";
+const url = "https://app-trekker.herokuapp.com";
 
 export const onLogin = async (data: Credentials) => {
   const requestConfig: AxiosRequestConfig = {
@@ -246,6 +246,13 @@ export const getFavos = (data) => {
   };
 };
 
+
+export const postReserve = (obj) => {
+  return async (dispatch:Dispatch) => {
+    await axios.post("http://localhost:3001/reserva", obj)
+    
+  }
+}
 // export function deleteUsers(data: any) {
 //   return function (dispatch: Dispatch) {
 //     return fetch(url, {

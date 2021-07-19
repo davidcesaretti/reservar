@@ -88,6 +88,14 @@ const useStyle = makeStyles((theme) => ({
 const Register = () => {
   const auth = useAuth();
   const user = auth.user;
+  /* if (!firebase.apps.length) {
+    firebase.initializeApp({
+      apiKey: "AIzaSyBh2wY42foyI4uwoW9wfIKtCz2ie-mXELw",
+      authDomain: "reservar-319305.firebaseapp.com",
+    });
+  } else {
+    firebase.app();
+  } */
 
   const [signedIn, setSignedIn] = useState(false);
 
@@ -165,7 +173,7 @@ const Register = () => {
       </Grid>
       <Container className={classes.login}>
         <Typography className={classes.title1}>
-          We welcome you to RESERVAR!
+          We welcome you to Trekker!
         </Typography>
 
         <Container maxWidth="xs" className={classes.buttonsLogin}>
@@ -186,9 +194,9 @@ const Register = () => {
               </Typography>
               <img src={firebase.auth().currentUser.photoURL} alt="user" />
               <div className={classes.completediv}>
-                <Link to="/perfil" className={classes.link1}>
+                <Link to="/User" className={classes.link1}>
                   <Button variant="contained" color="secondary">
-                    Complete your Profile!
+                    Go to your Profile!
                   </Button>
                 </Link>
               </div>
