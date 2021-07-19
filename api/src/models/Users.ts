@@ -41,7 +41,7 @@ const user = new Schema<IUser>(
 );
 export const User = model<IUser>("User", user);
 
-
+//agregar #huespedes, #cantidad(resolverlo desde fecha)//
 const reserva = new Schema(
   {
     fechaSalida: { type: Date },
