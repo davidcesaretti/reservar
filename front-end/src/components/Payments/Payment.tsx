@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import Card from "@material-ui/core/Card";
-import CardContent from '@material-ui/core/CardContent';
+import CardContent from "@material-ui/core/CardContent";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
@@ -21,9 +21,7 @@ import CardMedia from "@material-ui/core/CardMedia";
 import axios from "axios";
 
 const useStyles = makeStyles((theme) => ({
-  nav:{
-
-  },
+  nav: {},
 
   icon: {
     marginRight: theme.spacing(2),
@@ -47,7 +45,7 @@ const useStyles = makeStyles((theme) => ({
   cardH: {
     display: "flex",
     flexDirection: "column",
-    paddingBottom:100,
+    paddingBottom: 100,
   },
   cardMedia: {
     paddingTop: "56.25%", // 16:9
@@ -67,9 +65,9 @@ const useStyles = makeStyles((theme) => ({
     minWidth: 275,
   },
   bulletR: {
-    display: 'inline-block',
-    margin: '0 2px',
-    transform: 'scale(0.8)',
+    display: "inline-block",
+    margin: "0 2px",
+    transform: "scale(0.8)",
   },
   titleR: {
     fontSize: 14,
@@ -79,73 +77,84 @@ const useStyles = makeStyles((theme) => ({
   },
   titleInfo: {
     fontSize: 25,
-    marginLeft:300,
-    marginTop:30,
-    textDecoration:"underline",
+    marginLeft: 300,
+    marginTop: 30,
+    textDecoration: "underline",
   },
   titleForm: {
     fontSize: 25,
-    marginLeft:100,
-    marginTop:70,
+    marginLeft: 100,
+    marginTop: 70,
   },
   titleBut: {
-    marginLeft:350,
-    marginTop:30,
-    marginBottom:50,
-    backgroundColor:"secundary",
-    color:"white",
+    marginLeft: 350,
+    marginTop: 30,
+    marginBottom: 50,
+    backgroundColor: "secundary",
+    color: "white",
   },
   titleCondi: {
-    marginLeft:0,
-    marginTop:0,
-    marginBottom:10,
-    textAlign:"center",
+    marginLeft: 0,
+    marginTop: 0,
+    marginBottom: 10,
+    textAlign: "center",
   },
   logoMerc: {
     borderRadius: "2em",
     backgroundPosition: "center",
   },
-
 }));
 
-export default function Pay({_id, name, type, beds, price, image, score, address, accommodates,
-  fechaLlegada,fechaSalida,huespedes,info_user}) {
-  
-  _id=12
-  name="Dubai"
-  type="CampingGlow"
-  beds=2
-  price=1200
-  image=Recom1
-  score="10"
-  address="Emirates 2000"
-  accommodates=["wifi","tv"]
-  fechaLlegada="2021-08-15T16:45:00.000+00:00"
-  fechaSalida="2021-08-20T16:45:00.000+00:00"
-  huespedes={
-    adulto:2,
-    niño:1,
-  }; 
-  
-  info_user={
-    direccion:"25 de mayo 120",
-    ciudad:"Buenos Aires",
-    pais:"Argentina",
-    telefono:"+54 9 1139384440"
-  }
+export default function Pay({
+  _id,
+  name,
+  type,
+  beds,
+  price,
+  image,
+  score,
+  address,
+  accommodates,
+  fechaLlegada,
+  fechaSalida,
+  huespedes,
+  info_user,
+}) {
+  _id = 12;
+  name = "Dubai";
+  type = "CampingGlow";
+  beds = 2;
+  price = 1200;
+  image = Recom1;
+  score = "10";
+  address = "Emirates 2000";
+  accommodates = ["wifi", "tv"];
+  fechaLlegada = "2021-08-15T16:45:00.000+00:00";
+  fechaSalida = "2021-08-20T16:45:00.000+00:00";
+  huespedes = {
+    adulto: 2,
+    niño: 1,
+  };
+
+  info_user = {
+    direccion: "25 de mayo 120",
+    ciudad: "Buenos Aires",
+    pais: "Argentina",
+    telefono: "+54 9 1139384440",
+  };
   const classes = useStyles();
   const bull = <span className={classes.bulletR}>|</span>;
-  const map1=[1,2]
+  const map1 = [1, 2];
 
-  const pago={
-    title:"mariano",
-    unit_price:price
-  }
+  const pago = {
+    title: "mariano",
+    unit_price: price,
+  };
 
-  const onSubmit=(ev)=>{
+  const onSubmit = (ev) => {
     ev.preventDefault();
-    axios.post("http://localhost:3001/mp",pago)
-  }
+    axios.post("http://localhost:3001/mp", pago);
+  };
 
   return (
     <React.Fragment>
@@ -154,72 +163,75 @@ export default function Pay({_id, name, type, beds, price, image, score, address
       <main style={{ marginLeft: "0px" }}>
         <Container className={classes.cardGrid} maxWidth="md">
           <Typography>
-            <Link>
-            Regresar
-            </Link>
+            <Link>Regresar</Link>
           </Typography>
           <Typography variant="h6" gutterBottom>
-               DATOS DE LA RESERVACION
-             </Typography>
+            DATOS DE LA RESERVACION
+          </Typography>
           <CardContent>
-          <Grid container spacing={4}>
-                <Grid item  xs={12} sm={6} className={classes.card}>
-                  <Card className={classes.card}></Card>
-                   <Reservation 
-                      price
-                      fechaLlegada
-                      fechaSalida
-                      huespedes
-                   />
-                  </Grid>
-                  <Grid item  xs={12} sm={6} className={classes.card}>
-                  <Card className={classes.card}>
-                    <CardComp
-                      _id={_id}
-                      image={image}
-                      score={score}
-                      name={name}
-                      type={type}
-                      address={address}
-                      accommodates={accommodates}
-                      beds={beds}
-                      price={price}
-                    />
-                  </Card>
-                </Grid>
-          </Grid>
+            <Grid container spacing={4}>
+              <Grid item xs={12} sm={6} className={classes.card}>
+                <Card className={classes.card}></Card>
+                <Reservation price fechaLlegada fechaSalida huespedes />
+              </Grid>
+              <Grid item xs={12} sm={6} className={classes.card}>
+                <Card className={classes.card}>
+                  <CardComp
+                    _id={_id}
+                    image={image}
+                    score={score}
+                    name={name}
+                    type={type}
+                    address={address}
+                    accommodates={accommodates}
+                    beds={beds}
+                    price={price}
+                    click={""}
+                  />
+                </Card>
+              </Grid>
+            </Grid>
           </CardContent>
-             <Typography gutterBottom className={classes.titleInfo}>
-               INFORMACION DE LOS HUESPEDES
-             </Typography >
-             <Grid container spacing={0}>
-                <Grid item  xs={12} sm={6} className={classes.cardH}>
-                      <CardContent>
-                      {map1&&
-                          map1.map((e) => (
-                            <Grid item key={e} xs={12} sm={6}  className={classes.card}>
-                              
-                                <Huespedes
-                                />
-                              
-                            </Grid>
-                          ))}
-                     </CardContent> 
-                 </Grid>
-                 <Grid item  xs={12} sm={6} className={classes.card}>
-                      <Confirmation
-                      />
-                    <Typography gutterBottom className={classes.titleForm}>
-                       FORMA DE PAGO
-                    </Typography>
-                      <Grid item xs={2}>
-                       <img src={`${LogoMP}`} className={classes.logoMerc} />
-                      </Grid>
-                 </Grid> 
-             </Grid>
-          <Button  onClick={onSubmit} variant="contained" color="secondary"className={classes.titleBut}>Confirmar Reservacion</Button>
-          <Paper elevation={0} className={classes.titleCondi}>*Tu reserva se ha realizado directamente en el Alojamiento y al completarla aceptas las condiciones de la reserva , las condiciones generales y las politicas de privacidad</Paper>
-          <Paper elevation={0}>____________________________________________________________________________________________________________________________________________</Paper>
+          <Typography gutterBottom className={classes.titleInfo}>
+            INFORMACION DE LOS HUESPEDES
+          </Typography>
+          <Grid container spacing={0}>
+            <Grid item xs={12} sm={6} className={classes.cardH}>
+              <CardContent>
+                {map1 &&
+                  map1.map((e) => (
+                    <Grid item key={e} xs={12} sm={6} className={classes.card}>
+                      <Huespedes />
+                    </Grid>
+                  ))}
+              </CardContent>
+            </Grid>
+            <Grid item xs={12} sm={6} className={classes.card}>
+              <Confirmation />
+              <Typography gutterBottom className={classes.titleForm}>
+                FORMA DE PAGO
+              </Typography>
+              <Grid item xs={2}>
+                <img src={`${LogoMP}`} className={classes.logoMerc} />
+              </Grid>
+            </Grid>
+          </Grid>
+          <Button
+            onClick={onSubmit}
+            variant="contained"
+            color="secondary"
+            className={classes.titleBut}
+          >
+            Confirmar Reservacion
+          </Button>
+          <Paper elevation={0} className={classes.titleCondi}>
+            *Tu reserva se ha realizado directamente en el Alojamiento y al
+            completarla aceptas las condiciones de la reserva , las condiciones
+            generales y las politicas de privacidad
+          </Paper>
+          <Paper elevation={0}>
+            ____________________________________________________________________________________________________________________________________________
+          </Paper>
         </Container>
       </main>
       {/* Footer */}

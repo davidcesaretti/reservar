@@ -43,23 +43,27 @@ export interface Favourites {
   type: ActionTypes.addFav;
   payload: any;
 }
+export interface USERFAVS {
+  type: ActionTypes.favUser;
+  payload: Array<Object>;
+}
 export interface Credentials {
   username: string;
   password: string;
 }
 export interface userInfo {
-    name: string;
-    email: string;
-    phone: number;
-    dcmType: string;
-    dcmNumber: number;
-    nationality: string;
-    birthday: string;
-    adress: string;
-    residence: string;
-    emergencyPhone: number;
-    recoveryMail: string;
-    civilStatus: string;
+  name: string;
+  email: string;
+  phone: number;
+  dcmType: string;
+  dcmNumber: number;
+  nationality: string;
+  birthday: string;
+  adress: string;
+  residence: string;
+  emergencyPhone: number;
+  recoveryMail: string;
+  civilStatus: string;
 }
 const url = "http://localhost:3001";
 
@@ -147,6 +151,7 @@ export const signUser = (data) => {
       "http://localhost:3001/register",
       userInfo
     );
+    console.log("Registrando", userInfo);
 
     dispatch<SignedInUser>({
       type: ActionTypes.signUser,
@@ -180,19 +185,19 @@ export const detailHotel = (id) => {
     });
   };
 };
-export const updateUser = (userInfo: object, userEmail ) => {
+export const updateUser = (userInfo: object, userEmail) => {
   return async (dispatch: Dispatch) => {
-    try{
-      const updatedUser = await axios.post(
-        "http://localhost:3001/register",
-        {userInfo, userEmail}
-      );
-      console.log(userInfo)
+    try {
+      const updatedUser = await axios.post("http://localhost:3001/register", {
+        userInfo,
+        userEmail,
+      });
+      console.log(userInfo);
     } catch (e) {
-      console.error(e)
+      console.error(e);
     }
-  }
-}
+  };
+};
 
 export const clearDetail = () => {
   return {
@@ -212,7 +217,7 @@ export const addFavourites = (data) => {
       type: ActionTypes.addFav,
       payload: data,
     });
-    const newFavs = await axios.put("http://localhost:3001/favorites", favs);
+    const newFavs = await axios.post("http://localhost:3001/favorites", favs);
   };
 };
 
@@ -222,6 +227,22 @@ export const setBoolean = (data) => {
       type: ActionTypes.booleanState,
       payload: data,
     });
+  };
+};
+
+export const getFavos = (data) => {
+  return async (dispatch: Dispatch) => {
+    console.log(data, "   DATA");
+    let user = {
+      email: data,
+    };
+    const favUsers = await axios.post(
+      "http://localhost:3001/getfavorites",
+      user
+    );
+    console.log(favUsers.data, "    FAV USERS");
+
+    dispatch({ type: ActionTypes.favUser, payload: favUsers.data });
   };
 };
 

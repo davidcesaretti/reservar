@@ -3,17 +3,18 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 import firebase from "firebase";
 import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
-import { storage } from '../../firebase/index'
+import { storage } from "../../firebase/index";
 import { Button, Container, Typography, Grid } from "@material-ui/core";
 import { signUser, UserEmail, UserEmailGlobal } from "../../actions/index";
 import { makeStyles } from "@material-ui/core/styles";
 import backImg from "../../Image/fondoLogin.jpeg";
 import "@fontsource/roboto";
+import { useAuth } from "../../firebase/index";
 
-const useStyle = makeStyles({
+const useStyle = makeStyles((theme) => ({
   login: {
     background: "rgba(71, 84, 55, 0.9)",
-    height: "25em",
+    height: "26em",
     textAlign: "center",
     padding: "1em",
     width: "35em",
@@ -58,7 +59,7 @@ const useStyle = makeStyles({
   title2: {
     color: "#FFF",
     fontSize: "1.3em",
-    marginBottom: "2em",
+    marginBottom: theme.spacing(2),
   },
   infoFooter: {
     color: "#FFF",
@@ -73,16 +74,20 @@ const useStyle = makeStyles({
     color: "#FFF",
     textDecoration: "none",
   },
-});
+  link1: {
+    color: "white",
+    textDecoration: "none",
+  },
+  completediv: {
+    marginTop: theme.spacing(2),
+  },
+  buttonOut: {
+    marginBottom: theme.spacing(1),
+  },
+}));
 const Register = () => {
-  if (!firebase.apps.length) {
-    firebase.initializeApp({
-      apiKey: "AIzaSyBh2wY42foyI4uwoW9wfIKtCz2ie-mXELw",
-      authDomain: "reservar-319305.firebaseapp.com",
-    });
-  } else {
-    firebase.app();
-  }
+  const auth = useAuth();
+  const user = auth.user;
 
   const [signedIn, setSignedIn] = useState(false);
 
@@ -126,14 +131,12 @@ const Register = () => {
       email: userlogged?.email,
       photo: userlogged?.photoURL,
     });
-    if (userlogged?.email.length > 2) {
-      dispatch(UserEmailGlobal(userlogged?.email));
-    }
   }, [userlogged]);
 
   useEffect(() => {
     if (userInfo?.email?.length > 2) {
       dispatch(signUser(userInfo));
+      console.log("despachando", userInfo);
     }
   }, [userInfo]);
 
@@ -164,24 +167,37 @@ const Register = () => {
         <Typography className={classes.title1}>
           We welcome you to RESERVAR!
         </Typography>
-        <Typography className={classes.title2}>Login or Register</Typography>
+
         <Container maxWidth="xs" className={classes.buttonsLogin}>
-          {signedIn ? (
+          {user ? (
             <Grid>
               <Button
                 onClick={() => {
                   handleClick();
                 }}
+                color="secondary"
+                variant="contained"
+                className={classes.buttonOut}
               >
                 Sign Out
               </Button>
-              <Typography>
+              <Typography className={classes.title2}>
                 Hello, {firebase.auth().currentUser.displayName}
               </Typography>
               <img src={firebase.auth().currentUser.photoURL} alt="user" />
+              <div className={classes.completediv}>
+                <Link to="/perfil" className={classes.link1}>
+                  <Button variant="contained" color="secondary">
+                    Complete your Profile!
+                  </Button>
+                </Link>
+              </div>
             </Grid>
           ) : (
             <Grid>
+              <Typography className={classes.title2}>
+                Login or Register
+              </Typography>
               <StyledFirebaseAuth
                 uiConfig={uiConfig}
                 firebaseAuth={firebase.auth()}
