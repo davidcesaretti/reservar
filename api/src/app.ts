@@ -9,21 +9,31 @@ import { dataAirbnb } from "../db";
 import routes from "./routes/index";
 import { city, createdTest } from "../test";
 import { Cities } from "./models/Cities";
+import multer from "multer";
+const path = require("path");
 
 interface error {
   status: number;
   message: string;
 }
 
+// multer.diskStorage({
+//   filename: (req, file, cb) => {
+//     cb(null, file.originalname);
+//   },
+// });
 const app: Application = express();
 
 app.use(express.urlencoded({ extended: true, limit: "50mb" })); //middleware
 // app.use(express.json({ limit: "50mb" }));
 app.use(express.json());
 app.use(cookieParser());
+
+app.use(express.static(path.join(__dirname, "../public")));
+
 app.use(morgan("dev"));
 app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "http://localhost:3000"); //"*" // update to match the domain you will make the request from
+  res.header("Access-Control-Allow-Origin", "*"); //"*" // update to match the domain you will make the request from
   res.header("Access-Control-Allow-Credentials", "true");
   res.header(
     "Access-Control-Allow-Headers",
@@ -38,7 +48,7 @@ app.use("/", routes);
 
 app.use(
   cors({
-    origin: config.cors, //"*"
+    origin: "*", //"*"
     credentials: true,
     methods: ["GET", "POST", "OPTIONS", "PUT", "DELETE"],
     allowedHeaders: ["Origin", "X-Requested-With", "Content-Type", "Accept"],
