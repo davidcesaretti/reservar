@@ -5,6 +5,7 @@ interface IUser extends Document {
   name: string;
   email: string;
   favorites: Array<String>;
+  reserveId:Array<String>;
   // photo: string;
   // reserveId: [Object];
 
@@ -47,7 +48,11 @@ const reserva = new Schema(
     fechaSalida: { type: Date },
     fechaLlegada: { type: Date },
     info_user: { type: Object },
-    guests: {type: Number}
+    guests: {type: Number},
+    state: {type: String, enum: ["active", "expired"]},
+    price: {type: Number},
+    payment_id: {type: Number},
+    
   },
   { versionKey: false }
 );
