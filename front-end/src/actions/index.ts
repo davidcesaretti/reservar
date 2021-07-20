@@ -34,6 +34,10 @@ export interface Booleano {
   type: ActionTypes.booleanState;
   payload: boolean;
 }
+export interface StepRegister{
+  type: ActionTypes.stateRegister,
+  payload: any
+}
 
 export interface UserEmail {
   type: ActionTypes.usersLogged;
@@ -208,7 +212,6 @@ export const clearDetail = () => {
 
 export const addFavourites = (data) => {
   return async (dispatch: Dispatch) => {
-    console.log("Dispatch favourites", data);
     let favs = {
       favorites: data.favos,
       email: data.email,
@@ -253,6 +256,17 @@ export const postReserve = (obj) => {
     
   }
 }
+
+export const FirstStepReserve = (obj) => {
+  return async (dispatch:Dispatch) => {
+    dispatch<StepRegister>({
+      type: ActionTypes.stateRegister,
+      payload: obj
+    })
+    
+  }
+}
+
 // export function deleteUsers(data: any) {
 //   return function (dispatch: Dispatch) {
 //     return fetch(url, {

@@ -121,7 +121,7 @@ UserRouter.post("/reserva", async (req, res) => {
 
       await User.updateOne(
         { email: email },
-        { $push: { reserveId: reserva._id } }
+        { $push: { reserveId: reserva._id }}
       );
 
       res.json({
@@ -166,20 +166,33 @@ UserRouter.post("/favorites", async (req, res) => {
     );
 
     await User.updateOne({ email: email }, { favorites: favfilter });
-
-    console.log(favorites, " AGREGANDO FAV BACK");
     res.json(favfilter);
   } catch (error) {
     res.send(error);
   }
 });
 
+
+
 UserRouter.post("/getfavorites", async (req, res) => {
   const { email } = req.body;
-  console.log(req.body, "   EMAIL BACK");
+ 
   const us = await User.findOne({ email: email });
   const props = await Properties.find({ _id: us.favorites });
   res.json(props);
 });
+
+
+
+UserRouter.get("/getreserves", async (req,res) => {
+  const { email } = req.body;
+
+  const hoy = new Date()
+  const user = await User.findOne({ email: email });
+  const reserva = await Reserva.find({_id: user.reserveId, }
+    
+    )
+  res.json(reserva)
+})
 
 export default UserRouter;

@@ -22,7 +22,7 @@ import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
 import Spinner from '../Spinner/Spinner'
 import Error404 from '../Error404/Error404';
-import { FechasReserva, postReserve } from "../../actions";
+import { FechasReserva, FirstStepReserve } from "../../actions";
 import { useAuth } from "../../firebase/index";
 
 
@@ -142,7 +142,7 @@ const DetailHotel = () => {
     guests: 5
   }
   const handleSubmit = () => {
-    dispatch(postReserve(obj))
+    dispatch(FirstStepReserve(obj))
   }
   console.log(obj)
 
