@@ -29,6 +29,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../firebase/index";
 
+
 const useStyle = makeStyles({
   containerFilters: {
     backgroundSize: "cover",
@@ -83,8 +84,9 @@ const useStyle = makeStyles({
 const Home = () => {
   const [cities, setCities] = useState(undefined);
   const [guest, setGuest] = useState(undefined);
+  const [type, setType] = useState(undefined);
   const fechas = useSelector((state: any) => state.fechas);
-  console.log(fechas);
+
   const dispatch = useDispatch();
   const auth = useAuth();
   const email = auth?.user?.email;
@@ -149,6 +151,22 @@ const Home = () => {
     );
   }
   const classes = useStyle();
+
+  function chooseTypes(tipos) {
+    dispatch(FechasReserva({ ...fechas, type: tipos }));
+    dispatch(
+      fetchCardsHotels(
+        undefined,
+        undefined,
+        undefined,
+        tipos,
+        undefined,
+        undefined,
+        undefined,
+        undefined
+      )
+    );
+  }
 
   return (
     <div>
@@ -311,7 +329,11 @@ const Home = () => {
                 </Typography>
               </Grid>
               <Grid item xs={3}>
-                <Button variant="contained">Go</Button>
+                <Link to={"/categories"}>
+                  <Button variant="contained" 
+                  onClick={() => chooseTypes('Hostel')}
+                  >Go</Button>
+                </Link>
               </Grid>
             </Grid>
             <Grid
@@ -330,7 +352,11 @@ const Home = () => {
                 </Typography>
               </Grid>
               <Grid item xs={3}>
-                <Button variant="contained">Go</Button>
+                <Link to={"/categories"}>
+                  <Button variant="contained" 
+                  onClick={() => chooseTypes('Apartment')}
+                  >Go</Button>
+                </Link>
               </Grid>
             </Grid>
             <Grid
@@ -349,7 +375,11 @@ const Home = () => {
                 </Typography>
               </Grid>
               <Grid item xs={3}>
-                <Button variant="contained">Go</Button>
+                <Link to={"/categories"}>
+                  <Button variant="contained" 
+                  onClick={() => chooseTypes('House')}
+                  >Go</Button>
+                </Link>
               </Grid>
             </Grid>
           </Grid>
