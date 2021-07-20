@@ -19,6 +19,7 @@ import Chica from "../../Image/chica.jpeg";
 import { useDispatch, useSelector } from "react-redux";
 import {
   addFavourites,
+  detailHotel,
   FechasReserva,
   fetchCardsHotels,
   setBoolean,
@@ -28,6 +29,8 @@ import MenuAppBar from "../Nav/Nav2";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../firebase/index";
+import Spinner from "../Spinner/Spinner";
+import Error404 from "../Error404/Error404";
 
 
 const useStyle = makeStyles({
@@ -106,6 +109,8 @@ const Home = () => {
       )
     );
   }
+  console.log("CARDS post",cards.posts)
+  console.log("CARDS",cards)
   // useEffect(() => {
   //   dispatch(
   //     fetchCardsHotels(
@@ -168,7 +173,26 @@ const Home = () => {
     );
   }
 
-  return (
+  function exploreProperties() {
+    let properties = [];
+    while(properties.length < 4) {
+      let random = Math.floor(Math.random() * 8);
+      let result = cards.posts[random];
+      if(!properties.includes(result)){
+        properties.push(result)
+      }
+    }
+    return properties
+  }
+
+  let propertiesExplored = exploreProperties();
+
+  if(cards === null) {
+    return <Error404 />
+  } else if(cards.posts === undefined) {
+    return <Spinner />
+  } else {
+    return (
     <div>
       <Grid container justifyContent="center" spacing={5}>
         <MenuAppBar />
@@ -278,6 +302,14 @@ const Home = () => {
           <Grid item xs={2} style={{ textAlign: "center" }}>
             <Typography variant="h6">EXPLORE</Typography>
           </Grid>
+          {propertiesExplored && propertiesExplored.map((el, i) => (
+             <Grid item xs={2} key={i} >
+              <img src={`${el.image}`} alt={`${el.name}`} className={classes.imgRecomendadas} />
+           </Grid>
+          ))}
+          {/* <Grid item xs={2} style={{ textAlign: "center" }}>
+            <Typography variant="h6">EXPLORE</Typography>
+          </Grid>
           <Grid item xs={2}>
             <img src={`${Recom1}`} alt="" className={classes.imgRecomendadas} />
           </Grid>
@@ -289,7 +321,7 @@ const Home = () => {
           </Grid>
           <Grid item xs={2}>
             <img src={`${Recom4}`} alt="" className={classes.imgRecomendadas} />
-          </Grid>
+          </Grid> */}
         </Grid>
         <hr className={classes.hr} />
         <Grid
@@ -348,7 +380,7 @@ const Home = () => {
                   variant="subtitle1"
                   className={classes.fontHomePrimary}
                 >
-                  Houses and Apartments
+                  Apartments
                 </Typography>
               </Grid>
               <Grid item xs={3}>
@@ -371,7 +403,7 @@ const Home = () => {
                   variant="subtitle1"
                   className={classes.fontHomePrimary}
                 >
-                  Uniques
+                  Houses
                 </Typography>
               </Grid>
               <Grid item xs={3}>
@@ -417,5 +449,5 @@ const Home = () => {
     </div>
   );
 };
-
+}
 export default Home;
