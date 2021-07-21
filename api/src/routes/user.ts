@@ -161,14 +161,11 @@ UserRouter.post("/favorites", async (req, res) => {
   try {
     const { email, favorites } = req.body;
     const user = await User.findOne({ email: email });
-    const favfilter = favorites?.concat(
-      user.favorites.filter((item) => favorites.indexOf(item) < 0)
-    );
 
-    await User.updateOne({ email: email }, { favorites: favfilter });
+    await User.updateOne({ email: email }, { favorites: favorites });
 
     console.log(favorites, " AGREGANDO FAV BACK");
-    res.json(favfilter);
+    res.json(favorites);
   } catch (error) {
     res.send(error);
   }
