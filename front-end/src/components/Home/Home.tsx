@@ -121,6 +121,7 @@ const useStyles = makeStyles((theme) => ({
       margin: '0 5px',
     },
   }
+
 }));
 //fetchCardsHotels(page, price, amenities, type, accommodates, score);
 const Home = () => {
@@ -134,6 +135,7 @@ const Home = () => {
   const email = auth?.user?.email;
   const cards = useSelector((state: any) => state.cardsHotel);
   dispatch(addFavourites({ favos: [], email: email }));
+
   if (Array.isArray(cards)) {
     dispatch(
       fetchCardsHotels(
@@ -148,8 +150,7 @@ const Home = () => {
       )
     );
   }
-  console.log("CARDS post",cards.posts)
-  console.log("CARDS",cards)
+
   // useEffect(() => {
   //   dispatch(
   //     fetchCardsHotels(
@@ -214,6 +215,7 @@ const Home = () => {
 
   function exploreProperties() {
     let properties = [];
+    if(cards?.posts)
     while(properties.length < 4) {
       let random = Math.floor(Math.random() * 8);
       let result = cards.posts[random];
@@ -228,7 +230,7 @@ const Home = () => {
 
   if(cards === null) {
     return <Error404 />
-  } else if(cards.posts === undefined) {
+  } else if(!cards.posts?.length) {
     return <Spinner />
   } else {
     return (
