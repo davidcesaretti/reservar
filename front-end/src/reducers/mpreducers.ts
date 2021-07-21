@@ -6,7 +6,7 @@ export interface storeMpp{
     direccion: String,
   }
   
-export const mpReducer = (state: string = "", action: GetUrlmppAction) => {
+export const mpReducer = (state: Object={}, action: GetUrlmppAction) => {
   switch (action.type) {
     case ActionTypes.geturlmp:
       console.log("manda url");

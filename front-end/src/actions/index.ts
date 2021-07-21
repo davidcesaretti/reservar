@@ -70,7 +70,7 @@ export interface userInfo {
 
 export interface GetUrlmppAction{
   type: ActionTypes.geturlmp;
-  payload: storeMpp;
+  payload: any;
 }
 
 const url = "http://localhost:3001";
