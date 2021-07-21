@@ -208,16 +208,20 @@ export const clearDetail = () => {
 
 export const addFavourites = (data) => {
   return async (dispatch: Dispatch) => {
-    console.log("Dispatch favourites", data);
-    let favs = {
-      favorites: data.favos,
-      email: data.email,
-    };
-    dispatch<Favourites>({
-      type: ActionTypes.addFav,
-      payload: data,
-    });
-    const newFavs = await axios.post("http://localhost:3001/favorites", favs);
+    if (data.favorites?.length < 0) {
+      console.log("ERROR NO FAVO");
+    } else {
+      console.log("Dispatch favourites", data);
+      let favs = {
+        favorites: data.favos,
+        email: data.email,
+      };
+      dispatch<Favourites>({
+        type: ActionTypes.addFav,
+        payload: data,
+      });
+      const newFavs = await axios.post("http://localhost:3001/favorites", favs);
+    }
   };
 };
 
@@ -246,13 +250,11 @@ export const getFavos = (data) => {
   };
 };
 
-
 export const postReserve = (obj) => {
-  return async (dispatch:Dispatch) => {
-    await axios.post("http://localhost:3001/reserva", obj)
-    
-  }
-}
+  return async (dispatch: Dispatch) => {
+    await axios.post("http://localhost:3001/reserva", obj);
+  };
+};
 // export function deleteUsers(data: any) {
 //   return function (dispatch: Dispatch) {
 //     return fetch(url, {

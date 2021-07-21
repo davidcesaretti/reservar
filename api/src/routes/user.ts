@@ -62,7 +62,7 @@ UserRouter.post("/register", async (req: Request, res: Response) => {
           emergency_contact,
           emergency_phone_number,
           relationship,
-          
+
           alternative_email,
         },
       }
@@ -128,7 +128,7 @@ UserRouter.post("/reserva", async (req, res) => {
         message: "reserva exitosa!",
         checkIn: fechaSalida,
         checkOut: fechaLlegada,
-        guests: guests
+        guests: guests,
       });
     }
   } catch (err) {
