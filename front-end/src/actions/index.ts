@@ -34,7 +34,10 @@ export interface Booleano {
   type: ActionTypes.booleanState;
   payload: boolean;
 }
-
+export interface Bookings {
+  type: ActionTypes.bookings;
+  payload: any,
+}
 export interface UserEmail {
   type: ActionTypes.usersLogged;
   payload: string;
