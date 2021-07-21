@@ -14,7 +14,12 @@ import CardComp from "../CardComp/CardComp";
 import Footer from "../Footer/Footer";
 import CheckboxList from "../Filters/Filters";
 import { useDispatch, useSelector } from "react-redux";
-import { addFavourites, FechasReserva, fetchCardsHotels } from "../../actions";
+import {
+  addFavourites,
+  FechasReserva,
+  fetchCardsHotels,
+  getFavos,
+} from "../../actions";
 import { hotelsReducer } from "../../reducers/hotels";
 import NavBar from "../Nav/Nav2";
 import { truncate } from "fs";
@@ -73,11 +78,12 @@ export default function Album() {
   const cards = useSelector((state: any) => state.cardsHotel);
   const auth = useAuth();
   const dispatch = useDispatch();
-
   const [cities, setCities] = useState(undefined);
   const [guest, setGuest] = useState(undefined);
   const email = auth?.user?.email;
   const fechas = useSelector((state: any) => state.fechas);
+  const userfavs = useSelector((state: any) => state.userfavossss);
+  const favs = useSelector((state: any) => state.favourites);
   function busqueda() {
     dispatch(FechasReserva({ ...fechas, cities, guest }));
     console.log("Dispatch busqueda");
@@ -94,11 +100,17 @@ export default function Album() {
       )
     );
   }
+  useEffect(() => {
+    dispatch(getFavos(email));
+  }, []);
 
-  const [fav, setFav]: any = useState({
-    favos: [],
-    email: email,
-  });
+  let arrayfavs = [];
+
+  useEffect(() => {
+    userfavs.map((e) => arrayfavs.push(e._id));
+    console.log("pusheando");
+  }, [userfavs]);
+
   const [success, setSuccess] = useState(false);
   const [message, setMessage] = useState("");
 
@@ -107,8 +119,35 @@ export default function Album() {
     setMessage("");
   };
 
+  const checkfav = () => {
+    console.log(fav);
+  };
+
+  const checkdb = () => {
+    console.log(arrayfavs);
+  };
+
+  /* useEffect(() => {
+    setFav({
+      ...fav,
+      favos: favdb,
+    });
+  }, []);  */
+
+  const [fav, setFav]: any = useState({
+    favos: [],
+    email: email,
+  });
+
+  //arrayfavs.map((e) => fav.favos.push(e));
+
+  useEffect(() => {
+    arrayfavs.map((e) => (!fav.favos.includes(e) ? fav.favos.push(e) : ""));
+  }, [arrayfavs]);
+
   const handleClick = (e) => {
     e.preventDefault();
+    console.log(e.target.key, "KEEEEEEEEEEEY");
     if (fav?.favos?.includes(e.currentTarget.value)) {
       setFav({
         ...fav,
@@ -127,9 +166,13 @@ export default function Album() {
       setTimeout(resetState, 3000);
     }
   };
+
   useEffect(() => {
     dispatch(addFavourites(fav));
-    console.log(fav, "    DISPATCH FAVOS");
+  }, [fav]);
+
+  useEffect(() => {
+    dispatch(getFavos(email));
   }, [fav]);
 
   return (
@@ -230,6 +273,9 @@ export default function Album() {
         {/* End footer */}
       </div>
       {success ? <FlashMessage message={message} /> : ""}
+      <button onClick={checkfav}>CHECK FAV</button>
+
+      <button onClick={checkdb}>CHECK db</button>
     </React.Fragment>
   );
 }

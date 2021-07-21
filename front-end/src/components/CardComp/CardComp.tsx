@@ -55,7 +55,7 @@ const useStyles = makeStyles((theme: Theme) =>
       fontSize: "1.2rem",
     },
     iconfavclicked: {
-      color: "yellow",
+      color: "red",
       padding: "5px",
       background: "#8b96c175",
       fontSize: "1.2rem",
@@ -77,7 +77,6 @@ export default function CardComp({
 }) {
   const classes = useStyles();
 
-  const [fav, setFav] = useState(false);
   const favs = useSelector((state: any) => state.favourites);
 
   // const handleClick =(e) => {
@@ -86,11 +85,7 @@ export default function CardComp({
   //     setFav(!fav)
   //   }
   // }
-  useEffect(() => {
-    if (favs?.favos?.includes(_id)) {
-      setFav(!fav);
-    }
-  }, [favs]);
+
   // {fav ? classes.iconfavclicked : classes.iconfav}
   return (
     <Card className={classes.root}>
@@ -98,9 +93,14 @@ export default function CardComp({
         <CardMedia className={classes.media} image={image} title="Room Deluxe">
           <IconButton
             aria-label="add to favorites"
-            className={classes.iconfav}
+            className={
+              favs?.favos?.includes(_id)
+                ? classes.iconfavclicked
+                : classes.iconfav
+            }
             onClick={click}
             value={_id}
+            key={_id}
           >
             <FavoriteIcon />
           </IconButton>
