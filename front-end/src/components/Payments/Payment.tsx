@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect,useState } from "react";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -18,7 +18,11 @@ import Confirmation from "../Payments/Confirmation";
 import { Button } from "@material-ui/core";
 import Paper from "@material-ui/core/Paper";
 import CardMedia from "@material-ui/core/CardMedia";
-import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { CgWindows } from "react-icons/cg";
+import axios, { AxiosRequestConfig } from "axios";
+import { getPago } from "../../actions";
+import { PageviewTwoTone } from "@material-ui/icons";
 
 const useStyles = makeStyles((theme) => ({
   nav: {},
@@ -146,15 +150,32 @@ export default function Pay({
   const bull = <span className={classes.bulletR}>|</span>;
   const map1 = [1, 2];
 
-  const pago = {
-    title: "mariano",
-    unit_price: price,
-  };
+        const dispatch = useDispatch();
+        let pago = {
+          title: "Reserva NN",
+          unit_price: 1200,
+          quantity:5,
+        }    
 
-  const onSubmit = (ev) => {
-    ev.preventDefault();
-    axios.post("http://localhost:3001/mp", pago);
-  };
+        
+        
+
+        useEffect(() => {
+          dispatch(getPago(pago));
+        }, []);
+        
+        const urlpagomp = useSelector((state: any) => state.urlMpp);
+        
+        console.log("direccion",urlpagomp);
+
+        const onSubmit = (ev) => {
+        ev.preventDefault();
+       
+      
+        
+        // window.location.href= `url`;
+       
+    }  
 
   return (
     <React.Fragment>

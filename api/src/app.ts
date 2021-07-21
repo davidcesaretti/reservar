@@ -10,20 +10,25 @@ import routes from "./routes/index";
 import { city, createdTest } from "../test";
 import { Cities } from "./models/Cities";
 
+
 interface error {
   status: number;
   message: string;
 }
 
 const app: Application = express();
+const mercadopago = require ('mercadopago');
+const bodyParser = require('body-parser');
+
 
 app.use(express.urlencoded({ extended: true, limit: "50mb" })); //middleware
 // app.use(express.json({ limit: "50mb" }));
+app.use(bodyParser.json({ limit: '50mb' }));
 app.use(express.json());
 app.use(cookieParser());
 app.use(morgan("dev"));
 app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "http://localhost:3000"); //"*" // update to match the domain you will make the request from
+  res.header("Access-Control-Allow-Origin", "*"); //"*" // update to match the domain you will make the request from
   res.header("Access-Control-Allow-Credentials", "true");
   res.header(
     "Access-Control-Allow-Headers",

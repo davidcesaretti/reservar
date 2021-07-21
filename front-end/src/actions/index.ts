@@ -1,7 +1,9 @@
 import { cardsHotel } from "./../reducers/hotels";
+import { urlMpp } from "./../reducers/mpreducers";
 import axios, { AxiosRequestConfig } from "axios";
 import { Dispatch } from "redux";
 import { ActionTypes } from "./types";
+import { PaymentSharp } from "@material-ui/icons";
 
 export interface fake {
   imagen: string;
@@ -64,6 +66,11 @@ export interface userInfo {
   emergencyPhone: number;
   recoveryMail: string;
   civilStatus: string;
+}
+
+export interface GetUrlmppAction{
+  type: ActionTypes.geturlmp;
+  payload: urlMpp;
 }
 const url = "http://localhost:3001";
 
@@ -243,6 +250,25 @@ export const getFavos = (data) => {
     console.log(favUsers.data, "    FAV USERS");
 
     dispatch({ type: ActionTypes.favUser, payload: favUsers.data });
+  };
+};
+
+
+export const getPago = (data) => {
+  return async (dispatch: Dispatch) => {
+    console.log(data, "   DATA");
+    let pay = {
+      title: data.title,
+      unit_price: data.unit_price,
+      quantity:data.quantity,
+    };
+    const urlmps = await axios.post<urlMpp>(
+      "http://localhost:3001/mp",
+      pay
+    );
+    console.log(urlmps.data, "    URL MP");
+
+    dispatch<GetUrlmppAction>({ type: ActionTypes.geturlmp, payload: urlmps.data });
   };
 };
 
