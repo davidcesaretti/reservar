@@ -12,6 +12,7 @@ export enum ActionTypes {
   booleanState,
   updateUser,
   favUser,
+  bookings,
 }
 
 export type Action = FetchUsersAction;
