@@ -72,6 +72,7 @@ export interface GetUrlmppAction{
   type: ActionTypes.geturlmp;
   payload: storeMpp;
 }
+
 const url = "http://localhost:3001";
 
 export const onLogin = async (data: Credentials) => {
@@ -253,6 +254,12 @@ export const getFavos = (data) => {
   };
 };
 
+export const postReserve = (obj) => {
+  return async (dispatch:Dispatch) => {
+    await axios.post("http://localhost:3001/reserva", obj)
+    
+  }
+}
 
 export const getPago = (data) => {
   return async (dispatch: Dispatch) => {

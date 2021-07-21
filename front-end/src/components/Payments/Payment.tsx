@@ -22,6 +22,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { CgWindows } from "react-icons/cg";
 import axios, { AxiosRequestConfig } from "axios";
 import { getPago } from "../../actions";
+import {postReserve } from "../../actions";
 import { PageviewTwoTone } from "@material-ui/icons";
 
 const useStyles = makeStyles((theme) => ({
@@ -157,14 +158,12 @@ export default function Pay({
           quantity:5,
         }    
 
-        
-        
-
         useEffect(() => {
           dispatch(getPago(pago));
         }, []);
         
-        const urlpagomp = useSelector((state: any) => state.urlMpp);
+
+        const urlpagomp = useSelector((state: any) => state.storeMpp);
         
         console.log("direccion",urlpagomp);
 
