@@ -147,7 +147,7 @@ export default function Album() {
 
   const handleClick = (e) => {
     e.preventDefault();
-    console.log(e.target.key, "KEEEEEEEEEEEY");
+
     if (fav?.favos?.includes(e.currentTarget.value)) {
       setFav({
         ...fav,
@@ -169,10 +169,6 @@ export default function Album() {
 
   useEffect(() => {
     dispatch(addFavourites(fav));
-  }, [fav]);
-
-  useEffect(() => {
-    dispatch(getFavos(email));
   }, [fav]);
 
   return (
