@@ -1,0 +1,50 @@
+.Add__property {
+  display: grid;
+  width: 100%;
+  grid-template-columns: 1fr 1fr;
+}
+.contendor__property {
+  width: 80%;
+  margin: 0 auto;
+}
+.div__amenities {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  justify-content: space-evenly;
+  align-items: center;
+}
+.div__amenities p {
+  margin-right: 0;
+  text-align: left;
+  margin: 6px;
+}
+.boton__icons {
+  background-color: transparent;
+  border-style: none;
+  cursor: pointer;
+}
+.icono__boton {
+  width: 20px;
+  height: 20px;
+}
+.icono__boton:focus {
+  background-color: chartreuse;
+}
+.contenedor__amenities {
+  padding-left: 50px;
+  border-left: 3px solid black;
+  border-width: 90%;
+}
+.grid__input {
+  display: grid;
+  gap: 5px;
+  margin-bottom: 20px;
+}
+.grid__input input {
+  height: 20px;
+  border-radius: 5px;
+}
+.grid__input textarea {
+  height: 140px;
+  border-radius: 8px;
+}
