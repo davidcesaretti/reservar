@@ -2,12 +2,12 @@ import { GetUrlmppAction } from "../actions/index";
 import { ActionTypes } from "../actions/types";
 
 
-export interface urlMpp{
+export interface storeMpp{
     direccion: String,
   }
   
 
-export const mpReducer = (state: urlMpp, action: GetUrlmppAction) => {
+export const mpReducer = (state: storeMpp, action: GetUrlmppAction) => {
   switch (action.type) {
     case ActionTypes.geturlmp:
       console.log("manda url");

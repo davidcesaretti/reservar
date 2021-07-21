@@ -1,5 +1,5 @@
 import { cardsHotel } from "./../reducers/hotels";
-import { urlMpp } from "./../reducers/mpreducers";
+import { storeMpp } from "./../reducers/mpreducers";
 import axios, { AxiosRequestConfig } from "axios";
 import { Dispatch } from "redux";
 import { ActionTypes } from "./types";
@@ -70,7 +70,7 @@ export interface userInfo {
 
 export interface GetUrlmppAction{
   type: ActionTypes.geturlmp;
-  payload: urlMpp;
+  payload: storeMpp;
 }
 const url = "http://localhost:3001";
 
@@ -262,7 +262,7 @@ export const getPago = (data) => {
       unit_price: data.unit_price,
       quantity:data.quantity,
     };
-    const urlmps = await axios.post<urlMpp>(
+    const urlmps = await axios.post<storeMpp>(
       "http://localhost:3001/mp",
       pay
     );
