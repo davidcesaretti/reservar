@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
 function UserPosts() {
   const dispatch = useDispatch();
   const auth = useAuth().user?.email;
-  const post = useSelector((state: any) => state.postsHost);
+  const post = useSelector((state: any) => state.postHost);
   console.log(post);
 
   useEffect(() => {
@@ -45,12 +45,13 @@ function UserPosts() {
   console.log(auth);
 
   const classes = useStyles();
+  console.log(post, "       POSTTTT");
 
   return (
     <div>
       <Grid>
         <Typography className={classes.title} variant="h4" align="center">
-          Favourite properties
+          My properties
         </Typography>
       </Grid>
       <Container className={classes.cardGrid} maxWidth="md">
@@ -70,7 +71,7 @@ function UserPosts() {
                     accommodates={e.accommodates}
                     beds={e.beds}
                     price={e.price}
-                    click={""}
+                    click={console.log("")}
                   />
                 </Card>
               </Grid>
