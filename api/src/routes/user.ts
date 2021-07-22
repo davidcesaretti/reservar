@@ -175,7 +175,7 @@ UserRouter.post("/getfavorites", async (req, res) => {
   const { email } = req.body;
   console.log(req.body, "   EMAIL BACK");
   const us = await User.findOne({ email: email });
-  const props = await Properties.find({ _id: us.favorites });
+  const props = await Properties.find({ _id: us?.favorites });
   res.json(props);
 });
 
