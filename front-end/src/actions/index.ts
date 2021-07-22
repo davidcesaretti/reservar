@@ -73,6 +73,15 @@ export interface GetUrlmppAction{
   payload: any;
 }
 
+export interface GetReservarAction {
+  type: ActionTypes.getreservar;
+  payload: any;
+}
+export interface PostReservarAction {
+  type: ActionTypes.postreservar;
+
+}
+
 const url = "http://localhost:3001";
 
 export const onLogin = async (data: Credentials) => {
@@ -261,6 +270,18 @@ export const postReserve = (obj) => {
   }
 }
 
+export const getReserva = (data) => {
+  return async (dispatch: Dispatch) => {
+    console.log(data, "   DATARESERVA");
+    dispatch({ type: ActionTypes.getreservar, payload:data });
+  };
+};
+
+export const postReserva = () => {
+  return async (dispatch: Dispatch) => {
+    dispatch({ type: ActionTypes.postreservar});
+  };
+};
 export const getPago = (data) => {
   return async (dispatch: Dispatch) => {
     console.log(data, "   DATA");

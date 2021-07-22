@@ -21,8 +21,7 @@ import CardMedia from "@material-ui/core/CardMedia";
 import { useDispatch, useSelector } from "react-redux";
 import { CgWindows } from "react-icons/cg";
 import axios, { AxiosRequestConfig } from "axios";
-import { getPago } from "../../actions";
-import {postReserve } from "../../actions";
+import { getPago,postReserva} from "../../actions";
 import { PageviewTwoTone } from "@material-ui/icons";
 
 const useStyles = makeStyles((theme) => ({
@@ -46,11 +45,20 @@ const useStyles = makeStyles((theme) => ({
     height: "100%",
     display: "flex",
     flexDirection: "column",
+    marginBottom: 1,
+  },
+  cardconf: {
+    height: "100%",
+    display: "flex",
+    flexDirection: "column",
+    marginBottom: 1,
+    marginTop:10,
   },
   cardH: {
     display: "flex",
     flexDirection: "column",
-    paddingBottom: 100,
+    paddingBottom: 0,
+    marginBottom: 1,
   },
   cardMedia: {
     paddingTop: "56.25%", // 16:9
@@ -110,46 +118,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Pay({
-  _id,
-  name,
-  type,
-  beds,
-  price,
-  image,
-  score,
-  address,
-  accommodates,
-  fechaLlegada,
-  fechaSalida,
-  huespedes,
-  info_user,
-}) {
-  _id = 12;
-  name = "Dubai";
-  type = "CampingGlow";
-  beds = 2;
-  price = 1200;
-  image = Recom1;
-  score = "10";
-  address = "Emirates 2000";
-  accommodates = ["wifi", "tv"];
-  fechaLlegada = "2021-08-15T16:45:00.000+00:00";
-  fechaSalida = "2021-08-20T16:45:00.000+00:00";
-  huespedes = {
-    adulto: 2,
-    niño: 1,
-  };
+export default function Pay() {
 
-  info_user = {
-    direccion: "25 de mayo 120",
-    ciudad: "Buenos Aires",
-    pais: "Argentina",
-    telefono: "+54 9 1139384440",
-  };
   const classes = useStyles();
   const bull = <span className={classes.bulletR}>|</span>;
-  const map1 = [1, 2];
+  const map1 = [2];
 
         const dispatch = useDispatch();
         let pago = {
@@ -160,19 +133,22 @@ export default function Pay({
 
         useEffect(() => {
           dispatch(getPago(pago));
-        }, []);
+        }, [])
+
+        useEffect(() => {
+          dispatch(postReserva())
+        }, [])
         
 
         const urlpagomp = useSelector((state: any) => state.storeMpp);
-        
+        const datereserva = useSelector((state: any) => state.stateReserva);
+        const datesitio = useSelector((state: any) => state.categorieDetail);
         console.log("direccion",urlpagomp);
+        console.log("datos",datereserva);
 
         const onSubmit = (ev) => {
         ev.preventDefault();
-       
-      
-        
-        // window.location.href= `url`;
+        window.location.href= urlpagomp;
        
     }  
 
@@ -197,15 +173,15 @@ export default function Pay({
               <Grid item xs={12} sm={6} className={classes.card}>
                 <Card className={classes.card}>
                   <CardComp
-                    _id={_id}
-                    image={image}
-                    score={score}
-                    name={name}
-                    type={type}
-                    address={address}
-                    accommodates={accommodates}
-                    beds={beds}
-                    price={price}
+                    _id={datesitio._id}
+                    image={datesitio.image}
+                    score={datesitio.score}
+                    name={datesitio.name}
+                    type={datesitio.type}
+                    address={datesitio.address}
+                    accommodates={datesitio.accommodates}
+                    beds={datesitio.beds}
+                    price={datesitio.price}
                     click={""}
                   />
                 </Card>
@@ -226,14 +202,20 @@ export default function Pay({
                   ))}
               </CardContent>
             </Grid>
-            <Grid item xs={12} sm={6} className={classes.card}>
+            <Grid container spacing={0}>
+             <Grid item xs={12} sm={6} className={classes.cardconf}>
               <Confirmation />
+            </Grid>
+
+            </Grid>
+            <Grid container spacing={0}>
               <Typography gutterBottom className={classes.titleForm}>
                 FORMA DE PAGO
               </Typography>
               <Grid item xs={2}>
                 <img src={`${LogoMP}`} className={classes.logoMerc} />
               </Grid>
+
             </Grid>
           </Grid>
           <Button

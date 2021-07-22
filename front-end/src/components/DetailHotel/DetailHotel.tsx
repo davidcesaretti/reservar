@@ -22,6 +22,9 @@ import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
 import Spinner from '../Spinner/Spinner'
 import Error404 from '../Error404/Error404';
+import { FechasReserva, postReserve} from "../../actions";
+import { getReserva} from "../../actions/index";
+import { useAuth } from "../../firebase/index";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -121,6 +124,23 @@ const DetailHotel = () => {
     };
   }, [dispatch, id]);
 
+  const auth = useAuth()
+  const obj = {
+    Prop_id: id,
+    fechaSalida: arrivalDate, 
+    fechaLlegada: departureDate,
+    email: auth.user?.email,
+    guests: 5
+  }
+   
+   dispatch(getReserva(obj))
+
+  const handleSubmit = () => {
+    //dispatch(postReserve(obj))
+   
+
+  }
+
   if(detailhotel === null) {
     return <Error404 />
 } else if(detailhotel.length < 1) {
@@ -167,6 +187,8 @@ const DetailHotel = () => {
                   className={style.button}
                   variant="contained"
                   color="primary"
+                  onClick={handleSubmit}
+                  href="/payments"
                 >
                   Reserve
                 </Button>
@@ -318,4 +340,7 @@ const DetailHotel = () => {
   }
 };
 
-export default DetailHotel;
+
+
+
+export default DetailHotel();

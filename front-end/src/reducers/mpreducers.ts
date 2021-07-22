@@ -3,7 +3,11 @@ import { ActionTypes } from "../actions/types";
 
 
 export interface storeMpp{
-    direccion: String,
+  Prop_id: string,
+  fechaSalida: Date, 
+  fechaLlegada:Date,
+  email: string,
+  guests: number,
   }
   
 export const mpReducer = (state: Object={}, action: GetUrlmppAction) => {

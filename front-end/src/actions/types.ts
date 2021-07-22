@@ -13,6 +13,8 @@ export enum ActionTypes {
   updateUser,
   favUser,
   geturlmp,
+  getreservar,
+  postreservar,
 }
 
 export type Action = FetchUsersAction;

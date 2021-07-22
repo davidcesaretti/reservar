@@ -128,6 +128,7 @@ const useStyles = makeStyles((theme) => ({
     marginLeft:5,
     marginTop:10,
     marginBottom:0,
+    sizeFont:12,
  
   },
   textTel: {
@@ -230,7 +231,7 @@ export default function PaymentForm() {
       renderInput={(params) => (
         <TextField
           {...params}
-          label="Country"
+          label="cod"
           variant="outlined"
           size="small"
           className={classes.textCod}

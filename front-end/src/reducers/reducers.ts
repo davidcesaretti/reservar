@@ -1,5 +1,5 @@
 import { booleanoRed } from "./booleano";
-import { Favourites, Booleano, USERFAVS } from "./../actions/index";
+import { Favourites, Booleano, USERFAVS, postReserve} from "./../actions/index";
 import { favReducer } from "./favReducer";
 import { usersLoggedRed } from "./userlogged";
 import { combineReducers } from "redux";
@@ -11,6 +11,10 @@ import { detailReducer } from "./detail";
 import { fechasReducer } from "./fechas";
 import { userFavReducer } from "./userFavs";
 import { mpReducer, storeMpp } from "./mpreducers";
+import { getReserva} from "./reservreducermp";
+import { postReserva } from "./reservapostmp";
+
+
 
 export interface StoreState {
   fechas: any;
@@ -23,10 +27,13 @@ export interface StoreState {
   booleanState: boolean;
   userfavossss: Array<any>;
   storeMpp:storeMpp;
+  stateRegister:any;
+  stateReserva:any;
 }
 
 export const reducers = combineReducers<StoreState>({
   fechas: fechasReducer,
+  
   users: usersReducer,
   cardsHotel: hotelsReducer,
   signed: signedReducer,
@@ -36,6 +43,8 @@ export const reducers = combineReducers<StoreState>({
   booleanState: booleanoRed,
   userfavossss: userFavReducer,
   storeMpp:mpReducer,
+  stateRegister:getReserva,
+  stateReserva:postReserva,
 });
 
 export default reducers;
