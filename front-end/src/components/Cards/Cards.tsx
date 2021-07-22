@@ -1,13 +1,6 @@
 import React, { useEffect } from "react";
-import AppBar from "@material-ui/core/AppBar";
-import CameraIcon from "@material-ui/icons/PhotoCamera";
 import Card from "@material-ui/core/Card";
-import CardActions from "@material-ui/core/CardActions";
-import CardContent from "@material-ui/core/CardContent";
-import CardMedia from "@material-ui/core/CardMedia";
 import CssBaseline from "@material-ui/core/CssBaseline";
-import Toolbar from "@material-ui/core/Toolbar";
-import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import CardComp from "../CardComp/CardComp";
@@ -20,20 +13,13 @@ import {
   fetchCardsHotels,
   getFavos,
 } from "../../actions";
-import { hotelsReducer } from "../../reducers/hotels";
 import NavBar from "../Nav/Nav2";
-import { truncate } from "fs";
-import Alert from "@material-ui/lab/Alert";
-import { FlashMessage } from "./flashmsg";
-import IconButton from "@material-ui/core/IconButton";
-import FavoriteIcon from "@material-ui/icons/Favorite";
 import Calendary from "../Calendary/Calendary";
-import MenuAppBar from "../Nav/Nav2";
 import { useState } from "react";
 import TextField from "@material-ui/core/TextField";
 import FormControl from "@material-ui/core/FormControl";
 import FormLabel from "@material-ui/core/FormLabel";
-import { Box, Button, Grid } from "@material-ui/core";
+import { Button, Grid } from "@material-ui/core";
 import SearchIcon from "@material-ui/icons/Search";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../firebase/index";
@@ -77,13 +63,13 @@ export default function Album() {
   const classes = useStyles();
   const cards = useSelector((state: any) => state.cardsHotel);
   const auth = useAuth();
-  const dispatch = useDispatch();
   const [cities, setCities] = useState(undefined);
   const [guest, setGuest] = useState(undefined);
   const email = auth?.user?.email;
   const fechas = useSelector((state: any) => state.fechas);
   const userfavs = useSelector((state: any) => state.userfavossss);
-  const favs = useSelector((state: any) => state.favourites);
+  const dispatch = useDispatch();
+
   function busqueda() {
     dispatch(FechasReserva({ ...fechas, cities, guest }));
     console.log("Dispatch busqueda");
@@ -100,6 +86,7 @@ export default function Album() {
       )
     );
   }
+
   useEffect(() => {
     dispatch(getFavos(email));
   }, []);
@@ -111,35 +98,10 @@ export default function Album() {
     console.log("pusheando");
   }, [userfavs]);
 
-  const [success, setSuccess] = useState(false);
-  const [message, setMessage] = useState("");
-
-  const resetState = () => {
-    setSuccess(false);
-    setMessage("");
-  };
-
-  const checkfav = () => {
-    console.log(fav);
-  };
-
-  const checkdb = () => {
-    console.log(arrayfavs);
-  };
-
-  /* useEffect(() => {
-    setFav({
-      ...fav,
-      favos: favdb,
-    });
-  }, []);  */
-
   const [fav, setFav]: any = useState({
     favos: [],
     email: email,
   });
-
-  //arrayfavs.map((e) => fav.favos.push(e));
 
   useEffect(() => {
     arrayfavs.map((e) => (!fav.favos.includes(e) ? fav.favos.push(e) : ""));
@@ -153,17 +115,8 @@ export default function Album() {
         ...fav,
         favos: fav.favos.filter((x) => x !== e.currentTarget.value),
       });
-
-      setMessage("error");
-      setSuccess(true);
-
-      setTimeout(resetState, 3000);
     } else {
       setFav({ ...fav, favos: fav.favos.concat(e.currentTarget.value) });
-
-      setMessage("success");
-      setSuccess(true);
-      setTimeout(resetState, 3000);
     }
   };
 
@@ -268,10 +221,6 @@ export default function Album() {
         <Footer />
         {/* End footer */}
       </div>
-      {success ? <FlashMessage message={message} /> : ""}
-      <button onClick={checkfav}>CHECK FAV</button>
-
-      <button onClick={checkdb}>CHECK db</button>
     </React.Fragment>
   );
 }

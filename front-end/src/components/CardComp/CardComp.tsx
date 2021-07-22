@@ -9,7 +9,7 @@ import Collapse from "@material-ui/core/Collapse";
 import Button from "@material-ui/core/Button";
 
 import { useSelector } from "react-redux";
-import Box from '@material-ui/core/Box';
+import Box from "@material-ui/core/Box";
 import CardActionArea from "@material-ui/core/CardActionArea";
 import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
@@ -53,24 +53,24 @@ const useStyles = makeStyles((theme: Theme) =>
       padding: "5px",
       background: "white",
       fontSize: "1.2rem",
-      marginLeft: '2px'
+      marginLeft: "2px",
     },
     iconfavclicked: {
       color: "red",
       padding: "5px",
       background: "white",
       fontSize: "1.2rem",
-      marginLeft: '2px'
+      marginLeft: "2px",
     },
     score: {
-      color: "black", 
-      padding: "3px 10px", 
+      color: "black",
+      padding: "3px 10px",
       backgroundColor: "white",
-      boxSizing: 'border-box',
-      marginLeft: '2px'
+      boxSizing: "border-box",
+      marginLeft: "2px",
     },
     boxIcons: {
-      padding: '0.3125rem 0.3125rem',
+      padding: "0.3125rem 0.3125rem",
     },
   })
 );
@@ -118,12 +118,9 @@ export default function CardComp({
               <FavoriteIcon />
             </IconButton>
             <IconButton className={classes.iconfav}>
-              <StarBorderIcon />
+              <StarBorderIcon /> {score}
             </IconButton>
-            <IconButton className={classes.score}>
-              {score}
-            </IconButton>
-          </Box>    
+          </Box>
         </CardMedia>
         <Link style={{ textDecoration: "none" }} to={`/categories/${_id}`}>
           <CardContent style={{ padding: "15px" }}>
