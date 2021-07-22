@@ -131,12 +131,12 @@ const Home = () => {
   const cards = useSelector((state: any) => state.cardsHotel);
   dispatch(addFavourites({ favos: [], email: email }));
 
-  let properties2 = [];
   let ciudades = ["porto", "New York", "istanbul", "rio de janeiro"];
   let random1 = Math.floor(Math.random() * 4);
-  let page = Math.floor(Math.random() * 40);
-  console.log(random1);
+  let page = Math.floor(Math.random() * 10);
   let ciudadRandom = ciudades[random1];
+  console.log('PAGE', page)
+  console.log(ciudadRandom);
   useEffect(() => {
     dispatch(
       fetchCardsHotels(
@@ -151,35 +151,7 @@ const Home = () => {
       )
     );
   }, []);
-  // function recommended() {
-  //   let properties = [];
-  //   let ciudades = ["porto", "New York", "istanbul", "rio de janeiro"];
-  //   let random1 = Math.floor(Math.random() * 4);
-  //   let ciudadRandom = ciudades[random1];
-  //    dispatch(
-  //     fetchCardsHotels(
-  //       undefined,
-  //       undefined,
-  //       undefined,
-  //       undefined,
-  //       undefined,
-  //       undefined,
-  //       ciudadRandom,
-  //       undefined
-  //     )
-  //   );
-  //   // if (cards?.posts)
-  //   //   while (properties.length < 4) {
-  //   //     let random2 = Math.floor(Math.random() * 30);
-  //   //     let result = publications[random2];
-  //   //     if (!properties.includes(result)) {
-  //   //       properties.push(result);
-  //   //     }
-  //   //   }
-  //   // console.log("PROPERTIES", properties);
-  //   // return properties;
-  // }
-
+ 
   // if (Array.isArray(cards)) {
   //   dispatch(
   //     fetchCardsHotels(
@@ -210,20 +182,7 @@ const Home = () => {
   //   );
   // }, []);
 
-  // const onClickHandler = () => {
-  //   dispatch(
-  //     fetchCardsHotels(
-  //       undefined,
-  //       undefined,
-  //       undefined,
-  //       undefined,
-  //       undefined,
-  //       undefined,
-  //       undefined,
-  //       undefined
-  //     )
-  //   );
-  // };
+
   function busqueda() {
     dispatch(FechasReserva({ ...fechas, cities, guest }));
     dispatch(
@@ -263,19 +222,12 @@ const Home = () => {
       let result = cards.posts.slice(0, 4);
 
       properties.push(result);
-      console.log(properties);
+      console.log('CARDS POSTS',cards.posts)
+      console.log('PROPERTIES',properties);
     }
-
-    //let random = Math.floor(Math.random() * 8);
   }
   exploreProperties();
-  // recommended();
 
-  // if(cards === null) {
-  //   return <Error404 />
-  // } else if(!cards.posts?.length) {
-  //   return <Spinner />
-  // } else {
   return (
     <div>
       <Grid
