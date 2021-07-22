@@ -114,6 +114,7 @@ export default function Pay({
   info_user,
 }) {
   const detailhotel = useSelector((state: any) => state.categorieDetail);
+  
   fechaLlegada = "2021-08-15T16:45:00.000+00:00";
   fechaSalida = "2021-08-20T16:45:00.000+00:00";
   huespedes = {
