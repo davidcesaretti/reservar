@@ -8,69 +8,98 @@ import { Propertiestests } from "../models/propertiestests";
 const UserRouter = Router();
 UserRouter.use(express.json());
 
-UserRouter.post("/register", async (req: Request, res: Response) => {
-  const {
-    name,
-    email,
-    phone_number,
-    nationality,
-    identity_document_type,
-    identity_document_number,
-    date_birth,
-    residence_address,
-    city_and_country_of_residence,
-    emergency_contact,
-    emergency_phone_number,
-    relationship,
-    favorites,
-    alternative_email,
-  } = req.body;
+UserRouter.post("/login", async (req: Request, res: Response) => {
+  const {email} = req.body
+  console.log('ruta login', email)
+  const user = await User.findOne({ email: email });
+  try {
+    console.log('info del usuario', user)
+    return res.json(user)
+  } catch (error) {
+    console.log(error)
+  }
+})
 
-  const emailUser = await User.findOne({ email: email });
-  if (!emailUser && email) {
+UserRouter.post("/register", async (req: Request, res: Response) => {
+  if (req.body.userInfo) {
+    const name = req.body.userInfo?.name
+    const recuperation_email = req.body.userInfo?.recuperation_email
+    const phone_number = req.body?.phone_number
+    const identity_document_type = req.body?.identity_document_type
+    const identity_document_number = req.body?.identity_document_number
+    const nationality = req.body?.nationality
+    const date_birth = req.body?.date_birth
+    const residence_address = req.body?.residence_address
+    const city_and_country_of_residence = req.body?.city_and_country_of_residence
+    const emergency_phone_number = req.body?.emergency_phone_number
+    const emergency_contact = req.body?.emergency_contact
+    const relationship = req.body?.relationship
+
+    const { userEmail } = req.body;
+
+    console.log(req.body)
+    console.log('name', name)
+    const emailUser = await User.findOne({ email: userEmail });
+    if (!emailUser && userEmail) {
     const user = new User({
       name,
-      email,
+      email: userEmail,
+      recuperation_email,
       phone_number,
-      nationality,
       identity_document_type,
       identity_document_number,
+      nationality,
       date_birth,
       residence_address,
       city_and_country_of_residence,
-      emergency_contact,
       emergency_phone_number,
+      emergency_contact,
       relationship,
-      alternative_email,
     });
     await user.save();
-    console.log("creado");
+    console.log("creado", user);
     return res.json(user);
   } else if (emailUser) {
     const userupdate = await User.updateOne(
-      { email: email },
+      { email: userEmail },
       {
         $set: {
           name,
-          nationality,
+          recuperation_email,
           phone_number,
           identity_document_type,
           identity_document_number,
+          nationality,
           date_birth,
           residence_address,
           city_and_country_of_residence,
-          emergency_contact,
           emergency_phone_number,
+          emergency_contact,
           relationship,
-          
-          alternative_email,
         },
       }
     );
+    console.log('updateada', userupdate)
     res.json(userupdate);
   } else {
     res.send("no se pudo crear usuario");
   }
+  } else {
+    const {name, email, photo} = req.body;
+
+    const emailUser = await User.findOne({ email: email });
+    if (!emailUser && email) {
+      const user = new User({
+        name,
+        email,
+        photo
+      });
+      await user.save();
+      console.log("creado", user);
+      return res.json(user);
+
+  }
+}
 });
 
 UserRouter.post("/reserva", async (req, res) => {

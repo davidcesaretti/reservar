@@ -41,7 +41,7 @@ const Perfil = () => {
   const handleUpdate = (e) => {
     e.preventDefault();
 
-    if (typeof info.name !== "string" && info.name !== "") {
+/*     if (typeof info.name !== "string" && info.name !== "") {
       alert("write your name, it must be a string");
       return;
     }
@@ -111,7 +111,7 @@ const Perfil = () => {
     if (typeof info.relationship !== "string" && info.relationship !== "") {
       alert("write your civil status");
       return;
-    }
+    } */
         if (typeof info.name !== "string" && info.name !== '') {
             alert('write your name, it must be a string')
             return
