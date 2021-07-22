@@ -41,122 +41,51 @@ const Perfil = () => {
   const handleUpdate = (e) => {
     e.preventDefault();
 
-/*     if (typeof info.name !== "string" && info.name !== "") {
-      alert("write your name, it must be a string");
-      return;
-    }
-    if (
-      !emailRegex.test(info.recuperation_email) &&
-      info.recuperation_email !== ""
-    ) {
-      alert("write a valid email");
-      return;
-    }
-    if (info.phone_number < 1000000 && info.phone_number !== 0) {
-      alert("write your phone number");
-      return;
-    }
-    if (
-      typeof info.identity_document_type !== "string" &&
-      info.identity_document_type !== ""
-    ) {
-      alert("write your document type");
-      return;
-    }
-    if (
-      info.identity_document_number < 1000000 &&
-      info.identity_document_number !== 0
-    ) {
-      alert("write your document number");
-      return;
-    }
-    if (typeof info.nationality !== "string" && info.nationality !== "") {
-      alert("write your nationality");
-      return;
-    }
-    if (typeof info.date_birth !== "string" && info.date_birth !== "") {
-      alert("write your birth date");
-      return;
-    }
-    if (
-      typeof info.residence_address !== "string" &&
-      info.residence_address !== ""
-    ) {
-      alert("write your adress");
-      return;
-    }
-    if (
-      typeof info.city_and_country_of_residence !== "string" &&
-      info.city_and_country_of_residence !== ""
-    ) {
-      alert("write your residence");
-      return;
-    }
-    if (
-      info.emergency_phone_number < 1000000 &&
-      info.emergency_phone_number !== 0
-    ) {
-      alert("wirte an alternative phone in case of emergency");
-      return;
-    }
-    if (
-      !emailRegex.test(info.emergency_contact) &&
-      info.emergency_contact !== ""
-    ) {
-      alert(
-        "write an alternative mail in case you need to recover your account"
-      );
-      return;
-    }
-    if (typeof info.relationship !== "string" && info.relationship !== "") {
-      alert("write your civil status");
-      return;
-    } */
-        if (typeof info.name !== "string" && info.name !== '') {
-            alert('write your name, it must be a string')
+        if (typeof info.name !== "string") {
+            alert('write your name')
             return
         }
-        if (!emailRegex.test(info.recuperation_email) && info.recuperation_email !== '') {
+        if (!emailRegex.test(info.recuperation_email)) {
             alert('write an alternative mail in case you need to recover your account')
             return
         }
-        if (info.phone_number < 1000000 && info.phone_number !== 0) {
+        if (info.phone_number < 1000000) {
             alert('write your phone number')
             return
         }
-        if (typeof info.identity_document_type !== "string" && info.identity_document_type !== '') {
+        if (typeof info.identity_document_type !== "string") {
             alert('write your document type')
             return
         }
-        if (info.identity_document_number < 1000000 && info.identity_document_number !== 0) {
+        if (info.identity_document_number < 1000000) {
             alert('write your document number')
             return
         }
-        if (typeof info.nationality !== "string" && info.nationality !== '') {
+        if (typeof info.nationality !== "string") {
             alert('write your nationality')
             return
         }
-        if (typeof info.date_birth !== "string" && info.date_birth !== '') {
+        if (typeof info.date_birth !== "string") {
             alert('write your birth date')
             return
         }
-        if (typeof info.residence_address !== "string" && info.residence_address !== '') {
+        if (typeof info.residence_address !== "string") {
             alert('write your adress')
             return
         }
-        if (typeof info.city_and_country_of_residence !== "string" && info.city_and_country_of_residence !== '') {
+        if (typeof info.city_and_country_of_residence !== "string") {
             alert('write your residence')
             return
         }
-        if (info.emergency_phone_number < 1000000 && info.emergency_phone_number !== 0) {
+        if (info.emergency_phone_number < 1000000) {
             alert('write the phone of an emergency contact')
             return
         }
-        if (!emailRegex.test(info.emergency_contact) && info.emergency_contact !== '') {
+        if (!emailRegex.test(info.emergency_contact)) {
             alert('write the email of the emergency contact')
             return
         }
-        if (typeof info.relationship !== "string" && info.relationship !== '') {
+        if (typeof info.relationship !== "string") {
             alert('write your relationship with the emergency contact')
             return
         }
@@ -321,10 +250,6 @@ const Perfil = () => {
             </div>
             </form>
         </div>
-      </div>
-      
-      <div className={style.footer}>
-        <p className={style.infoFooter}>COPYRIGHT 2021</p>
       </div>
     </div>
   );
