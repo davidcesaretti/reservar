@@ -5,6 +5,7 @@ import { HiMinusCircle, HiPlusCircle } from "react-icons/hi";
 import firebase from "firebase";
 import { Button } from "@material-ui/core";
 import photo from "../../Image/chrome_9G11sUzjQC.png";
+import { useAuth } from "../../firebase/index";
 
 function AddProperty() {
   interface firebase {
@@ -26,6 +27,8 @@ function AddProperty() {
     uploadValue: 0,
     picture: null,
   });
+  const auth = useAuth().user.email;
+
   // console.log(ref?.current?.value, "ref imagen");
   // useEffect(() => {
   //   //  console.log(ref?.current?.value, "ref imagen");
@@ -61,13 +64,7 @@ function AddProperty() {
   };
   const onFormSubmit = function (e) {
     e.preventDefault();
-    // const formData = new FormData();
-    // formData.append("image", state.file);
-    // const config = {
-    //   headers: {
-    //     "content-type": "multipart/form-data",
-    //   },
-    // };
+
     if (
       !refTitle.current.value ||
       !refDescription.current.value ||
@@ -94,6 +91,7 @@ function AddProperty() {
         address: refAddress.current.value + " " + refCountry.current.value,
         city: refCity.current.value,
         score: 0,
+        host: auth,
       };
       axios
         .post("http://localhost:3001/upload", formData)

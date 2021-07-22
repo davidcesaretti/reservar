@@ -12,6 +12,7 @@ export enum ActionTypes {
   booleanState,
   updateUser,
   favUser,
+  findPost,
 }
 
 export type Action = FetchUsersAction;
