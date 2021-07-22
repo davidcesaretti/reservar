@@ -27,7 +27,7 @@ function AddProperty() {
     uploadValue: 0,
     picture: null,
   });
-  const auth = useAuth().user.email;
+  const auth = useAuth().user?.email;
 
   // console.log(ref?.current?.value, "ref imagen");
   // useEffect(() => {
