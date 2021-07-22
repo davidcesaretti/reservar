@@ -241,7 +241,7 @@ export default function CheckboxList() {
         dataFilter.type,
         dataFilter.accommodates || fechasAnteriores.guest,
         dataFilter.score,
-        fechasAnteriores.cities,
+        fechasAnteriores.cities === "" ? undefined : fechasAnteriores.cities,
         undefined
       )
     );
@@ -262,10 +262,10 @@ export default function CheckboxList() {
         paginado,
         dataFilter.price,
         dataFilter.amenities,
-        dataFilter.type,
+        dataFilter.type || fechasAnteriores.type,
         dataFilter.accommodates || fechasAnteriores.guest,
         dataFilter.score,
-        fechasAnteriores.cities,
+        fechasAnteriores.cities === "" ? undefined : fechasAnteriores.cities,
         undefined
       )
     );
@@ -283,7 +283,7 @@ export default function CheckboxList() {
         dataFilter.type,
         dataFilter.accommodates || fechasAnteriores.guest,
         dataFilter.score,
-        fechasAnteriores.cities,
+        fechasAnteriores.cities === "" ? undefined : fechasAnteriores.cities,
         undefined
       )
     );
