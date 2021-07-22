@@ -62,7 +62,7 @@ UserRouter.post("/register", async (req: Request, res: Response) => {
           emergency_contact,
           emergency_phone_number,
           relationship,
-          
+
           alternative_email,
         },
       }
@@ -128,7 +128,7 @@ UserRouter.post("/reserva", async (req, res) => {
         message: "reserva exitosa!",
         checkIn: fechaSalida,
         checkOut: fechaLlegada,
-        guests: guests
+        guests: guests,
       });
     }
   } catch (err) {
@@ -161,14 +161,11 @@ UserRouter.post("/favorites", async (req, res) => {
   try {
     const { email, favorites } = req.body;
     const user = await User.findOne({ email: email });
-    const favfilter = favorites?.concat(
-      user.favorites.filter((item) => favorites.indexOf(item) < 0)
-    );
 
-    await User.updateOne({ email: email }, { favorites: favfilter });
+    await User.updateOne({ email: email }, { favorites: favorites });
 
     console.log(favorites, " AGREGANDO FAV BACK");
-    res.json(favfilter);
+    res.json(favorites);
   } catch (error) {
     res.send(error);
   }
@@ -178,7 +175,7 @@ UserRouter.post("/getfavorites", async (req, res) => {
   const { email } = req.body;
   console.log(req.body, "   EMAIL BACK");
   const us = await User.findOne({ email: email });
-  const props = await Properties.find({ _id: us.favorites });
+  const props = await Properties.find({ _id: us?.favorites });
   res.json(props);
 });
 
