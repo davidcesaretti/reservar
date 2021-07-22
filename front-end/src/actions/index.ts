@@ -43,6 +43,10 @@ export interface Favourites {
   type: ActionTypes.addFav;
   payload: any;
 }
+export interface userInformation {
+  type: ActionTypes.userInfo;
+  payload: Object;
+}
 export interface USERFAVS {
   type: ActionTypes.favUser;
   payload: Array<Object>;
@@ -192,12 +196,27 @@ export const updateUser = (userInfo: object, userEmail) => {
         userInfo,
         userEmail,
       });
-      console.log(userInfo);
+      console.log('ACTION UPDATE', updatedUser);
     } catch (e) {
       console.error(e);
     }
   };
 };
+
+export const getUserInfo = (email) => {
+  return async (dispatch: Dispatch) => {
+    try {
+      const infoUser = await axios.post("http://localhost:3001/login", email)
+      console.log('action getUserInfo', infoUser.data)
+      dispatch<userInformation>({
+        type: ActionTypes.userInfo,
+        payload: infoUser.data,
+      });
+    } catch (error) {
+      console.error(error)
+    }
+  }
+}
 
 export const clearDetail = () => {
   return {

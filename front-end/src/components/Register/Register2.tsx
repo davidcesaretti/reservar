@@ -5,7 +5,7 @@ import firebase from "firebase";
 import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
 import { storage } from "../../firebase/index";
 import { Button, Container, Typography, Grid } from "@material-ui/core";
-import { signUser, UserEmail, UserEmailGlobal } from "../../actions/index";
+import { signUser, UserEmail, UserEmailGlobal, getUserInfo } from "../../actions/index";
 import { makeStyles } from "@material-ui/core/styles";
 import backImg from "../../Image/fondoLogin.jpeg";
 import "@fontsource/roboto";
@@ -110,8 +110,8 @@ const Register = () => {
       firebase.auth.GoogleAuthProvider.PROVIDER_ID,
       firebase.auth.FacebookAuthProvider.PROVIDER_ID,
       firebase.auth.EmailAuthProvider.PROVIDER_ID,
-    ],
-    callbacks: {},
+    ],/* 
+    callbacks: {handleSign: () => console.log('hola')}, */
   };
 
   useEffect(() => {
@@ -156,6 +156,13 @@ const Register = () => {
     dispatch(UserEmailGlobal(""));
   };
 
+  let email = auth?.user?.email
+
+  const handleSign = () => {
+    console.log('handlesign')
+    dispatch(getUserInfo(email))
+  }
+
   const classes = useStyle();
   return (
     <Grid className={classes.ctn}>
@@ -195,7 +202,7 @@ const Register = () => {
               <img src={firebase.auth().currentUser.photoURL} alt="user" />
               <div className={classes.completediv}>
                 <Link to="/User" className={classes.link1}>
-                  <Button variant="contained" color="secondary">
+                  <Button onClick={() => {handleSign()}} variant="contained" color="secondary">
                     Go to your Profile!
                   </Button>
                 </Link>
@@ -207,6 +214,7 @@ const Register = () => {
                 Login or Register
               </Typography>
               <StyledFirebaseAuth
+                
                 uiConfig={uiConfig}
                 firebaseAuth={firebase.auth()}
               />
