@@ -21,8 +21,13 @@ import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
 import Spinner from '../Spinner/Spinner'
 import Error404 from '../Error404/Error404';
-import { FechasReserva, postReserve } from "../../actions";
+import { FechasReserva, FirstStepReserve } from "../../actions";
 import { useAuth } from "../../firebase/index";
+import CardComp from "../CardComp/CardComp";
+import AccountCircleIcon from "@material-ui/icons/AccountCircle";
+import HotelIcon from "@material-ui/icons/Hotel";
+import ApartmentIcon from "@material-ui/icons/Apartment";
+import AddLocationIcon from "@material-ui/icons/AddLocation";
 
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -136,10 +141,9 @@ const DetailHotel = () => {
     fechaSalida: arrivalDate, 
     fechaLlegada: departureDate,
     email: auth.user?.email,
-    guests: 5
   }
   const handleSubmit = () => {
-    dispatch(postReserve(obj))
+    dispatch(FirstStepReserve(obj))
   }
   console.log(obj)
 
@@ -176,9 +180,25 @@ const DetailHotel = () => {
                 <p>{departureDate.slice(0,10)}</p>
               </div>
               <div className={style.gridHijo3}>
-                <p>¿How many are traveling?</p>
-                <input type="text"></input>
-              </div>
+                <div>
+                  <div className={style.gridHijo4}>
+                  <ApartmentIcon></ApartmentIcon>
+                  {detailhotel[0].type}
+                  </div>
+                  <div>
+                  <AddLocationIcon></AddLocationIcon>
+                  {detailhotel[0].address}
+                  </div>
+                  <div>
+                  <AccountCircleIcon></AccountCircleIcon>  
+                  {detailhotel[0].accommodates}
+                  </div>
+                  <div>
+                  <HotelIcon></HotelIcon>  
+                  {detailhotel[0].beds}
+                  </div> 
+                  </div>
+                </div>
             </div>
             <div className={style.gridEst}>
               <div className={style.score}>

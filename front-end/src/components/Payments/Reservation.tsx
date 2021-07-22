@@ -4,6 +4,7 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
+import { useSelector } from "react-redux";
 //import * as moment from 'moment';
 
 const useStyles = makeStyles((theme) => ({
@@ -116,20 +117,18 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 export default function Reserva({price,fechaLlegada,fechaSalida,huespedes}){
- var moment=require('moment');
+  var moment=require('moment');
+  const stateregister = useSelector((state: any) => state.stateRegister)
+    
 
- huespedes={
-   adulto:2,
-   niño:1,
- }; 
- price=1200
-  fechaLlegada="2021-08-15T16:45:00.000+00:00"
+  fechaLlegada=stateregister.fechaLlegada
   var fechaL=moment(fechaLlegada).format('DD/MM/YY')
-  fechaSalida="2021-08-20T16:45:00.000+00:00"
+  fechaSalida=stateregister.fechaSalida
   var fechaS=moment(fechaSalida).format('DD/MM/YY')
   
-  var cantidad=moment(fechaSalida).diff(moment(fechaLlegada),'days');//realizar operacion resta de fechas
-  const total=cantidad*price;
+  var cantidad=moment(fechaLlegada).diff(moment(fechaSalida),'days');//realizar operacion resta de fechas
+  var total=cantidad*price;
+  var result = cantidad === 0? price: total
   const classes = useStyles();
   const bull = <span className={classes.bulletR}>|</span>;
 
@@ -139,28 +138,28 @@ export default function Reserva({price,fechaLlegada,fechaSalida,huespedes}){
          <Card className={classes.card}>
          <Grid container spacing={3}>
         <Grid item xs={6}>
-            <Paper elevation={0} className={classes.paperR}>Fecha de Llegada {bull}</Paper>
+            <Paper elevation={0} className={classes.paperR}>Arrival Date {bull}</Paper>
         </Grid>
         <Grid item xs={6}>
-          <Paper elevation={0} className={classes.paperR}>Fecha de Salida</Paper>
+          <Paper elevation={0} className={classes.paperR}>Departure Date</Paper>
         </Grid>
       </Grid>
       <Grid container spacing={3}>
         <Grid item xs={6}>
-          <Paper elevation={0} className={classes.paper2R}>{fechaL}</Paper>  
+          <Paper elevation={0} className={classes.paper2R}>{fechaS}</Paper>  
         </Grid>
         <Grid item xs={6}>
-          <Paper elevation={0} className={classes.paper2R}>{fechaS}</Paper>
+          <Paper elevation={0} className={classes.paper2R}>{fechaL}</Paper>
         </Grid>
         </Grid>
         <Paper elevation={0} className={classes.paper2R}>_______________________________________________</Paper>
-          <Paper elevation={0} className={classes.paper2R}>HUESPEDES</Paper>
-          <Paper elevation={0} className={classes.paper3R}>{`Adulto:${huespedes.adulto}`}         {`Niños:${huespedes.niño}`}</Paper>
+          <Paper elevation={0} className={classes.paper2R}>GUESTS</Paper>
+          <Paper elevation={0} className={classes.paper3R}>{`Accommodates:${huespedes}`}</Paper>
       </Card>
       <Card className={classes.card}>
       <Grid container spacing={3}>
         <Grid item xs={6}>
-            <Paper elevation={0} className={classes.paperR1}>Valor por Noche {bull}</Paper>
+            <Paper elevation={0} className={classes.paperR1}>Value per night {bull}</Paper>
         </Grid>
         <Grid item xs={6}>
           <Paper elevation={0} className={classes.paperR1}>{price}</Paper>
@@ -168,14 +167,14 @@ export default function Reserva({price,fechaLlegada,fechaSalida,huespedes}){
       </Grid>
       <Grid container spacing={3}>
         <Grid item xs={6}>
-          <Paper elevation={0} className={classes.paper2R}>Cantidad de Noches</Paper>  
+          <Paper elevation={0} className={classes.paper2R}>Number of nights</Paper>  
         </Grid>
         <Grid item xs={6}>
           <Paper elevation={0} className={classes.paper2R}>{cantidad}</Paper>
         </Grid>
         </Grid>
         <Paper elevation={0} className={classes.paper2R}>_______________________________________________</Paper>
-          <Paper elevation={0} className={classes.paper3R}>{`TOTAL DE ESTADIA :$  ${total}`}</Paper>
+          <Paper elevation={0} className={classes.paper3R}>{`TOTAL STAY :$  ${result}`}</Paper>
       </Card>
     </React.Fragment>
     
