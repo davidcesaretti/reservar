@@ -1,6 +1,6 @@
 import { Router } from "express";
 import filters from "./get";
-import image from "./postImage";
+import image from "./postProperty";
 import mp from "./mp";
 const router = Router();
 

@@ -102,7 +102,7 @@ app.get("/", async (req: Request, res: Response) => {
 });
 
 app.get("/test", async (req: Request, res: Response) => {
-  // createdTest();
+  createdTest();
   //city();
   //   const arrayCities = []
   //   Cities.find({}).then(data:any=>

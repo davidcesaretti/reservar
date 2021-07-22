@@ -1,11 +1,6 @@
 import express, { Response, Request, Router, NextFunction } from "express";
-import { dataAirbnb } from "../../db";
-import { paginado } from "../paginado";
 import { Properties } from "../models/Properties";
-import { Reserva } from "../models/Users";
-import { Propertiestests } from "../models/propertiestests";
 import multer from "multer";
-import { any } from "sequelize/types/lib/operators";
 
 const path = require("path");
 // import cors from "cors";
@@ -34,9 +29,41 @@ router.use(
   }).single("image")
 );
 
-router.post("/", (req: any, res: Response, next: NextFunction) => {
-  console.log(req.file.path);
-  res.json(req.body);
+router.post("/", async (req: Request, res: Response, next: NextFunction) => {
+  console.log(req.body);
+  let {
+    name,
+    summary,
+    type,
+    accommodates,
+    beds,
+    bedrooms,
+    bathrooms,
+    amenities,
+    price,
+    image,
+    address,
+    city,
+    score,
+  } = req.body;
+  const property = await new Properties({
+    name,
+    summary,
+    type,
+    accommodates,
+    available: [],
+    beds,
+    bedrooms,
+    bathrooms,
+    amenities,
+    price,
+    city: city.toLowerCase(),
+    image,
+    score,
+    address,
+  });
+  await property.save();
+  return;
 });
 
 export default router;
