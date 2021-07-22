@@ -213,20 +213,49 @@ const Home = () => {
     );
   }
 
-  function exploreProperties() {
+  function recommended() {
     let properties = [];
-    if(cards?.posts)
-    while(properties.length < 4) {
-      let random = Math.floor(Math.random() * 8);
-      let result = cards.posts[random];
+    let ciudades = ['porto', 'New York', 'istanbul', 'rio de janeiro'];
+    let random1 = Math.floor(Math.random() * 4);
+    let ciudadRandom = ciudades[random1];
+    const publications = dispatch(
+        fetchCardsHotels(
+          undefined,
+          undefined,
+          undefined,
+          undefined,
+          undefined,
+          undefined,
+          ciudadRandom,
+          undefined
+        )
+      );
+      if(cards?.posts)
+    while(properties.length < 4){
+      let random2 = Math.floor(Math.random() * 30)
+      let result = publications[random2];
       if(!properties.includes(result)){
         properties.push(result)
       }
-    }
+    } 
+    console.log('PROPERTIES', properties)
     return properties
   }
+  
+  // function exploreProperties() {
+  //   let properties = [];
+  //   if(cards?.posts)
+  //   while(properties.length < 4) {
+  //     let random = Math.floor(Math.random() * 8);
+  //     let result = cards.posts[random];
+  //     if(!properties.includes(result)){
+  //       properties.push(result)
+  //     }
+  //   }
+  //   return properties
+  // }
 
-  let propertiesExplored = exploreProperties();
+  let propertiesExplored = recommended();
 
   if(cards === null) {
     return <Error404 />
@@ -326,7 +355,7 @@ const Home = () => {
           className={classes.containerRecomendados}
         >
           <Grid item xs={12} md={12} style={{ textAlign: "center" }} className={classes.explore} >
-            <Typography variant="h6">EXPLORE</Typography>
+            <Typography variant="h6">RECOMMENDED</Typography>
           </Grid>
           {propertiesExplored && propertiesExplored.map((el, i) => (
              <Grid item xs={6} md={2} key={i} >
