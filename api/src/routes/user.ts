@@ -9,8 +9,8 @@ const UserRouter = Router();
 UserRouter.use(express.json());
 
 UserRouter.post("/login", async (req: Request, res: Response) => {
-  const { email } = req.body;
-  console.log("ruta login", email);
+  const {email} = req.body;
+  console.log("ruta login", req.body);
   const user = await User.findOne({ email: email });
   try {
     console.log("info del usuario", user);

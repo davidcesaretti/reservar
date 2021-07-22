@@ -158,10 +158,7 @@ const Register = () => {
 
   let email = auth?.user?.email
 
-  const handleSign = () => {
-    console.log('handlesign')
-    dispatch(getUserInfo(email))
-  }
+  
 
   const classes = useStyle();
   return (
@@ -202,7 +199,7 @@ const Register = () => {
               <img src={firebase.auth().currentUser.photoURL} alt="user" />
               <div className={classes.completediv}>
                 <Link to="/User" className={classes.link1}>
-                  <Button onClick={() => {handleSign()}} variant="contained" color="secondary">
+                  <Button variant="contained" color="secondary">
                     Go to your Profile!
                   </Button>
                 </Link>

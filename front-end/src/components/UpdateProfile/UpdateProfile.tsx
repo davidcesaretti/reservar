@@ -304,7 +304,7 @@ const Perfil = () => {
                 <div className={style.field}>
                     <label className={style.nameField}>Relationship with contact</label>
                     <input 
-                        placeholder="Married" 
+                        placeholder="Friend" 
                         className={style.inputField}
                         name="relationship"
                         value={info.relationship}

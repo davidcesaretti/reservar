@@ -206,8 +206,9 @@ export const updateUser = (userInfo: object, userEmail) => {
 export const getUserInfo = (email) => {
   return async (dispatch: Dispatch) => {
     try {
-      const infoUser = await axios.post("http://localhost:3001/login", email)
-      console.log('action getUserInfo', infoUser.data)
+      console.log(email)
+      const infoUser = await axios.post("http://localhost:3001/login", {email})
+      console.log('action getUserInfo', infoUser)
       dispatch<userInformation>({
         type: ActionTypes.userInfo,
         payload: infoUser.data,
