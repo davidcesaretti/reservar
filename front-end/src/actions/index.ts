@@ -253,7 +253,6 @@ export const getFavos = (data) => {
 export const postReserve = (obj) => {
   return async (dispatch:Dispatch) => {
     await axios.post("http://localhost:3001/reserva", obj)
-    
   }
 }
 // export function deleteUsers(data: any) {

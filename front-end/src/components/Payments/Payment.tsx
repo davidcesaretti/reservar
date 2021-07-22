@@ -159,8 +159,7 @@ export default function Pay({
                 <Card className={classes.card}></Card>
                 <Reservation price fechaLlegada fechaSalida huespedes />
               </Grid>
-              {detailhotel.posts &&
-                detailhotel.posts(
+              {detailhotel &&
                   <Grid item xs={12} sm={6} className={classes.card}>
                     <Card className={classes.card}>
                       <CardComp
@@ -177,7 +176,7 @@ export default function Pay({
                       />
                     </Card>
                 </Grid>
-                )}
+              }
             </Grid>
           </CardContent>
           <Typography gutterBottom className={classes.titleInfo}>
