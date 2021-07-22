@@ -1,103 +1,142 @@
-import React, {useState} from 'react'
-import {Link} from 'react-router-dom'
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { useAuth } from "../../firebase/index";
-import style from './User.module.css'
-import Profile from '../Profile/Profile'
-import UpdateProfile from '../UpdateProfile/UpdateProfile'
-import Bookings from '../Bookings/Bookings'
-import Favorites from '../Favorites/Favorites'
-import HistoryTravels from '../HistoryTravels/HistoryTravels'
+import style from "./User.module.css";
+import Profile from "../Profile/Profile";
+import UpdateProfile from "../UpdateProfile/UpdateProfile";
+import Bookings from "../Bookings/Bookings";
+import Favorites from "../Favorites/Favorites";
+import HistoryTravels from "../HistoryTravels/HistoryTravels";
+import { useDispatch } from "react-redux";
+import { getFavos } from "../../actions";
 
 const User = () => {
-    const auth = useAuth()
-    const [section, setSection] = useState('Profile')
+  const auth = useAuth();
+  const [section, setSection] = useState("Profile");
+  const dispatch = useDispatch();
+  const email = auth?.user?.email;
 
-    const clickProfile = () => {
-        setSection('Profile')
-    }
+  const clickProfile = () => {
+    setSection("Profile");
+  };
 
-    const clickUpdate = () => {
-        setSection('Update')
-    }
+  const clickUpdate = () => {
+    setSection("Update");
+  };
 
-    const clickBookings = () => {
-        setSection('Bookings')
-    }
+  const clickBookings = () => {
+    setSection("Bookings");
+  };
 
-    const clickFavourites = () => {
-        setSection('Favorites')
-    }
+  const clickFavourites = () => {
+    setSection("Favorites");
+  };
 
-    const clickHistoryTravels = () => {
-        setSection('History')
-    }
+  const clickHistoryTravels = () => {
+    setSection("History");
+  };
 
-    return (
+  useEffect(() => {
+    dispatch(getFavos(email));
+  }, [email]);
+
+  return (
+    <div>
+      <div className={style.navBar}>
         <div>
-            <div className={style.navBar}>
-                <div >
-                    <img className={style.picture} src={auth.user.photoURL} alt="profile"/>
-                </div>
-                <div className={style.menu}>
-                    <div className={style.title}>
-                        <h4 className={style.bienvenida}>Bienvenido {auth.user.displayName}</h4>
-                        <div className={style.buttonsNavBar}>
-                            <Link to="/" className={style.navButton1}>Home</Link>
-                            <div className={style.line}></div>
-                            <Link to="/categories" className={style.navButton}>Categories</Link>
-                        </div>
-                    </div>
-                    <div className={style.separator}></div>
-                    <nav className={style.options}>
-                            <button className={style.buttonOption}
-                                onClick={(e) => {clickProfile()}}
-                            >
-                                Profile
-                            </button>
-                            <div className={style.line}></div>
-                            <button className={style.buttonOption}
-                                onClick={(e) => {clickUpdate()}}
-                            >
-                                Edit profile
-                            </button>
-                            <div className={style.line}></div>
-                            <button className={style.buttonOption}
-                                onClick={() => {clickBookings()}}
-                            >
-                                My bookings
-                            </button>
-                            <div className={style.line}></div>
-                            <button className={style.buttonOption}
-                                onClick={() => {clickFavourites()}}
-                            >
-                                Favourites
-                            </button>
-                            <div className={style.line}></div>
-                            <button className={style.buttonOption}
-                                onClick={() => {clickHistoryTravels()}}
-                            >
-                                History of travels
-                            </button>
-                            <div className={style.line}></div>
-                            <button className={style.buttonOption} 
-                                onClick={() => auth.signout()}
-                            >
-                                Signout
-                            </button>
-                    </nav>
-                </div>
-            </div>
-            {   section === 'Profile' ? <Profile /> :
-                section === 'Update' ? <UpdateProfile /> :
-                section === 'Bookings' ? <Bookings /> :
-                section === 'Favorites' ? <Favorites /> :
-                <HistoryTravels />
-            }
-            <div className={style.footer}>
-                <p className={style.infoFooter}>COPYRIGHT 2021</p>
-            </div>
+          <img
+            className={style.picture}
+            src={auth.user.photoURL}
+            alt="profile"
+          />
         </div>
-    )
-}
+        <div className={style.menu}>
+          <div className={style.title}>
+            <h4 className={style.bienvenida}>
+              Bienvenido {auth.user.displayName}
+            </h4>
+            <div className={style.buttonsNavBar}>
+              <Link to="/" className={style.navButton1}>
+                Home
+              </Link>
+              <div className={style.line}></div>
+              <Link to="/categories" className={style.navButton}>
+                Categories
+              </Link>
+            </div>
+          </div>
+          <div className={style.separator}></div>
+          <nav className={style.options}>
+            <button
+              className={style.buttonOption}
+              onClick={(e) => {
+                clickProfile();
+              }}
+            >
+              Profile
+            </button>
+            <div className={style.line}></div>
+            <button
+              className={style.buttonOption}
+              onClick={(e) => {
+                clickUpdate();
+              }}
+            >
+              Edit profile
+            </button>
+            <div className={style.line}></div>
+            <button
+              className={style.buttonOption}
+              onClick={() => {
+                clickBookings();
+              }}
+            >
+              My bookings
+            </button>
+            <div className={style.line}></div>
+            <button
+              className={style.buttonOption}
+              onClick={() => {
+                clickFavourites();
+              }}
+            >
+              Favourites
+            </button>
+            <div className={style.line}></div>
+            <button
+              className={style.buttonOption}
+              onClick={() => {
+                clickHistoryTravels();
+              }}
+            >
+              History of travels
+            </button>
+            <div className={style.line}></div>
+            <button
+              className={style.buttonOption}
+              onClick={() => auth.signout()}
+            >
+              Signout
+            </button>
+          </nav>
+        </div>
+      </div>
+      {section === "Profile" ? (
+        <Profile />
+      ) : section === "Update" ? (
+        <UpdateProfile />
+      ) : section === "Bookings" ? (
+        <Bookings />
+      ) : section === "Favorites" ? (
+        <Favorites />
+      ) : (
+        <HistoryTravels />
+      )}
+      <div className={style.footer}>
+        <p className={style.infoFooter}>COPYRIGHT 2021</p>
+      </div>
+    </div>
+  );
+};
 
-export default User
+export default User;
