@@ -22,7 +22,7 @@ const User = () => {
     console.log('useSelector ', userInfo)
     useEffect(() => {
         dispatch(getUserInfo(auth.user.email))
-        if (userInfo) {
+        if (userInfo.nationality !== undefined) {
             setSection('Profile')
         } else {
             setSection('Update')
@@ -42,15 +42,8 @@ const User = () => {
 
     }
 
-    
-    /* if (!userInfo) {
-        setSection('Update')
-    } else {
-        setSection('Profile')
-    } */
-
     const clickProfile = () => {
-        if (userInfo) {
+        if (userInfo.nationality !== undefined) {
             setSection('Profile')
         } else {
             Swal.fire({
@@ -94,7 +87,7 @@ const User = () => {
                 </div>
                 <div className={style.menu}>
                     <div className={style.title}>
-                        {userInfo?.name ? 
+                        {userInfo?.name ?
                             <h4 className={style.bienvenida}>Bienvenido {userInfo.name}</h4>
                             :
                             <h4 className={style.bienvenida}>Bienvenido {auth.user.displayName}</h4>
@@ -145,20 +138,20 @@ const User = () => {
                     </nav>
                 </div>
             </div>
-            {   section === 'Profile' ? 
+            {   section === 'Profile' ?
                     <Profile 
-                        name={userInfo.name} 
-                        alternative_email={userInfo.alternative_email}
-                        phone_number={userInfo.phone_number}
-                        identity_document_type={userInfo.identity_document_type}
-                        identity_document_number={userInfo.identity_document_number}
-                        nationality={userInfo.nationality}
-                        date_birth={userInfo.date_birth}
-                        residence_address={userInfo.residence_address}
-                        city_and_country_of_residence={userInfo.city_and_country_of_residence}
-                        emergency_phone_number={userInfo.emergency_phone_number}
-                        emergency_contact={userInfo.emergency_contact}
-                        relationship={userInfo.relationship}
+                        name={userInfo?.name} 
+                        alternative_email={userInfo?.alternative_email}
+                        phone_number={userInfo?.phone_number}
+                        identity_document_type={userInfo?.identity_document_type}
+                        identity_document_number={userInfo?.identity_document_number}
+                        nationality={userInfo?.nationality}
+                        date_birth={userInfo?.date_birth}
+                        residence_address={userInfo?.residence_address}
+                        city_and_country_of_residence={userInfo?.city_and_country_of_residence}
+                        emergency_phone_number={userInfo?.emergency_phone_number}
+                        emergency_contact={userInfo?.emergency_contact}
+                        relationship={userInfo?.relationship}
                 /> :
                 section === 'Update' ? <UpdateProfile /> :
                 section === 'Bookings' ? <Bookings /> :
