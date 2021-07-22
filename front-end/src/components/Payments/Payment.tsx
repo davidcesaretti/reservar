@@ -19,6 +19,7 @@ import { Button } from "@material-ui/core";
 import Paper from "@material-ui/core/Paper";
 import CardMedia from "@material-ui/core/CardMedia";
 import axios from "axios";
+import { useSelector } from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
   nav: {},
@@ -107,29 +108,12 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Pay({
-  _id,
-  name,
-  type,
-  beds,
-  price,
-  image,
-  score,
-  address,
-  accommodates,
   fechaLlegada,
   fechaSalida,
   huespedes,
   info_user,
 }) {
-  _id = 12;
-  name = "Dubai";
-  type = "CampingGlow";
-  beds = 2;
-  price = 1200;
-  image = Recom1;
-  score = "10";
-  address = "Emirates 2000";
-  accommodates = ["wifi", "tv"];
+  const detailhotel = useSelector((state: any) => state.categorieDetail);
   fechaLlegada = "2021-08-15T16:45:00.000+00:00";
   fechaSalida = "2021-08-20T16:45:00.000+00:00";
   huespedes = {
@@ -147,7 +131,7 @@ export default function Pay({
   const bull = <span className={classes.bulletR}>|</span>;
   const map1 = [1];
 
-  const pago = {
+/*   const pago = {
     title: "mariano",
     unit_price: price,
   };
@@ -155,7 +139,7 @@ export default function Pay({
   const onSubmit = (ev) => {
     ev.preventDefault();
     axios.post("http://localhost:3001/mp", pago);
-  };
+  }; */
 
   return (
     <React.Fragment>
@@ -175,22 +159,25 @@ export default function Pay({
                 <Card className={classes.card}></Card>
                 <Reservation price fechaLlegada fechaSalida huespedes />
               </Grid>
-              <Grid item xs={12} sm={6} className={classes.card}>
-                <Card className={classes.card}>
-                  <CardComp
-                    _id={_id}
-                    image={image}
-                    score={score}
-                    name={name}
-                    type={type}
-                    address={address}
-                    accommodates={accommodates}
-                    beds={beds}
-                    price={price}
-                    click={""}
-                  />
-                </Card>
-              </Grid>
+              {detailhotel.posts &&
+                detailhotel.posts(
+                  <Grid item xs={12} sm={6} className={classes.card}>
+                    <Card className={classes.card}>
+                      <CardComp
+                        _id={detailhotel[0]._id}
+                        image={detailhotel[0].image}
+                        score={detailhotel[0].score}
+                        name={detailhotel[0].name}
+                        type={detailhotel[0].type}
+                        address={detailhotel[0].address}
+                        accommodates={detailhotel[0].accommodates}
+                        beds={detailhotel[0].beds}
+                        price={detailhotel[0].price}
+                        click={""}
+                      />
+                    </Card>
+                </Grid>
+                )}
             </Grid>
           </CardContent>
           <Typography gutterBottom className={classes.titleInfo}>
@@ -220,7 +207,6 @@ export default function Pay({
           <div>
 
           <Button
-            onClick={onSubmit}
             variant="contained"
             color="secondary"
             className={classes.titleBut}

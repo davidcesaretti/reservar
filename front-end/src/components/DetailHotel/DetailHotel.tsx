@@ -125,7 +125,7 @@ const DetailHotel = () => {
     return () => {
       dispatch(clearDetail());
     };
-  }, [dispatch, id]);
+  }, []);
 
 
 
