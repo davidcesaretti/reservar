@@ -47,6 +47,9 @@ const properties = new Schema(
     score: {
       type: Number,
     },
+    host: {
+      type: String,
+    },
     id_post: {
       type: Number,
     },
