@@ -22,8 +22,8 @@ export const createdTest = async () => {
           amenities: x._doc.amenities,
           price: parseInt(x._doc.price),
           city: x._doc.address.market
-            ? x._doc.address.market
-            : x._doc.address.country,
+            ? x._doc.address.market.toLowerCase()
+            : x._doc.address.country.toLowerCase(),
           image: x._doc.images.picture_url,
           score: x._doc.review_scores.review_scores_value
             ? x._doc.review_scores.review_scores_value
