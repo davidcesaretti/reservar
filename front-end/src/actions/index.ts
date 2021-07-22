@@ -196,8 +196,8 @@ export const updateUser = (userInfo: object, userEmail) => {
         userEmail,
       });
       console.log(userInfo);
-    } catch (e) {
-      console.error(e);
+    } catch (err) {
+      console.error(err);
     }
   };
 };
