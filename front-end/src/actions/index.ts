@@ -34,7 +34,10 @@ export interface Booleano {
   type: ActionTypes.booleanState;
   payload: boolean;
 }
-
+export interface Bookings {
+  type: ActionTypes.bookings;
+  payload: any,
+}
 export interface UserEmail {
   type: ActionTypes.usersLogged;
   payload: string;
@@ -193,8 +196,8 @@ export const updateUser = (userInfo: object, userEmail) => {
         userEmail,
       });
       console.log(userInfo);
-    } catch (e) {
-      console.error(e);
+    } catch (err) {
+      console.error(err);
     }
   };
 };
@@ -250,7 +253,6 @@ export const getFavos = (data) => {
 export const postReserve = (obj) => {
   return async (dispatch:Dispatch) => {
     await axios.post("http://localhost:3001/reserva", obj)
-    
   }
 }
 // export function deleteUsers(data: any) {
