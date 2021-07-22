@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router";
 import { clearDetail, detailHotel } from "../../actions";
 import { Link } from "react-router-dom";
@@ -122,10 +121,8 @@ const DetailHotel = () => {
   const { id } = useParams();
   useEffect(() => {
     dispatch(detailHotel(id));
-    return () => {
-      dispatch(clearDetail());
-    };
-  }, [dispatch, id]);
+
+  }, []);
 
 
 
