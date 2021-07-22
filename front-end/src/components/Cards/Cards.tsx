@@ -89,7 +89,7 @@ export default function Album() {
         undefined,
         guest,
         undefined,
-        cities,
+        cities === "" ? undefined : cities,
         fechas
       )
     );
@@ -157,7 +157,7 @@ export default function Album() {
             }}
           >
             <TextField
-              onChange={(e) => setCities(e.target.value)}
+              onChange={(e) => setCities(e.target?.value?.toLowerCase())}
               id=""
               label="Where are you going?"
               variant="standard"
