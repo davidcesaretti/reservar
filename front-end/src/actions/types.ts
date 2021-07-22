@@ -13,8 +13,7 @@ export enum ActionTypes {
   updateUser,
   favUser,
   bookings,
-  fechaI,
-  fechaF,
+  stateRegister
 }
 
 export type Action = FetchUsersAction;

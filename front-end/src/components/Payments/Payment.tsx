@@ -114,13 +114,14 @@ export default function Pay({
   info_user,
 }) {
   const detailhotel = useSelector((state: any) => state.categorieDetail);
-  
-  fechaLlegada = "2021-08-15T16:45:00.000+00:00";
-  fechaSalida = "2021-08-20T16:45:00.000+00:00";
+  const stateregister = useSelector((state: any) => state.stateRegister);
+  fechaLlegada = stateregister.fechaLlegada
+  fechaSalida = stateregister.fechaSalida
   huespedes = {
     adulto: 2,
     niño: 1,
   };
+ /*  const [link, setLink] = useState("") */
 
   info_user = {
     direccion: "25 de mayo 120",
@@ -149,16 +150,16 @@ export default function Pay({
       <main style={{ marginLeft: "0px" }}>
         <Container className={classes.cardGrid} maxWidth="md">
           <Typography>
-            <Link>Regresar</Link>
+            <Link>Back</Link>
           </Typography>
           <Typography variant="h6" gutterBottom>
-            DATOS DE LA RESERVACION
+            BOOKINGS INFORMATION
           </Typography>
           <CardContent>
             <Grid container spacing={4}>
               <Grid item xs={12} sm={6} className={classes.card}>
                 <Card className={classes.card}></Card>
-                <Reservation price fechaLlegada fechaSalida huespedes />
+                <Reservation price={detailhotel[0].price} fechaLlegada fechaSalida huespedes={detailhotel[0].accommodates} />
               </Grid>
               {detailhotel &&
                   <Grid item xs={12} sm={6} className={classes.card}>
@@ -181,7 +182,7 @@ export default function Pay({
             </Grid>
           </CardContent>
           <Typography gutterBottom className={classes.titleInfo}>
-            INFORMACION DE LOS HUESPEDES
+            GUEST INFORMATION
           </Typography>
           <Grid container spacing={0}>
             <Grid item xs={12} sm={6} className={classes.cardH}>
@@ -197,7 +198,7 @@ export default function Pay({
             <Grid item xs={12} sm={6} className={classes.card}>
               <Confirmation />
               <Typography gutterBottom className={classes.titleForm}>
-                FORMA DE PAGO
+                PAYMENT METHOD
               </Typography>
               <Grid item xs={2}>
                 <img src={`${LogoMP}`} className={classes.logoMerc} />
@@ -205,19 +206,20 @@ export default function Pay({
             </Grid>
           </Grid>
           <div>
-
+          {/* <Link to={`/${link}`}> */}
           <Button
             variant="contained"
             color="secondary"
             className={classes.titleBut}
             >
-            Confirmar Reservacion
+            Confirm booking
           </Button>
+          {/* </Link> */}
             </div>
           <Paper elevation={0} className={classes.titleCondi}>
-            *Tu reserva se ha realizado directamente en el Alojamiento y al
-            completarla aceptas las condiciones de la reserva , las condiciones
-            generales y las politicas de privacidad
+            *Your reservation has been made directly at the Lodging and by completing it you accept the booking conditions.
+            by completing it you accept the booking conditions, the general conditions and the
+            general conditions and the privacy policy
           </Paper>
           <Paper elevation={0}>
             ____________________________________________________________________________________________________________________________________________

@@ -38,6 +38,11 @@ export interface Bookings {
   type: ActionTypes.bookings;
   payload: any,
 }
+export interface StepRegister{
+  type: ActionTypes.stateRegister,
+  payload: any
+}
+
 export interface UserEmail {
   type: ActionTypes.usersLogged;
   payload: string;
@@ -211,7 +216,6 @@ export const clearDetail = () => {
 
 export const addFavourites = (data) => {
   return async (dispatch: Dispatch) => {
-    console.log("Dispatch favourites", data);
     let favs = {
       favorites: data.favos,
       email: data.email,
@@ -255,6 +259,17 @@ export const postReserve = (obj) => {
     await axios.post("http://localhost:3001/reserva", obj)
   }
 }
+
+export const FirstStepReserve = (obj) => {
+  return async (dispatch:Dispatch) => {
+    dispatch<StepRegister>({
+      type: ActionTypes.stateRegister,
+      payload: obj
+    })
+    
+  }
+}
+
 // export function deleteUsers(data: any) {
 //   return function (dispatch: Dispatch) {
 //     return fetch(url, {
