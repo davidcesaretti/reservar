@@ -137,7 +137,22 @@ const Home = () => {
   let ciudadRandom = ciudades[random1];
   console.log('PAGE', page)
   console.log(ciudadRandom);
-  useEffect(() => {
+  // useEffect(() => {
+  //   dispatch(
+  //     fetchCardsHotels(
+  //       page,
+  //       undefined,
+  //       undefined,
+  //       undefined,
+  //       undefined,
+  //       10,
+  //       ciudadRandom,
+  //       undefined
+  //     )
+  //   );
+  // }, []);
+ 
+  if (Array.isArray(cards)) {
     dispatch(
       fetchCardsHotels(
         page,
@@ -150,22 +165,7 @@ const Home = () => {
         undefined
       )
     );
-  }, []);
- 
-  // if (Array.isArray(cards)) {
-  //   dispatch(
-  //     fetchCardsHotels(
-  //       undefined,
-  //       undefined,
-  //       undefined,
-  //       undefined,
-  //       undefined,
-  //       undefined,
-  //       undefined,
-  //       undefined
-  //     )
-  //   );
-  // }
+  }
 
   // useEffect(() => {
   //   dispatch(
