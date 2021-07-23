@@ -22,6 +22,7 @@ import {
   detailHotel,
   FechasReserva,
   fetchCardsHotels,
+  getFavos,
   setBoolean,
 } from "../../actions";
 import { Calendary } from "../Calendary/Calendary";
@@ -192,7 +193,7 @@ const Home = () => {
         undefined,
         guest,
         undefined,
-        cities,
+        cities === "" ? undefined : cities,
         fechas
       )
     );
@@ -226,6 +227,12 @@ const Home = () => {
     }
   }
   exploreProperties();
+
+  useEffect(() => {
+    dispatch(getFavos(email));
+  }, [email]);
+
+  
 
   return (
     <div>
@@ -277,7 +284,7 @@ const Home = () => {
               }}
             >
               <TextField
-                onChange={(e) => setCities(e.target.value)}
+                onChange={(e) => setCities(e.target?.value?.toLowerCase())}
                 id=""
                 label="Where are you going?"
                 variant="standard"
