@@ -85,6 +85,7 @@ const useStyles = makeStyles((theme: Theme) =>
 const DetailHotel = () => {
   const detailhotel = useSelector((state: any) => state.categorieDetail);
   const cards = useSelector((state: any) => state.cardsHotel);
+  const fechas = useSelector((state: any) => state.fechas);
   const dispatch = useDispatch();
   const auth = useAuth()
 
@@ -140,7 +141,7 @@ const DetailHotel = () => {
 
 
   useEffect(() => {
-    dispatch(FechasReserva({ checkin: arrivalDate, checkout: departureDate }));
+    dispatch(FechasReserva({ ...fechas, checkin: arrivalDate, checkout: departureDate }));
   }, [arrivalDate, departureDate]);
 
 
@@ -157,7 +158,8 @@ const DetailHotel = () => {
   console.log(obj)
 
   let page = Math.floor(Math.random() * 40);
-  if (Array.isArray(cards)) {
+  console.log('PAGES', page)
+  useEffect(() => {
     dispatch(
       fetchCardsHotels(
         page,
@@ -166,11 +168,11 @@ const DetailHotel = () => {
         undefined,
         undefined,
         undefined,
-        detailhotel[0].city,
+        fechas.cities,
         undefined
       )
     );
-  }
+  }, []);
 
   let properties = [];
   function exploreProperties() {
