@@ -131,12 +131,11 @@ const Home = () => {
   const cards = useSelector((state: any) => state.cardsHotel);
   dispatch(addFavourites({ favos: [], email: email }));
 
-  let ciudades = ["porto", "New York", "istanbul", "rio de janeiro"];
+  let ciudades = ["porto", "new york", "istanbul", "rio de janeiro", "hong kong", "sydney"];
   let random1 = Math.floor(Math.random() * 4);
-  let page = Math.floor(Math.random() * 10);
+  let page = Math.floor(Math.random() * 40);
   let ciudadRandom = ciudades[random1];
-  console.log('PAGE', page)
-  console.log(ciudadRandom);
+  
   // useEffect(() => {
   //   dispatch(
   //     fetchCardsHotels(
