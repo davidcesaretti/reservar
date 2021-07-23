@@ -138,8 +138,18 @@ export default function Pay({
       title: detailhotel[0].name,
       unit_price: stateregister.preciofinal,
     };
+
     axios.post("http://localhost:3001/mp", pago).then((res) => {
       setLink(res.data.sandbox_init_point);
+      const reserv = {
+        fechaSalida,
+        fechaLlegada,
+        info_user: stateregister.email || "dario.velazquez10@gmail.com",
+        state: "pending",
+        price: stateregister.preciofinal,
+        payment_id: res.data.sandbox_init_point,
+      };
+      console.log(reserv);
     });
     //aqui hacemos el objeto para mandar a la bd(solo en cines)
   }, []);
