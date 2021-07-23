@@ -7,12 +7,11 @@ interface IUser extends Document {
   favorites: Array<String>;
   // photo: string;
   // reserveId: [Object];
-
 }
 
 const user = new Schema<IUser>(
   {
-    name: { type: String  },
+    name: { type: String },
     email: { type: String },
     phone_number: { type: Number },
     nationality: { type: String },
@@ -35,7 +34,8 @@ const user = new Schema<IUser>(
     role: { type: String, enum: ["Traveler", "Host"] },
     favorites: { type: [] },
     reserveId: { type: [Object] },
-    alternative_email: {type: String}
+    alternative_email: { type: String },
+    posts: { type: [] },
   },
   { versionKey: false }
 );
@@ -47,7 +47,7 @@ const reserva = new Schema(
     fechaSalida: { type: Date },
     fechaLlegada: { type: Date },
     info_user: { type: Object },
-    guests: {type: Number}
+    guests: { type: Number },
   },
   { versionKey: false }
 );
