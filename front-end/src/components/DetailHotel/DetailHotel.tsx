@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router";
-import { clearDetail, detailHotel } from "../../actions";
+import { clearDetail, detailHotel, fetchCardsHotels } from "../../actions";
 import { Link } from "react-router-dom";
 import NavBar from "../Nav/Nav2";
 import style from "./DetailHotel.module.css";
@@ -24,6 +24,7 @@ import Spinner from '../Spinner/Spinner'
 import Error404 from '../Error404/Error404';
 import { FechasReserva, postReserve } from "../../actions";
 import { useAuth } from "../../firebase/index";
+import { Typography } from "@material-ui/core";
 
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -70,11 +71,20 @@ const useStyles = makeStyles((theme: Theme) =>
       marginTop: "-8rem",
       padding: "10%",
     },
+    explore: {
+      paddingBottom: "1.25rem",
+      color: "black",
+      textShadow: "1.4px 1.4px 1px #B2B1B9",
+      [theme.breakpoints.down("xs")]: {
+        marginBottom: "5px",
+      },
+    },
   })
 );
 
 const DetailHotel = () => {
   const detailhotel = useSelector((state: any) => state.categorieDetail);
+  const cards = useSelector((state: any) => state.cardsHotel);
   const dispatch = useDispatch();
   const auth = useAuth()
 
@@ -145,6 +155,33 @@ const DetailHotel = () => {
     dispatch(postReserve(obj))
   }
   console.log(obj)
+
+  let page = Math.floor(Math.random() * 40);
+  if (Array.isArray(cards)) {
+    dispatch(
+      fetchCardsHotels(
+        page,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        detailhotel[0].city,
+        undefined
+      )
+    );
+  }
+
+  let properties = [];
+  function exploreProperties() {
+    if (cards?.posts) {
+      let result = cards.posts.slice(0, 4);
+
+      properties.push(result);
+    }
+  }
+  exploreProperties();
+
 
   if(detailhotel === null) {
     return <Error404 />
@@ -294,51 +331,36 @@ const DetailHotel = () => {
             />
           </MuiPickersUtilsProvider>
         </div>
-        <div>
-          <hr className={style.hr2} />
-          <h2 style={{ textAlign: "center", fontFamily: "Roboto" }}>
-            OTHER ACCOMMODATIONS THAT MIGHT INTEREST YOU
-          </h2>
-          <div>
-            <Grid
-              xs={12}
-              alignItems="center"
-              justifyContent="space-evenly"
-              direction="row"
-              container
-              className={classes.containerRecomendados}
-            >
-              <Grid item xs={2}>
-                <img
-                  src={`${Recom1}`}
-                  alt=""
-                  className={classes.imgRecomendadas}
-                />
+        <Grid
+          md={12}
+          alignItems="center"
+          justifyContent="space-between"
+          direction="row"
+          container
+          className={classes.containerRecomendados}
+        >
+          <Grid
+            item
+            xs={12}
+            md={12}
+            style={{ textAlign: "center" }}
+            className={classes.explore}
+          >
+            <Typography variant="h6">OTHER ACCOMMODATIONS THAT MIGHT INTEREST YOU</Typography>
+          </Grid>
+          {properties[0] &&
+            properties[0].map((el, i) => (
+              <Grid item xs={6} md={2} key={i}>
+                <Link to={`/categories/${el._id}`}>
+                  <img
+                    src={`${el.image}`}
+                    alt={`${el.name}`}
+                    className={classes.imgRecomendadas}
+                  />
+                </Link>
               </Grid>
-              <Grid item xs={2}>
-                <img
-                  src={`${Recom2}`}
-                  alt=""
-                  className={classes.imgRecomendadas}
-                />
-              </Grid>
-              <Grid item xs={2}>
-                <img
-                  src={`${Recom3}`}
-                  alt=""
-                  className={classes.imgRecomendadas}
-                />
-              </Grid>
-              <Grid item xs={2}>
-                <img
-                  src={`${Recom4}`}
-                  alt=""
-                  className={classes.imgRecomendadas}
-                />
-              </Grid>
-            </Grid>
-          </div>
-        </div>
+            ))}
+        </Grid>
         <div>
           <hr className={style.hr2} />
           <Footer />

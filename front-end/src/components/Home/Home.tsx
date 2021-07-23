@@ -222,8 +222,6 @@ const Home = () => {
       let result = cards.posts.slice(0, 4);
 
       properties.push(result);
-      console.log('CARDS POSTS',cards.posts)
-      console.log('PROPERTIES',properties);
     }
   }
   exploreProperties();
