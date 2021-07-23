@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -19,11 +19,10 @@ import { Button } from "@material-ui/core";
 import Paper from "@material-ui/core/Paper";
 import CardMedia from "@material-ui/core/CardMedia";
 import axios from "axios";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
   nav: {},
-
   icon: {
     marginRight: theme.spacing(2),
   },
@@ -115,13 +114,14 @@ export default function Pay({
 }) {
   const detailhotel = useSelector((state: any) => state.categorieDetail);
   const stateregister = useSelector((state: any) => state.stateRegister);
-  fechaLlegada = stateregister.fechaLlegada
-  fechaSalida = stateregister.fechaSalida
+
+  fechaLlegada = stateregister.fechaLlegada;
+  fechaSalida = stateregister.fechaSalida;
   huespedes = {
     adulto: 2,
     niño: 1,
   };
- /*  const [link, setLink] = useState("") */
+  const [link, setLink] = useState("");
 
   info_user = {
     direccion: "25 de mayo 120",
@@ -133,15 +133,16 @@ export default function Pay({
   const bull = <span className={classes.bulletR}>|</span>;
   const map1 = [1];
 
-/*   const pago = {
-    title: "mariano",
-    unit_price: price,
-  };
-
-  const onSubmit = (ev) => {
-    ev.preventDefault();
-    axios.post("http://localhost:3001/mp", pago);
-  }; */
+  useEffect(() => {
+    const pago = {
+      title: detailhotel[0].name,
+      unit_price: stateregister.preciofinal,
+    };
+    axios.post("http://localhost:3001/mp", pago).then((res) => {
+      setLink(res.data.sandbox_init_point);
+    });
+    //aqui hacemos el objeto para mandar a la bd(solo en cines)
+  }, []);
 
   return (
     <React.Fragment>
@@ -159,26 +160,31 @@ export default function Pay({
             <Grid container spacing={4}>
               <Grid item xs={12} sm={6} className={classes.card}>
                 <Card className={classes.card}></Card>
-                <Reservation price={detailhotel[0].price} fechaLlegada fechaSalida huespedes={detailhotel[0].accommodates} />
+                <Reservation
+                  price={detailhotel[0].price}
+                  fechaLlegada
+                  fechaSalida
+                  huespedes={detailhotel[0].accommodates}
+                />
               </Grid>
-              {detailhotel &&
-                  <Grid item xs={12} sm={6} className={classes.card}>
-                    <Card className={classes.card}>
-                      <CardComp
-                        _id={detailhotel[0]._id}
-                        image={detailhotel[0].image}
-                        score={detailhotel[0].score}
-                        name={detailhotel[0].name}
-                        type={detailhotel[0].type}
-                        address={detailhotel[0].address}
-                        accommodates={detailhotel[0].accommodates}
-                        beds={detailhotel[0].beds}
-                        price={detailhotel[0].price}
-                        click={""}
-                      />
-                    </Card>
+              {detailhotel && (
+                <Grid item xs={12} sm={6} className={classes.card}>
+                  <Card className={classes.card}>
+                    <CardComp
+                      _id={detailhotel[0]._id}
+                      image={detailhotel[0].image}
+                      score={detailhotel[0].score}
+                      name={detailhotel[0].name}
+                      type={detailhotel[0].type}
+                      address={detailhotel[0].address}
+                      accommodates={detailhotel[0].accommodates}
+                      beds={detailhotel[0].beds}
+                      price={detailhotel[0].price}
+                      click={""}
+                    />
+                  </Card>
                 </Grid>
-              }
+              )}
             </Grid>
           </CardContent>
           <Typography gutterBottom className={classes.titleInfo}>
@@ -205,20 +211,26 @@ export default function Pay({
               </Grid>
             </Grid>
           </Grid>
-          <div>
-          {/* <Link to={`/${link}`}> */}
-          <Button
-            variant="contained"
-            color="secondary"
-            className={classes.titleBut}
-            >
-            Confirm booking
-          </Button>
-          {/* </Link> */}
+          {!link ? (
+            <p>Aguarde un momento....</p>
+          ) : (
+            <div>
+              <a href={link} style={{ textDecoration: "none" }}>
+                <Button
+                  variant="contained"
+                  color="secondary"
+                  className={classes.titleBut}
+                >
+                  Confirm booking
+                </Button>
+              </a>
             </div>
+          )}
+
           <Paper elevation={0} className={classes.titleCondi}>
-            *Your reservation has been made directly at the Lodging and by completing it you accept the booking conditions.
-            by completing it you accept the booking conditions, the general conditions and the
+            *Your reservation has been made directly at the Lodging and by
+            completing it you accept the booking conditions. by completing it
+            you accept the booking conditions, the general conditions and the
             general conditions and the privacy policy
           </Paper>
           <Paper elevation={0}>

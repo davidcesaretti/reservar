@@ -15,12 +15,15 @@ import Recom3 from "../../Image/recom3.jpeg";
 import Recom4 from "../../Image/recom4.jpeg";
 import Service from "../Service/Services";
 import DateFnsUtils from "@date-io/date-fns";
-import { MuiPickersUtilsProvider, KeyboardDatePicker } from "@material-ui/pickers";
+import {
+  MuiPickersUtilsProvider,
+  KeyboardDatePicker,
+} from "@material-ui/pickers";
 import Footer from "../Footer/Footer";
 import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
-import Spinner from '../Spinner/Spinner'
-import Error404 from '../Error404/Error404';
+import Spinner from "../Spinner/Spinner";
+import Error404 from "../Error404/Error404";
 import { FechasReserva, FirstStepReserve } from "../../actions";
 import { useAuth } from "../../firebase/index";
 import CardComp from "../CardComp/CardComp";
@@ -28,7 +31,7 @@ import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import HotelIcon from "@material-ui/icons/Hotel";
 import ApartmentIcon from "@material-ui/icons/Apartment";
 import AddLocationIcon from "@material-ui/icons/AddLocation";
-
+import moment from "moment";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -80,8 +83,7 @@ const useStyles = makeStyles((theme: Theme) =>
 const DetailHotel = () => {
   const detailhotel = useSelector((state: any) => state.categorieDetail);
   const dispatch = useDispatch();
-  const auth = useAuth()
-
+  const auth = useAuth();
 
   const [value, setValue] = useState(0);
   const [hover, setHover] = useState(-1);
@@ -96,7 +98,7 @@ const DetailHotel = () => {
   );
 
   const handleDateChange = (date: Date) => {
-    setArrivalDate(new Date(date).toISOString())
+    setArrivalDate(new Date(date).toISOString());
     setAux(true);
   };
   const handleChange = (date: Date) => {
@@ -126,32 +128,36 @@ const DetailHotel = () => {
   const { id } = useParams();
   useEffect(() => {
     dispatch(detailHotel(id));
-
   }, []);
-
-
 
   useEffect(() => {
     dispatch(FechasReserva({ checkin: arrivalDate, checkout: departureDate }));
   }, [arrivalDate, departureDate]);
+  const fechaLlegada = arrivalDate;
+  var fechaL = moment(fechaLlegada).format("DD/MM/YY");
+  const fechaSalida = departureDate;
+  var fechaS = moment(fechaSalida).format("DD/MM/YY");
 
+  var cantidad = moment(fechaSalida).diff(moment(fechaLlegada), "days"); //realizar operacion resta de fechas
+  var total = cantidad * detailhotel[0]?.price;
+  var result = cantidad === 0 ? detailhotel[0]?.price : total;
 
   const obj = {
     Prop_id: id,
-    fechaSalida: arrivalDate, 
+    fechaSalida: arrivalDate,
     fechaLlegada: departureDate,
     email: auth.user?.email,
-  }
-  const handleSubmit = () => {
-    dispatch(FirstStepReserve(obj))
-  }
-  console.log(obj)
+    preciofinal: result,
+  };
 
-  if(detailhotel === null) {
-    return <Error404 />
-} else if(detailhotel.length < 1) {
-    return <Spinner />
-} else {
+  const handleSubmit = () => {
+    dispatch(FirstStepReserve(obj));
+  };
+  if (detailhotel === null) {
+    return <Error404 />;
+  } else if (detailhotel.length < 1) {
+    return <Spinner />;
+  } else {
     return (
       <div>
         <div className={style.gridconteiner}>
@@ -173,50 +179,50 @@ const DetailHotel = () => {
             <div className={style.gridPadre}>
               <div className={style.gridHijo1}>
                 <p>Arrival date</p>
-                <p>{arrivalDate.slice(0,10)}</p>
+                <p>{fechaL}</p>
               </div>
               <div className={style.gridHijo2}>
                 <p>Departure date</p>
-                <p>{departureDate.slice(0,10)}</p>
+                <p>{fechaS}</p>
               </div>
               <div className={style.gridHijo3}>
                 <div>
                   <div className={style.gridHijo4}>
-                  <ApartmentIcon></ApartmentIcon>
-                  {detailhotel[0].type}
+                    <ApartmentIcon></ApartmentIcon>
+                    {detailhotel[0].type}
                   </div>
                   <div>
-                  <AddLocationIcon></AddLocationIcon>
-                  {detailhotel[0].address}
+                    <AddLocationIcon></AddLocationIcon>
+                    {detailhotel[0].address}
                   </div>
                   <div>
-                  <AccountCircleIcon></AccountCircleIcon>  
-                  {detailhotel[0].accommodates}
+                    <AccountCircleIcon></AccountCircleIcon>
+                    {detailhotel[0].accommodates}
                   </div>
                   <div>
-                  <HotelIcon></HotelIcon>  
-                  {detailhotel[0].beds}
-                  </div> 
+                    <HotelIcon></HotelIcon>
+                    {detailhotel[0].beds}
                   </div>
                 </div>
+              </div>
             </div>
             <div className={style.gridEst}>
               <div className={style.score}>
                 <p>Value per night {detailhotel[0]?.price}</p>
-                <p>Number of nights</p>
+                <p>Number of nights{cantidad}</p>
               </div>
               <div className={style.totalp}>
-                <p>TOTAL STAY</p>
-                <Link to={"/payments"}>
-                <Button
-                  className={style.button}
-                  variant="contained"
-                  color="primary"
-                  onClick={() => handleSubmit()}
+                <p>TOTAL STAY {result}</p>
+                <Link to={"/payments"} style={{ textDecoration: "none" }}>
+                  <Button
+                    className={style.button}
+                    variant="contained"
+                    color="primary"
+                    onClick={() => handleSubmit()}
                   >
-                  Reserve 
-                </Button>
-                    </Link>
+                    Reserve
+                  </Button>
+                </Link>
               </div>
             </div>
             <div className={style.contcuad}>
