@@ -3,8 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { storage } from "../../firebase/index";
 import { Link } from "react-router-dom";
 
-import style from './UpdateProfile.module.css'
-import {UserEmailGlobal, updateUser} from '../../actions/index'
+import style from "./UpdateProfile.module.css";
+import { UserEmailGlobal, updateUser, getUserInfo } from "../../actions/index";
 import { useAuth } from "../../firebase/index";
 import Swal from "sweetalert2";
 
@@ -41,56 +41,62 @@ const Perfil = () => {
   const handleUpdate = (e) => {
     e.preventDefault();
 
-        if (typeof info.name !== "string") {
-            alert('write your name')
-            return
-        }
-        if (!emailRegex.test(info.recuperation_email)) {
-            alert('write an alternative mail in case you need to recover your account')
-            return
-        }
-        if (info.phone_number < 1000000) {
-            alert('write your phone number')
-            return
-        }
-        if (typeof info.identity_document_type !== "string") {
-            alert('write your document type')
-            return
-        }
-        if (info.identity_document_number < 1000000) {
-            alert('write your document number')
-            return
-        }
-        if (typeof info.nationality !== "string") {
-            alert('write your nationality')
-            return
-        }
-        if (typeof info.date_birth !== "string") {
-            alert('write your birth date')
-            return
-        }
-        if (typeof info.residence_address !== "string") {
-            alert('write your adress')
-            return
-        }
-        if (typeof info.city_and_country_of_residence !== "string") {
-            alert('write your residence')
-            return
-        }
-        if (info.emergency_phone_number < 1000000) {
-            alert('write the phone of an emergency contact')
-            return
-        }
-        if (!emailRegex.test(info.emergency_contact)) {
-            alert('write the email of the emergency contact')
-            return
-        }
-        if (typeof info.relationship !== "string") {
-            alert('write your relationship with the emergency contact')
-            return
-        }
+    if (typeof info.name !== "string") {
+      alert("write your name");
+      return;
+    }
+    if (!emailRegex.test(info.recuperation_email)) {
+      alert(
+        "write an alternative mail in case you need to recover your account"
+      );
+      return;
+    }
+    if (info.phone_number < 1000000) {
+      alert("write your phone number");
+      return;
+    }
+    if (typeof info.identity_document_type !== "string") {
+      alert("write your document type");
+      return;
+    }
+    if (info.identity_document_number < 1000000) {
+      alert("write your document number");
+      return;
+    }
+    if (typeof info.nationality !== "string") {
+      alert("write your nationality");
+      return;
+    }
+    if (typeof info.date_birth !== "string") {
+      alert("write your birth date");
+      return;
+    }
+    if (typeof info.residence_address !== "string") {
+      alert("write your adress");
+      return;
+    }
+    if (typeof info.city_and_country_of_residence !== "string") {
+      alert("write your residence");
+      return;
+    }
+    if (info.emergency_phone_number < 1000000) {
+      alert("write the phone of an emergency contact");
+      return;
+    }
+    if (!emailRegex.test(info.emergency_contact)) {
+      alert("write the email of the emergency contact");
+      return;
+    }
+    if (typeof info.relationship !== "string") {
+      alert("write your relationship with the emergency contact");
+      return;
+    }
 
     let userEmail = auth.user.email;
+
+    const dispatchuser = () => {
+      dispatch(getUserInfo(userEmail));
+    };
 
     Swal.fire({
       title: "Do you want to save the changes?",
@@ -103,6 +109,7 @@ const Perfil = () => {
       if (result.isConfirmed) {
         dispatch(updateUser(info, userEmail));
         Swal.fire("Saved!", "", "success");
+        setTimeout(dispatchuser, 2000);
       } else if (result.isDenied) {
         Swal.fire("Changes are not saved", "", "info");
       }
@@ -112,143 +119,169 @@ const Perfil = () => {
     <div>
       <div className={style.navBar}>
         <div>
-            
-            <h2 className={style.header}>My Profile</h2>
-            <form 
-                className={style.ctn}
-                onSubmit={(e) => {handleUpdate(e)}}
-            >
-                <div className={style.field}>
-                    <label className={style.nameField}>Complete name</label>
-                    <input 
-                        placeholder="Toni Tralice" 
-                        className={style.inputField} 
-                        name="name"
-                        value={info.name}
-                        onChange={(e) => {handleChange(e)}}
-                />
-                </div>
-                <div className={style.field}>
-                    <label className={style.nameField}>Recuperation Email</label>
-                    <input 
-                        placeholder="henry@gmail.com" 
-                        className={style.inputField}
-                        name="recuperation_email"
-                        value={info.recuperation_email}
-                        onChange={(e) => {handleChange(e)}}
-                />
-                </div>
-                <div className={style.field}>
-                    <label className={style.nameField}>Phone number</label>
-                    <input 
-                        type="tel" 
-                        placeholder="+543402538301" 
-                        className={style.inputField}
-                        name="phone_number"
-                        value={info.phone_number}
-                        onChange={(e) => {handleChange(e)}}
-                />
-                </div>
-                <div className={style.field}>
-                    <label className={style.nameField}>Document type</label>
-                    <input 
-                        placeholder="DNI" 
-                        className={style.inputField}
-                        name="identity_document_type"
-                        value={info.identity_document_type}
-                        onChange={(e) => {handleChange(e)}}
-                />
-                </div>
-                <div className={style.field}>
-                    <label className={style.nameField}>Document number</label>
-                    <input 
-                        placeholder="37594328" 
-                        className={style.inputField}
-                        name="identity_document_number"
-                        value={info.identity_document_number}
-                        onChange={(e) => {handleChange(e)}}
-                />
-                </div>
-                <div className={style.field}>
-                    <label className={style.nameField}>Nationality</label>
-                    <input 
-                        placeholder="Argentina" 
-                        className={style.inputField}
-                        name="nationality"
-                        value={info.nationality}
-                        onChange={(e) => {handleChange(e)}}
-                />
-                </div>
-                <div className={style.field}>
-                    <label className={style.nameField}>Date of birth</label>
-                    <input 
-                        placeholder="04/10/1995" 
-                        type="date" 
-                        className={style.inputField}
-                        name="date_birth"
-                        value={info.date_birth}
-                        onChange={(e) => {handleChange(e)}}
-                />
-                </div>
-                <div className={style.field}>
-                    <label className={style.nameField}>Residence address</label>
-                    <input 
-                        placeholder="Italia 165" 
-                        className={style.inputField}
-                        name="residence_address"
-                        value={info.residence_address}
-                        onChange={(e) => {handleChange(e)}}
-                />
-                </div>
-                <div className={style.field}>
-                    <label className={style.nameField}>City and country of residence</label>
-                    <input 
-                        placeholder="General Lagos, Argentina" 
-                        className={style.inputField}
-                        name="city_and_country_of_residence"
-                        value={info.city_and_country_of_residence}
-                        onChange={(e) => {handleChange(e)}}
-                />
-                </div>
-                <div className={style.field}>
-                    <label className={style.nameField}>Emergency contact</label>
-                    <input 
-                        placeholder="+54341598621" 
-                        className={style.inputField}
-                        name="emergency_phone_number"
-                        value={info.emergency_phone_number}
-                        onChange={(e) => {handleChange(e)}}
-                />
-                </div>
-                <div className={style.field}>
-                    <label className={style.nameField}>Contact email </label>
-                    <input 
-                        placeholder="plataforma5@gmail.com" 
-                        className={style.inputField} 
-                        name="emergency_contact"
-                        value={info.emergency_contact}
-                        onChange={(e) => {handleChange(e)}}
-                />
-                </div>
-                <div className={style.field}>
-                    <label className={style.nameField}>Relationship with contact</label>
-                    <input 
-                        placeholder="Friend" 
-                        className={style.inputField}
-                        name="relationship"
-                        value={info.relationship}
-                        onChange={(e) => {handleChange(e)}}
-                />
-                </div>
-            <div className={style.ctnUpdate}>
-                <button 
-                    type="submit"
-                    className={style.update}
-                >
-                    Update
-                </button>
+          <h2 className={style.header}>My Profile</h2>
+          <form
+            className={style.ctn}
+            onSubmit={(e) => {
+              handleUpdate(e);
+            }}
+          >
+            <div className={style.field}>
+              <label className={style.nameField}>Complete name</label>
+              <input
+                placeholder="Toni Tralice"
+                className={style.inputField}
+                name="name"
+                value={info.name}
+                onChange={(e) => {
+                  handleChange(e);
+                }}
+              />
             </div>
-            </form>
+            <div className={style.field}>
+              <label className={style.nameField}>Recuperation Email</label>
+              <input
+                placeholder="henry@gmail.com"
+                className={style.inputField}
+                name="recuperation_email"
+                value={info.recuperation_email}
+                onChange={(e) => {
+                  handleChange(e);
+                }}
+              />
+            </div>
+            <div className={style.field}>
+              <label className={style.nameField}>Phone number</label>
+              <input
+                type="tel"
+                placeholder="+543402538301"
+                className={style.inputField}
+                name="phone_number"
+                value={info.phone_number}
+                onChange={(e) => {
+                  handleChange(e);
+                }}
+              />
+            </div>
+            <div className={style.field}>
+              <label className={style.nameField}>Document type</label>
+              <input
+                placeholder="DNI"
+                className={style.inputField}
+                name="identity_document_type"
+                value={info.identity_document_type}
+                onChange={(e) => {
+                  handleChange(e);
+                }}
+              />
+            </div>
+            <div className={style.field}>
+              <label className={style.nameField}>Document number</label>
+              <input
+                placeholder="37594328"
+                className={style.inputField}
+                name="identity_document_number"
+                value={info.identity_document_number}
+                onChange={(e) => {
+                  handleChange(e);
+                }}
+              />
+            </div>
+            <div className={style.field}>
+              <label className={style.nameField}>Nationality</label>
+              <input
+                placeholder="Argentina"
+                className={style.inputField}
+                name="nationality"
+                value={info.nationality}
+                onChange={(e) => {
+                  handleChange(e);
+                }}
+              />
+            </div>
+            <div className={style.field}>
+              <label className={style.nameField}>Date of birth</label>
+              <input
+                placeholder="04/10/1995"
+                type="date"
+                className={style.inputField}
+                name="date_birth"
+                value={info.date_birth}
+                onChange={(e) => {
+                  handleChange(e);
+                }}
+              />
+            </div>
+            <div className={style.field}>
+              <label className={style.nameField}>Residence address</label>
+              <input
+                placeholder="Italia 165"
+                className={style.inputField}
+                name="residence_address"
+                value={info.residence_address}
+                onChange={(e) => {
+                  handleChange(e);
+                }}
+              />
+            </div>
+            <div className={style.field}>
+              <label className={style.nameField}>
+                City and country of residence
+              </label>
+              <input
+                placeholder="General Lagos, Argentina"
+                className={style.inputField}
+                name="city_and_country_of_residence"
+                value={info.city_and_country_of_residence}
+                onChange={(e) => {
+                  handleChange(e);
+                }}
+              />
+            </div>
+            <div className={style.field}>
+              <label className={style.nameField}>Emergency contact</label>
+              <input
+                placeholder="+54341598621"
+                className={style.inputField}
+                name="emergency_phone_number"
+                value={info.emergency_phone_number}
+                onChange={(e) => {
+                  handleChange(e);
+                }}
+              />
+            </div>
+            <div className={style.field}>
+              <label className={style.nameField}>Contact email </label>
+              <input
+                placeholder="plataforma5@gmail.com"
+                className={style.inputField}
+                name="emergency_contact"
+                value={info.emergency_contact}
+                onChange={(e) => {
+                  handleChange(e);
+                }}
+              />
+            </div>
+            <div className={style.field}>
+              <label className={style.nameField}>
+                Relationship with contact
+              </label>
+              <input
+                placeholder="Friend"
+                className={style.inputField}
+                name="relationship"
+                value={info.relationship}
+                onChange={(e) => {
+                  handleChange(e);
+                }}
+              />
+            </div>
+            <div className={style.ctnUpdate}>
+              <button type="submit" className={style.update}>
+                Update
+              </button>
+            </div>
+          </form>
         </div>
       </div>
     </div>
