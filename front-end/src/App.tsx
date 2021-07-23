@@ -19,7 +19,7 @@ function App() {
 
   return (
     <Switch>
-      <Route exact path="/" component={Home} />
+      <Route exact path="/" />
 
       <Route exact path="/categories" component={Album} />
       <Route exact path="/categories/:id" component={DetailHotel} />
@@ -33,7 +33,7 @@ function App() {
       <Route exact path="/Calendary" component={Calendary} />
       <Route exact path="/User" component={auth.user ? User : Register} />
       <Route exact path="/add" component={AddProperty} />
-      <Route exact path="/HostCalendary" component={HostCalendary} />
+      <Route exact path="/" component={HostCalendary} />
     </Switch>
   );
 }
