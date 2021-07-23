@@ -46,11 +46,10 @@ const reserva = new Schema(
   {
     fechaSalida: { type: Date },
     fechaLlegada: { type: Date },
-    info_user: { type: Object },
-    guests: { type: Number },
-    state: { type: String, enum: ["active", "expired"] },
+    info_user: { type: String },
+    state: { type: String, enum: ["active", "expired", "pending"] },
     price: { type: Number },
-    payment_id: { type: Number },
+    payment_id: { type: String },
   },
   { versionKey: false }
 );
