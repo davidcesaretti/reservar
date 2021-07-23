@@ -3,7 +3,20 @@
     justify-content: space-between;
 }
 .information{
-    padding: 3em;
+    padding: 1em;
+    padding-left: 2em;
+}
+.user{
+    width: 600px;
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: auto;
+}
+.prop{
+    width: 400px;
+    margin: auto;
 }
 .userType{
     display: flex;
@@ -20,11 +33,25 @@
     border-radius: 15px;
     display: flex;
     flex-direction: column-reverse;
-    box-shadow: 2px 2px 2px 2px  black;
+    box-shadow: 2px 2px 2px 2px  black; 
+}
+.imgTravellers {
+    background-image: url(https://www.nunnovation.com/wp-content/uploads/2018/05/1502695199185.jpg);
+    background-size: cover;
+    height: 350px;
+    width: 600px;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column-reverse;
+    box-shadow: 2px 2px 2px 2px  black; 
+
 }
 .title{
     color: #FFF;
-
+    text-shadow: 2px 2px 3px black;
+    width: 400px;
+    text-align: center;
+    margin-left: 17%;
 }
 .button{
     display: flex;
@@ -32,8 +59,8 @@
     justify-content: center;
     margin: auto;
     margin-top: 1.5em;
-    height: 2em;
-    width: 6em;
+    height: 3em;
+    width: 8em;
     border: none;
     border-radius: 10px;
     background: rgba(48, 58, 31, 0.85);
@@ -42,4 +69,21 @@
 }
 .button:hover{
     background: rgba(48, 58, 31, 0.60);
+}
+.buttonHost{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+    margin-top: 1.5em;
+    height: 3em;
+    width: 8em;
+    border: none;
+    border-radius: 10px;
+    background: rgba(77, 20, 20, 0.85);;
+    color: #FFF;
+    cursor: pointer;
+}
+.buttonHost:hover{
+    background: rgba(77, 20, 20, 0.60);;
 }
