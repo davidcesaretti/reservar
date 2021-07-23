@@ -1,17 +1,17 @@
 import { FetchUsersAction } from "./index";
 
 export enum ActionTypes {
-  fetchUsers,
-  deleteUsers,
-  fetchCardsHotels,
-  signUser,
-  usersLogged,
-  detailHotel,
-  calendary,
-  addFav,
-  booleanState,
-  updateUser,
-  favUser,
+  fetchUsers = "FETCH_USERS",
+  deleteUsers = "DELETE_USERS",
+  fetchCardsHotels = "FETCH_CARDS_HOTELS",
+  signUser = "SIGN_USERS",
+  usersLogged = "USERS_LOGGED",
+  detailHotel = "DETAIL_HOTEL",
+  calendary = "CALENDARY",
+  addFav = "ADD_FAV",
+  booleanState = "BOOLEAN_STATE",
+  updateUser = "UPDATE_USER",
+  favUser = "FAV_USER",
 }
 
 export type Action = FetchUsersAction;

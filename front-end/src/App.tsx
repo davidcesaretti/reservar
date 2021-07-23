@@ -13,6 +13,7 @@ import Pay from "./components/Payments/Payment";
 import User from "./components/User/User";
 import Favorites from "./components/Favorites/Favorites";
 import AddProperty from "./components/AddProperty/AddProperty";
+import { UserHostChat } from "./components/UserHostChat/UserHostChat";
 function App() {
   const auth = useAuth();
 
@@ -32,6 +33,7 @@ function App() {
       <Route exact path="/Calendary" component={Calendary} />
       <Route exact path="/User" component={auth.user ? User : Register} />
       <Route exact path="/add" component={AddProperty} />
+      <Route exact path="/chat" component={UserHostChat} />
     </Switch>
   );
 }
