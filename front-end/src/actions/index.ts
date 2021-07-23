@@ -258,13 +258,17 @@ export const getBooking = (data) => {
     let user = {
       email: data,
     };
+    console.log("ENTRO ACCION");
     const bookingUsers = await axios.post(
-      "http://localhost:3001/getreservas",
+      "http://localhost:3001/getreserves",
       user
     );
-    dispatch({ type: ActionTypes.bookings, payload: bookingUsers.data})
-  }
-}
+
+    console.log(bookingUsers, "    RESPUESTA");
+    dispatch({ type: ActionTypes.bookings, payload: bookingUsers.data });
+  };
+};
+
 export const postReserve = (obj) => {
   return async (dispatch: Dispatch) => {
     await axios.post("http://localhost:3001/reserva", obj);

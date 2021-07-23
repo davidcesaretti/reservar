@@ -179,7 +179,7 @@ UserRouter.post("/getfavorites", async (req, res) => {
   res.json(props);
 });
 
-UserRouter.get("/getreserves", async (req, res) => {
+UserRouter.post("/getreserves", async (req, res) => {
   const { email } = req.body;
 
   const hoy = new Date();
@@ -187,5 +187,18 @@ UserRouter.get("/getreserves", async (req, res) => {
   const reserva = await Reserva.find({ _id: user.reserveId });
   res.json(reserva);
 });
+
+/* UserRouter.post("/getreserves", async (req, res) => {
+  const { email } = req.body;
+
+  const hoy = new Date();
+  const user = await User.findOne({ email: email });
+  
+let reserva = await Reserva.find({ _id: user.reserveId });
+  reserva = reserva.map(x=>x._id)
+  Properties.find({_id:{$all:reserva}})
+  res.json(reserva);
+});
+ */
 
 export default UserRouter;

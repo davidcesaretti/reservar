@@ -10,7 +10,7 @@ import { cardsHotel, hotelsReducer } from "./hotels";
 import { detailReducer } from "./detail";
 import { fechasReducer } from "./fechas";
 import { userFavReducer } from "./userFavs";
-import { StepRegisterOne } from "./reserve"
+import { StepRegisterOne } from "./reserve";
 import { reservesReducer } from "./reserves";
 
 export interface StoreState {
@@ -24,7 +24,7 @@ export interface StoreState {
   booleanState: boolean;
   userfavossss: Array<any>;
   stateRegister: any;
-  bookings: any;
+  bookings: Array<any>;
 }
 
 export const reducers = combineReducers<StoreState>({
