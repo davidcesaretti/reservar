@@ -34,6 +34,7 @@ function App() {
       <Route exact path="/User" component={auth.user ? User : Register} />
       <Route exact path="/add" component={AddProperty} />
       <Route exact path="/userpost" component={UserPosts} />
+      <Route exact path="/AddProperty/:id" component={AddProperty} />
     </Switch>
   );
 }
