@@ -124,9 +124,9 @@ export const fetchCardsHotels = (
     });
   };
 };
-export function postRaza(data) {
+export function findPost(data) {
   return function (dispatch) {
-    return fetch("https://dogs-breeds-jesus.herokuapp.com/dog", {
+    return fetch("http://localhost:3001/upload/find", {
       method: "POST",
       body: JSON.stringify(data),
       headers: {
@@ -136,7 +136,7 @@ export function postRaza(data) {
       .then((res) => res.json())
       .catch((error) => console.error("Error:", error))
       .then((json) => {
-        dispatch({ type: "POST_RAZA", payload: json });
+        dispatch({ type: ActionTypes.findPost, payload: json });
       });
   };
 }
@@ -168,6 +168,7 @@ export const UserEmailGlobal = (data) => {
     });
   };
 };
+
 export const FechasReserva = (data: Object) => {
   return {
     type: ActionTypes.calendary,

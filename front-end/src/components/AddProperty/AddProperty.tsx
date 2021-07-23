@@ -1,16 +1,22 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import axios from "axios";
 import "./addProperty.css";
 import { HiMinusCircle, HiPlusCircle } from "react-icons/hi";
 import firebase from "firebase";
 import { Button } from "@material-ui/core";
 import photo from "../../Image/chrome_9G11sUzjQC.png";
+import { useAuth } from "../../firebase/index";
+import { useParams } from "react-router-dom";
+import { clearDetail, detailHotel } from "../../actions";
+import { useDispatch, useSelector } from "react-redux";
 
 function AddProperty() {
   interface firebase {
     uploadValue: any;
     picture: any;
   }
+  const dispatch = useDispatch();
+  const idParam = useParams();
   const refTitle = useRef(undefined);
   const refDescription = useRef(undefined);
   const refAddress = useRef(undefined);
@@ -22,15 +28,39 @@ function AddProperty() {
   const [bedrooms, setBedrooms] = useState(1);
   const [beds, setBeds] = useState(1);
   const [bathrooms, setBathrooms] = useState(1);
+  const [edit, setEdit] = useState(true);
   const [firebaseStorage, setFirebaseStorage] = useState<firebase>({
     uploadValue: 0,
     picture: null,
   });
+  const auth = useAuth().user?.email;
+  const detailEdit = useSelector((state: any) => state.categorieDetail[0]);
+
+  useEffect(() => {
+    dispatch(detailHotel(idParam.id));
+    return () => {
+      dispatch(clearDetail());
+    };
+  }, [dispatch, idParam.id]);
+
   // console.log(ref?.current?.value, "ref imagen");
   // useEffect(() => {
   //   //  console.log(ref?.current?.value, "ref imagen");
   // }, [ref]);
+  console.log(idParam.id); ///sdadasdasdsadas//
 
+  if (idParam.id && detailEdit && edit) {
+    setEdit(false);
+    //console.log(refTitle.current.value);
+    refTitle.current.value = detailEdit?.name;
+    refDescription.current.value = detailEdit?.summary;
+    refType.current.value = detailEdit?.type;
+    refPrice.current.value = detailEdit?.price;
+    firebaseStorage.picture = detailEdit?.image;
+    refAddress.current.value = detailEdit?.address;
+    refCity.current.value = detailEdit?.city;
+    refCountry.current.value = "";
+  }
   const handleUpdate = function (e) {
     const file = e.target.files[0];
     const storageRef = firebase.storage().ref(`/images/${file?.name}`);
@@ -61,13 +91,7 @@ function AddProperty() {
   };
   const onFormSubmit = function (e) {
     e.preventDefault();
-    // const formData = new FormData();
-    // formData.append("image", state.file);
-    // const config = {
-    //   headers: {
-    //     "content-type": "multipart/form-data",
-    //   },
-    // };
+
     if (
       !refTitle.current.value ||
       !refDescription.current.value ||
@@ -75,8 +99,7 @@ function AddProperty() {
       !refPrice.current.value ||
       !firebaseStorage.picture ||
       !refAddress.current.value ||
-      !refCity.current.value ||
-      !refCountry.current.value
+      !refCity.current.value
     ) {
       alert("Please complete all the fields correctly");
     } else {
@@ -94,12 +117,71 @@ function AddProperty() {
         address: refAddress.current.value + " " + refCountry.current.value,
         city: refCity.current.value,
         score: 0,
+        host: auth,
       };
       axios
         .post("http://localhost:3001/upload", formData)
         .then()
         .catch((error) => console.log(error));
       alert("The file is successfully uploaded");
+      [
+        refTitle.current.value,
+        refDescription.current.value,
+        refType.current.value,
+        refPrice.current.value,
+        firebaseStorage.picture,
+        refAddress.current.value,
+        refCity.current.value,
+        refCountry.current.value,
+      ] = ["", "", "", "", "", "", "", ""];
+      setAmenities([]);
+      firebaseStorage.uploadValue = 0;
+      const check: any = document.querySelectorAll("input[type='checkbox']");
+      check.forEach((x) => {
+        x.checked = false;
+      });
+      setGuests(1);
+      setBathrooms(1);
+      setBeds(1);
+      setBedrooms(1);
+    }
+  };
+
+  const handleEdit = function (e) {
+    e.preventDefault();
+
+    if (
+      !refTitle.current.value ||
+      !refDescription.current.value ||
+      !refType.current.value ||
+      !refPrice.current.value ||
+      !firebaseStorage.picture ||
+      !refAddress.current.value ||
+      !refCity.current.value
+    ) {
+      alert("Please complete all the fields correctly");
+    } else {
+      const formData = {
+        name: refTitle.current.value,
+        summary: refDescription.current.value,
+        type: refType.current.value,
+        accommodates: guests,
+        beds: beds,
+        bedrooms: bedrooms,
+        bathrooms: bathrooms,
+        amenities: amenities,
+        price: refPrice.current.value,
+        image: firebaseStorage.picture,
+        address: refAddress.current.value + " " + refCountry.current.value,
+        city: refCity.current.value,
+        score: 0,
+        id: idParam.id,
+      };
+      axios
+        .post("http://localhost:3001/upload/edit", formData)
+        .then()
+        .catch((error) => console.log(error));
+      alert("The file is successfully updated");
       [
         refTitle.current.value,
         refDescription.current.value,
@@ -466,9 +548,19 @@ function AddProperty() {
       <div
         style={{ margin: "10px", display: "flex", justifyContent: "center" }}
       >
-        <button className="boton__submit-add" onClick={(e) => onFormSubmit(e)}>
-          Create lodging
-        </button>
+        {!idParam.id && (
+          <button
+            className="boton__submit-add"
+            onClick={(e) => onFormSubmit(e)}
+          >
+            Create lodging
+          </button>
+        )}
+        {idParam.id && (
+          <button className="boton__submit-add" onClick={(e) => handleEdit(e)}>
+            Edit lodging
+          </button>
+        )}
       </div>
     </div>
   );
