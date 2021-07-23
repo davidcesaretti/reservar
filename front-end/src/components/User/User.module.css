@@ -7,6 +7,7 @@ body{
     min-height: 100%;
     margin: 0;
     margin-bottom: 40px;
+    background-color: #f2f2f2;
 }
 .navBar {
     position: relative;
@@ -14,6 +15,15 @@ body{
     left: 0;
     right: 0;
     background: #313B1E;
+    display:flex;
+    width: 100;
+}
+.navBarHost {
+    position: relative;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: #4d1414;
     display:flex;
     width: 100;
 }
@@ -107,6 +117,20 @@ ul li{
     position: absolute;
     height: 1.5em;
     background: rgba(48, 58, 31, 0.85);
+    width: 100;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding-top: 1.5em;
+    padding-bottom: 1.5em;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+}
+.footerHost {
+    position: absolute;
+    height: 1.5em;
+    background: rgba(77, 20, 20, 0.85);
     width: 100;
     bottom: 0;
     left: 0;
