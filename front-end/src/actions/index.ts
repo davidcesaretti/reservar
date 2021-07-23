@@ -36,11 +36,11 @@ export interface Booleano {
 }
 export interface Bookings {
   type: ActionTypes.bookings;
-  payload: any,
+  payload: any;
 }
-export interface StepRegister{
-  type: ActionTypes.stateRegister,
-  payload: any
+export interface StepRegister {
+  type: ActionTypes.stateRegister;
+  payload: any;
 }
 
 export interface UserEmail {
@@ -253,22 +253,20 @@ export const getFavos = (data) => {
   };
 };
 
-
 export const postReserve = (obj) => {
-  return async (dispatch:Dispatch) => {
-    await axios.post("http://localhost:3001/reserva", obj)
-  }
-}
+  return async (dispatch: Dispatch) => {
+    await axios.post("http://localhost:3001/reserva", obj);
+  };
+};
 
 export const FirstStepReserve = (obj) => {
-  return async (dispatch:Dispatch) => {
+  return async (dispatch: Dispatch) => {
     dispatch<StepRegister>({
       type: ActionTypes.stateRegister,
-      payload: obj
-    })
-    
-  }
-}
+      payload: obj,
+    });
+  };
+};
 
 // export function deleteUsers(data: any) {
 //   return function (dispatch: Dispatch) {

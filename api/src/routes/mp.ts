@@ -8,24 +8,31 @@ mercadopago.configure({
   access_token: config.prod_access_token,
 });
 // ESTA EN GET PARA TESTEO, DEBERIA SER UN POST
-router.get("/", (req: Request, res: Response, next: NextFunction) => {
+router.post("/", (req: Request, res: Response, next: NextFunction) => {
   // Crea un objeto de preferencia
   const { title, unit_price, quantity } = req.body;
   let preference = {
     items: [
       {
-        title: title || "bicicleta",
-        unit_price: unit_price || 100,
-        quantity: quantity || 1,
+        title,
+        unit_price,
+        quantity: 1,
       },
     ],
+    back_urls: {
+      success: "http://localhost:3000",
+      failure: "http://localhost:3000",
+      pendind: "http://localhost:3000",
+    },
+    auto_return: "all",
+    notification_url: "http://localhost:3000/mp/noto",
   };
-
   mercadopago.preferences
     .create(preference)
     .then(function (response) {
-      res.redirect(response.body.init_point);
+      res.send(response.body);
     })
     .catch((error) => next(error));
 });
+
 export default router;
