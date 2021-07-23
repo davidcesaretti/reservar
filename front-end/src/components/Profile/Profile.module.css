@@ -1,0 +1,45 @@
+.ctn {
+    display: flex;
+    justify-content: space-between;
+}
+.information{
+    padding: 3em;
+}
+.userType{
+    display: flex;
+    justify-content: center;
+    padding-top: 1em;
+    padding-right: 3em;
+    width: 50%;
+}
+.imgHost {
+    background-image: url(https://www.gentlemansgazette.com/wp-content/uploads/2016/12/A-clean-and-tidy-home-is-always-more-comfortable-when-hosting-guests-900x564.jpg);
+    background-size: cover;
+    height: 350px;
+    width: 600px;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column-reverse;
+    box-shadow: 2px 2px 2px 2px  black;
+}
+.title{
+    color: #FFF;
+
+}
+.button{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+    margin-top: 1.5em;
+    height: 2em;
+    width: 6em;
+    border: none;
+    border-radius: 10px;
+    background: rgba(48, 58, 31, 0.85);
+    color: #FFF;
+    cursor: pointer;
+}
+.button:hover{
+    background: rgba(48, 58, 31, 0.60);
+}
