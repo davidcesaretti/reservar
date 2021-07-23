@@ -209,6 +209,7 @@ export default function Album() {
                       beds={e.beds}
                       price={e.price}
                       click={handleClick}
+                      boton={false}
                     />
                   </Card>
                 </Grid>

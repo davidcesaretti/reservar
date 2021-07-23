@@ -72,6 +72,7 @@ function UserPosts() {
                     beds={e.beds}
                     price={e.price}
                     click={console.log("")}
+                    boton={true}
                   />
                 </Card>
               </Grid>

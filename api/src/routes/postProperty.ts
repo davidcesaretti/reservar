@@ -79,4 +79,47 @@ router.post(
   }
 );
 
+router.post(
+  "/edit",
+  async (req: Request, res: Response, next: NextFunction) => {
+    const {
+      name,
+      summary,
+      type,
+      accommodates,
+      beds,
+      bedrooms,
+      bathrooms,
+      amenities,
+      price,
+      image,
+      address,
+      city,
+      score,
+      id,
+    } = req.body;
+
+    const properyUpdate = await Properties.updateOne(
+      { _id: id },
+      {
+        $set: {
+          name,
+          summary,
+          type,
+          accommodates,
+          beds,
+          bedrooms,
+          bathrooms,
+          amenities,
+          price,
+          image,
+          address,
+          city,
+          score,
+        },
+      }
+    );
+    res.json(properyUpdate);
+  }
+);
 export default router;

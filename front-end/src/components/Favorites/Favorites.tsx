@@ -73,6 +73,7 @@ const Favorites = () => {
                       beds={e.beds}
                       price={e.price}
                       click={console.log("")}
+                      boton={false}
                     />
                   </Card>
                 </Grid>
