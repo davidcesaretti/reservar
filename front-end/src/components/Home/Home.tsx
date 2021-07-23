@@ -19,6 +19,7 @@ import Chica from "../../Image/chica.jpeg";
 import { useDispatch, useSelector } from "react-redux";
 import {
   addFavourites,
+  detailHotel,
   FechasReserva,
   fetchCardsHotels,
   getFavos,
@@ -29,8 +30,11 @@ import MenuAppBar from "../Nav/Nav2";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../firebase/index";
+import Spinner from "../Spinner/Spinner";
+import Error404 from "../Error404/Error404";
 
-const useStyle = makeStyles({
+const useStyles = makeStyles((theme) => ({
+  containerGeneral: {},
   containerFilters: {
     backgroundSize: "cover",
     backgroundImage: `linear-gradient( rgb(4 4 4 / 30%), rgb(0 0 0 / 30%)), url(${Image1})`,
@@ -42,12 +46,23 @@ const useStyle = makeStyles({
     borderBottom: "1.5px solid #333",
   },
   containerRecomendados: {
-    padding: "0.5rem 3rem",
+    padding: "0.5rem 6.5rem",
     margin: "1.3rem 0",
+  },
+  explore: {
+    paddingBottom: "1.25rem",
+    color: "black",
+    textShadow: "1.4px 1.4px 1px #B2B1B9",
+    [theme.breakpoints.down("xs")]: {
+      marginBottom: "5px",
+    },
   },
   containerTipos: {
     padding: "0.5rem 3rem",
     marginBottom: "1.3rem",
+    [theme.breakpoints.down("xs")]: {
+      marginBottom: "0px",
+    },
   },
   imgRecomendadas: {
     borderRadius: "1em",
@@ -56,6 +71,9 @@ const useStyle = makeStyles({
     maxHeight: "8rem",
     maxWidth: "14rem",
     backgroundPosition: "center",
+    [theme.breakpoints.down("xs")]: {
+      padding: "5px",
+    },
   },
   imgTiposAlojamiento: {
     borderRadius: "1em",
@@ -64,47 +82,91 @@ const useStyle = makeStyles({
     backgroundPosition: "center",
     backgroundSize: "cover",
     padding: "5rem",
+    [theme.breakpoints.down("xs")]: {
+      marginBottom: "1.6875rem",
+    },
   },
   fontHomePrimary: {
     color: "white",
     textShadow: "3px 3px 2px black",
     fontSize: "1.6em",
     fontWeight: "bold",
+    marginBottom: "1rem",
+    display: "flex",
+    justifyContent: "center",
   },
   fontHomeSecondary: {
     display: "flex",
     alignItems: "center",
+    [theme.breakpoints.down("xs")]: {
+      fontSize: "14px",
+    },
   },
   hr: {
     color: "#333",
     width: "75%",
+    [theme.breakpoints.down("xs")]: {
+      marginBottom: "1.25rem",
+    },
   },
-});
+  btnGo: {
+    display: "flex",
+    justifyContent: "center",
+  },
+  form: {
+    [theme.breakpoints.down("xs")]: {
+      margin: "0 5px",
+    },
+  },
+}));
 //fetchCardsHotels(page, price, amenities, type, accommodates, score);
 const Home = () => {
   const [cities, setCities] = useState(undefined);
   const [guest, setGuest] = useState(undefined);
+  const [type, setType] = useState(undefined);
   const fechas = useSelector((state: any) => state.fechas);
 
   const dispatch = useDispatch();
   const auth = useAuth();
   const email = auth?.user?.email;
   const cards = useSelector((state: any) => state.cardsHotel);
+  dispatch(addFavourites({ favos: [], email: email }));
 
+  let ciudades = ["porto", "new york", "istanbul", "rio de janeiro", "hong kong", "sydney"];
+  let random1 = Math.floor(Math.random() * 4);
+  let page = Math.floor(Math.random() * 40);
+  let ciudadRandom = ciudades[random1];
+  
+  // useEffect(() => {
+  //   dispatch(
+  //     fetchCardsHotels(
+  //       page,
+  //       undefined,
+  //       undefined,
+  //       undefined,
+  //       undefined,
+  //       10,
+  //       ciudadRandom,
+  //       undefined
+  //     )
+  //   );
+  // }, []);
+ 
   if (Array.isArray(cards)) {
     dispatch(
       fetchCardsHotels(
+        page,
         undefined,
         undefined,
         undefined,
         undefined,
-        undefined,
-        undefined,
-        undefined,
+        10,
+        ciudadRandom,
         undefined
       )
     );
   }
+
   // useEffect(() => {
   //   dispatch(
   //     fetchCardsHotels(
@@ -120,20 +182,7 @@ const Home = () => {
   //   );
   // }, []);
 
-  // const onClickHandler = () => {
-  //   dispatch(
-  //     fetchCardsHotels(
-  //       undefined,
-  //       undefined,
-  //       undefined,
-  //       undefined,
-  //       undefined,
-  //       undefined,
-  //       undefined,
-  //       undefined
-  //     )
-  //   );
-  // };
+
   function busqueda() {
     dispatch(FechasReserva({ ...fechas, cities, guest }));
     dispatch(
@@ -149,21 +198,56 @@ const Home = () => {
       )
     );
   }
+  const classes = useStyles();
+
+  function chooseTypes(tipos) {
+    dispatch(FechasReserva({ ...fechas, type: tipos }));
+    dispatch(
+      fetchCardsHotels(
+        undefined,
+        undefined,
+        undefined,
+        tipos,
+        undefined,
+        undefined,
+        undefined,
+        undefined
+      )
+    );
+  }
+
+  let properties = [];
+  function exploreProperties() {
+    if (cards?.posts) {
+      let result = cards.posts.slice(0, 4);
+
+      properties.push(result);
+      console.log('CARDS POSTS',cards.posts)
+      console.log('PROPERTIES',properties);
+    }
+  }
+  exploreProperties();
 
   useEffect(() => {
     dispatch(getFavos(email));
   }, [email]);
 
-  const classes = useStyle();
+  
 
   return (
     <div>
-      <Grid container justifyContent="center" spacing={5}>
+      <Grid
+        container
+        justifyContent="center"
+        spacing={5}
+        className={classes.containerGeneral}
+      >
         <MenuAppBar />
         <Grid
           container
           item
           xs={12}
+          md={12}
           className={classes.containerFilters}
           justifyContent="center"
         >
@@ -188,7 +272,7 @@ const Home = () => {
               FIND YOUR PLACE!
             </Typography>
           </Grid>
-          <FormControl>
+          <FormControl className={classes.form}>
             <FormLabel
               style={{
                 display: "flex",
@@ -208,22 +292,6 @@ const Home = () => {
                 margin="none"
                 size="small"
               />
-              {/* <TextField
-                id=""
-                label="Check in"
-                variant="standard"
-                color="primary"
-                margin="none"
-                size="small"
-              />
-              <TextField
-                id=""
-                label="Check out"
-                variant="standard"
-                color="primary"
-                margin="none"
-                size="small"
-              /> */}
               <Calendary />
               <TextField
                 onChange={(e) => setGuest(e.target.value)}
@@ -256,53 +324,63 @@ const Home = () => {
           </FormControl>
         </Grid>
         <Grid
-          xs={12}
+          md={12}
           alignItems="center"
           justifyContent="space-between"
           direction="row"
           container
           className={classes.containerRecomendados}
         >
-          <Grid item xs={2} style={{ textAlign: "center" }}>
-            <Typography variant="h6">EXPLORE</Typography>
+          <Grid
+            item
+            xs={12}
+            md={12}
+            style={{ textAlign: "center" }}
+            className={classes.explore}
+          >
+            <Typography variant="h6">RECOMMENDED</Typography>
           </Grid>
-          <Grid item xs={2}>
-            <img src={`${Recom1}`} alt="" className={classes.imgRecomendadas} />
-          </Grid>
-          <Grid item xs={2}>
-            <img src={`${Recom2}`} alt="" className={classes.imgRecomendadas} />
-          </Grid>
-          <Grid item xs={2}>
-            <img src={`${Recom3}`} alt="" className={classes.imgRecomendadas} />
-          </Grid>
-          <Grid item xs={2}>
-            <img src={`${Recom4}`} alt="" className={classes.imgRecomendadas} />
-          </Grid>
+          {properties[0] &&
+            properties[0].map((el, i) => (
+              <Grid item xs={6} md={2} key={i}>
+                <Link to={`/categories/${el._id}`}>
+                  <img
+                    src={`${el.image}`}
+                    alt={`${el.name}`}
+                    className={classes.imgRecomendadas}
+                  />
+                </Link>
+              </Grid>
+            ))}
         </Grid>
         <hr className={classes.hr} />
         <Grid
           container
           item
-          xs={12}
+          md={12}
           justifyContent="center"
           className={classes.containerTipos}
         >
           <Grid
             item
             xs={12}
+            md={12}
             style={{
               justifyContent: "center",
               alignItems: "center",
               display: "flex",
-              padding: "1rem",
+              paddingBottom: "1.4rem",
+              color: "black",
+              textShadow: "1.4px 1.4px 1px #B2B1B9",
             }}
           >
             <Typography variant="h6">CHOOSE YOUR STYLE</Typography>
           </Grid>
-          <Grid item xs={12} justifyContent="space-evenly" container>
+          <Grid item xs={12} md={12} justifyContent="space-evenly" container>
             <Grid
               item
-              xs={3}
+              xs={12}
+              md={3}
               container
               style={{ backgroundImage: `url(${Tipos1})` }}
               className={classes.imgTiposAlojamiento}
@@ -313,16 +391,24 @@ const Home = () => {
                   className={classes.fontHomePrimary}
                   style={{ boxSizing: "content-box" }}
                 >
-                  Hostels & Bed & Breakfast
+                  Hostels
                 </Typography>
               </Grid>
-              <Grid item xs={3}>
-                <Button variant="contained">Go</Button>
+              <Grid item xs={12} md={12} className={classes.btnGo}>
+                <Link to={"/categories"}>
+                  <Button
+                    variant="contained"
+                    onClick={() => chooseTypes("Hostel")}
+                  >
+                    Go
+                  </Button>
+                </Link>
               </Grid>
             </Grid>
             <Grid
               item
-              xs={3}
+              xs={12}
+              md={3}
               container
               style={{ backgroundImage: `url(${Tipos2})` }}
               className={classes.imgTiposAlojamiento}
@@ -332,16 +418,24 @@ const Home = () => {
                   variant="subtitle1"
                   className={classes.fontHomePrimary}
                 >
-                  Houses and Apartments
+                  Apartments
                 </Typography>
               </Grid>
-              <Grid item xs={3}>
-                <Button variant="contained">Go</Button>
+              <Grid item xs={12} md={12} className={classes.btnGo}>
+                <Link to={"/categories"}>
+                  <Button
+                    variant="contained"
+                    onClick={() => chooseTypes("Apartment")}
+                  >
+                    Go
+                  </Button>
+                </Link>
               </Grid>
             </Grid>
             <Grid
               item
-              xs={3}
+              xs={12}
+              md={3}
               container
               style={{ backgroundImage: `url(${Tipos3})` }}
               className={classes.imgTiposAlojamiento}
@@ -351,11 +445,18 @@ const Home = () => {
                   variant="subtitle1"
                   className={classes.fontHomePrimary}
                 >
-                  Uniques
+                  Houses
                 </Typography>
               </Grid>
-              <Grid item xs={3}>
-                <Button variant="contained">Go</Button>
+              <Grid item xs={12} md={12} className={classes.btnGo}>
+                <Link to={"/categories"}>
+                  <Button
+                    variant="contained"
+                    onClick={() => chooseTypes("House")}
+                  >
+                    Go
+                  </Button>
+                </Link>
               </Grid>
             </Grid>
           </Grid>
@@ -392,6 +493,6 @@ const Home = () => {
       </Grid>
     </div>
   );
+  //};
 };
-
 export default Home;
