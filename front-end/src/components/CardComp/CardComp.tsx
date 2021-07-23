@@ -86,6 +86,7 @@ export default function CardComp({
   address,
   accommodates,
   click,
+  boton,
 }) {
   const classes = useStyles();
 
@@ -148,21 +149,26 @@ export default function CardComp({
               <ApartmentIcon className={classes.icon}></ApartmentIcon>
               {type}
             </div>
-
             <div className={classes.icono}>
               <AccountCircleIcon className={classes.icon}></AccountCircleIcon>
               {accommodates}
             </div>
-
             <div className={classes.icono}>
               <HotelIcon className={classes.icon}></HotelIcon>
               {beds}
             </div>
-
             <div className={classes.icono}>
               <MonetizationOnIcon className={classes.icon}></MonetizationOnIcon>
               {price}
             </div>
+            {boton && (
+              <Link
+                style={{ textDecoration: "none" }}
+                to={`/AddProperty/${_id}`}
+              >
+                <button>edit</button>{" "}
+              </Link>
+            )}
           </div>
         </CardContent>
       </CardActionArea>
