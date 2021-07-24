@@ -1,7 +1,7 @@
 import React from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getFavos } from "../../actions";
+import { getBooking } from "../../actions";
 import { useAuth } from "../../firebase/index";
 import CardComp from "../CardComp/CardComp";
 import { makeStyles } from "@material-ui/core/styles";
@@ -34,11 +34,11 @@ const Bookings = () => {
     const classes = useStyles();
     const dispatch = useDispatch();
     const auth = useAuth();
-    const cards = useSelector((state: any) => state.userfavossss);
+    const cards = useSelector((state: any) => state.categorieDetail);
     let email = auth.user.email;
   
     useEffect(() => {
-      dispatch(getFavos(email));
+      dispatch(getBooking(email));
     }, []);
   
   
@@ -51,7 +51,7 @@ const Bookings = () => {
           <div>
             <Grid >
               <Typography className={classes.title} variant='h4' align='center'>
-                Favourite properties
+                Booking properties
               </Typography>
             </Grid>
             <Container className={classes.cardGrid} maxWidth="md">
