@@ -1,0 +1,44 @@
+const selectionRange={
+  starDate: new Date(2021,7,23),
+  endDate: new Date(2021,7,30),
+  key:"selection"
+
+}
+
+ranges={[selectionRange]}
+
+  <DateRangePicker
+          selected={startDate}
+          onChange={(date)=>setStarDate(date)}
+          excludeDates={[new Date(),subDays(new Date(),1)]}
+      />
+
+         <DatePicker
+          isClearable
+          filterDate={d => {
+            return new Date();
+          }}
+          placeholderText="Select Start Date"
+          selected={startDate}
+          selectsStart
+          startDate={startDate}
+          endDate={endDate}
+          onChange={date => setStartDate(date)}
+
+          /> 
+      <DatePicker
+          isClearable
+          filterDate={d => {
+            return new Date();
+          }}  
+          placeholderText="Select End Date"
+          selected={endDate}
+          selectsEnd
+          startDate={startDate}
+          endDate={endDate}
+          onChange={date => setEndDate(date)}
+          />
+
+          value={dts}
+          dateFormat="DD-MM-YYYY"
+          onChange={val1 => setDts(val1)}
