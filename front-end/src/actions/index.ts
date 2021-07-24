@@ -216,15 +216,20 @@ export const clearDetail = () => {
 
 export const addFavourites = (data) => {
   return async (dispatch: Dispatch) => {
-    let favs = {
-      favorites: data.favos,
-      email: data.email,
-    };
-    dispatch<Favourites>({
-      type: ActionTypes.addFav,
-      payload: data,
-    });
-    const newFavs = await axios.post("http://localhost:3001/favorites", favs);
+    if (data.favorites?.length < 0) {
+      console.log("ERROR NO FAVO");
+    } else {
+      console.log("Dispatch favourites", data);
+      let favs = {
+        favorites: data.favos,
+        email: data.email,
+      };
+      dispatch<Favourites>({
+        type: ActionTypes.addFav,
+        payload: data,
+      });
+      const newFavs = await axios.post("http://localhost:3001/favorites", favs);
+    }
   };
 };
 

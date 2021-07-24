@@ -9,7 +9,7 @@ import Collapse from "@material-ui/core/Collapse";
 import Button from "@material-ui/core/Button";
 
 import { useSelector } from "react-redux";
-
+import Box from "@material-ui/core/Box";
 import CardActionArea from "@material-ui/core/CardActionArea";
 import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
@@ -51,14 +51,26 @@ const useStyles = makeStyles((theme: Theme) =>
     iconfav: {
       color: "black",
       padding: "5px",
-      background: "#8b96c175",
+      background: "white",
       fontSize: "1.2rem",
+      marginLeft: "2px",
     },
     iconfavclicked: {
-      color: "yellow",
+      color: "red",
       padding: "5px",
-      background: "#8b96c175",
+      background: "white",
       fontSize: "1.2rem",
+      marginLeft: "2px",
+    },
+    score: {
+      color: "black",
+      padding: "3px 10px",
+      backgroundColor: "white",
+      boxSizing: "border-box",
+      marginLeft: "2px",
+    },
+    boxIcons: {
+      padding: "0.3125rem 0.3125rem",
     },
   })
 );
@@ -77,7 +89,6 @@ export default function CardComp({
 }) {
   const classes = useStyles();
 
-  const [fav, setFav] = useState(false);
   const favs = useSelector((state: any) => state.favourites);
 
   // const handleClick =(e) => {
@@ -86,30 +97,30 @@ export default function CardComp({
   //     setFav(!fav)
   //   }
   // }
-  useEffect(() => {
-    if (favs?.favos?.includes(_id)) {
-      setFav(!fav);
-    }
-  }, [favs]);
+
   // {fav ? classes.iconfavclicked : classes.iconfav}
   return (
     <Card className={classes.root}>
       <CardActionArea>
         <CardMedia className={classes.media} image={image} title="Room Deluxe">
-          <IconButton
-            aria-label="add to favorites"
-            className={classes.iconfav}
-            onClick={click}
-            value={_id}
-          >
-            <FavoriteIcon />
-          </IconButton>
-          <IconButton className={classes.iconfav}>
-            <StarBorderIcon />
-          </IconButton>
-          <IconButton style={{ color: "black", padding: "initial" }}>
-            {score}
-          </IconButton>
+          <Box className={classes.boxIcons}>
+            <IconButton
+              aria-label="add to favorites"
+              className={
+                favs?.favos?.includes(_id)
+                  ? classes.iconfavclicked
+                  : classes.iconfav
+              }
+              onClick={click}
+              value={_id}
+              key={_id}
+            >
+              <FavoriteIcon />
+            </IconButton>
+            <IconButton className={classes.iconfav}>
+              <StarBorderIcon /> {score}
+            </IconButton>
+          </Box>
         </CardMedia>
         <Link style={{ textDecoration: "none" }} to={`/categories/${_id}`}>
           <CardContent style={{ padding: "15px" }}>
