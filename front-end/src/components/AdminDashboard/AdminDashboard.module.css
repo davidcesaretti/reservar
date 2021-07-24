@@ -8,7 +8,7 @@ body {
 }
 .ctn {
     position: relative;
-    background-color: rgba(48, 58, 31, 0.85);
+    background-color: #313B1E;
     display: flex;
     align-items: center;
     justify-content: space-between;

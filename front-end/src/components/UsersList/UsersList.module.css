@@ -1,0 +1,71 @@
+.ctn{
+    width: 1200px;
+    height: 550px;
+    background-color: #e3e3e3;
+    padding: 10px;
+    margin-right: 50px;
+}
+.userCtn{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+}
+.userInfo{
+    margin: auto;
+    text-decoration: none;
+    color: #000000;
+    box-shadow: 2px 2px 2px 2px black;
+    padding: 8px;
+    margin: 10px;
+    width: 320px;
+    height:120px;
+}
+
+.buttonPag{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 30px;
+}
+.prevButton{
+    display: flex;
+    justify-content: center;
+    background-color: #313B1E;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    border: none;
+    width: 80px;
+    font-size: 30px;
+    color: #FFF;
+    cursor: pointer;
+}
+.prevButton:hover{
+    background-color: #FFF;
+    color: #000000;
+    transition: 500ms;
+}
+.prevButton:active{
+    transform: scale(0.9);
+}
+.nextButton{
+    display: flex;
+    justify-content: center;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    border: none;
+    width: 80px;
+    font-size: 30px;
+    background-color: #313B1E;
+    color: #FFF;
+    border-left: solid 1px #FFF;
+    cursor: pointer;
+}
+.nextButton:hover{
+    background-color: #FFF;
+    color: #000000;
+    transition: 500ms;
+}
+.nextButton:active{
+    transform: scale(0.9);
+}

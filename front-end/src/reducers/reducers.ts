@@ -12,6 +12,7 @@ import { fechasReducer } from "./fechas";
 import { userFavReducer } from "./userFavs";
 import { postsHost } from "./postUser";
 import { userInfo } from "./infoUser"
+import { userList } from "./usersList"
 
 export interface StoreState {
   fechas: any;
@@ -25,6 +26,7 @@ export interface StoreState {
   userfavossss: Array<any>;
   postHost: Array<any>;
   user: Object;
+  listOfUsers: Array<any>
 }
 
 export const reducers = combineReducers<StoreState>({
@@ -39,6 +41,7 @@ export const reducers = combineReducers<StoreState>({
   userfavossss: userFavReducer,
   postHost: postsHost,
   user: userInfo,
+  listOfUsers: userList
 });
 
 export default reducers;

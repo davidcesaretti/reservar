@@ -20,6 +20,15 @@ UserRouter.post("/login", async (req: Request, res: Response) => {
   }
 });
 
+UserRouter.get("/userList", async (req: Request, res: Response) => {
+  try{
+    const users = await User.find()
+    return res.json(users)
+  } catch (err) {
+    console.error(err)
+  }
+})
+
 UserRouter.post("/register", async (req: Request, res: Response) => {
   if (req.body.userInfo) {
     const name = req.body.userInfo?.name;

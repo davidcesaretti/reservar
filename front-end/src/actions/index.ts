@@ -47,6 +47,10 @@ export interface userInformation {
   type: ActionTypes.userInfo;
   payload: Object;
 }
+export interface listOfUsers {
+  type: ActionTypes.usersList;
+  payload: Array<Object>;
+}
 export interface USERFAVS {
   type: ActionTypes.favUser;
   payload: Array<Object>;
@@ -216,6 +220,21 @@ export const getUserInfo = (email) => {
       });
     } catch (error) {
       console.error(error)
+    }
+  }
+}
+
+export const getUsersList = () => {
+  return async (dispatch: Dispatch) => {
+    try {
+      const list = await axios.get("http://localhost:3001/userList")
+      console.log('LISTA DE USUARIOS ', list[0])
+      dispatch<listOfUsers>({
+        type: ActionTypes.usersList,
+        payload: list.data
+      })
+    } catch (err) {
+      console.error(err)
     }
   }
 }
