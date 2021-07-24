@@ -37,7 +37,7 @@ router.post("/", (req: Request, res: Response, next: NextFunction) => {
     .catch((error) => next(error));
 });
 
-router.get("/pago", (req, res) => {
+router.get("/pago", async (req, res, next) => {
   /*   ?collection_id=1239047573&collection_status=approved&payment_id=1239047573&status=approved&external_reference=null&payment_type=credit_card&merchant_order_id=2995584923&preference_id=790929283-f83f5ad1-edd6-4eb7-a882-7b05a4e4d2c1&site_id=MLA&processing_mode=aggregator&merchant_account_id=null*/
   /*   const payment_id = req.query.payment_id; */
   const preference_id = req.query.preference_id;
@@ -54,6 +54,16 @@ router.get("/pago", (req, res) => {
           return res.redirect("http://localhost:3000");
         })
     }) */
+  const properyUpdate = await Reserva.updateOne(
+    { payment_id: preference_id },
+    {
+      $set: {
+        state: payment_status,
+      },
+    }
+  );
+  res.send("update success");
+  next();
 });
 
 export default router;

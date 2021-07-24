@@ -47,10 +47,11 @@ const reserva = new Schema(
     fechaSalida: { type: Date },
     fechaLlegada: { type: Date },
     info_user: { type: String },
-    state: { type: String, enum: ["active", "expired", "pending"] },
+    state: { type: String },
     price: { type: Number },
     payment_id: { type: String },
   },
   { versionKey: false }
 );
 export const Reserva = model("Reserva", reserva);
+/* ", enum: ["active", "expired", "pending"]" */
