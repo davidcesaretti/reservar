@@ -147,11 +147,12 @@ export default function Pay({
         info_user: stateregister.email || "dario.velazquez10@gmail.com",
         state: "pending",
         price: stateregister.preciofinal,
-        payment_id: res.data.sandbox_init_point,
+        payment_id: res.data.id,
       };
       console.log(reserv);
+
+      axios.post("http://localhost:3001/reserva", reserv); //guardamos en la bd
     });
-    //aqui hacemos el objeto para mandar a la bd(solo en cines)
   }, []);
 
   return (
