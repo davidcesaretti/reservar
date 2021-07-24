@@ -20,6 +20,8 @@ import Paper from "@material-ui/core/Paper";
 import CardMedia from "@material-ui/core/CardMedia";
 import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
+import { getBooking } from "../../actions";
+import { useAuth } from "../../firebase";
 
 const useStyles = makeStyles((theme) => ({
   nav: {},
@@ -117,10 +119,7 @@ export default function Pay({
 
   fechaLlegada = stateregister.fechaLlegada;
   fechaSalida = stateregister.fechaSalida;
-  huespedes = {
-    adulto: 2,
-    niño: 1,
-  };
+
   const [link, setLink] = useState("");
 
   info_user = {
@@ -132,7 +131,9 @@ export default function Pay({
   const classes = useStyles();
   const bull = <span className={classes.bulletR}>|</span>;
   const map1 = [1];
-
+  const auth = useAuth();
+  let email = stateregister.email;
+  const dispatch = useDispatch();
   useEffect(() => {
     const pago = {
       title: detailhotel[0].name,
@@ -150,7 +151,6 @@ export default function Pay({
         payment_id: res.data.id,
       };
       console.log(reserv);
-
       axios.post("http://localhost:3001/reserva", reserv); //guardamos en la bd
     });
   }, []);
