@@ -54,9 +54,6 @@ export default function MenuAppBar() {
               Trekker Logo
             </Link>
           </Typography>
-          <Link to="/userpost" className={classes.link}>
-            <button>GO TO MY POSTS </button>
-          </Link>
           <Link to="/categories" className={classes.link}>
             <Button variant="contained" color="secondary">
               Catalogue

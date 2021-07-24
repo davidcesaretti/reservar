@@ -9,8 +9,8 @@ import Bookings from "../Bookings/Bookings";
 import Favorites from "../Favorites/Favorites";
 import Spinner from "../Spinner/Spinner";
 import HistoryTravels from "../HistoryTravels/HistoryTravels";
-import CreatePublications from '../CreatePublications/CreatePublications'
-import MyProperties from '../MyProperties/MyProperties'
+import AddProperty from '../AddProperty/AddProperty'
+import UserPosts from '../UserPosts/UserPosts'
 import Balance from '../Balance/Balance'
 import Chat from '../Chat/Chat'
 import { getUserInfo } from "../../actions/index";
@@ -352,9 +352,9 @@ const User = () => {
             setUserType={setUserType}
           />
         ) : sectionHost === "CreatePublications" ? (
-          <CreatePublications />
+          <AddProperty />
         ) : sectionHost === "MyProperties" ? (
-          <MyProperties />
+          <UserPosts />
         ) : sectionHost === "Balance" ? (
           <Balance />
         ) : sectionHost === "Chat" ? (
