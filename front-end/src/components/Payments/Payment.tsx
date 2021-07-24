@@ -136,7 +136,7 @@ export default function Pay({
   const dispatch = useDispatch();
   useEffect(() => {
     const pago = {
-      title: detailhotel[0].name,
+      title: detailhotel[0]?.name,
       unit_price: stateregister.preciofinal,
     };
 
@@ -172,25 +172,25 @@ export default function Pay({
               <Grid item xs={12} sm={6} className={classes.card}>
                 <Card className={classes.card}></Card>
                 <Reservation
-                  price={detailhotel[0].price}
+                  price={detailhotel[0]?.price}
                   fechaLlegada
                   fechaSalida
-                  huespedes={detailhotel[0].accommodates}
+                  huespedes={detailhotel[0]?.accommodates}
                 />
               </Grid>
               {detailhotel && (
                 <Grid item xs={12} sm={6} className={classes.card}>
                   <Card className={classes.card}>
                     <CardComp
-                      _id={detailhotel[0]._id}
-                      image={detailhotel[0].image}
-                      score={detailhotel[0].score}
-                      name={detailhotel[0].name}
-                      type={detailhotel[0].type}
-                      address={detailhotel[0].address}
-                      accommodates={detailhotel[0].accommodates}
-                      beds={detailhotel[0].beds}
-                      price={detailhotel[0].price}
+                      _id={detailhotel[0]?._id}
+                      image={detailhotel[0]?.image}
+                      score={detailhotel[0]?.score}
+                      name={detailhotel[0]?.name}
+                      type={detailhotel[0]?.type}
+                      address={detailhotel[0]?.address}
+                      accommodates={detailhotel[0]?.accommodates}
+                      beds={detailhotel[0]?.beds}
+                      price={detailhotel[0]?.price}
                       click={""}
                     />
                   </Card>
