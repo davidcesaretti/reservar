@@ -55,10 +55,10 @@ const User = () => {
   }
 
   const clickProfile = () => {
-    /* if (userInfo.nationality !== undefined) { */
+    if (userInfo.nationality !== undefined) {
     setSection("Profile");
     setSectionHost("Profile")
-    /* } else {
+    } else {
       Swal.fire({
         title: "Please, complete your information",
         showClass: {
@@ -69,7 +69,7 @@ const User = () => {
         },
       });
       setSection("Update");
-    } */
+    }
   };
 
   const clickUpdate = () => {

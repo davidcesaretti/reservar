@@ -177,7 +177,7 @@ const Register = () => {
                 Sign Out
               </Button>
               <Typography className={classes.title2}>
-                Hello, {/* firebase.auth().currentUser.displayName */infoUser.name}
+                Hello, {infoUser.name || firebase.auth().currentUser.displayName}
               </Typography>
               <img src={firebase.auth().currentUser.photoURL} alt="user" />
               <div className={classes.completediv}>
