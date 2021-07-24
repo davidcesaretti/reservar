@@ -19,8 +19,7 @@ function App() {
 
   return (
     <Switch>
-   
-
+      <Route exact path="/" component={Home} />
       <Route exact path="/categories" component={Album} />
       <Route exact path="/categories/:id" component={DetailHotel} />
       <Route exact path="/Login" component={Login} />
