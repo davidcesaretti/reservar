@@ -21,6 +21,7 @@ import {
   addFavourites,
   FechasReserva,
   fetchCardsHotels,
+  getFavos,
   setBoolean,
 } from "../../actions";
 import { Calendary } from "../Calendary/Calendary";
@@ -84,7 +85,7 @@ const Home = () => {
   const [cities, setCities] = useState(undefined);
   const [guest, setGuest] = useState(undefined);
   const fechas = useSelector((state: any) => state.fechas);
-  console.log(fechas);
+
   const dispatch = useDispatch();
   const auth = useAuth();
   const email = auth?.user?.email;
@@ -148,6 +149,11 @@ const Home = () => {
       )
     );
   }
+
+  useEffect(() => {
+    dispatch(getFavos(email));
+  }, [email]);
+
   const classes = useStyle();
 
   return (
