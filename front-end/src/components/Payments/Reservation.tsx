@@ -5,7 +5,8 @@ import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import { useSelector, useDispatch } from "react-redux";
-//import * as moment from 'moment';
+import moment from "moment";
+
 
 const useStyles = makeStyles((theme) => ({
   dator: {
@@ -117,7 +118,7 @@ export default function Reserva({
   fechaSalida,
   huespedes,
 }) {
-  var moment = require("moment");
+
   const dispatch = useDispatch();
   const stateregister = useSelector((state: any) => state.stateRegister);
 
@@ -183,7 +184,7 @@ export default function Reserva({
           </Grid>
           <Grid item xs={6}>
             <Paper elevation={0} className={classes.paperR1}>
-              {price}
+              {`$${price}`}
             </Paper>
           </Grid>
         </Grid>

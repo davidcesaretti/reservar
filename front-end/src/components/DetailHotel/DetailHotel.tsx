@@ -105,15 +105,6 @@ const DetailHotel = () => {
     setdepartureDate(new Date(date).toISOString());
   };
 
-  function disableDates(date: Date) {
-    return (
-      date.getDate() === 15 ||
-      date.getDate() === 16 ||
-      date.getDate() === 17 ||
-      date.getDate() === 18
-    );
-  }
-
   const [open, setOpen] = useState(false);
 
   const handleOpen = () => {
@@ -208,11 +199,11 @@ const DetailHotel = () => {
             </div>
             <div className={style.gridEst}>
               <div className={style.score}>
-                <p>Value per night {detailhotel[0]?.price}</p>
-                <p>Number of nights{cantidad}</p>
+                <p>Value per night ${detailhotel[0]?.price}</p>
+                <p>Number of nights {cantidad + 1}</p>
               </div>
               <div className={style.totalp}>
-                <p>TOTAL STAY {result}</p>
+                <p>TOTAL STAY ${result}</p>
                 <Link to={"/payments"} style={{ textDecoration: "none" }}>
                   <Button
                     className={style.button}
@@ -290,7 +281,6 @@ const DetailHotel = () => {
               id="date-picker-inline"
               label="Check in"
               value={arrivalDate}
-              shouldDisableDate={disableDates}
               disablePast={true}
               onChange={handleDateChange}
               KeyboardButtonProps={{
@@ -307,7 +297,6 @@ const DetailHotel = () => {
               label="Check out"
               value={departureDate}
               disablePast={true}
-              shouldDisableDate={disableDates}
               onChange={handleChange}
               minDate={arrivalDate}
               disabled={!aux ? true : false}
