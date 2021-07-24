@@ -53,6 +53,12 @@ const properties = new Schema(
     id_post: {
       type: Number,
     },
+    coordinates: {
+      type: Object,
+    },
+    reviews: {
+      type: [Object],
+    },
   },
   { versionKey: false }
 );
