@@ -13,6 +13,7 @@ export enum ActionTypes {
   updateUser,
   favUser,
   findPost,
+  userInfo,
 }
 
 export type Action = FetchUsersAction;

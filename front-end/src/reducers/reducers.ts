@@ -11,6 +11,7 @@ import { detailReducer } from "./detail";
 import { fechasReducer } from "./fechas";
 import { userFavReducer } from "./userFavs";
 import { postsHost } from "./postUser";
+import { userInfo } from "./infoUser"
 
 export interface StoreState {
   fechas: any;
@@ -23,6 +24,7 @@ export interface StoreState {
   booleanState: boolean;
   userfavossss: Array<any>;
   postHost: Array<any>;
+  user: Object;
 }
 
 export const reducers = combineReducers<StoreState>({
@@ -36,6 +38,7 @@ export const reducers = combineReducers<StoreState>({
   booleanState: booleanoRed,
   userfavossss: userFavReducer,
   postHost: postsHost,
+  user: userInfo,
 });
 
 export default reducers;
