@@ -90,7 +90,7 @@ router.post("/", (req: Request, res: Response, next: NextFunction) => {
 
   if (req.body.fechaSalida && req.body.fechaLlegada) {
     const obj = { ...fechaBusqueda };
-    Propertiestests.find(obj).then((data) => res.json(data));
+    Properties.find(obj).then((data) => res.json(data));
 
     return;
   }

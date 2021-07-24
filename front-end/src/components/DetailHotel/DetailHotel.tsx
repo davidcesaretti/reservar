@@ -16,15 +16,18 @@ import Recom3 from "../../Image/recom3.jpeg";
 import Recom4 from "../../Image/recom4.jpeg";
 import Service from "../Service/Services";
 import DateFnsUtils from "@date-io/date-fns";
-import { MuiPickersUtilsProvider, KeyboardDatePicker } from "@material-ui/pickers";
+import {
+  MuiPickersUtilsProvider,
+  KeyboardDatePicker,
+} from "@material-ui/pickers";
 import Footer from "../Footer/Footer";
 import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
-import Spinner from '../Spinner/Spinner'
-import Error404 from '../Error404/Error404';
+import Spinner from "../Spinner/Spinner";
+import Error404 from "../Error404/Error404";
 import { FechasReserva, postReserve } from "../../actions";
 import { useAuth } from "../../firebase/index";
-
+import HostCalendary from "../HostCalendary/HostCalendary";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -76,8 +79,7 @@ const useStyles = makeStyles((theme: Theme) =>
 const DetailHotel = () => {
   const detailhotel = useSelector((state: any) => state.categorieDetail);
   const dispatch = useDispatch();
-  const auth = useAuth()
-
+  const auth = useAuth();
 
   const [value, setValue] = useState(0);
   const [hover, setHover] = useState(-1);
@@ -92,7 +94,7 @@ const DetailHotel = () => {
   );
 
   const handleDateChange = (date: Date) => {
-    setArrivalDate(new Date(date).toISOString())
+    setArrivalDate(new Date(date).toISOString());
     setAux(true);
   };
   const handleChange = (date: Date) => {
@@ -127,30 +129,27 @@ const DetailHotel = () => {
     };
   }, [dispatch, id]);
 
-
-
   useEffect(() => {
     dispatch(FechasReserva({ checkin: arrivalDate, checkout: departureDate }));
   }, [arrivalDate, departureDate]);
 
-
   const obj = {
     Prop_id: id,
-    fechaSalida: arrivalDate, 
+    fechaSalida: arrivalDate,
     fechaLlegada: departureDate,
     email: auth.user?.email,
-    guests: 5
-  }
+    guests: 5,
+  };
   const handleSubmit = () => {
-    dispatch(postReserve(obj))
-  }
-  console.log(obj)
+    dispatch(postReserve(obj));
+  };
+  console.log(obj);
 
-  if(detailhotel === null) {
-    return <Error404 />
-} else if(detailhotel.length < 1) {
-    return <Spinner />
-} else {
+  if (detailhotel === null) {
+    return <Error404 />;
+  } else if (detailhotel.length < 1) {
+    return <Spinner />;
+  } else {
     return (
       <div>
         <div className={style.gridconteiner}>
@@ -172,11 +171,11 @@ const DetailHotel = () => {
             <div className={style.gridPadre}>
               <div className={style.gridHijo1}>
                 <p>Arrival date</p>
-                <p>{arrivalDate.slice(0,10)}</p>
+                <p>{arrivalDate.slice(0, 10)}</p>
               </div>
               <div className={style.gridHijo2}>
                 <p>Departure date</p>
-                <p>{departureDate.slice(0,10)}</p>
+                <p>{departureDate.slice(0, 10)}</p>
               </div>
               <div className={style.gridHijo3}>
                 <p>¿How many are traveling?</p>
@@ -191,15 +190,15 @@ const DetailHotel = () => {
               <div className={style.totalp}>
                 <p>TOTAL STAY</p>
                 <Link to={"/payments"}>
-                <Button
-                  className={style.button}
-                  variant="contained"
-                  color="primary"
-                  onClick={() => handleSubmit()}
+                  <Button
+                    className={style.button}
+                    variant="contained"
+                    color="primary"
+                    onClick={() => handleSubmit()}
                   >
-                  Reserve 
-                </Button>
-                    </Link>
+                    Reserve
+                  </Button>
+                </Link>
               </div>
             </div>
             <div className={style.contcuad}>
@@ -256,7 +255,10 @@ const DetailHotel = () => {
           </div>
           {/* <div>Accommodates {detailhotel[0]?.accommodates}</div> */}
         </div>
-        <div className={style.flexcal}>
+        <div style={{ height: "400px" }}>
+          <HostCalendary data={detailhotel} />
+        </div>
+        {/* <div className={style.flexcal}>
           <MuiPickersUtilsProvider utils={DateFnsUtils}>
             <KeyboardDatePicker
               disableToolbar
@@ -293,7 +295,8 @@ const DetailHotel = () => {
               }}
             />
           </MuiPickersUtilsProvider>
-        </div>
+        </div> */}
+
         <div>
           <hr className={style.hr2} />
           <h2 style={{ textAlign: "center", fontFamily: "Roboto" }}>
@@ -339,6 +342,7 @@ const DetailHotel = () => {
             </Grid>
           </div>
         </div>
+
         <div>
           <hr className={style.hr2} />
           <Footer />
