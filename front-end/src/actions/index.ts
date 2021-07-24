@@ -140,7 +140,7 @@ export function findPost(data) {
       .then((res) => res.json())
       .catch((error) => console.error("Error:", error))
       .then((json) => {
-        dispatch({ type: ActionTypes.findPost, payload: json });
+        dispatch({ type: ActionTypes?.findPost, payload: json });
       });
   };
 }
