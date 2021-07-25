@@ -1,14 +1,15 @@
 import React, {useState ,useEffect} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
-import {Link} from 'react-router-dom'
+import {Link, useHistory} from 'react-router-dom'
 import { useAuth } from "../../firebase/index";
 import {getUsersList} from '../../actions/index'
-import style from './UsersList.module.css'
+import style from './RegisteredUsers.module.css'
 
-const UsersList = () => {
+const RegisteredUsers = ({setSection}) => {
 
 const auth = useAuth()
 const dispatch = useDispatch()
+const history = useHistory()
 const listOfUsers = useSelector((state:any) => state.listOfUsers)
 const [currentPage, setCurrentPage] = useState(0)
 useEffect(() => {
@@ -35,13 +36,18 @@ const filteredUsers = listOfUsers.slice(currentPage, currentPage + 8)
         }
     }
 
+    const goBack = () => {
+        setSection("")
+    }
+
     return (
         <div className={style.ctn}>
+            <button onClick={() => {goBack()}}>Back</button>
             <div className={style.userCtn}>
             {
                 filteredUsers?.map((e) => {
                     return (
-                            <Link to="userAdmin" className={style.userInfo}>
+                            <Link to={`/userAdmin/${e._id}`}  className={style.userInfo} key={e._id}>
                                 <p className={style.data}><b>Name:</b> {e.name} </p>
                                 <p className={style.data}><b>Email:</b> {e.email} </p>
                                 <p className={style.data}><b>Id:</b> {e._id} </p>
@@ -68,4 +74,4 @@ const filteredUsers = listOfUsers.slice(currentPage, currentPage + 8)
     )
 }
 
-export default UsersList
+export default RegisteredUsers

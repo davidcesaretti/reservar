@@ -22,8 +22,18 @@ UserRouter.post("/login", async (req: Request, res: Response) => {
 
 UserRouter.get("/userList", async (req: Request, res: Response) => {
   try{
-    const users = await User.find()
+    const users = await User.find({"_id": {$not: {$eq: "60fcc07b78416d2aa4fd8b6e"}}})
     return res.json(users)
+  } catch (err) {
+    console.error(err)
+  }
+})
+
+UserRouter.get("/userAdmin/:_id", async (req: Request, res: Response) => {
+  try {
+    const {_id} = req.params
+    const user = await User.findOne({ _id: _id })
+    return res.json(user)
   } catch (err) {
     console.error(err)
   }

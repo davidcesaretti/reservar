@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Reports = () => {
+const Reviews = ({setSection}) => {
     return (
         <div>
             REPORTS DE COMENTARIOS
@@ -8,4 +8,4 @@ const Reports = () => {
     )
 }
 
-export default Reports
+export default Reviews

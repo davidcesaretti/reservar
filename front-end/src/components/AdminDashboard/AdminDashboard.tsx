@@ -2,9 +2,15 @@ import React, {useState, useEffect} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import { useAuth } from "../../firebase/index";
 import style from './AdminDashboard.module.css'
-import UsersList from '../UsersList/UsersList'
-import PublicationsList from '../PublicationsList/PublicationsList'
-import Reports from '../Reports/Reports'
+import RegisteredUsers from '../RegisteredUsers/RegisteredUsers'
+import RegisteredLodgings from '../RegisteredLodgings/RegisteredLodgings'
+import Reviews from '../Reviews/Reviews'
+import FAQ from '../FAQ/FAQ'
+import TermsAndConditions from '../TermsAndConditions/TermsAndConditions'
+import Earnings from '../Earnings/Earnings'
+import Stats from '../Stats/Stats'
+import GeneralBalance from '../GeneralBalance/GeneralBalance'
+import PrivacyPolicy from '../PrivacyPolicy/PrivacyPolicy'
 
 
 const AdminDashboard = () => {
@@ -12,40 +18,76 @@ const AdminDashboard = () => {
     const dispatch = useDispatch()
     const [section, setSection] = useState('')
 
-    const clickUserList = () => {
-        setSection('UsersList')
+    const handleClick = (e) => {
+        setSection(e.target.name)
     }
 
-    const clickPublicationsList = () => {
-        setSection('PublicationsList')
-    }
-
-    const clickReports = () => {
-        setSection('Reports')
-    }
 
     return (
         <div className={style.ctn}>
-            <nav className={style.navBar}>
-                <button onClick={() => {clickUserList()}} className={style.buttonNav}>User List</button>
-                <button onClick={() => {clickPublicationsList()}} className={style.buttonNav}>Publications List</button>
-                <button onClick={() => {clickReports()}} className={style.buttonNav}>Reports</button>
+            <div className={style.navBar}>
+                <img className={style.logo} alt="trekker" />
+                <h1 className={style.title} >ADMIN PANEL</h1>
+                <button className={style.signOut} >Sign Out</button>
+            </div> 
+            { section === 'Reviews' ?
+            <Reviews setSection={setSection}/> :
+
+            section === 'RegisteredUsers' ?
+            <RegisteredUsers setSection={setSection}/> :
+
+            section === 'RegisteredLodgings' ?
+            <RegisteredLodgings setSection={setSection}/> :
+            
+            section === 'GeneralBalance' ?
+            <GeneralBalance setSection={setSection}/> :
+
+            section === 'Earnings' ?
+            <Earnings setSection={setSection}/> :
+
+            section === 'Stats' ?
+            <Stats setSection={setSection}/> :
+
+            section === 'TermsAndConditions' ?
+            <TermsAndConditions setSection={setSection}/> :
+
+            section === 'FAQ' ?
+            <FAQ setSection={setSection}/> :
+
+            section === 'PrivacyPolicy' ?
+            <PrivacyPolicy setSection={setSection}/> :
+
+            <nav className={style.buttons}>
+                <button name="RegisteredUsers" onClick={(e) => {handleClick(e)}} className={style.buttonNav}>
+                    Registered Users
+                </button>
+                <button name="RegisteredLodgings" onClick={(e) => {handleClick(e)}} className={style.buttonNav}>
+                    Registered Lodgings
+                </button>
+                <button name="Reviews" onClick={(e) => {handleClick(e)}} className={style.buttonNav}>
+                    Reviews
+                </button>
+                <button name="GeneralBalance" onClick={(e) => {handleClick(e)}} className={style.buttonNav}>
+                    General Balance
+                </button>
+                <button name="Earnings" onClick={(e) => {handleClick(e)}} className={style.buttonNav}>
+                    Earnings
+                </button>
+                <button name="Stats" onClick={(e) => {handleClick(e)}} className={style.buttonNav}>
+                    Stats
+                </button>
+                <button name="TermsAndConditions" onClick={(e) => {handleClick(e)}} className={style.buttonNav}>
+                    Terms And Conditions
+                </button>
+                <button name="FAQ" onClick={(e) => {handleClick(e)}} className={style.buttonNav}>
+                    FAQ
+                </button>
+                <button name="PrivacyPolicy" onClick={(e) => {handleClick(e)}} className={style.buttonNav}>
+                    Privacy Policy
+                </button>
             </nav>
-            { section === 'Reports' ?
-            <Reports /> :
-
-            section === 'UsersList' ? 
-            <UsersList /> : 
-
-            section === 'PublicationsList' ? 
-
-            <PublicationsList /> :
-            <div className={style.landing}>
-                <div className={style.img}>
-
-                </div>
-            </div>
             }
+            <div className={style.footer}>Copyright 2021</div>
         </div>
     )
 }

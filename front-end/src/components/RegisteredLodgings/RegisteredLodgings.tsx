@@ -1,6 +1,6 @@
 import React from 'react'
 
-const PublicationsList = () => {
+const RegisteredLodgings = ({setSection}) => {
     return (
         <div>
             LISTA DE PUBLICACIONES
@@ -8,4 +8,4 @@ const PublicationsList = () => {
     )
 }
 
-export default PublicationsList
+export default RegisteredLodgings
