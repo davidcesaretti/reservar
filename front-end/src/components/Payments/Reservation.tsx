@@ -119,7 +119,6 @@ export default function Reserva({
   huespedes,
 }) {
 
-  const dispatch = useDispatch();
   const stateregister = useSelector((state: any) => state.stateRegister);
 
   fechaLlegada = stateregister.fechaLlegada;
@@ -132,10 +131,7 @@ export default function Reserva({
   var result = cantidad === 0 ? price : total;
   const classes = useStyles();
   const bull = <span className={classes.bulletR}>|</span>;
-  /*useEffect(() => {
-    dispatch(detailHotel(id));
-  }, []);
-  */
+
   return (
     <React.Fragment>
       <CssBaseline />

@@ -71,7 +71,8 @@ const Bookings = () => {
                           accommodates={e.accommodates}
                           beds={e.beds}
                           price={e.price}
-                          click={""}
+                          click={console.log("")}
+                          boton={false}
                         />
                       </Card>
                     </Grid>
