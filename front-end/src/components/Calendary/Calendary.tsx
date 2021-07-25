@@ -29,15 +29,18 @@ export function Calendary() {
   const handleChange = (date: Date) => {
     setdepartureDate(new Date(date).toISOString());
   };
-
+  var arrayfechas = [
+    "2021-07-22T00:58:04.473+00:00",
+    "2021-07-25T00:58:04.473+00:00",
+  ];
+  const fecha = new Date("2021-07-28T00:58:04.473+00:00");
+  console.log(fecha);
   function disableDates(date: Date) {
-    return (
-      date.getDate() === 15 ||
-      date.getDate() === 16 ||
-      date.getDate() === 17 ||
-      date.getDate() === 18
-    );
+    return date === fecha;
+
+    // date.getMonth() === 7 && date.getDate() === 9
   }
+
   const fechas = useSelector((state: any) => state.fechas);
   useEffect(() => {
     dispatch(
