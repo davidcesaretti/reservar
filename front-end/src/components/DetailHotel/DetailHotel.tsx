@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router";
 import { clearDetail, detailHotel, fetchCardsHotels } from "../../actions";
 import { Link } from "react-router-dom";
@@ -25,8 +24,14 @@ import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
 import Spinner from "../Spinner/Spinner";
 import Error404 from "../Error404/Error404";
-import { FechasReserva, postReserve } from "../../actions";
+import { FechasReserva, FirstStepReserve } from "../../actions";
 import { useAuth } from "../../firebase/index";
+import CardComp from "../CardComp/CardComp";
+import AccountCircleIcon from "@material-ui/icons/AccountCircle";
+import HotelIcon from "@material-ui/icons/Hotel";
+import ApartmentIcon from "@material-ui/icons/Apartment";
+import AddLocationIcon from "@material-ui/icons/AddLocation";
+import moment from "moment";
 import { Typography } from "@material-ui/core";
 
 import HostCalendary from "../HostCalendary/HostCalendary";
@@ -113,15 +118,6 @@ const DetailHotel = () => {
     setdepartureDate(new Date(date).toISOString());
   };
 
-  function disableDates(date: Date) {
-    return (
-      date.getDate() === 15 ||
-      date.getDate() === 16 ||
-      date.getDate() === 17 ||
-      date.getDate() === 18
-    );
-  }
-
   const [open, setOpen] = useState(false);
 
   const handleOpen = () => {
@@ -136,60 +132,36 @@ const DetailHotel = () => {
   const { id } = useParams();
   useEffect(() => {
     dispatch(detailHotel(id));
-    return () => {
-      dispatch(clearDetail());
-    };
-  }, [dispatch, id]);
+  }, []);
 
   useEffect(() => {
     dispatch(FechasReserva({ ...fechas, checkin: arrivalDate, checkout: departureDate }));
   }, [arrivalDate, departureDate]);
+  const fechaLlegada = arrivalDate;
+  var fechaL = moment(fechaLlegada).format("DD/MM/YY");
+  const fechaSalida = departureDate;
+  var fechaS = moment(fechaSalida).format("DD/MM/YY");
+
+  var cantidad = moment(fechaSalida).diff(moment(fechaLlegada), "days"); //realizar operacion resta de fechas
+  var total = cantidad * detailhotel[0]?.price;
+  var result = cantidad === 0 ? detailhotel[0]?.price : total;
 
   const obj = {
     Prop_id: id,
     fechaSalida: arrivalDate,
     fechaLlegada: departureDate,
     email: auth.user?.email,
-    guests: 5,
+    preciofinal: result,
   };
+
   const handleSubmit = () => {
-    dispatch(postReserve(obj));
+    dispatch(FirstStepReserve(obj));
   };
-  console.log(obj);
-
-  let page = Math.floor(Math.random() * 40);
-  console.log('PAGES', page)
-  useEffect(() => {
-    dispatch(
-      fetchCardsHotels(
-        page,
-        undefined,
-        undefined,
-        undefined,
-        undefined,
-        undefined,
-        fechas.cities,
-        undefined
-      )
-    );
-  }, []);
-
-  let properties = [];
-  function exploreProperties() {
-    if (cards?.posts) {
-      let result = cards.posts.slice(0, 4);
-
-      properties.push(result);
-    }
-  }
-  exploreProperties();
-
-
-  if(detailhotel === null) {
-    return <Error404 />
-} else if(detailhotel.length < 1) {
-    return <Spinner />
-} else {
+  if (detailhotel === null) {
+    return <Error404 />;
+  } else if (detailhotel.length < 1) {
+    return <Spinner />;
+  } else {
     return (
       <div>
         <div className={style.gridconteiner}>
@@ -211,25 +183,41 @@ const DetailHotel = () => {
             <div className={style.gridPadre}>
               <div className={style.gridHijo1}>
                 <p>Arrival date</p>
-                <p>{arrivalDate.slice(0, 10)}</p>
+                <p>{fechaL}</p>
               </div>
               <div className={style.gridHijo2}>
                 <p>Departure date</p>
-                <p>{departureDate.slice(0, 10)}</p>
+                <p>{fechaS}</p>
               </div>
               <div className={style.gridHijo3}>
-                <p>¿How many are traveling?</p>
-                <input type="text"></input>
+                <div>
+                  <div className={style.gridHijo4}>
+                    <ApartmentIcon></ApartmentIcon>
+                    {detailhotel[0].type}
+                  </div>
+                  <div>
+                    <AddLocationIcon></AddLocationIcon>
+                    {detailhotel[0].address}
+                  </div>
+                  <div>
+                    <AccountCircleIcon></AccountCircleIcon>
+                    {detailhotel[0].accommodates}
+                  </div>
+                  <div>
+                    <HotelIcon></HotelIcon>
+                    {detailhotel[0].beds}
+                  </div>
+                </div>
               </div>
             </div>
             <div className={style.gridEst}>
               <div className={style.score}>
-                <p>Value per night {detailhotel[0]?.price}</p>
-                <p>Number of nights</p>
+                <p>Value per night ${detailhotel[0]?.price}</p>
+                <p>Number of nights {cantidad + 1}</p>
               </div>
               <div className={style.totalp}>
-                <p>TOTAL STAY</p>
-                <Link to={"/payments"}>
+                <p>TOTAL STAY ${result}</p>
+                <Link to={"/payments"} style={{ textDecoration: "none" }}>
                   <Button
                     className={style.button}
                     variant="contained"
@@ -309,7 +297,6 @@ const DetailHotel = () => {
               id="date-picker-inline"
               label="Check in"
               value={arrivalDate}
-              shouldDisableDate={disableDates}
               disablePast={true}
               onChange={handleDateChange}
               KeyboardButtonProps={{
@@ -326,7 +313,6 @@ const DetailHotel = () => {
               label="Check out"
               value={departureDate}
               disablePast={true}
-              shouldDisableDate={disableDates}
               onChange={handleChange}
               minDate={arrivalDate}
               disabled={!aux ? true : false}

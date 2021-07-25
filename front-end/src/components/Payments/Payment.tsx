@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -19,10 +19,12 @@ import { Button } from "@material-ui/core";
 import Paper from "@material-ui/core/Paper";
 import CardMedia from "@material-ui/core/CardMedia";
 import axios from "axios";
+import { useSelector, useDispatch } from "react-redux";
+import { getBooking } from "../../actions";
+import { useAuth } from "../../firebase";
 
 const useStyles = makeStyles((theme) => ({
   nav: {},
-
   icon: {
     marginRight: theme.spacing(2),
   },
@@ -107,35 +109,18 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Pay({
-  _id,
-  name,
-  type,
-  beds,
-  price,
-  image,
-  score,
-  address,
-  accommodates,
   fechaLlegada,
   fechaSalida,
   huespedes,
   info_user,
 }) {
-  _id = 12;
-  name = "Dubai";
-  type = "CampingGlow";
-  beds = 2;
-  price = 1200;
-  image = Recom1;
-  score = "10";
-  address = "Emirates 2000";
-  accommodates = ["wifi", "tv"];
-  fechaLlegada = "2021-08-15T16:45:00.000+00:00";
-  fechaSalida = "2021-08-20T16:45:00.000+00:00";
-  huespedes = {
-    adulto: 2,
-    niño: 1,
-  };
+  const detailhotel = useSelector((state: any) => state.categorieDetail);
+  const stateregister = useSelector((state: any) => state.stateRegister);
+
+  fechaLlegada = stateregister.fechaLlegada;
+  fechaSalida = stateregister.fechaSalida;
+
+  const [link, setLink] = useState("");
 
   info_user = {
     direccion: "25 de mayo 120",
@@ -146,16 +131,29 @@ export default function Pay({
   const classes = useStyles();
   const bull = <span className={classes.bulletR}>|</span>;
   const map1 = [1];
+  const auth = useAuth();
+  let email = stateregister.email;
+  const dispatch = useDispatch();
+  useEffect(() => {
+    const pago = {
+      title: detailhotel[0]?.name,
+      unit_price: stateregister.preciofinal,
+    };
 
-  const pago = {
-    title: "mariano",
-    unit_price: price,
-  };
-
-  const onSubmit = (ev) => {
-    ev.preventDefault();
-    axios.post("http://localhost:3001/mp", pago);
-  };
+    axios.post("http://localhost:3001/mp", pago).then((res) => {
+      setLink(res.data.sandbox_init_point);
+      const reserv = {
+        fechaSalida,
+        fechaLlegada,
+        email: stateregister.email || "dario.velazquez10@gmail.com",
+        price: stateregister.preciofinal,
+        Prop_id: detailhotel[0]._id,
+        payment_id: res.data.id,
+        /* const { fechaSalida, fechaLlegada, email, Prop_id, price, payment_id } = */
+      };
+      axios.post("http://localhost:3001/reserva", reserv); //guardamos en la bd
+    });
+  }, []);
 
   return (
     <React.Fragment>
@@ -164,38 +162,45 @@ export default function Pay({
       <main style={{ marginLeft: "0px" }}>
         <Container className={classes.cardGrid} maxWidth="md">
           <Typography>
-            <Link>Regresar</Link>
+            <Link>Back</Link>
           </Typography>
           <Typography variant="h6" gutterBottom>
-            DATOS DE LA RESERVACION
+            BOOKINGS INFORMATION
           </Typography>
           <CardContent>
             <Grid container spacing={4}>
               <Grid item xs={12} sm={6} className={classes.card}>
                 <Card className={classes.card}></Card>
-                <Reservation price fechaLlegada fechaSalida huespedes />
+                <Reservation
+                  price={detailhotel[0]?.price}
+                  fechaLlegada
+                  fechaSalida
+                  huespedes={detailhotel[0]?.accommodates}
+                />
               </Grid>
-              <Grid item xs={12} sm={6} className={classes.card}>
-                <Card className={classes.card}>
-                  <CardComp
-                    _id={_id}
-                    image={image}
-                    score={score}
-                    name={name}
-                    type={type}
-                    address={address}
-                    accommodates={accommodates}
-                    beds={beds}
-                    price={price}
-                    click={""}
-                    boton={false}
-                  />
-                </Card>
-              </Grid>
+              {detailhotel && (
+                <Grid item xs={12} sm={6} className={classes.card}>
+                  <Card className={classes.card}>
+                    <CardComp
+                      _id={detailhotel[0]?._id}
+                      image={detailhotel[0]?.image}
+                      score={detailhotel[0]?.score}
+                      name={detailhotel[0]?.name}
+                      type={detailhotel[0]?.type}
+                      address={detailhotel[0]?.address}
+                      accommodates={detailhotel[0]?.accommodates}
+                      beds={detailhotel[0]?.beds}
+                      price={detailhotel[0]?.price}
+                      click={""}
+                      boton={false}
+                    />
+                  </Card>
+                </Grid>
+              )}
             </Grid>
           </CardContent>
           <Typography gutterBottom className={classes.titleInfo}>
-            INFORMACION DE LOS HUESPEDES
+            GUEST INFORMATION
           </Typography>
           <Grid container spacing={0}>
             <Grid item xs={12} sm={6} className={classes.cardH}>
@@ -211,27 +216,34 @@ export default function Pay({
             <Grid item xs={12} sm={6} className={classes.card}>
               <Confirmation />
               <Typography gutterBottom className={classes.titleForm}>
-                FORMA DE PAGO
+                PAYMENT METHOD
               </Typography>
               <Grid item xs={2}>
                 <img src={`${LogoMP}`} className={classes.logoMerc} />
               </Grid>
             </Grid>
           </Grid>
-          <div>
-            <Button
-              onClick={onSubmit}
-              variant="contained"
-              color="secondary"
-              className={classes.titleBut}
-            >
-              Confirmar Reservacion
-            </Button>
-          </div>
+          {!link ? (
+            <p>Aguarde un momento....</p>
+          ) : (
+            <div>
+              <a href={link} style={{ textDecoration: "none" }}>
+                <Button
+                  variant="contained"
+                  color="secondary"
+                  className={classes.titleBut}
+                >
+                  Confirm booking
+                </Button>
+              </a>
+            </div>
+          )}
+
           <Paper elevation={0} className={classes.titleCondi}>
-            *Tu reserva se ha realizado directamente en el Alojamiento y al
-            completarla aceptas las condiciones de la reserva , las condiciones
-            generales y las politicas de privacidad
+            *Your reservation has been made directly at the Lodging and by
+            completing it you accept the booking conditions. by completing it
+            you accept the booking conditions, the general conditions and the
+            general conditions and the privacy policy
           </Paper>
           <Paper elevation={0}>
             ____________________________________________________________________________________________________________________________________________

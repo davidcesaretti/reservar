@@ -149,3 +149,8 @@
   position: static;
   padding-top: 5%;
 }
+.gridHijo4{
+  display: flex;
+  grid-column: 1/2;
+  text-align: center;
+}
