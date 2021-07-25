@@ -51,10 +51,6 @@ export default function HostCalendary({ data }) {
     setdepartureDate(moment(date).format("YYYY-MM-DD"));
   };
 
-  // let val1 = moment();
-  // const [dts, setDts] = useState(moment());
-  // const [dte, setDte] = useState(moment());
-
   const checkin = moment("2021-07-25");
   const checkout = moment("2021-07-29");
 

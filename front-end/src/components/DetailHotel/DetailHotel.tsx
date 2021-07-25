@@ -15,6 +15,7 @@ import Recom3 from "../../Image/recom3.jpeg";
 import Recom4 from "../../Image/recom4.jpeg";
 import Service from "../Service/Services";
 import DateFnsUtils from "@date-io/date-fns";
+import "./detailHotel.css";
 import {
   MuiPickersUtilsProvider,
   KeyboardDatePicker,
@@ -33,6 +34,8 @@ import ApartmentIcon from "@material-ui/icons/Apartment";
 import AddLocationIcon from "@material-ui/icons/AddLocation";
 import moment from "moment";
 import { Typography } from "@material-ui/core";
+import baño from "../../Image/baño.svg";
+import cuarto from "../../Image/rooms.svg";
 
 import HostCalendary from "../HostCalendary/HostCalendary";
 
@@ -135,7 +138,13 @@ const DetailHotel = () => {
   }, []);
 
   useEffect(() => {
-    dispatch(FechasReserva({ ...fechas, checkin: arrivalDate, checkout: departureDate }));
+    dispatch(
+      FechasReserva({
+        ...fechas,
+        checkin: arrivalDate,
+        checkout: departureDate,
+      })
+    );
   }, [arrivalDate, departureDate]);
   const fechaLlegada = arrivalDate;
   var fechaL = moment(fechaLlegada).format("DD/MM/YY");
@@ -164,129 +173,135 @@ const DetailHotel = () => {
   } else {
     return (
       <div>
-        <div className={style.gridconteiner}>
-          <div>
-            <NavBar />
-            <div className={style.contimg}>
-              <img
-                src={detailhotel[0]?.image}
-                style={{ width: 650, height: 350 }}
-                alt="No image"
-              />
-            </div>
-            <div className={style.contnd}>
-              <div className={style.name}>{detailhotel[0]?.name}</div>
-              <h3 className={style.des}>Description</h3>
-              <div className={style.summ}>{detailhotel[0]?.summary}</div>
-              <hr className={style.hr} />
-            </div>
-            <div className={style.gridPadre}>
-              <div className={style.gridHijo1}>
-                <p>Arrival date</p>
-                <p>{fechaL}</p>
-              </div>
-              <div className={style.gridHijo2}>
-                <p>Departure date</p>
-                <p>{fechaS}</p>
-              </div>
-              <div className={style.gridHijo3}>
-                <div>
-                  <div className={style.gridHijo4}>
-                    <ApartmentIcon></ApartmentIcon>
-                    {detailhotel[0].type}
-                  </div>
-                  <div>
-                    <AddLocationIcon></AddLocationIcon>
-                    {detailhotel[0].address}
-                  </div>
-                  <div>
-                    <AccountCircleIcon></AccountCircleIcon>
-                    {detailhotel[0].accommodates}
-                  </div>
-                  <div>
-                    <HotelIcon></HotelIcon>
-                    {detailhotel[0].beds}
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className={style.gridEst}>
-              <div className={style.score}>
-                <p>Value per night ${detailhotel[0]?.price}</p>
-                <p>Number of nights {cantidad + 1}</p>
-              </div>
-              <div className={style.totalp}>
-                <p>TOTAL STAY ${result}</p>
-                <Link to={"/payments"} style={{ textDecoration: "none" }}>
-                  <Button
-                    className={style.button}
-                    variant="contained"
-                    color="primary"
-                    onClick={() => handleSubmit()}
-                  >
-                    Reserve
-                  </Button>
-                </Link>
-              </div>
-            </div>
-            <div className={style.contcuad}>
-              <div className={style.cuad}>
-                <Rating
-                  name="hover-feedback"
-                  value={value}
-                  className={classes.star}
-                  precision={0.5}
-                  onChange={(event, newValue) => {
-                    setValue(newValue);
-                  }}
-                  onChangeActive={(event, newHover) => {
-                    setHover(newHover);
-                  }}
+        <div>
+          <div className={style.gridconteiner}>
+            <div>
+              <NavBar />
+              <div className={style.contimg}>
+                <img
+                  src={detailhotel[0]?.image}
+                  style={{ width: 650, height: 350 }}
+                  alt="No image"
                 />
               </div>
-            </div>
-            {/* <div className={style.score}>Score {detailhotel[0]?.score}</div> */}
-            <div className={style.flex}>
-              <div className={style.flexhijo}>
-                <h2 className={style.service}>OUTSTANDING SERVICES</h2>
-                <Button className={classes.buton} onClick={() => handleOpen()}>
-                  See all
-                </Button>
+              <div className={style.contnd}>
+                <div className={style.name}>{detailhotel[0]?.name}</div>
+                <h3 className={style.des}>Description</h3>
+                <div className={style.summ}>{detailhotel[0]?.summary}</div>
+                <hr className={style.hr} />
               </div>
-              <div className={style.slice}>
-                <Service amenities={detailhotel[0]?.amenities.slice(0, 2)} />
-                <div style={{ paddingTop: "3px" }}>
-                  <Service amenities={detailhotel[0]?.amenities.slice(2, 4)} />
+              <div className={style.gridPadre}>
+                <div className={style.gridHijo1}>
+                  <p>Arrival date</p>
+                  <p>{fechaL}</p>
+                </div>
+                <div className={style.gridHijo2}>
+                  <p>Departure date</p>
+                  <p>{fechaS}</p>
+                </div>
+                <div className={style.gridHijo3}>
+                  <div>
+                    <div className={style.gridHijo4}>
+                      <ApartmentIcon></ApartmentIcon>
+                      {detailhotel[0].type}
+                    </div>
+                    <div>
+                      <AddLocationIcon></AddLocationIcon>
+                      {detailhotel[0].address}
+                    </div>
+                    <div>
+                      <AccountCircleIcon></AccountCircleIcon>
+                      {detailhotel[0].accommodates}
+                    </div>
+                    <div>
+                      <HotelIcon></HotelIcon>
+                      {detailhotel[0].beds}
+                    </div>
+                  </div>
                 </div>
               </div>
-              <div className={style.hr1}></div>
-              <div className={style.hr3}></div>
-              <div>
-                <Modal
-                  className={classes.modal}
-                  open={open}
-                  onClose={handleClose}
-                  closeAfterTransition
-                  BackdropComponent={Backdrop}
-                  BackdropProps={{
-                    timeout: 500,
-                  }}
-                >
-                  <Fade in={open}>
-                    <div className={classes.paper}>
-                      <Service amenities={detailhotel[0].amenities} />
-                    </div>
-                  </Fade>
-                </Modal>
+              <div className={style.gridEst}>
+                <div className={style.score}>
+                  <p>Value per night ${detailhotel[0]?.price}</p>
+                  <p>Number of nights {cantidad + 1}</p>
+                </div>
+                <div className={style.totalp}>
+                  <p>TOTAL STAY ${result}</p>
+                  <Link to={"/payments"} style={{ textDecoration: "none" }}>
+                    <Button
+                      className={style.button}
+                      variant="contained"
+                      color="primary"
+                      onClick={() => handleSubmit()}
+                    >
+                      Reserve
+                    </Button>
+                  </Link>
+                </div>
+              </div>
+              <div className={style.contcuad}>
+                <div className={style.cuad}>
+                  <Rating
+                    name="hover-feedback"
+                    value={value}
+                    className={classes.star}
+                    precision={0.5}
+                    onChange={(event, newValue) => {
+                      setValue(newValue);
+                    }}
+                    onChangeActive={(event, newHover) => {
+                      setHover(newHover);
+                    }}
+                  />
+                </div>
+              </div>
+              {/* <div className={style.score}>Score {detailhotel[0]?.score}</div> */}
+              <div className={style.flex}>
+                <div className={style.flexhijo}>
+                  <h2 className={style.service}>OUTSTANDING SERVICES</h2>
+                  <Button
+                    className={classes.buton}
+                    onClick={() => handleOpen()}
+                  >
+                    See all
+                  </Button>
+                </div>
+                <div className={style.slice}>
+                  <Service amenities={detailhotel[0]?.amenities.slice(0, 2)} />
+                  <div style={{ paddingTop: "3px" }}>
+                    <Service
+                      amenities={detailhotel[0]?.amenities.slice(2, 4)}
+                    />
+                  </div>
+                </div>
+                <div className={style.hr1}></div>
+                <div className={style.hr3}></div>
+                <div>
+                  <Modal
+                    className={classes.modal}
+                    open={open}
+                    onClose={handleClose}
+                    closeAfterTransition
+                    BackdropComponent={Backdrop}
+                    BackdropProps={{
+                      timeout: 500,
+                    }}
+                  >
+                    <Fade in={open}>
+                      <div className={classes.paper}>
+                        <Service amenities={detailhotel[0].amenities} />
+                      </div>
+                    </Fade>
+                  </Modal>
+                </div>
               </div>
             </div>
+            {/* <div>Accommodates {detailhotel[0]?.accommodates}</div> */}
           </div>
-          {/* <div>Accommodates {detailhotel[0]?.accommodates}</div> */}
-        </div>
-        <div style={{ height: "400px" }}>
-          <HostCalendary data={detailhotel} />
-        </div>
-        {/* <div className={style.flexcal}>
+          <div style={{ height: "400px" }}>
+            <HostCalendary data={detailhotel} />
+          </div>
+          {/* <div className={style.flexcal}>
           <MuiPickersUtilsProvider utils={DateFnsUtils}>
             <KeyboardDatePicker
               disableToolbar
@@ -354,55 +369,237 @@ const DetailHotel = () => {
         </Grid>
         </div> */}
 
-        <div>
-          <hr className={style.hr2} />
-          <h2 style={{ textAlign: "center", fontFamily: "Roboto" }}>
-            OTHER ACCOMMODATIONS THAT MIGHT INTEREST YOU
-          </h2>
           <div>
-            <Grid
-              xs={12}
-              alignItems="center"
-              justifyContent="space-evenly"
-              direction="row"
-              container
-              className={classes.containerRecomendados}
-            >
-              <Grid item xs={2}>
-                <img
-                  src={`${Recom1}`}
-                  alt=""
-                  className={classes.imgRecomendadas}
-                />
+            <hr className={style.hr2} />
+            <h2 style={{ textAlign: "center", fontFamily: "Roboto" }}>
+              OTHER ACCOMMODATIONS THAT MIGHT INTEREST YOU
+            </h2>
+            <div>
+              <Grid
+                xs={12}
+                alignItems="center"
+                justifyContent="space-evenly"
+                direction="row"
+                container
+                className={classes.containerRecomendados}
+              >
+                <Grid item xs={2}>
+                  <img
+                    src={`${Recom1}`}
+                    alt=""
+                    className={classes.imgRecomendadas}
+                  />
+                </Grid>
+                <Grid item xs={2}>
+                  <img
+                    src={`${Recom2}`}
+                    alt=""
+                    className={classes.imgRecomendadas}
+                  />
+                </Grid>
+                <Grid item xs={2}>
+                  <img
+                    src={`${Recom3}`}
+                    alt=""
+                    className={classes.imgRecomendadas}
+                  />
+                </Grid>
+                <Grid item xs={2}>
+                  <img
+                    src={`${Recom4}`}
+                    alt=""
+                    className={classes.imgRecomendadas}
+                  />
+                </Grid>
               </Grid>
-              <Grid item xs={2}>
-                <img
-                  src={`${Recom2}`}
-                  alt=""
-                  className={classes.imgRecomendadas}
-                />
-              </Grid>
-              <Grid item xs={2}>
-                <img
-                  src={`${Recom3}`}
-                  alt=""
-                  className={classes.imgRecomendadas}
-                />
-              </Grid>
-              <Grid item xs={2}>
-                <img
-                  src={`${Recom4}`}
-                  alt=""
-                  className={classes.imgRecomendadas}
-                />
-              </Grid>
-            </Grid>
+            </div>
+          </div>
+
+          <div>
+            <hr className={style.hr2} />
+            <Footer />
           </div>
         </div>
-
-        <div>
-          <hr className={style.hr2} />
-          <Footer />
+        <div className={"div__contendor_detail"}>
+          <div className={"div__detail1"}>
+            <div className={"div__detail1-description"}>
+              <h1 className={"div__detail1-description-h1"}>
+                {detailhotel[0]?.name}
+              </h1>
+              <p
+                style={{
+                  marginTop: "7px",
+                  marginBottom: "3px",
+                  fontWeight: "bold",
+                }}
+              >
+                Description
+              </p>
+              <p className={"div__detail1-description-resume"}>
+                {detailhotel[0]?.summary}
+              </p>
+            </div>
+            <div
+              style={{
+                borderTop: "1px solid black",
+                width: "90%",
+                margin: "5px auto",
+                marginBottom: "10px",
+              }}
+            ></div>
+            <div className={"div__detail1-amenities"}>
+              <div className={style.gridPadre}>
+                <div className={style.gridHijo1}>
+                  <div className={"div__detail1-p"}>
+                    <p>Arrival date</p>
+                    <p>{fechaL}</p>
+                  </div>
+                </div>
+                <div className={style.gridHijo2}>
+                  <div className={"div__detail1-p"}>
+                    <p>Departure date</p>
+                    <p>{fechaS}</p>
+                  </div>
+                </div>
+                <div className={style.gridHijo3}>
+                  <div>
+                    <div className={style.gridHijo4}>
+                      <div className="gridHijo4-parte1">
+                        <div
+                          style={{
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "flex-start",
+                          }}
+                        >
+                          <ApartmentIcon></ApartmentIcon>
+                          <p
+                            style={{
+                              margin: "0",
+                              marginRight: "20px",
+                              marginTop: "2px",
+                            }}
+                          >
+                            {detailhotel[0].type}
+                          </p>
+                        </div>
+                        <div
+                          style={{
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "flex-start",
+                          }}
+                        >
+                          <AddLocationIcon></AddLocationIcon>
+                          <p style={{ margin: "0" }}>
+                            {detailhotel[0].address}
+                          </p>
+                        </div>
+                      </div>
+                      <div className="gridHijo4-parte2">
+                        <div
+                          style={{
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "flex-start",
+                          }}
+                        >
+                          <AccountCircleIcon></AccountCircleIcon>
+                          <p style={{ margin: "0" }}>
+                            {detailhotel[0].accommodates}
+                          </p>
+                        </div>
+                        <div
+                          style={{
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "flex-start",
+                          }}
+                        >
+                          <img src={baño} alt="" width="24px" height="24px" />
+                          <p style={{ margin: "0" }}>
+                            {" "}
+                            {detailhotel[0].bathrooms}
+                          </p>
+                        </div>
+                        <div
+                          style={{
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "flex-start",
+                          }}
+                        >
+                          <img src={cuarto} alt="" width="24px" height="24px" />
+                          <p style={{ margin: "0" }}>
+                            {" "}
+                            {detailhotel[0].bedrooms}
+                          </p>
+                        </div>
+                        <div
+                          style={{
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "flex-start",
+                          }}
+                        >
+                          <HotelIcon></HotelIcon>
+                          <p style={{ margin: "0" }}> {detailhotel[0].beds}</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className={"div__detail2"}>
+            <img
+              src={detailhotel[0]?.image}
+              style={{ width: 650, height: 350 }}
+              alt="No imagagen"
+            />
+          </div>
+          <div className={"div__detail3"}>
+            <div className={"div__detail3-resumen"}>
+              <div className={"div-detail3-resumen-contenedor"}>
+                <div className={"div-resumen1"}>
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      justifyContent: "space-around",
+                    }}
+                  >
+                    <div
+                      style={{
+                        fontWeight: "bold",
+                        display: "flex",
+                        justifyContent: "space-around",
+                      }}
+                    >
+                      {" "}
+                      <p>Value per nigth</p> <p>${detailhotel[0].price}</p>
+                    </div>
+                    <div
+                      style={{
+                        fontWeight: "bold",
+                        display: "flex",
+                        justifyContent: "space-around",
+                      }}
+                    >
+                      <p>number of nights</p> <p>2</p>
+                    </div>
+                    {/* <div
+                      style={{ borderBottom: "1px solid black", width: "90%" }}
+                    ></div> */}
+                  </div>
+                </div>
+                <div className={"div-resumen2"}></div>
+              </div>
+            </div>
+            <div className={"div__detail3-score"}></div>
+            <div className={"div__detail3-servicios"}></div>
+          </div>
         </div>
       </div>
     );
