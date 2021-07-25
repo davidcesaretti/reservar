@@ -62,8 +62,8 @@ router.get("/pago", async (req, res, next) => {
     Reserva.find({ payment_id: preference_id }).then((res) => {
       basura.push(res[0]);
       const msg = {
-        to: basura[0].info_user, // Change to your recipient
-        from: "nitovillafuerte@outlook.com", // Change to your verified sender
+        to: basura[0].info_user,
+        from: "nitovillafuerte@outlook.com", // aqui hay que poner el correo de la pag
         subject: "Sending with SendGrid is Fun",
         text: "and easy to do anywhere, even with Node.js",
         html: "<strong>hola mariano</strong>",
