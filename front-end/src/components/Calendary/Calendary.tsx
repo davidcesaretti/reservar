@@ -29,17 +29,6 @@ export function Calendary() {
   const handleChange = (date: Date) => {
     setdepartureDate(new Date(date).toISOString());
   };
-  var arrayfechas = [
-    "2021-07-22T00:58:04.473+00:00",
-    "2021-07-25T00:58:04.473+00:00",
-  ];
-  const fecha = new Date("2021-07-28T00:58:04.473+00:00");
-  console.log(fecha);
-  function disableDates(date: Date) {
-    return date === fecha;
-
-    // date.getMonth() === 7 && date.getDate() === 9
-  }
 
   const fechas = useSelector((state: any) => state.fechas);
   useEffect(() => {
@@ -62,7 +51,6 @@ export function Calendary() {
         id="date-picker-inline"
         label="Check in"
         value={arrivalDate}
-        shouldDisableDate={disableDates}
         disablePast={true}
         onChange={handleDateChange}
         KeyboardButtonProps={{
@@ -79,7 +67,6 @@ export function Calendary() {
         label="Check out"
         value={departureDate}
         disablePast={true}
-        shouldDisableDate={disableDates}
         onChange={handleChange}
         minDate={arrivalDate}
         disabled={!aux ? true : false}

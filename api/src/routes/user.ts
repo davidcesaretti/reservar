@@ -105,10 +105,11 @@ UserRouter.post("/register", async (req: Request, res: Response) => {
 });
 
 UserRouter.post("/reserva", async (req, res) => {
-  const { fechaSalida, fechaLlegada, email, Prop_id, guests } = req.body;
+  const { fechaSalida, fechaLlegada, email, Prop_id, price, payment_id } =
+    req.body;
 
   const finded = await User.findOne({ email: email });
-  try {
+  /*try {
     const reservaFind = await Properties.find({
       _id: Prop_id,
       available: {
@@ -130,31 +131,36 @@ UserRouter.post("/reserva", async (req, res) => {
         },
       },
     });
-
-    if (reservaFind.length) {
+*/
+  /*  if (reservaFind.length) {
       res.json({
         message: "No hay reservas disponibles en este lapso de tiempo",
         fechasOcupadas: reservaFind,
       });
-    } else {
-      const reserva = new Reserva({
-        fechaSalida,
-        fechaLlegada,
-        info_user: finded.email,
-        guests,
-      });
-      await reserva.save();
+    } else { */
+  const reserva = new Reserva({
+    fechaSalida,
+    fechaLlegada,
+    info_user: finded.email,
+    state: "pending",
+    price,
+    payment_id,
+  });
+  await reserva.save();
 
-      await Properties.updateOne(
-        { _id: Prop_id },
-        { $push: { available: reserva } }
-      );
+  await Properties.updateOne(
+    { _id: Prop_id },
+    { $push: { available: reserva } }
+  );
 
-      await User.updateOne(
-        { email: email },
-        { $push: { reserveId: reserva._id } }
-      );
+  await User.updateOne({ email: email }, { $push: { reserveId: reserva._id } });
 
+  res.json({
+    message: "reserva exitosa!",
+    checkIn: fechaSalida,
+    checkOut: fechaLlegada,
+  });
+  /* }
       res.json({
         message: "reserva exitosa!",
         checkIn: fechaSalida,
@@ -164,7 +170,7 @@ UserRouter.post("/reserva", async (req, res) => {
     }
   } catch (err) {
     res.send(err);
-  }
+  } */
 });
 
 /*  UserRouter.post("/favorites", async (req, res) => {
@@ -204,10 +210,32 @@ UserRouter.post("/favorites", async (req, res) => {
 
 UserRouter.post("/getfavorites", async (req, res) => {
   const { email } = req.body;
-  console.log(req.body, "   EMAIL BACK");
+
   const us = await User.findOne({ email: email });
   const props = await Properties.find({ _id: us?.favorites });
   res.json(props);
 });
+
+UserRouter.post("/getreserves", async (req, res) => {
+  const { email } = req.body;
+
+  const hoy = new Date();
+  const user = await User.findOne({ email: email });
+  const reserva = await Reserva.find({ _id: user.reserveId });
+  res.json(reserva);
+});
+
+/* UserRouter.post("/getreserves", async (req, res) => {
+  const { email } = req.body;
+
+  const hoy = new Date();
+  const user = await User.findOne({ email: email });
+  
+let reserva = await Reserva.find({ _id: user.reserveId });
+  reserva = reserva.map(x=>x._id)
+  Properties.find({_id:{$all:reserva}})
+  res.json(reserva);
+});
+ */
 
 export default UserRouter;
