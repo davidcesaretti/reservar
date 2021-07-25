@@ -13,13 +13,13 @@ import Pay from "./components/Payments/Payment";
 import User from "./components/User/User";
 import Favorites from "./components/Favorites/Favorites";
 import AddProperty from "./components/AddProperty/AddProperty";
+import UserPosts from "./components/UserPosts/UserPosts";
 function App() {
   const auth = useAuth();
 
   return (
     <Switch>
       <Route exact path="/" component={Home} />
-
       <Route exact path="/categories" component={Album} />
       <Route exact path="/categories/:id" component={DetailHotel} />
       <Route exact path="/Login" component={Login} />
@@ -32,6 +32,8 @@ function App() {
       <Route exact path="/Calendary" component={Calendary} />
       <Route exact path="/User" component={auth.user ? User : Register} />
       <Route exact path="/add" component={AddProperty} />
+      <Route exact path="/userpost" component={UserPosts} />
+      <Route exact path="/AddProperty/:id" component={AddProperty} />
     </Switch>
   );
 }

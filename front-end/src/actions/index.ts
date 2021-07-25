@@ -51,6 +51,10 @@ export interface Favourites {
   type: ActionTypes.addFav;
   payload: any;
 }
+export interface userInformation {
+  type: ActionTypes.userInfo;
+  payload: Object;
+}
 export interface USERFAVS {
   type: ActionTypes.favUser;
   payload: Array<Object>;
@@ -132,9 +136,9 @@ export const fetchCardsHotels = (
     });
   };
 };
-export function postRaza(data) {
+export function findPost(data) {
   return function (dispatch) {
-    return fetch("https://dogs-breeds-jesus.herokuapp.com/dog", {
+    return fetch("http://localhost:3001/upload/find", {
       method: "POST",
       body: JSON.stringify(data),
       headers: {
@@ -144,7 +148,7 @@ export function postRaza(data) {
       .then((res) => res.json())
       .catch((error) => console.error("Error:", error))
       .then((json) => {
-        dispatch({ type: "POST_RAZA", payload: json });
+        dispatch({ type: ActionTypes?.findPost, payload: json });
       });
   };
 }
@@ -176,6 +180,7 @@ export const UserEmailGlobal = (data) => {
     });
   };
 };
+
 export const FechasReserva = (data: Object) => {
   return {
     type: ActionTypes.calendary,
@@ -206,6 +211,22 @@ export const updateUser = (userInfo: object, userEmail) => {
     }
   };
 };
+
+export const getUserInfo = (email) => {
+  return async (dispatch: Dispatch) => {
+    try {
+      console.log(email)
+      const infoUser = await axios.post("http://localhost:3001/login", {email})
+      console.log('action getUserInfo', infoUser)
+      dispatch<userInformation>({
+        type: ActionTypes.userInfo,
+        payload: infoUser.data,
+      });
+    } catch (error) {
+      console.error(error)
+    }
+  }
+}
 
 export const clearDetail = () => {
   return {

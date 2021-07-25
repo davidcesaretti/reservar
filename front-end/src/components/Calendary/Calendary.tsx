@@ -30,7 +30,6 @@ export function Calendary() {
     setdepartureDate(new Date(date).toISOString());
   };
 
-
   const fechas = useSelector((state: any) => state.fechas);
   useEffect(() => {
     dispatch(

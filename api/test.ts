@@ -29,6 +29,14 @@ export const createdTest = async () => {
             ? x._doc.review_scores.review_scores_value
             : 0,
           address: `${x._doc.address.country}, ${x._doc.address.market} ${x._doc.address.government_area}`,
+          coordinates: {
+            latitude: x._doc.address.location.coordinates[1],
+            longitude: x._doc.address.location.coordinates[0],
+          },
+          reviews:
+            x._doc.reviews.length > 2
+              ? [x._doc.reviews[0], x._doc.reviews[1]]
+              : [],
         }).save();
       })
     );

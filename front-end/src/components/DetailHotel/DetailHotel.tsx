@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router";
-import { clearDetail, detailHotel } from "../../actions";
+import { clearDetail, detailHotel, fetchCardsHotels } from "../../actions";
 import { Link } from "react-router-dom";
 import NavBar from "../Nav/Nav2";
 import style from "./DetailHotel.module.css";
@@ -32,6 +32,9 @@ import HotelIcon from "@material-ui/icons/Hotel";
 import ApartmentIcon from "@material-ui/icons/Apartment";
 import AddLocationIcon from "@material-ui/icons/AddLocation";
 import moment from "moment";
+import { Typography } from "@material-ui/core";
+
+import HostCalendary from "../HostCalendary/HostCalendary";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -77,11 +80,21 @@ const useStyles = makeStyles((theme: Theme) =>
       marginTop: "-8rem",
       padding: "10%",
     },
+    explore: {
+      paddingBottom: "1.25rem",
+      color: "black",
+      textShadow: "1.4px 1.4px 1px #B2B1B9",
+      [theme.breakpoints.down("xs")]: {
+        marginBottom: "5px",
+      },
+    },
   })
 );
 
 const DetailHotel = () => {
   const detailhotel = useSelector((state: any) => state.categorieDetail);
+  const cards = useSelector((state: any) => state.cardsHotel);
+  const fechas = useSelector((state: any) => state.fechas);
   const dispatch = useDispatch();
   const auth = useAuth();
 
@@ -122,7 +135,7 @@ const DetailHotel = () => {
   }, []);
 
   useEffect(() => {
-    dispatch(FechasReserva({ checkin: arrivalDate, checkout: departureDate }));
+    dispatch(FechasReserva({ ...fechas, checkin: arrivalDate, checkout: departureDate }));
   }, [arrivalDate, departureDate]);
   const fechaLlegada = arrivalDate;
   var fechaL = moment(fechaLlegada).format("DD/MM/YY");
@@ -270,7 +283,10 @@ const DetailHotel = () => {
           </div>
           {/* <div>Accommodates {detailhotel[0]?.accommodates}</div> */}
         </div>
-        <div className={style.flexcal}>
+        <div style={{ height: "400px" }}>
+          <HostCalendary data={detailhotel} />
+        </div>
+        {/* <div className={style.flexcal}>
           <MuiPickersUtilsProvider utils={DateFnsUtils}>
             <KeyboardDatePicker
               disableToolbar
@@ -306,6 +322,38 @@ const DetailHotel = () => {
             />
           </MuiPickersUtilsProvider>
         </div>
+        <Grid
+          md={12}
+          alignItems="center"
+          justifyContent="space-between"
+          direction="row"
+          container
+          className={classes.containerRecomendados}
+        >
+          <Grid
+            item
+            xs={12}
+            md={12}
+            style={{ textAlign: "center" }}
+            className={classes.explore}
+          >
+            <Typography variant="h6">OTHER ACCOMMODATIONS THAT MIGHT INTEREST YOU</Typography>
+          </Grid>
+          {properties[0] &&
+            properties[0].map((el, i) => (
+              <Grid item xs={6} md={2} key={i}>
+                <Link to={`/categories/${el._id}`}>
+                  <img
+                    src={`${el.image}`}
+                    alt={`${el.name}`}
+                    className={classes.imgRecomendadas}
+                  />
+                </Link>
+              </Grid>
+            ))}
+        </Grid>
+        </div> */}
+
         <div>
           <hr className={style.hr2} />
           <h2 style={{ textAlign: "center", fontFamily: "Roboto" }}>
@@ -351,6 +399,7 @@ const DetailHotel = () => {
             </Grid>
           </div>
         </div>
+
         <div>
           <hr className={style.hr2} />
           <Footer />
