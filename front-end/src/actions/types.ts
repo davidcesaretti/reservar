@@ -14,6 +14,8 @@ export enum ActionTypes {
   favUser = "FAV_USER",
   bookings = "BOOKINGS",
   stateRegister = "STATE_REGISTER",
+  findPost = "FIND_POST",
+  userInfo = "USER_INFO",
 }
 
 export type Action = FetchUsersAction;
