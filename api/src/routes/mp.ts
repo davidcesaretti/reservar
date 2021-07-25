@@ -61,7 +61,6 @@ router.get("/pago", async (req, res, next) => {
     var basura = [];
     Reserva.find({ payment_id: preference_id }).then((res) => {
       basura.push(res[0]);
-      console.log(basura[0].info_user);
       const msg = {
         to: basura[0].info_user, // Change to your recipient
         from: "nitovillafuerte@outlook.com", // Change to your verified sender
