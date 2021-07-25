@@ -134,11 +134,18 @@ const Home = () => {
   const cards = useSelector((state: any) => state.cardsHotel);
   dispatch(addFavourites({ favos: [], email: email }));
 
-  let ciudades = ["porto", "new york", "istanbul", "rio de janeiro", "hong kong", "sydney"];
+  let ciudades = [
+    "porto",
+    "new york",
+    "istanbul",
+    "rio de janeiro",
+    "hong kong",
+    "sydney",
+  ];
   let random1 = Math.floor(Math.random() * 4);
   let page = Math.floor(Math.random() * 40);
   let ciudadRandom = ciudades[random1];
-  
+
   useEffect(() => {
     dispatch(
       fetchCardsHotels(
@@ -153,7 +160,7 @@ const Home = () => {
       )
     );
   }, []);
- 
+
   // if (Array.isArray(cards)) {
   //   dispatch(
   //     fetchCardsHotels(
@@ -183,7 +190,6 @@ const Home = () => {
   //     )
   //   );
   // }, []);
-
 
   function busqueda() {
     dispatch(FechasReserva({ ...fechas, cities, guest }));
@@ -234,8 +240,6 @@ const Home = () => {
       dispatch(findPost({ email: email }));
     }
   }, [email]);
-
-  
 
   return (
     <div>
