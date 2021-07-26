@@ -127,6 +127,7 @@
 .flexhijo {
   display: flex;
   justify-content: center;
+  margin-left: 0;
 }
 .flexcal {
   display: flex;
@@ -139,10 +140,14 @@
   font-family: "Roboto";
 }
 .slice {
-  column-count: 2;
+  /* column-count: 2;
   text-align: justify;
   column-gap: 3rem;
-  column-rule: 3px inset rgba(0, 0, 0, 1);
+  column-rule: 3px inset rgba(0, 0, 0, 1); */
+  display: grid;
+  grid-template-columns: 8fr 2fr 8fr;
+  width: 80%;
+  margin-left: 18%;
 }
 .flex {
   position: static;
