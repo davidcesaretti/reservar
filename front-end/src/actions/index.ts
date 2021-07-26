@@ -189,6 +189,10 @@ export const FechasReserva = (data: Object) => {
 };
 export const detailHotel = (id) => {
   return async (dispatch: Dispatch) => {
+    dispatch<FetchDetailHotel>({
+      type: ActionTypes.detailHotel,
+      payload: []
+    });
     const response = await axios.get<cardsHotel[]>(
       `${url}/filter/properties/${id}`
     );

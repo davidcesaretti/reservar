@@ -35,6 +35,7 @@ import moment from "moment";
 import { Typography } from "@material-ui/core";
 
 import HostCalendary from "../HostCalendary/HostCalendary";
+import { MapInit } from "../Maps/Maps";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -285,6 +286,9 @@ const DetailHotel = () => {
         </div>
         <div style={{ height: "400px" }}>
           <HostCalendary data={detailhotel} />
+        </div>
+        <div style={{ height: "400px", marginTop:"100px" }}>
+        <MapInit/>
         </div>
         {/* <div className={style.flexcal}>
           <MuiPickersUtilsProvider utils={DateFnsUtils}>
