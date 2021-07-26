@@ -89,7 +89,6 @@ const DetailHotel = () => {
   const dispatch = useDispatch();
   const auth = useAuth()
 
-
   const [value, setValue] = useState(0);
   const [hover, setHover] = useState(-1);
   const [aux, setAux] = React.useState<Boolean>(false);
