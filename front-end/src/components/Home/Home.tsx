@@ -142,7 +142,7 @@ const Home = () => {
     "sydney",
   ];
   let random1 = Math.floor(Math.random() * 4);
-  let page = Math.floor(Math.random() * 40);
+  let page = Math.floor(Math.random() * 20);
   let ciudadRandom = ciudades[random1];
 
   useEffect(() => {
