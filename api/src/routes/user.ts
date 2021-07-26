@@ -139,6 +139,7 @@ UserRouter.post("/reserva", async (req, res) => {
       });
     } else { */
   const reserva = new Reserva({
+    Prop_id,
     fechaSalida,
     fechaLlegada,
     info_user: finded.email,
@@ -155,6 +156,7 @@ UserRouter.post("/reserva", async (req, res) => {
   );
 
   await User.updateOne({ email: email }, { $push: { reserveId: reserva._id } });
+  await User.updateOne({ email: email }, { $push: { reservas: Prop_id } });
 
   res.json({
     message: "reserva exitosa!",
@@ -218,6 +220,15 @@ UserRouter.post("/getfavorites", async (req, res) => {
 });
 
 UserRouter.post("/getreserves", async (req, res) => {
+  const { email } = req.body;
+
+  const hoy = new Date();
+  const user = await User.findOne({ email: email });
+  const reserva = await Properties.find({ _id: user?.reservas });
+  res.json(reserva);
+});
+
+UserRouter.post("/bookchat", async (req, res) => {
   const { email } = req.body;
 
   const hoy = new Date();

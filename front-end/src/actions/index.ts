@@ -191,7 +191,7 @@ export const detailHotel = (id) => {
   return async (dispatch: Dispatch) => {
     dispatch<FetchDetailHotel>({
       type: ActionTypes.detailHotel,
-      payload: []
+      payload: [],
     });
     const response = await axios.get<cardsHotel[]>(
       `${url}/filter/properties/${id}`
@@ -219,18 +219,20 @@ export const updateUser = (userInfo: object, userEmail) => {
 export const getUserInfo = (email) => {
   return async (dispatch: Dispatch) => {
     try {
-      console.log(email)
-      const infoUser = await axios.post("http://localhost:3001/login", {email})
-      console.log('action getUserInfo', infoUser)
+      console.log(email);
+      const infoUser = await axios.post("http://localhost:3001/login", {
+        email,
+      });
+      console.log("action getUserInfo", infoUser);
       dispatch<userInformation>({
         type: ActionTypes.userInfo,
         payload: infoUser.data,
       });
     } catch (error) {
-      console.error(error)
+      console.error(error);
     }
-  }
-}
+  };
+};
 
 export const clearDetail = () => {
   return {
@@ -296,6 +298,22 @@ export const getBooking = (data) => {
 
     console.log(bookingUsers, "    RESPUESTA");
     dispatch({ type: ActionTypes.bookings, payload: bookingUsers.data });
+  };
+};
+
+export const getBookChat = (data) => {
+  return async (dispatch: Dispatch) => {
+    let user = {
+      email: data,
+    };
+    console.log("ENTRO ACCION");
+    const bookchat = await axios.post(
+      "http://localhost:3001/getbookchat",
+      user
+    );
+
+    console.log(bookchat, "    RESPUESTA");
+    dispatch({ type: ActionTypes.bookchat, payload: bookchat.data });
   };
 };
 
