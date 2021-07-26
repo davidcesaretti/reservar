@@ -97,7 +97,11 @@ const DetailHotel = () => {
   const cards = useSelector((state: any) => state.cardsHotel);
   const fechas = useSelector((state: any) => state.fechas);
   const dispatch = useDispatch();
+<<<<<<< HEAD
   const auth = useAuth();
+=======
+  const auth = useAuth()
+>>>>>>> fix/detail/recommended
 
   const [value, setValue] = useState(0);
   const [hover, setHover] = useState(-1);
