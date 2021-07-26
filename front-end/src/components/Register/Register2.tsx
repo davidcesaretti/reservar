@@ -5,7 +5,12 @@ import firebase from "firebase";
 import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
 import { storage } from "../../firebase/index";
 import { Button, Container, Typography, Grid } from "@material-ui/core";
-import { signUser, UserEmail, UserEmailGlobal, getUserInfo } from "../../actions/index";
+import {
+  signUser,
+  UserEmail,
+  UserEmailGlobal,
+  getUserInfo,
+} from "../../actions/index";
 import { makeStyles } from "@material-ui/core/styles";
 import backImg from "../../Image/fondoLogin.jpeg";
 import "@fontsource/roboto";
@@ -88,7 +93,7 @@ const useStyle = makeStyles((theme) => ({
 const Register = () => {
   const auth = useAuth();
   const user = auth.user;
-  const infoUser = useSelector((state:any) => state.user)
+  const infoUser = useSelector((state: any) => state.user);
 
   const [signedIn, setSignedIn] = useState(false);
 
@@ -101,8 +106,8 @@ const Register = () => {
       firebase.auth.GoogleAuthProvider.PROVIDER_ID,
       firebase.auth.FacebookAuthProvider.PROVIDER_ID,
       firebase.auth.EmailAuthProvider.PROVIDER_ID,
-    ],/* 
-    callbacks: {handleSign: () => console.log('hola')}, */
+    ] /* 
+    callbacks: {handleSign: () => console.log('hola')}, */,
   };
 
   useEffect(() => {
@@ -141,7 +146,7 @@ const Register = () => {
     dispatch(UserEmailGlobal(""));
   };
 
-  let email = auth?.user?.email
+  let email = auth?.user?.email;
 
   const classes = useStyle();
   return (
@@ -177,7 +182,8 @@ const Register = () => {
                 Sign Out
               </Button>
               <Typography className={classes.title2}>
-                Hello, {infoUser.name || firebase.auth().currentUser.displayName}
+                Hello,{" "}
+                {infoUser?.name || firebase.auth().currentUser.displayName}
               </Typography>
               <img src={firebase.auth().currentUser.photoURL} alt="user" />
               <div className={classes.completediv}>
@@ -194,7 +200,6 @@ const Register = () => {
                 Login or Register
               </Typography>
               <StyledFirebaseAuth
-                
                 uiConfig={uiConfig}
                 firebaseAuth={firebase.auth()}
               />
