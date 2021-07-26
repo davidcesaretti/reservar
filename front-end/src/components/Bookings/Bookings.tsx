@@ -59,26 +59,25 @@ const Bookings = () => {
           <Grid container spacing={4}>
             {cards &&
               cards.map((e) => {
-                console.log(e.propertiesid);
-
                 axios
                   .get(
                     `http://localhost:3001/filter/properties/${e.propertiesid}`
                   )
                   .then((res) => {
+                    console.log(res.data[0].image);
                     return (
                       <Grid item key={e} xs={12} sm={6} md={6}>
                         <Card className={classes.card}>
                           <CardComp
-                            _id={res.data._id}
-                            image={res.data.image}
-                            score={res.data.score}
-                            name={res.data.name}
-                            type={res.data.type}
-                            address={res.data.address}
-                            accommodates={res.data.accommodates}
-                            beds={res.data.beds}
-                            price={res.data.price}
+                            _id={res.data[0]._id}
+                            image={res.data[0].image}
+                            score={res.data[0].score}
+                            name={res.data[0].name}
+                            type={res.data[0].type}
+                            address={res.data[0].address}
+                            accommodates={res.data[0].accommodates}
+                            beds={res.data[0].beds}
+                            price={res.data[0].price}
                             click={console.log("")}
                             boton={false}
                           />
