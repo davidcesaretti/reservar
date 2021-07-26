@@ -8,8 +8,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import Container from "@material-ui/core/Container";
 import { Grid, Typography } from "@material-ui/core";
-import Error404 from '../Error404/Error404';
-import Spinner from '../Spinner/Spinner'
+import Error404 from "../Error404/Error404";
+import Spinner from "../Spinner/Spinner";
 import axios from "axios";
 
 const useStyles = makeStyles((theme) => ({
@@ -23,67 +23,74 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "column",
   },
   title: {
-    paddingTop: '1rem',
-    marginTop: '1rem',
+    paddingTop: "1rem",
+    marginTop: "1rem",
     color: "black",
     textShadow: "1.4px 1.4px 1px #B2B1B9",
-    fontSize: 'calc(2vw + 1em)'
-  }
+    fontSize: "calc(2vw + 1em)",
+  },
 }));
 
 const Bookings = () => {
-    const classes = useStyles();
-    const dispatch = useDispatch();
-    const auth = useAuth();
-    const cards = useSelector((state: any) => state.bookings);
-    let email = auth.user.email;
-    
-    useEffect(() => {
-      dispatch(getBooking(email));
-    }, []);
-  
-  
-    if(cards === null) {
-      return <Error404 />
-      } else if(cards.length < 1) {
-      return <Spinner />
-      } else {
-        return (
-          <div>
-            <Grid >
-              <Typography className={classes.title} variant='h4' align='center'>
-                Booking properties
-              </Typography>
-            </Grid>
-            <Container className={classes.cardGrid} maxWidth="md">
-              {/* End hero unit */}
-              <Grid container spacing={4}>
-                {cards &&
-                  cards.map((e) => {
-                    axios.get(`http://localhost:3001/filter/properties/${e._id}`).then(res => {
-                      return(
-                        <Grid item key={e} xs={12} sm={6} md={6}>
-                          <Card className={classes.card}>
-                            <CardComp
-                              _id={res.data._id}
-                              image={res.data.image}
-                              score={res.data.score}
-                              name={res.data.name}
-                              type={res.data.type}
-                              address={res.data.address}
-                              accommodates={res.data.accommodates}
-                              beds={res.data.beds}
-                              price={res.data.price}
-                              click={console.log("")}
-                              boton={false}
-                            />
-                          </Card>
-                        </Grid>)})
-                  })}
-              </Grid>
-            </Container>
-          </div>
-      );
-    };
+  const classes = useStyles();
+  const dispatch = useDispatch();
+  const auth = useAuth();
+  const cards = useSelector((state: any) => state.bookings);
+  let email = auth.user.email;
+
+  useEffect(() => {
+    dispatch(getBooking(email));
+  }, []);
+
+  if (cards === null) {
+    return <Error404 />;
+  } else if (cards.length < 1) {
+    return <Spinner />;
+  } else {
+    return (
+      <div>
+        <Grid>
+          <Typography className={classes.title} variant="h4" align="center">
+            Booking properties
+          </Typography>
+        </Grid>
+        <Container className={classes.cardGrid} maxWidth="md">
+          {/* End hero unit */}
+          <Grid container spacing={4}>
+            {cards &&
+              cards.map((e) => {
+                console.log(e.propertiesid);
+
+                axios
+                  .get(
+                    `http://localhost:3001/filter/properties/${e.propertiesid}`
+                  )
+                  .then((res) => {
+                    return (
+                      <Grid item key={e} xs={12} sm={6} md={6}>
+                        <Card className={classes.card}>
+                          <CardComp
+                            _id={res.data._id}
+                            image={res.data.image}
+                            score={res.data.score}
+                            name={res.data.name}
+                            type={res.data.type}
+                            address={res.data.address}
+                            accommodates={res.data.accommodates}
+                            beds={res.data.beds}
+                            price={res.data.price}
+                            click={console.log("")}
+                            boton={false}
+                          />
+                        </Card>
+                      </Grid>
+                    );
+                  });
+              })}
+          </Grid>
+        </Container>
+      </div>
+    );
   }
-export default Bookings
+};
+export default Bookings;

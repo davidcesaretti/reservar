@@ -9,7 +9,7 @@ const UserRouter = Router();
 UserRouter.use(express.json());
 
 UserRouter.post("/login", async (req: Request, res: Response) => {
-  const {email} = req.body;
+  const { email } = req.body;
   console.log("ruta login", req.body);
   const user = await User.findOne({ email: email });
   try {
@@ -143,6 +143,7 @@ UserRouter.post("/reserva", async (req, res) => {
     fechaLlegada,
     info_user: finded.email,
     state: "pending",
+    propertiesid: Prop_id,
     price,
     payment_id,
   });
