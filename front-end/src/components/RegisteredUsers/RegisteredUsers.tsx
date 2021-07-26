@@ -26,14 +26,21 @@ interface Data {
   email: string;
   lodgings: number;
   status: string;
-  check1: any;
-  check2: any;
-  check3: any;
+  // check1: boolean;
+  // check2: boolean;
+  // check3: boolean;
 }
 
 
 const rows = [
-
+{name: 'walter', phone: '3731323423', email: 'sh@jdjd.com', lodgings: 5, status: 'active', check1: false, check2: false, check3: false},
+{name: 'david', phone: '37345423', email: 'dhsh@jdjd.com', lodgings: 7, status: 'active', check1: false, check2: false, check3: false},
+{name: 'jesus', phone: '787823423', email: 'dfgsh@jdjd.com', lodgings: 3, status: 'suspended', check1: false, check2: false, check3: false},
+{name: 'pedro', phone: '99999323423', email: 'uiouihsh@jdjd.com', lodgings: 4, status: 'suspended', check1: false, check2: false, check3: false},
+{name: 'vero', phone: '3733333323', email: 'vbcv@jdjd.com', lodgings: 9, status: 'active', check1: false, check2: false, check3: false},
+{name: 'ulises', phone: '3000000423', email: 'vvvvvsh@jdjd.com', lodgings: 5, status: 'active', check1: false, check2: false, check3: false},
+{name: 'nelson', phone: '2731323423', email: 'yuiyuuuu@jdjd.com', lodgings: 5, status: 'suspended', check1: false, check2: false, check3: false},
+{name: 'dario', phone: '89989823423', email: 'vvvvvv@jdjd.com', lodgings: 5, status: 'active', check1: false, check2: false, check3: false},
 ];
 
 function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
@@ -80,9 +87,9 @@ const headCells: HeadCell[] = [
   { id: 'email', numeric: false, disablePadding: false, label: 'Email' },
   { id: 'lodgings', numeric: true, disablePadding: false, label: '# of lodgings registered' },
   { id: 'status', numeric: false, disablePadding: false, label: 'Account status' },
-  { id: 'check1', numeric: false, disablePadding: false, label: 'Activate account' },
-  { id: 'check2', numeric: false, disablePadding: false, label: 'Suspend account' },
-  { id: 'check3', numeric: false, disablePadding: false, label: 'Delete account' },
+  // { id: 'check1', numeric: false, disablePadding: false, label: 'Activate account' },
+  // { id: 'check2', numeric: false, disablePadding: false, label: 'Suspend account' },
+  // { id: 'check3', numeric: false, disablePadding: false, label: 'Delete account' },
 ];
 
 interface EnhancedTableProps {
@@ -103,7 +110,7 @@ function EnhancedTableHead(props: EnhancedTableProps) {
 
   return (
     <TableHead>
-      <TableRow>
+      <TableRow className={classes.titulos}>
         <TableCell padding="checkbox">
           <Checkbox
             indeterminate={numSelected > 0 && numSelected < rowCount}
@@ -224,6 +231,9 @@ const useStyles = makeStyles((theme: Theme) =>
       top: 20,
       width: 1,
     },
+    titulos: {
+      backgroundColor: theme.palette.secondary.main
+    }
   }),
 );
 
@@ -334,10 +344,28 @@ export default function EnhancedTable() {
                       <TableCell component="th" id={labelId} scope="row" padding="none">
                         {row.name}
                       </TableCell>
-                      <TableCell align="right">{row.calories}</TableCell>
-                      <TableCell align="right">{row.fat}</TableCell>
-                      <TableCell align="right">{row.carbs}</TableCell>
-                      <TableCell align="right">{row.protein}</TableCell>
+                      <TableCell align="right">{row.phone}</TableCell>
+                      <TableCell align="right">{row.email}</TableCell>
+                      <TableCell align="right">{row.lodgings}</TableCell>
+                      <TableCell align="right">{row.status}</TableCell>
+                      <TableCell padding="checkbox">
+                        <Checkbox
+                          // checked={isItemSelected}
+                          inputProps={{ 'aria-labelledby': labelId }}
+                        />
+                      </TableCell>
+                      <TableCell padding="checkbox">
+                        <Checkbox
+                          // checked={isItemSelected}
+                          inputProps={{ 'aria-labelledby': labelId }}
+                        />
+                      </TableCell>
+                      <TableCell padding="checkbox">
+                        <Checkbox
+                          // checked={isItemSelected}
+                          inputProps={{ 'aria-labelledby': labelId }}
+                        />
+                      </TableCell>
                     </TableRow>
                   );
                 })}
