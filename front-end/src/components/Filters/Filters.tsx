@@ -14,7 +14,7 @@ import ExpandLessIcon from "@material-ui/icons/ExpandLess";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchCardsHotels } from "../../actions";
+import { BotonesPaginado, fetchCardsHotels } from "../../actions";
 import { useState } from "react";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
@@ -156,7 +156,6 @@ export default function CheckboxList() {
       )
     );
   }
-
   const [dataFilter, setDataFilter] = useState({
     price: undefined,
     amenities: [],
@@ -164,6 +163,34 @@ export default function CheckboxList() {
     accommodates: undefined,
     score: undefined,
   });
+  useEffect(() => {
+    dispatch(
+      BotonesPaginado({
+        paginado,
+        price: dataFilter.price || "nada",
+        amenities: dataFilter.amenities || "nada",
+        type: dataFilter.type || fechasAnteriores.type || "nada",
+        guest: dataFilter.accommodates || fechasAnteriores.guest || "nada",
+        score: dataFilter.score || "nada",
+        cities:
+          fechasAnteriores.cities === ""
+            ? undefined
+            : fechasAnteriores.cities || "nada",
+        fechas: undefined || "nada",
+      })
+    );
+  }, [
+    dispatch,
+    fechasAnteriores.cities,
+    fechasAnteriores.guest,
+    dataFilter.type,
+    paginado,
+    dataFilter.price,
+    dataFilter.amenities,
+    fechasAnteriores.type,
+    dataFilter.accommodates,
+    dataFilter.score,
+  ]);
 
   const [pagination, setPagination] = useState({
     price: undefined,
@@ -185,7 +212,6 @@ export default function CheckboxList() {
 
   const setAmeniHandler = (e) => {
     e.preventDefault();
-    
 
     setDataFilter({
       ...dataFilter,
@@ -195,7 +221,6 @@ export default function CheckboxList() {
 
   const setDataHandler = (e) => {
     e.preventDefault();
-    
 
     setDataFilter({
       ...dataFilter,
@@ -245,10 +270,9 @@ export default function CheckboxList() {
       )
     );
 
-    
-    e.currentTarget.reset();
+    // e.currentTarget.reset();
 
-    resetData();
+    // resetData();
   };
 
   const onPrev = (e) => {
@@ -323,7 +347,6 @@ export default function CheckboxList() {
                   </>
                 )}
                 <List>
-                  
                   {cat.title !== "Type" && cat.title !== "Score" ? (
                     cat?.filtros?.map((value) => (
                       <ListItem className={classes.nombredetipo} key={value}>
@@ -363,7 +386,7 @@ export default function CheckboxList() {
           <Button variant="text" color="inherit" type="submit">
             Estado
           </Button>
-          <Button
+          {/* <Button
             variant="text"
             color="inherit"
             onClick={(e) => {
@@ -382,7 +405,7 @@ export default function CheckboxList() {
           >
             {" "}
             Next{" "}
-          </Button>
+          </Button> */}
         </Container>
       </form>
     </div>

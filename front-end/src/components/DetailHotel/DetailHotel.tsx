@@ -143,6 +143,22 @@ const DetailHotel = () => {
     dispatch(detailHotel(id));
   }, []);
 
+  let page = Math.floor(Math.random() * 12);
+  useEffect(() => {
+    dispatch(
+      fetchCardsHotels(
+        page,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        fechas.cities,
+        undefined
+      )
+    );
+  }, []);
+
   useEffect(() => {
     dispatch(
       FechasReserva({
@@ -160,7 +176,16 @@ const DetailHotel = () => {
   var cantidad = moment(fechaSalida).diff(moment(fechaLlegada), "days"); //realizar operacion resta de fechas
   var total = cantidad * detailhotel[0]?.price;
   var result = cantidad === 0 ? detailhotel[0]?.price : total;
+  let properties = [];
+  function exploreProperties() {
+    if (cards?.posts) {
+      let result = cards.posts.slice(0, 4);
 
+      properties.push(result);
+    }
+  }
+  exploreProperties();
+  console.log(properties);
   const obj = {
     Prop_id: id,
     fechaSalida: arrivalDate,
@@ -184,7 +209,7 @@ const DetailHotel = () => {
           <div className={"div__detail1"}>
             <div className={"div__detail1-description"}>
               <h1 className={"div__detail1-description-h1"}>
-                {detailhotel[0]?.name}
+                {truncate(detailhotel[0]?.name, 46)}
               </h1>
               <p
                 style={{
@@ -463,7 +488,7 @@ const DetailHotel = () => {
           <h2 style={{ textAlign: "center", fontWeight: "bold" }}>
             REVIEWS FROM OUR GUESTS
           </h2>
-          {detailhotel[0].reviews.length &&
+          {detailhotel[0].reviews.length > 0 &&
             detailhotel[0].reviews.map((x) => (
               <div style={{ marginBottom: "20px" }}>
                 <div className="div-user-reviews">
@@ -484,7 +509,7 @@ const DetailHotel = () => {
               </div>
             ))}
         </div>
-        <div>
+        {/* <div>
           <Grid
             xs={12}
             alignItems="center"
@@ -522,7 +547,39 @@ const DetailHotel = () => {
               />
             </Grid>
           </Grid>
-        </div>
+        </div> */}
+        <Grid
+          md={12}
+          alignItems="center"
+          justifyContent="space-between"
+          direction="row"
+          container
+          className={classes.containerRecomendados}
+        >
+          <Grid
+            item
+            xs={12}
+            md={12}
+            style={{ textAlign: "center" }}
+            className={classes.explore}
+          >
+            <Typography variant="h6">
+              OTHER ACCOMMODATIONS THAT MIGHT INTEREST YOU
+            </Typography>
+          </Grid>
+          {properties[0] &&
+            properties[0].map((el, i) => (
+              <Grid item xs={6} md={2} key={i}>
+                <Link to={`/categories/${el._id}`}>
+                  <img
+                    src={`${el.image}`}
+                    alt={`${el.name}`}
+                    className={classes.imgRecomendadas}
+                  />
+                </Link>
+              </Grid>
+            ))}
+        </Grid>
         <Footer />
       </div>
     );
