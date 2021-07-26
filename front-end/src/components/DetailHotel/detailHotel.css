@@ -1,0 +1,150 @@
+/* 1rem 16px */
+.div__contendor_detail {
+  margin-top: 20px;
+  font-family: roboto;
+  height: 42rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr;
+}
+.div__detail1 {
+  height: 22rem;
+}
+.div__detail2 {
+  height: 22rem;
+}
+.div__detail3 {
+  grid-column: 1 / 3;
+  grid-row: 2 / 3;
+  height: 16rem;
+  display: grid;
+  grid-template-columns: 40% 20% 40%;
+}
+.div__detail1-description {
+  max-width: 90%;
+  margin: 0 auto;
+  height: 45%;
+}
+.div__detail1-amenities {
+  height: 55%;
+
+  margin: 0 auto;
+}
+.div__detail3-resumen {
+}
+.div__detail3-score {
+  width: 60%;
+  height: 70%;
+  margin: 50px auto;
+  margin-left: 0;
+  background-color: #b6c867;
+  border-radius: 15px;
+  box-shadow: 4px 4px 7px grey;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.div__detail3-servicios {
+  height: 100%;
+  width: 100%;
+}
+.div__detail1-description-h1 {
+  margin: 0;
+  font-size: 26px;
+  text-align: justify;
+}
+.div__detail1-description-resume {
+  height: 25rem;
+  width: 100%;
+}
+.div__detail1-p {
+  margin: 15px;
+}
+.imagen_div-detail2 {
+  width: 650px;
+  height: 350px;
+}
+@media (max-width: 1000px) {
+  .imagen_div-detail2 {
+    width: 450px;
+    height: 250px;
+  }
+}
+.gridHijo4-parte1 {
+  display: flex;
+}
+.gridHijo4-parte2 {
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+.div-detail3-resumen-contenedor {
+  margin-left: 40px;
+  max-width: 410px;
+  height: 250px;
+  display: grid;
+
+  grid-template-rows: 35% 65%;
+  border: rgb(95, 94, 94) solid 1px;
+  border-radius: 10px;
+  box-shadow: 4px 4px 7px grey;
+}
+.div-resumen1 {
+  margin: 10px;
+}
+.div-resumen2 {
+}
+.marginCero {
+  margin: 0;
+}
+
+.card__container-detail {
+  font-weight: 500;
+  display: grid;
+  grid-template-columns: 70% 30%;
+  margin: 6px;
+  margin-left: 40px;
+  align-items: center;
+}
+.number-score {
+  color: #0416b4;
+  font-family: Roboto Slab;
+  font-size: 55px;
+  font-weight: bold;
+  margin: 5px;
+}
+.map-detail {
+  width: 90%;
+  height: 400px;
+  margin: 20px auto;
+}
+.calendary {
+  margin: 20px;
+  display: flex;
+  gap: 20px;
+}
+.container-calendary {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.div-ulises {
+  width: 200px;
+  margin: 0 0;
+}
+.division {
+  border-left: 1px solid black;
+  margin-right: 70px;
+}
+.div-user-reviews {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.container-reviews {
+  margin: 50px auto;
+  width: 80%;
+}

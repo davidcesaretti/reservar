@@ -23,6 +23,7 @@ import { Button, Grid } from "@material-ui/core";
 import SearchIcon from "@material-ui/icons/Search";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../firebase/index";
+import Paginado from "../Paginado/Paginado";
 
 const useStyles = makeStyles((theme) => ({
   icon: {
@@ -72,7 +73,7 @@ export default function Album() {
 
   function busqueda() {
     dispatch(FechasReserva({ ...fechas, cities, guest }));
-    console.log("Dispatch busqueda");
+
     dispatch(
       fetchCardsHotels(
         undefined,
@@ -95,7 +96,6 @@ export default function Album() {
 
   useEffect(() => {
     userfavs.map((e) => arrayfavs.push(e._id));
-    console.log("pusheando");
   }, [userfavs]);
 
   const [fav, setFav]: any = useState({
@@ -216,6 +216,7 @@ export default function Album() {
               ))}
           </Grid>
         </Container>
+        <Paginado />
       </main>
       {/* Footer */}
       <div style={{ marginLeft: "200px", width: "80%" }}>

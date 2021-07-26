@@ -2,7 +2,7 @@ import express, { Response, Request, Router, NextFunction } from "express";
 import { dataAirbnb } from "../../db";
 import { paginado } from "../paginado";
 import { Properties } from "../models/Properties";
-import { Reserva } from "../models/Users";
+import { Reserva, User } from "../models/Users";
 import { Propertiestests } from "../models/propertiestests";
 // import cors from "cors";
 // import config from "../lib/config";

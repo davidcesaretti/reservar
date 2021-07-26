@@ -9,6 +9,7 @@ import MenuIcon from "@material-ui/icons/Menu";
 import Grid from "@material-ui/core/Grid";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../firebase/index";
+import logo from "../../Image/trekker.svg";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -51,7 +52,7 @@ export default function MenuAppBar() {
         <Toolbar>
           <Typography variant="h6" className={classes.title}>
             <Link to="/" className={classes.link}>
-              Trekker Logo
+              <img src={logo} alt="logo" width="150px" height="60px" />
             </Link>
           </Typography>
 

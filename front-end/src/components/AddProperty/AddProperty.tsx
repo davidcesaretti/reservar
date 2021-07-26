@@ -4,7 +4,7 @@ import "./addProperty.css";
 import { HiMinusCircle, HiPlusCircle } from "react-icons/hi";
 import firebase from "firebase";
 import { Button } from "@material-ui/core";
-import photo from "../../Image/chrome_9G11sUzjQC.png";
+import photo from "../../Image/addfoto.jpeg";
 import { useAuth } from "../../firebase/index";
 import { useParams } from "react-router-dom";
 import { clearDetail, detailHotel } from "../../actions";
@@ -317,7 +317,7 @@ function AddProperty() {
           <div>
             <img
               style={{ marginTop: "10px" }}
-              width="400"
+              width="550"
               height="320"
               src={firebaseStorage.picture ? firebaseStorage.picture : photo}
               alt=""
