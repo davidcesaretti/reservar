@@ -7,6 +7,7 @@ import subDays from "date-fns/subDays";
 import addDays from "date-fns/addDays";
 import DatePicker from "react-datepicker";
 import DatePicker1 from "react-datetime";
+import "react-datepicker/dist/react-datepicker-cssmodules.css";
 import "react-datepicker/dist/react-datepicker.css";
 import "react-datetime/css/react-datetime.css";
 import moment from "moment";
@@ -51,9 +52,6 @@ export default function HostCalendary({ data }) {
     setdepartureDate(moment(date).format("YYYY-MM-DD"));
   };
 
-  const checkin = moment("2021-07-25");
-  const checkout = moment("2021-07-29");
-
   function getDates(startDate, stopDate) {
     var currentDate = moment(startDate);
     var stopDatee = moment(stopDate);
@@ -65,7 +63,6 @@ export default function HostCalendary({ data }) {
   }
   dataFechas.map((x) => getDates(x[0], x[1]));
 
-  getDates(checkin, checkout);
   const disableFinal = dateArray.map((x) => new Date(x));
 
   const disableCustomDt = (current) => {
@@ -90,8 +87,9 @@ export default function HostCalendary({ data }) {
   let fechaSiguiente = moment(arrivalDate).add(1, "days");
 
   return (
-    <div className={classes.root}>
+    <div className="calendary">
       <DatePicker
+        popperClassName="calendario"
         selected={arrivalDate}
         onChange={(date) => setArrivalDate(date)}
         minDate={new Date()}
@@ -101,6 +99,7 @@ export default function HostCalendary({ data }) {
         inline
       />
       <DatePicker
+        popperClassName="calendario"
         selected={departureDate}
         onChange={(date) => setdepartureDate(date)}
         minDate={arrivalDate}

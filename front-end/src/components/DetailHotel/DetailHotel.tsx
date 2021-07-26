@@ -173,7 +173,7 @@ const DetailHotel = () => {
   } else {
     return (
       <div>
-        <div>
+        {/* <div>
           <div className={style.gridconteiner}>
             <div>
               <NavBar />
@@ -181,7 +181,7 @@ const DetailHotel = () => {
                 <img
                   src={detailhotel[0]?.image}
                   style={{ width: 650, height: 350 }}
-                  alt="No image"
+                  alt="No imagen"
                 />
               </div>
               <div className={style.contnd}>
@@ -256,7 +256,7 @@ const DetailHotel = () => {
                 </div>
               </div>
               {/* <div className={style.score}>Score {detailhotel[0]?.score}</div> */}
-              <div className={style.flex}>
+        {/* <div className={style.flex}>
                 <div className={style.flexhijo}>
                   <h2 className={style.service}>OUTSTANDING SERVICES</h2>
                   <Button
@@ -295,13 +295,13 @@ const DetailHotel = () => {
                   </Modal>
                 </div>
               </div>
-            </div>
-            {/* <div>Accommodates {detailhotel[0]?.accommodates}</div> */}
-          </div>
+            </div> */}
+        {/* <div>Accommodates {detailhotel[0]?.accommodates}</div> */}
+        {/* </div>
           <div style={{ height: "400px" }}>
             <HostCalendary data={detailhotel} />
-          </div>
-          {/* <div className={style.flexcal}>
+          </div> */}
+        {/* <div className={style.flexcal}>
           <MuiPickersUtilsProvider utils={DateFnsUtils}>
             <KeyboardDatePicker
               disableToolbar
@@ -369,7 +369,7 @@ const DetailHotel = () => {
         </Grid>
         </div> */}
 
-          <div>
+        {/* <div>
             <hr className={style.hr2} />
             <h2 style={{ textAlign: "center", fontFamily: "Roboto" }}>
               OTHER ACCOMMODATIONS THAT MIGHT INTEREST YOU
@@ -419,7 +419,8 @@ const DetailHotel = () => {
             <hr className={style.hr2} />
             <Footer />
           </div>
-        </div>
+        </div> */}
+        <NavBar />
         <div className={"div__contendor_detail"}>
           <div className={"div__detail1"}>
             <div className={"div__detail1-description"}>
@@ -480,7 +481,7 @@ const DetailHotel = () => {
                               marginTop: "2px",
                             }}
                           >
-                            {detailhotel[0].type}
+                            {detailhotel[0]?.type}
                           </p>
                         </div>
                         <div
@@ -491,8 +492,8 @@ const DetailHotel = () => {
                           }}
                         >
                           <AddLocationIcon></AddLocationIcon>
-                          <p style={{ margin: "0" }}>
-                            {detailhotel[0].address}
+                          <p className="marginCero">
+                            {detailhotel[0]?.address}
                           </p>
                         </div>
                       </div>
@@ -505,8 +506,8 @@ const DetailHotel = () => {
                           }}
                         >
                           <AccountCircleIcon></AccountCircleIcon>
-                          <p style={{ margin: "0" }}>
-                            {detailhotel[0].accommodates}
+                          <p className="marginCero">
+                            {detailhotel[0]?.accommodates}
                           </p>
                         </div>
                         <div
@@ -517,9 +518,9 @@ const DetailHotel = () => {
                           }}
                         >
                           <img src={baño} alt="" width="24px" height="24px" />
-                          <p style={{ margin: "0" }}>
+                          <p className="marginCero">
                             {" "}
-                            {detailhotel[0].bathrooms}
+                            {detailhotel[0]?.bathrooms}
                           </p>
                         </div>
                         <div
@@ -530,9 +531,9 @@ const DetailHotel = () => {
                           }}
                         >
                           <img src={cuarto} alt="" width="24px" height="24px" />
-                          <p style={{ margin: "0" }}>
+                          <p className="marginCero">
                             {" "}
-                            {detailhotel[0].bedrooms}
+                            {detailhotel[0]?.bedrooms}
                           </p>
                         </div>
                         <div
@@ -543,7 +544,7 @@ const DetailHotel = () => {
                           }}
                         >
                           <HotelIcon></HotelIcon>
-                          <p style={{ margin: "0" }}> {detailhotel[0].beds}</p>
+                          <p className="marginCero"> {detailhotel[0]?.beds}</p>
                         </div>
                       </div>
                     </div>
@@ -555,7 +556,7 @@ const DetailHotel = () => {
           <div className={"div__detail2"}>
             <img
               src={detailhotel[0]?.image}
-              style={{ width: 650, height: 350 }}
+              className="imagen_div-detail2"
               alt="No imagagen"
             />
           </div>
@@ -570,37 +571,177 @@ const DetailHotel = () => {
                       justifyContent: "space-around",
                     }}
                   >
-                    <div
-                      style={{
-                        fontWeight: "bold",
-                        display: "flex",
-                        justifyContent: "space-around",
-                      }}
-                    >
+                    <div className="card__container-detail">
                       {" "}
-                      <p>Value per nigth</p> <p>${detailhotel[0].price}</p>
+                      <p className="marginCero">Value per nigth</p>{" "}
+                      <p className="marginCero"> $ {detailhotel[0].price}</p>
                     </div>
-                    <div
+                    <div className="card__container-detail">
+                      <p className="marginCero">Number of nights</p>{" "}
+                      <p className="marginCero">2</p>
+                    </div>
+                  </div>
+                  <div
+                    style={{
+                      borderTop: "1px solid black",
+                      width: "90%",
+                      margin: "5px auto",
+                      marginBottom: "10px",
+                    }}
+                  ></div>
+                </div>
+                <div className={"div-resumen2"}>
+                  <div className="card__container-detail">
+                    <p
                       style={{
+                        fontSize: "18px",
                         fontWeight: "bold",
-                        display: "flex",
-                        justifyContent: "space-around",
+                        margin: "10px",
                       }}
                     >
-                      <p>number of nights</p> <p>2</p>
-                    </div>
-                    {/* <div
-                      style={{ borderBottom: "1px solid black", width: "90%" }}
-                    ></div> */}
+                      Total price
+                    </p>
+                    <p
+                      style={{
+                        fontSize: "26px",
+                        color: "blue",
+                        margin: "10px",
+                      }}
+                    >
+                      $3600
+                    </p>
+                  </div>
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      padding: "5px",
+                    }}
+                  >
+                    <button className="boton__submit-add marginCero">
+                      Reserve
+                    </button>
                   </div>
                 </div>
-                <div className={"div-resumen2"}></div>
               </div>
             </div>
-            <div className={"div__detail3-score"}></div>
-            <div className={"div__detail3-servicios"}></div>
+            <div className={"div__detail3-score"}>
+              <div>
+                <p style={{ color: "white", fontWeight: "bold" }}>Score</p>
+              </div>
+              <div>
+                <p className="number-score">{`${detailhotel[0].score}/10`}</p>
+              </div>
+              <div>
+                <p
+                  style={{ color: "white", fontWeight: "bold", marginTop: "0" }}
+                >{`${detailhotel[0].reviews.length} reviews`}</p>
+              </div>
+            </div>
+
+            <div className={"div__detail3-servicios"}>
+              <div className={style.flex}>
+                <div className={style.flexhijo}>
+                  <h2 className={style.service}>OUTSTANDING SERVICES</h2>
+                  <Button
+                    className={classes.buton}
+                    onClick={() => handleOpen()}
+                  >
+                    See all
+                  </Button>
+                </div>
+                <div className={style.slice}>
+                  <Service amenities={detailhotel[0]?.amenities.slice(0, 2)} />
+                  <div style={{ paddingTop: "3px" }}>
+                    <Service
+                      amenities={detailhotel[0]?.amenities.slice(2, 4)}
+                    />
+                  </div>
+                </div>
+                <div className={style.hr1}></div>
+                <div className={style.hr3}></div>
+                <div>
+                  <Modal
+                    className={classes.modal}
+                    open={open}
+                    onClose={handleClose}
+                    closeAfterTransition
+                    BackdropComponent={Backdrop}
+                    BackdropProps={{
+                      timeout: 500,
+                    }}
+                  >
+                    <Fade in={open}>
+                      <div className={classes.paper}>
+                        <Service amenities={detailhotel[0].amenities} />
+                      </div>
+                    </Fade>
+                  </Modal>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
+        <div className="map-detail"></div>
+        <div className="container-calendary">
+          <p
+            className="marginCero"
+            style={{
+              fontWeight: "bold",
+              fontSize: "24px",
+              paddingBottom: "5px",
+            }}
+          >
+            Availability
+          </p>
+          <p className="marginCero" style={{ fontWeight: "bold" }}>
+            Having different dates in mind? Check availability
+          </p>
+          <div>
+            {" "}
+            <HostCalendary data={detailhotel} />
+          </div>
+        </div>
+        <div>
+          <Grid
+            xs={12}
+            alignItems="center"
+            justifyContent="space-evenly"
+            direction="row"
+            container
+            className={classes.containerRecomendados}
+          >
+            <Grid item xs={2}>
+              <img
+                src={`${Recom1}`}
+                alt=""
+                className={classes.imgRecomendadas}
+              />
+            </Grid>
+            <Grid item xs={2}>
+              <img
+                src={`${Recom2}`}
+                alt=""
+                className={classes.imgRecomendadas}
+              />
+            </Grid>
+            <Grid item xs={2}>
+              <img
+                src={`${Recom3}`}
+                alt=""
+                className={classes.imgRecomendadas}
+              />
+            </Grid>
+            <Grid item xs={2}>
+              <img
+                src={`${Recom4}`}
+                alt=""
+                className={classes.imgRecomendadas}
+              />
+            </Grid>
+          </Grid>
+        </div>
+        <Footer />
       </div>
     );
   }

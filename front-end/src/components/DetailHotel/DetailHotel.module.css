@@ -36,7 +36,7 @@
 .gridPadre {
   margin-left: 40px;
   width: 410px;
-  height: 160px;
+  height: 200px;
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 2fr;
@@ -126,9 +126,7 @@
 }
 .flexhijo {
   display: flex;
-  margin-left: 60%;
-  position: absolute;
-  margin-top: -17%;
+  justify-content: center;
 }
 .flexcal {
   display: flex;
@@ -141,12 +139,9 @@
   font-family: "Roboto";
 }
 .slice {
-  position: absolute;
-  margin-top: -10rem;
-  margin-left: 50rem;
   column-count: 2;
   text-align: justify;
-  column-gap: 3em;
+  column-gap: 3rem;
   column-rule: 3px inset rgba(0, 0, 0, 1);
 }
 .flex {
