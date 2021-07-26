@@ -5,14 +5,14 @@ interface IUser extends Document {
   name: string;
   email: string;
   favorites: Array<String>;
+  reserveId: Array<String>;
   // photo: string;
   // reserveId: [Object];
-
 }
 
 const user = new Schema<IUser>(
   {
-    name: { type: String  },
+    name: { type: String },
     email: { type: String },
     phone_number: { type: Number },
     nationality: { type: String },
@@ -35,7 +35,7 @@ const user = new Schema<IUser>(
     role: { type: String, enum: ["Traveler", "Host"] },
     favorites: { type: [] },
     reserveId: { type: [Object] },
-    alternative_email: {type: String}
+    alternative_email: { type: String },
   },
   { versionKey: false }
 );
@@ -46,9 +46,12 @@ const reserva = new Schema(
   {
     fechaSalida: { type: Date },
     fechaLlegada: { type: Date },
-    info_user: { type: Object },
-    guests: {type: Number}
+    info_user: { type: String },
+    state: { type: String },
+    price: { type: Number },
+    payment_id: { type: String },
   },
   { versionKey: false }
 );
 export const Reserva = model("Reserva", reserva);
+/* ", enum: ["active", "expired", "pending"]" */

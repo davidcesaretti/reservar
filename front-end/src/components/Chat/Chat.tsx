@@ -1,12 +1,11 @@
 import React from 'react'
 
-const Favourites = () => {
+const Chat = () => {
     return (
         <div>
-            FAVOURITES!
+            ESTO ES EL CHAT
         </div>
     )
 }
 
-
-export default Favourites
+export default Chat

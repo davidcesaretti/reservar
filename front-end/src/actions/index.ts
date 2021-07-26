@@ -34,6 +34,14 @@ export interface Booleano {
   type: ActionTypes.booleanState;
   payload: boolean;
 }
+export interface Bookings {
+  type: ActionTypes.bookings;
+  payload: any;
+}
+export interface StepRegister {
+  type: ActionTypes.stateRegister;
+  payload: any;
+}
 
 export interface UserEmail {
   type: ActionTypes.usersLogged;
@@ -42,6 +50,10 @@ export interface UserEmail {
 export interface Favourites {
   type: ActionTypes.addFav;
   payload: any;
+}
+export interface userInformation {
+  type: ActionTypes.userInfo;
+  payload: Object;
 }
 export interface USERFAVS {
   type: ActionTypes.favUser;
@@ -124,9 +136,9 @@ export const fetchCardsHotels = (
     });
   };
 };
-export function postRaza(data) {
+export function findPost(data) {
   return function (dispatch) {
-    return fetch("https://dogs-breeds-jesus.herokuapp.com/dog", {
+    return fetch("http://localhost:3001/upload/find", {
       method: "POST",
       body: JSON.stringify(data),
       headers: {
@@ -136,7 +148,7 @@ export function postRaza(data) {
       .then((res) => res.json())
       .catch((error) => console.error("Error:", error))
       .then((json) => {
-        dispatch({ type: "POST_RAZA", payload: json });
+        dispatch({ type: ActionTypes?.findPost, payload: json });
       });
   };
 }
@@ -168,6 +180,7 @@ export const UserEmailGlobal = (data) => {
     });
   };
 };
+
 export const FechasReserva = (data: Object) => {
   return {
     type: ActionTypes.calendary,
@@ -176,6 +189,10 @@ export const FechasReserva = (data: Object) => {
 };
 export const detailHotel = (id) => {
   return async (dispatch: Dispatch) => {
+    dispatch<FetchDetailHotel>({
+      type: ActionTypes.detailHotel,
+      payload: []
+    });
     const response = await axios.get<cardsHotel[]>(
       `${url}/filter/properties/${id}`
     );
@@ -193,11 +210,27 @@ export const updateUser = (userInfo: object, userEmail) => {
         userEmail,
       });
       console.log(userInfo);
-    } catch (e) {
-      console.error(e);
+    } catch (err) {
+      console.error(err);
     }
   };
 };
+
+export const getUserInfo = (email) => {
+  return async (dispatch: Dispatch) => {
+    try {
+      console.log(email)
+      const infoUser = await axios.post("http://localhost:3001/login", {email})
+      console.log('action getUserInfo', infoUser)
+      dispatch<userInformation>({
+        type: ActionTypes.userInfo,
+        payload: infoUser.data,
+      });
+    } catch (error) {
+      console.error(error)
+    }
+  }
+}
 
 export const clearDetail = () => {
   return {
@@ -250,11 +283,37 @@ export const getFavos = (data) => {
   };
 };
 
+export const getBooking = (data) => {
+  return async (dispatch: Dispatch) => {
+    let user = {
+      email: data,
+    };
+    console.log("ENTRO ACCION");
+    const bookingUsers = await axios.post(
+      "http://localhost:3001/getreserves",
+      user
+    );
+
+    console.log(bookingUsers, "    RESPUESTA");
+    dispatch({ type: ActionTypes.bookings, payload: bookingUsers.data });
+  };
+};
+
 export const postReserve = (obj) => {
   return async (dispatch: Dispatch) => {
     await axios.post("http://localhost:3001/reserva", obj);
   };
 };
+
+export const FirstStepReserve = (obj) => {
+  return async (dispatch: Dispatch) => {
+    dispatch<StepRegister>({
+      type: ActionTypes.stateRegister,
+      payload: obj,
+    });
+  };
+};
+
 // export function deleteUsers(data: any) {
 //   return function (dispatch: Dispatch) {
 //     return fetch(url, {

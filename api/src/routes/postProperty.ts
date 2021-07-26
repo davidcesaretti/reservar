@@ -1,5 +1,6 @@
 import express, { Response, Request, Router, NextFunction } from "express";
 import { Properties } from "../models/Properties";
+import { User } from "../models/Users";
 import multer from "multer";
 
 const path = require("path");
@@ -45,6 +46,7 @@ router.post("/", async (req: Request, res: Response, next: NextFunction) => {
     address,
     city,
     score,
+    host,
   } = req.body;
   const property = await new Properties({
     name,
@@ -61,9 +63,63 @@ router.post("/", async (req: Request, res: Response, next: NextFunction) => {
     image,
     score,
     address,
+    host,
   });
   await property.save();
   return;
 });
 
+router.post(
+  "/find",
+  async (req: Request, res: Response, next: NextFunction) => {
+    const { email } = req.body;
+    const find = await Properties.find({ host: email });
+    console.log(find);
+    res.json(find);
+  }
+);
+
+router.post(
+  "/edit",
+  async (req: Request, res: Response, next: NextFunction) => {
+    const {
+      name,
+      summary,
+      type,
+      accommodates,
+      beds,
+      bedrooms,
+      bathrooms,
+      amenities,
+      price,
+      image,
+      address,
+      city,
+      score,
+      id,
+    } = req.body;
+
+    const properyUpdate = await Properties.updateOne(
+      { _id: id },
+      {
+        $set: {
+          name,
+          summary,
+          type,
+          accommodates,
+          beds,
+          bedrooms,
+          bathrooms,
+          amenities,
+          price,
+          image,
+          address,
+          city,
+          score,
+        },
+      }
+    );
+    res.json(properyUpdate);
+  }
+);
 export default router;

@@ -1,22 +1,24 @@
-//este es el vendedor
 {
-  "id": 790929283,
-  "nickname": "TETE1864424",
-  "password": "qatest9383",
-  "site_status": "active",
-  "email": "test_user_43332528@testuser.com",
-  "Access Token": "APP_USR-1653841031742118-071404-52d96bb19db243fd74afb2ef2191fc52-790929283"
-}
-//estos son compradores
-{
+  "vendedor": {
+    "id": 790929283,
+    "comentario": "este es el vendedor",
+    "nickname": "TETE1864424",
+    "password": "qatest9383",
+    "site_status": "active",
+    "email": "test_user_43332528@testuser.com",
+    "Access Token": "APP_USR-1653841031742118-071404-52d96bb19db243fd74afb2ef2191fc52-790929283"
+  },
+  "comprador": {
     "id": 790929514,
+    "comentario": "estos son compradores",
     "nickname": "TESTYWSLH4C3",
     "password": "qatest6429",
     "site_status": "active",
     "email": "test_user_3302545@testuser.com"
+  },
+  "tarjetas": {
+    "mastercard": "5031 7557 3453 0604 123 vence 1125",
+    "visa": "4509 9535 6623 3704 123 1125",
+    "American Express": "3711 803032 57522 1234 1125"
   }
-  /*tarjetas para probar
-  Mastercard	5031 7557 3453 0604	123	 vence: 11/25
-  Visa	4509 9535 6623 3704	123	11/25
-  American Express	3711 803032 57522	1234	11/25*/
-  
+}

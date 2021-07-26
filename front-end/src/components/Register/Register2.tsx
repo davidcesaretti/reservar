@@ -5,7 +5,7 @@ import firebase from "firebase";
 import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
 import { storage } from "../../firebase/index";
 import { Button, Container, Typography, Grid } from "@material-ui/core";
-import { signUser, UserEmail, UserEmailGlobal } from "../../actions/index";
+import { signUser, UserEmail, UserEmailGlobal, getUserInfo } from "../../actions/index";
 import { makeStyles } from "@material-ui/core/styles";
 import backImg from "../../Image/fondoLogin.jpeg";
 import "@fontsource/roboto";
@@ -88,21 +88,12 @@ const useStyle = makeStyles((theme) => ({
 const Register = () => {
   const auth = useAuth();
   const user = auth.user;
-  /* if (!firebase.apps.length) {
-    firebase.initializeApp({
-      apiKey: "AIzaSyBh2wY42foyI4uwoW9wfIKtCz2ie-mXELw",
-      authDomain: "reservar-319305.firebaseapp.com",
-    });
-  } else {
-    firebase.app();
-  } */
+  const infoUser = useSelector((state:any) => state.user)
 
   const [signedIn, setSignedIn] = useState(false);
 
   const [logged, setLogged] = useState(false);
   const dispatch = useDispatch();
-  /*let signed = useSelector((state: any) => state.signed);
-    console.log('hol '+ signed) */
 
   const uiConfig = {
     signInFlow: "popup",
@@ -110,8 +101,8 @@ const Register = () => {
       firebase.auth.GoogleAuthProvider.PROVIDER_ID,
       firebase.auth.FacebookAuthProvider.PROVIDER_ID,
       firebase.auth.EmailAuthProvider.PROVIDER_ID,
-    ],
-    callbacks: {},
+    ],/* 
+    callbacks: {handleSign: () => console.log('hola')}, */
   };
 
   useEffect(() => {
@@ -120,10 +111,6 @@ const Register = () => {
     });
   }, [dispatch]);
 
-  /* firebase.auth().currentUser && setLogged(true)
-    logged && setUserInfo(firebase.auth().currentUser)
-    logged && dispatch(signUser(userInfo))
-    setLogged(false) */
   let userlogged = firebase.auth().currentUser;
 
   const [userInfo, setUserInfo] = useState({
@@ -148,13 +135,13 @@ const Register = () => {
     }
   }, [userInfo]);
 
-  /* console.log(firebase.auth().currentUser) */
-
   const handleClick = () => {
     firebase.auth().signOut();
     setLogged(false);
     dispatch(UserEmailGlobal(""));
   };
+
+  let email = auth?.user?.email
 
   const classes = useStyle();
   return (
@@ -190,7 +177,7 @@ const Register = () => {
                 Sign Out
               </Button>
               <Typography className={classes.title2}>
-                Hello, {firebase.auth().currentUser.displayName}
+                Hello, {infoUser.name || firebase.auth().currentUser.displayName}
               </Typography>
               <img src={firebase.auth().currentUser.photoURL} alt="user" />
               <div className={classes.completediv}>
@@ -207,6 +194,7 @@ const Register = () => {
                 Login or Register
               </Typography>
               <StyledFirebaseAuth
+                
                 uiConfig={uiConfig}
                 firebaseAuth={firebase.auth()}
               />

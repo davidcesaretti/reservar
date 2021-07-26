@@ -30,14 +30,6 @@ export function Calendary() {
     setdepartureDate(new Date(date).toISOString());
   };
 
-  function disableDates(date: Date) {
-    return (
-      date.getDate() === 15 ||
-      date.getDate() === 16 ||
-      date.getDate() === 17 ||
-      date.getDate() === 18
-    );
-  }
   const fechas = useSelector((state: any) => state.fechas);
   useEffect(() => {
     dispatch(
@@ -59,7 +51,6 @@ export function Calendary() {
         id="date-picker-inline"
         label="Check in"
         value={arrivalDate}
-        shouldDisableDate={disableDates}
         disablePast={true}
         onChange={handleDateChange}
         KeyboardButtonProps={{
@@ -76,7 +67,6 @@ export function Calendary() {
         label="Check out"
         value={departureDate}
         disablePast={true}
-        shouldDisableDate={disableDates}
         onChange={handleChange}
         minDate={arrivalDate}
         disabled={!aux ? true : false}

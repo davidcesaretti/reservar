@@ -47,8 +47,17 @@ const properties = new Schema(
     score: {
       type: Number,
     },
+    host: {
+      type: String,
+    },
     id_post: {
       type: Number,
+    },
+    coordinates: {
+      type: Object,
+    },
+    reviews: {
+      type: [Object],
     },
   },
   { versionKey: false }

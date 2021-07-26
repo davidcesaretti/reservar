@@ -184,8 +184,7 @@ export default function CheckboxList() {
 
   const setAmeniHandler = (e) => {
     e.preventDefault();
-    console.log(e.target.name, "target name");
-    console.log(e.target.value, "target value");
+    
 
     setDataFilter({
       ...dataFilter,
@@ -195,8 +194,7 @@ export default function CheckboxList() {
 
   const setDataHandler = (e) => {
     e.preventDefault();
-    console.log(e.target.name, "target name");
-    console.log(e.target.value, "target value");
+    
 
     setDataFilter({
       ...dataFilter,
@@ -246,7 +244,7 @@ export default function CheckboxList() {
       )
     );
 
-    console.log(dataFilter);
+    
     e.currentTarget.reset();
 
     resetData();
@@ -324,7 +322,7 @@ export default function CheckboxList() {
                   </>
                 )}
                 <List>
-                  {console.log(cat.keyword)}
+                  
                   {cat.title !== "Type" && cat.title !== "Score" ? (
                     cat?.filtros?.map((value) => (
                       <ListItem className={classes.nombredetipo} key={value}>
