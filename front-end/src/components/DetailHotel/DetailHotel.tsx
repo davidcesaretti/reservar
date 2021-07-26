@@ -15,6 +15,7 @@ import Recom3 from "../../Image/recom3.jpeg";
 import Recom4 from "../../Image/recom4.jpeg";
 import Service from "../Service/Services";
 import DateFnsUtils from "@date-io/date-fns";
+import user from "../../Image/user.svg";
 import "./detailHotel.css";
 import {
   MuiPickersUtilsProvider,
@@ -93,6 +94,10 @@ const useStyles = makeStyles((theme: Theme) =>
     },
   })
 );
+
+function truncate(str, n) {
+  return str?.length > n ? str.substring(0, n - 1) + "..." : str; //funcion para recortar parrafos y dejar los ...
+}
 
 const DetailHotel = () => {
   const detailhotel = useSelector((state: any) => state.categorieDetail);
@@ -437,7 +442,7 @@ const DetailHotel = () => {
                 Description
               </p>
               <p className={"div__detail1-description-resume"}>
-                {detailhotel[0]?.summary}
+                {truncate(detailhotel[0]?.summary, 315)}
               </p>
             </div>
             <div
@@ -652,14 +657,10 @@ const DetailHotel = () => {
                 </div>
                 <div className={style.slice}>
                   <Service amenities={detailhotel[0]?.amenities.slice(0, 2)} />
-                  <div style={{ paddingTop: "3px" }}>
-                    <Service
-                      amenities={detailhotel[0]?.amenities.slice(2, 4)}
-                    />
-                  </div>
+                  <div className="division"></div>
+                  <Service amenities={detailhotel[0]?.amenities.slice(2, 4)} />
                 </div>
-                <div className={style.hr1}></div>
-                <div className={style.hr3}></div>
+
                 <div>
                   <Modal
                     className={classes.modal}
@@ -701,6 +702,31 @@ const DetailHotel = () => {
             {" "}
             <HostCalendary data={detailhotel} />
           </div>
+        </div>
+        <div className="container-reviews">
+          <h2 style={{ textAlign: "center", fontWeight: "bold" }}>
+            REVIEWS FROM OUR GUESTS
+          </h2>
+          {detailhotel[0].reviews.length &&
+            detailhotel[0].reviews.map((x) => (
+              <div style={{ marginBottom: "20px" }}>
+                <div className="div-user-reviews">
+                  <img width="40px" height="40px" src={user} alt="user" />
+                  <p style={{ fontWeight: "bold", fontSize: "18px" }}>
+                    Guest: {`${x.reviewer_name}`}
+                  </p>
+                </div>
+                <p
+                  style={{
+                    textAlign: "justify",
+                    width: "90%",
+                    margin: "0 auto",
+                  }}
+                >
+                  {x.comments}
+                </p>
+              </div>
+            ))}
         </div>
         <div>
           <Grid
