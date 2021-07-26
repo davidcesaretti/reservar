@@ -15,6 +15,8 @@ import Favorites from "./components/Favorites/Favorites";
 import AddProperty from "./components/AddProperty/AddProperty";
 import UserPosts from "./components/UserPosts/UserPosts";
 import RegisterLodgings from "./components/RegisterLodgings/RegisterLodgings";
+import RegisteredUsers from "./components/RegisteredUsers/RegisteredUsers"
+
 function App() {
   const auth = useAuth();
 
@@ -36,6 +38,7 @@ function App() {
       <Route exact path="/userpost" component={UserPosts} />
       <Route exact path="/AddProperty/:id" component={AddProperty} />
       <Route exact path="/RegisterLodgings" component={RegisterLodgings} />
+      <Route exact path="/RegisteredUsers" component={RegisteredUsers} />
     </Switch>
   );
 }

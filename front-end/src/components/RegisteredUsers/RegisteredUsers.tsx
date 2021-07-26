@@ -22,9 +22,9 @@ import FilterListIcon from '@material-ui/icons/FilterList';
 
 interface Data {
   name: string;
-  hostName: string;
-  city: string;
-  reservations: number;
+  phone: string;
+  email: string;
+  lodgings: number;
   status: string;
   check1: any;
   check2: any;
@@ -76,9 +76,9 @@ interface HeadCell {
 
 const headCells: HeadCell[] = [
   { id: 'name', numeric: false, disablePadding: true, label: 'Name' },
-  { id: 'hostName', numeric: false, disablePadding: false, label: 'Host Name' },
-  { id: 'city', numeric: false, disablePadding: false, label: 'City' },
-  { id: 'reservations', numeric: true, disablePadding: false, label: '# of reservations completed' },
+  { id: 'phone', numeric: false, disablePadding: false, label: 'Phone' },
+  { id: 'email', numeric: false, disablePadding: false, label: 'Email' },
+  { id: 'lodgings', numeric: true, disablePadding: false, label: '# of lodgings registered' },
   { id: 'status', numeric: false, disablePadding: false, label: 'Account status' },
   { id: 'check1', numeric: false, disablePadding: false, label: 'Activate account' },
   { id: 'check2', numeric: false, disablePadding: false, label: 'Suspend account' },
@@ -230,7 +230,7 @@ const useStyles = makeStyles((theme: Theme) =>
 export default function EnhancedTable() {
   const classes = useStyles();
   const [order, setOrder] = React.useState<Order>('asc');
-  const [orderBy, setOrderBy] = React.useState<keyof Data>('reservations');
+  const [orderBy, setOrderBy] = React.useState<keyof Data>('lodgings');
   const [selected, setSelected] = React.useState<string[]>([]);
   const [page, setPage] = React.useState(0);
   const [dense, setDense] = React.useState(false);
