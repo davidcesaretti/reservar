@@ -10,6 +10,7 @@ import Container from "@material-ui/core/Container";
 import { Grid, Typography } from "@material-ui/core";
 import Error404 from '../Error404/Error404';
 import Spinner from '../Spinner/Spinner'
+import axios from "axios";
 
 const useStyles = makeStyles((theme) => ({
   cardGrid: {
@@ -34,9 +35,9 @@ const Bookings = () => {
     const classes = useStyles();
     const dispatch = useDispatch();
     const auth = useAuth();
-    const cards = useSelector((state: any) => state.categorieDetail);
+    const cards = useSelector((state: any) => state.bookings);
     let email = auth.user.email;
-  
+    
     useEffect(() => {
       dispatch(getBooking(email));
     }, []);
@@ -58,25 +59,27 @@ const Bookings = () => {
               {/* End hero unit */}
               <Grid container spacing={4}>
                 {cards &&
-                  cards.map((e) => (
-                    <Grid item key={e} xs={12} sm={6} md={6}>
-                      <Card className={classes.card}>
-                        <CardComp
-                          _id={e._id}
-                          image={e.image}
-                          score={e.score}
-                          name={e.name}
-                          type={e.type}
-                          address={e.address}
-                          accommodates={e.accommodates}
-                          beds={e.beds}
-                          price={e.price}
-                          click={console.log("")}
-                          boton={false}
-                        />
-                      </Card>
-                    </Grid>
-                  ))}
+                  cards.map((e) => {
+                    axios.get(`http://localhost:3001/filter/properties/${e._id}`).then(res => {
+                      return(
+                        <Grid item key={e} xs={12} sm={6} md={6}>
+                          <Card className={classes.card}>
+                            <CardComp
+                              _id={res.data._id}
+                              image={res.data.image}
+                              score={res.data.score}
+                              name={res.data.name}
+                              type={res.data.type}
+                              address={res.data.address}
+                              accommodates={res.data.accommodates}
+                              beds={res.data.beds}
+                              price={res.data.price}
+                              click={console.log("")}
+                              boton={false}
+                            />
+                          </Card>
+                        </Grid>)})
+                  })}
               </Grid>
             </Container>
           </div>
