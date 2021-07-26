@@ -438,9 +438,7 @@ const DetailHotel = () => {
           </div>
         </div>
         <div className="map-detail">
-          <div style={{ height: "400px", marginTop: "100px", width: "90%" }}>
-            <MapInit />
-          </div>
+          <MapInit />
         </div>
         <div className="container-calendary">
           <p
