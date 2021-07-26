@@ -391,6 +391,7 @@ export default function EnhancedTable() {
         control={<Switch checked={dense} onChange={handleChangeDense} />}
         label="Dense padding"
       />
+      {/* <button>GET USER INFO</button> */}
     </div>
   );
 }
