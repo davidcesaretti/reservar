@@ -13,7 +13,8 @@ import { userFavReducer } from "./userFavs";
 import { StepRegisterOne } from "./reserve";
 import { reservesReducer } from "./reserves";
 import { postsHost } from "./postUser";
-import { userInfo } from "./infoUser"
+import { userInfo } from "./infoUser";
+import { statePaginado } from "./paginado";
 
 export interface StoreState {
   fechas: any;
@@ -29,6 +30,7 @@ export interface StoreState {
   bookings: Array<any>;
   postHost: Array<any>;
   user: Object;
+  paginado: Object;
 }
 
 export const reducers = combineReducers<StoreState>({
@@ -45,6 +47,7 @@ export const reducers = combineReducers<StoreState>({
   bookings: reservesReducer,
   postHost: postsHost,
   user: userInfo,
+  paginado: statePaginado,
 });
 
 export default reducers;

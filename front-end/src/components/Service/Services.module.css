@@ -1,6 +1,7 @@
-.p{
-    display: flex;
-    align-items: center;
-    font-size: 20px;
-    font-family:cursive;
+.p {
+  display: flex;
+  align-items: center;
+  font-size: 20px;
+  font-family: roboto, cursive;
+  gap: 10px;
 }
