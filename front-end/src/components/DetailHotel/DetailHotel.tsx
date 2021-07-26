@@ -136,7 +136,13 @@ const DetailHotel = () => {
   }, []);
 
   useEffect(() => {
-    dispatch(FechasReserva({ ...fechas, checkin: arrivalDate, checkout: departureDate }));
+    dispatch(
+      FechasReserva({
+        ...fechas,
+        checkin: arrivalDate,
+        checkout: departureDate,
+      })
+    );
   }, [arrivalDate, departureDate]);
   const fechaLlegada = arrivalDate;
   var fechaL = moment(fechaLlegada).format("DD/MM/YY");
@@ -153,6 +159,7 @@ const DetailHotel = () => {
     fechaLlegada: departureDate,
     email: auth.user?.email,
     preciofinal: result,
+    host: detailhotel,
   };
 
   const handleSubmit = () => {
@@ -172,7 +179,7 @@ const DetailHotel = () => {
               <img
                 src={detailhotel[0]?.image}
                 style={{ width: 650, height: 350 }}
-                alt="No image"
+                alt="No data"
               />
             </div>
             <div className={style.contnd}>
@@ -287,8 +294,8 @@ const DetailHotel = () => {
         <div style={{ height: "400px" }}>
           <HostCalendary data={detailhotel} />
         </div>
-        <div style={{ height: "400px", marginTop:"100px" }}>
-        <MapInit/>
+        <div style={{ height: "400px", marginTop: "100px" }}>
+          {detailhotel.coordinates ? <MapInit /> : ""}
         </div>
         {/* <div className={style.flexcal}>
           <MuiPickersUtilsProvider utils={DateFnsUtils}>

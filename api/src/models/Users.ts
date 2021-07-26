@@ -50,6 +50,7 @@ const reserva = new Schema(
     state: { type: String },
     price: { type: Number },
     payment_id: { type: String },
+    host: { type: String },
   },
   { versionKey: false }
 );
