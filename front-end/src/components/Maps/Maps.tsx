@@ -49,7 +49,7 @@ export function MapInit() {
       <WrappedMap
         googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&key=${API_KEY}`}
         containerElement={<div style={{ height: "400px", width: "600px" }} />}
-        mapElement={<div style={{ height: "100%", width: "1300px" }} />}
+        mapElement={<div style={{ height: "100%", width: "1200px" }} />}
         loadingElement={<div style={{ height: `100%` }} />}
       />
     </div>
