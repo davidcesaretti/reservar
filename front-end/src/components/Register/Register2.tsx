@@ -19,7 +19,7 @@ import { useAuth } from "../../firebase/index";
 const useStyle = makeStyles((theme) => ({
   login: {
     background: "rgba(71, 84, 55, 0.9)",
-    height: "26em",
+    height: "28em",
     textAlign: "center",
     padding: "1em",
     width: "35em",
@@ -64,7 +64,7 @@ const useStyle = makeStyles((theme) => ({
   title2: {
     color: "#FFF",
     fontSize: "1.3em",
-    marginBottom: theme.spacing(2),
+    marginBottom: theme.spacing(1),
   },
   infoFooter: {
     color: "#FFF",
@@ -93,8 +93,8 @@ const useStyle = makeStyles((theme) => ({
 const Register = () => {
   const auth = useAuth();
   const user = auth.user;
-  const infoUser = useSelector((state: any) => state.user);
-
+  const infoUser = useSelector((state:any) => state.user)
+  const history = useHistory()
   const [signedIn, setSignedIn] = useState(false);
 
   const [logged, setLogged] = useState(false);
@@ -152,6 +152,7 @@ const Register = () => {
   return (
     <Grid className={classes.ctn}>
       <Grid xs={12} className={classes.navBar}>
+        <img alt="trekker" />
         <Button
           className={classes.homeButton}
           color="secondary"
@@ -169,7 +170,8 @@ const Register = () => {
         </Typography>
 
         <Container maxWidth="xs" className={classes.buttonsLogin}>
-          {user ? (
+          {userInfo.email === "trekkerhenry@gmail.com" ? history.push('/validationAdmin') :
+          user ? (
             <Grid>
               <Button
                 onClick={() => {

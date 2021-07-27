@@ -15,6 +15,8 @@ import { reservesReducer } from "./reserves";
 import { postsHost } from "./postUser";
 import { userInfo } from "./infoUser";
 import { statePaginado } from "./paginado";
+import { userList } from "./usersList"
+import { validateLogAdmin } from "./validateLogAdmin"
 
 export interface StoreState {
   fechas: any;
@@ -31,6 +33,8 @@ export interface StoreState {
   postHost: Array<any>;
   user: Object;
   paginado: Object;
+  listOfUsers: Array<any>;
+  logAdmin: Number;
 }
 
 export const reducers = combineReducers<StoreState>({
@@ -48,6 +52,8 @@ export const reducers = combineReducers<StoreState>({
   postHost: postsHost,
   user: userInfo,
   paginado: statePaginado,
+  listOfUsers: userList,
+  logAdmin: validateLogAdmin,
 });
 
 export default reducers;

@@ -13,6 +13,8 @@ import CreatePublications from "../CreatePublications/CreatePublications";
 import MyProperties from "../MyProperties/MyProperties";
 import Balance from "../Balance/Balance";
 import Chat from "../Chat/Chat";
+import AddProperty from '../AddProperty/AddProperty'
+import UserPosts from '../UserPosts/UserPosts'
 import { getUserInfo } from "../../actions/index";
 import Swal from "sweetalert2";
 
@@ -324,36 +326,37 @@ const User = () => {
         </div>
       </div>
 
-      {sectionHost === "Profile" ? (
-        <Profile
-          name={userInfo?.name}
-          alternative_email={userInfo?.alternative_email}
-          phone_number={userInfo?.phone_number}
-          identity_document_type={userInfo?.identity_document_type}
-          identity_document_number={userInfo?.identity_document_number}
-          nationality={userInfo?.nationality}
-          date_birth={userInfo?.date_birth}
-          residence_address={userInfo?.residence_address}
-          city_and_country_of_residence={
-            userInfo?.city_and_country_of_residence
-          }
-          emergency_phone_number={userInfo?.emergency_phone_number}
-          emergency_contact={userInfo?.emergency_contact}
-          relationship={userInfo?.relationship}
-          userType={userType}
-          setUserType={setUserType}
-        />
-      ) : sectionHost === "CreatePublications" ? (
-        <CreatePublications />
-      ) : sectionHost === "MyProperties" ? (
-        <MyProperties />
-      ) : sectionHost === "Balance" ? (
-        <Balance />
-      ) : sectionHost === "Chat" ? (
-        <Chat />
-      ) : (
-        <Spinner />
-      )}
+        {sectionHost === "Profile" ? (
+          <Profile
+            name={userInfo?.name}
+            alternative_email={userInfo?.alternative_email}
+            phone_number={userInfo?.phone_number}
+            identity_document_type={userInfo?.identity_document_type}
+            identity_document_number={userInfo?.identity_document_number}
+            nationality={userInfo?.nationality}
+            date_birth={userInfo?.date_birth}
+            residence_address={userInfo?.residence_address}
+            city_and_country_of_residence={
+              userInfo?.city_and_country_of_residence
+            }
+            emergency_phone_number={userInfo?.emergency_phone_number}
+            emergency_contact={userInfo?.emergency_contact}
+            relationship={userInfo?.relationship}
+            userType={userType}
+            setUserType={setUserType}
+          />
+        ) : sectionHost === "CreatePublications" ? (
+          <AddProperty />
+        ) : sectionHost === "MyProperties" ? (
+          <UserPosts />
+        ) : sectionHost === "Balance" ? (
+          <Balance />
+        ) : sectionHost === "Chat" ? (
+          <Chat />
+        ) : (
+          <Spinner />
+        )}
+
 
       <div className={style.footerHost}>
         <p className={style.infoFooter}>COPYRIGHT 2021</p>

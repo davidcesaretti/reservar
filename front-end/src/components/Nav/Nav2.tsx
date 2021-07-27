@@ -100,8 +100,6 @@ export default function MenuAppBar() {
 }
 
 /* import logo from "../../Image/logo.jpeg";
-<img src={`${logo}`} alt="logo" className={classes.img} />  
-
-
+<img src={`${logo}`} alt="logo" className={classes.img} />
 import { useHistory } from "react-router-dom";
 let history = useHistory(); */
