@@ -19,28 +19,43 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 import DeleteIcon from '@material-ui/icons/Delete';
 import FilterListIcon from '@material-ui/icons/FilterList';
-
+import { useEffect } from 'react';
+import axios from 'axios';
+import { useState } from 'react';
 
 interface Data {
   name: string;
   phone: string;
   email: string;
-  lodgings: number;
-  status: string;
+  lodgings_registered: number;
+  status_account: string;
  
 }
 
+const [rows, setRows] = useState([]);
 
-const rows = [
-{name: 'walter', phone: '3731323423', email: 'sh@jdjd.com', lodgings: 5, status: 'active'},
-{name: 'david', phone: '37345423', email: 'dhsh@jdjd.com', lodgings: 7, status: 'active'},
-{name: 'jesus', phone: '787823423', email: 'dfgsh@jdjd.com', lodgings: 3, status: 'suspended'},
-{name: 'pedro', phone: '99999323423', email: 'uiouihsh@jdjd.com', lodgings: 4, status: 'suspended'},
-{name: 'vero', phone: '3733333323', email: 'vbcv@jdjd.com', lodgings: 9, status: 'active'},
-{name: 'ulises', phone: '3000000423', email: 'vvvvvsh@jdjd.com', lodgings: 5, status: 'active'},
-{name: 'nelson', phone: '2731323423', email: 'yuiyuuuu@jdjd.com', lodgings: 5, status: 'suspended'},
-{name: 'dario', phone: '89989823423', email: 'vvvvvv@jdjd.com', lodgings: 5, status: 'active'},
-];
+  useEffect(() => {
+    async function fetchData() {
+      const request = await axios.get('http://localhost:3001/getusers');
+      console.log(request.data);
+      setRows(request.data);
+      return request;
+    }
+    fetchData();
+  }, []); 
+console.log(rows)
+
+// const rows = [
+// {name: 'walter', phone: '3731323423', email: 'sh@jdjd.com', lodgings: 5, status: 'active'},
+// {name: 'david', phone: '37345423', email: 'dhsh@jdjd.com', lodgings: 7, status: 'active'},
+// {name: 'jesus', phone: '787823423', email: 'dfgsh@jdjd.com', lodgings: 3, status: 'suspended'},
+// {name: 'pedro', phone: '99999323423', email: 'uiouihsh@jdjd.com', lodgings: 4, status: 'suspended'},
+// {name: 'vero', phone: '3733333323', email: 'vbcv@jdjd.com', lodgings: 9, status: 'active'},
+// {name: 'ulises', phone: '3000000423', email: 'vvvvvsh@jdjd.com', lodgings: 5, status: 'active'},
+// {name: 'nelson', phone: '2731323423', email: 'yuiyuuuu@jdjd.com', lodgings: 5, status: 'suspended'},
+// {name: 'dario', phone: '89989823423', email: 'vvvvvv@jdjd.com', lodgings: 5, status: 'active'},
+// ];
+
 
 function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
   if (b[orderBy] < a[orderBy]) {
@@ -84,8 +99,8 @@ const headCells: HeadCell[] = [
   { id: 'name', numeric: false, disablePadding: true, label: 'Name' },
   { id: 'phone', numeric: false, disablePadding: false, label: 'Phone' },
   { id: 'email', numeric: false, disablePadding: false, label: 'Email' },
-  { id: 'lodgings', numeric: true, disablePadding: false, label: '# of lodgings registered' },
-  { id: 'status', numeric: false, disablePadding: false, label: 'Account status' },
+  { id: 'lodgings_registered', numeric: true, disablePadding: false, label: '# of lodgings registered' },
+  { id: 'status_account', numeric: false, disablePadding: false, label: 'Account status' },
 
 ];
 
@@ -237,7 +252,7 @@ const useStyles = makeStyles((theme: Theme) =>
 export default function EnhancedTable() {
   const classes = useStyles();
   const [order, setOrder] = React.useState<Order>('asc');
-  const [orderBy, setOrderBy] = React.useState<keyof Data>('lodgings');
+  const [orderBy, setOrderBy] = React.useState<keyof Data>('lodgings_registered');
   const [selected, setSelected] = React.useState<string[]>([]);
   const [page, setPage] = React.useState(0);
   const [dense, setDense] = React.useState(false);
@@ -347,8 +362,8 @@ export default function EnhancedTable() {
                       </TableCell>
                       <TableCell align="right">{row.phone}</TableCell>
                       <TableCell align="right">{row.email}</TableCell>
-                      <TableCell align="right">{row.lodgings}</TableCell>
-                      <TableCell align="right">{row.status}</TableCell>
+                      <TableCell align="right">{row.lodgings_registered}</TableCell>
+                      <TableCell align="right">{row.status_account}</TableCell>
                       <Switch
                         // checked={state.checkedA}
                         onChange={handleChange}
