@@ -146,6 +146,21 @@ const DetailHotel = () => {
   let page = Math.floor(Math.random() * 12);
   useEffect(() => {
     dispatch(
+      fetchCardsHotels(
+        page,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        fechas.cities,
+        undefined
+      )
+    );
+  }, []);
+
+  useEffect(() => {
+    dispatch(
       FechasReserva({
         ...fechas,
         checkin: arrivalDate,
@@ -180,8 +195,7 @@ const DetailHotel = () => {
     fechaSalida: arrivalDate,
     fechaLlegada: departureDate,
     email: auth.user?.email,
-    preciofinal: result,
-    host: detailhotel,
+    preciofinal: total,
   };
   console.log(obj);
   const handleSubmit = () => {
@@ -194,21 +208,25 @@ const DetailHotel = () => {
   } else {
     return (
       <div>
-        <div className={style.gridconteiner}>
-          <div>
-            <NavBar />
-            <div className={style.contimg}>
-              <img
-                src={detailhotel[0]?.image}
-                style={{ width: 650, height: 350 }}
-                alt="No data"
-              />
-            </div>
-            <div className={style.contnd}>
-              <div className={style.name}>{detailhotel[0]?.name}</div>
-              <h3 className={style.des}>Description</h3>
-              <div className={style.summ}>{detailhotel[0]?.summary}</div>
-              <hr className={style.hr} />
+        <NavBar />
+        <div className={"div__contendor_detail"}>
+          <div className={"div__detail1"}>
+            <div className={"div__detail1-description"}>
+              <h1 className={"div__detail1-description-h1"}>
+                {truncate(detailhotel[0]?.name, 46)}
+              </h1>
+              <p
+                style={{
+                  marginTop: "7px",
+                  marginBottom: "3px",
+                  fontWeight: "bold",
+                }}
+              >
+                Description
+              </p>
+              <p className={"div__detail1-description-resume"}>
+                {truncate(detailhotel[0]?.summary, 315)}
+              </p>
             </div>
             <div
               style={{
@@ -453,8 +471,8 @@ const DetailHotel = () => {
             </div>
           </div>
         </div>
-        <div style={{ height: "400px", marginTop: "100px" }}>
-          {detailhotel.coordinates ? <MapInit /> : ""}
+        <div className="map-detail">
+          <MapInit />
         </div>
         <div className="container-calendary">
           <p
