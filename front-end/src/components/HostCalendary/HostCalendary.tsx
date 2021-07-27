@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function HostCalendary({ data }) {
+export default function HostCalendary({ data, salida, llegada }) {
   const dateArray = [];
 
   const [startDate, setStartDate] = useState(new Date());
@@ -43,7 +43,8 @@ export default function HostCalendary({ data }) {
   const [departureDate, setdepartureDate] = React.useState<Date | any>(
     new Date()
   );
-
+  llegada(arrivalDate);
+  salida(departureDate);
   const handleDateChange = (date: Date) => {
     setArrivalDate(moment(date).format("YYYY-MM-DD"));
     setAux(true);
