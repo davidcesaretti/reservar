@@ -6,6 +6,8 @@ interface IUser extends Document {
   email: string;
   favorites: Array<String>;
   reserveId: Array<String>;
+  phone_number: Number;
+  
   // photo: string;
   // reserveId: [Object];
 }
@@ -32,10 +34,12 @@ const user = new Schema<IUser>(
     emergency_contact: { type: String },
     emergency_phone_number: { type: Number },
     relationship: { type: String, enum: ["Family", "Friend"] },
-    role: { type: String, enum: ["Traveler", "Host"] },
+    role: { type: String, enum: ["Traveler", "Host"]},
     favorites: { type: [] },
     reserveId: { type: [Object] },
     alternative_email: { type: String },
+    status_account: {type: String, enum: ["Active", "Suspended", "Admin" ]},
+    
   },
   { versionKey: false }
 );

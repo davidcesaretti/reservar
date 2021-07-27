@@ -187,11 +187,17 @@ export const FechasReserva = (data: Object) => {
     payload: data,
   };
 };
+export const BotonesPaginado = (data: Object) => {
+  return {
+    type: ActionTypes.paginado,
+    payload: data,
+  };
+};
 export const detailHotel = (id) => {
   return async (dispatch: Dispatch) => {
     dispatch<FetchDetailHotel>({
       type: ActionTypes.detailHotel,
-      payload: []
+      payload: [],
     });
     const response = await axios.get<cardsHotel[]>(
       `${url}/filter/properties/${id}`
@@ -219,18 +225,20 @@ export const updateUser = (userInfo: object, userEmail) => {
 export const getUserInfo = (email) => {
   return async (dispatch: Dispatch) => {
     try {
-      console.log(email)
-      const infoUser = await axios.post("http://localhost:3001/login", {email})
-      console.log('action getUserInfo', infoUser)
+      console.log(email);
+      const infoUser = await axios.post("http://localhost:3001/login", {
+        email,
+      });
+      console.log("action getUserInfo", infoUser);
       dispatch<userInformation>({
         type: ActionTypes.userInfo,
         payload: infoUser.data,
       });
     } catch (error) {
-      console.error(error)
+      console.error(error);
     }
-  }
-}
+  };
+};
 
 export const clearDetail = () => {
   return {
