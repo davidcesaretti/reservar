@@ -16,8 +16,8 @@ function Maps(props) {
     lat: detailhotel[0].coordinates.latitude,
     lng: detailhotel[0].coordinates.longitude,
   };
-  // const coord = {lat:-34.72221160000001 ,lng:-58.5609682}
-  console.log("**********", detailhotel);
+  //const coord = { lat: 10.2852654, lng: -61.9813913 };
+
   return (
     <div>
       <GoogleMap defaultZoom={11} defaultCenter={coord} />
@@ -29,21 +29,24 @@ const WrappedMap = withScriptjs(withGoogleMap(Maps));
 
 //Obtiene coordenadas a partir de una direccion
 
-// function geoCode () {
-//     var location = "Los Ceibos 3180, Ciudad Evita, Provincia de Buenos Aires"
-//     axios.get("https://maps.googleapis.com/maps/api/geocode/json",{
-//         params:{
-//             address: location,
-//             key: API_KEY
-//         }
-//     }).then(respuesta => {
-//         console.log(respuesta.data.results[0].geometry.location)
-//     }).catch(err => {
-//         console.log(err)
-//     })
-// }
+function geoCode() {
+  var location = "lo que sea, lo que sea, lo que sea,venezuela";
+  axios
+    .get("https://maps.googleapis.com/maps/api/geocode/json", {
+      params: {
+        address: location,
+        key: API_KEY,
+      },
+    })
+    .then((respuesta) => {
+      console.log(respuesta.data.results[0].geometry.location);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+}
 export function MapInit() {
-  // geoCode()
+  // geoCode();
   return (
     <div>
       <WrappedMap

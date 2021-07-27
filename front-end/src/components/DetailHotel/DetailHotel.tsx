@@ -174,8 +174,12 @@ const DetailHotel = () => {
   var fechaS = moment(fechaSalida).format("DD/MM/YY");
 
   var cantidad = moment(fechaSalida).diff(moment(fechaLlegada), "days"); //realizar operacion resta de fechas
+  cantidad = cantidad + 1;
   var total = cantidad * detailhotel[0]?.price;
   var result = cantidad === 0 ? detailhotel[0]?.price : total;
+  console.log(cantidad);
+  console.log(total);
+
   let properties = [];
   function exploreProperties() {
     if (cards?.posts) {
@@ -191,9 +195,9 @@ const DetailHotel = () => {
     fechaSalida: arrivalDate,
     fechaLlegada: departureDate,
     email: auth.user?.email,
-    preciofinal: result,
+    preciofinal: total,
   };
-
+  console.log(obj);
   const handleSubmit = () => {
     dispatch(FirstStepReserve(obj));
   };
@@ -362,7 +366,7 @@ const DetailHotel = () => {
                     </div>
                     <div className="card__container-detail">
                       <p className="marginCero">Number of nights</p>{" "}
-                      <p className="marginCero">2</p>
+                      <p className="marginCero">{cantidad}</p>
                     </div>
                   </div>
                   <div
@@ -392,7 +396,7 @@ const DetailHotel = () => {
                         margin: "10px",
                       }}
                     >
-                      $3600
+                      {`$ ${total}`}
                     </p>
                   </div>
                   <div
@@ -402,9 +406,14 @@ const DetailHotel = () => {
                       padding: "5px",
                     }}
                   >
-                    <button className="boton__submit-add marginCero">
-                      Reserve
-                    </button>
+                    <Link to="/payments">
+                      <button
+                        onClick={() => handleSubmit()}
+                        className="boton__submit-add marginCero"
+                      >
+                        Reserve
+                      </button>
+                    </Link>
                   </div>
                 </div>
               </div>
@@ -481,7 +490,11 @@ const DetailHotel = () => {
           </p>
           <div>
             {" "}
-            <HostCalendary data={detailhotel} />
+            <HostCalendary
+              data={detailhotel}
+              salida={setdepartureDate}
+              llegada={setArrivalDate}
+            />
           </div>
         </div>
         <div className="container-reviews">
