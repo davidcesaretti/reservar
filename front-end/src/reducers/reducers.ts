@@ -1,3 +1,5 @@
+import { hostresRed } from "./hostres";
+import { bookchatRed } from "./bookchat";
 import { booleanoRed } from "./booleano";
 import { Favourites, Booleano, USERFAVS } from "./../actions/index";
 import { favReducer } from "./favReducer";
@@ -14,7 +16,10 @@ import { StepRegisterOne } from "./reserve";
 import { reservesReducer } from "./reserves";
 import { postsHost } from "./postUser";
 import { userInfo } from "./infoUser";
+<<<<<<< HEAD
 import { statePaginado } from "./paginado";
+=======
+>>>>>>> fixedfavs
 
 export interface StoreState {
   fechas: any;
@@ -31,6 +36,8 @@ export interface StoreState {
   postHost: Array<any>;
   user: Object;
   paginado: Object;
+  bookchat: Array<any>;
+  hostres: Array<any>;
 }
 
 export const reducers = combineReducers<StoreState>({
@@ -48,6 +55,8 @@ export const reducers = combineReducers<StoreState>({
   postHost: postsHost,
   user: userInfo,
   paginado: statePaginado,
+  bookchat: bookchatRed,
+  hostres: hostresRed,
 });
 
 export default reducers;

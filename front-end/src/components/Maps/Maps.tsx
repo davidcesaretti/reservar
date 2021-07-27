@@ -13,10 +13,10 @@ const API_KEY = "AIzaSyBA4G2uLWkWFOrQL67Wtb2aS4e-cRe7Fys";
 function Maps(props) {
   const detailhotel = useSelector((state: any) => state.categorieDetail);
   const coord = {
-    lat: detailhotel[0].coordinates.latitude,
-    lng: detailhotel[0].coordinates.longitude,
+    lat: detailhotel[0].coordinates?.latitude,
+    lng: detailhotel[0].coordinates?.longitude,
   };
-  //const coord = { lat: 10.2852654, lng: -61.9813913 };
+  // const coord = {lat:-34.72221160000001 ,lng:-58.5609682}
 
   return (
     <div>
