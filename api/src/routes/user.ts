@@ -233,8 +233,8 @@ UserRouter.post("/getreserves", async (req, res) => {
 
 UserRouter.get("/getusers", async (req, res) => {
   const users = await User.find({})
-  const mapp = await Promise.all(users.map(async (e) => {
-  const find = await Properties.find({ host: e.email });  
+  const userMapped = await Promise.all(users.map(async (e) => {
+  const find = await Properties.find({ host: e.email });
     return {
       name: e.name,
       phone: e.phone_number,
@@ -243,15 +243,14 @@ UserRouter.get("/getusers", async (req, res) => {
       status_account: "Active"
     }
   }))
-
-  return res.json(mapp)
+  return res.json(userMapped)
 
 })
 
 UserRouter.get("/getprops", async (req, res) => {
  
   const find = await Properties.find({host:{$exists:true}});
-  const maped = await Promise.all(find.map(async(e) => {
+  const propsMapped = await Promise.all(find.map(async(e) => {
   const nameUser = await User.findOne({email: e.host})
     return {
       name: e.name,
@@ -261,7 +260,7 @@ UserRouter.get("/getprops", async (req, res) => {
       status_account: "Active",
     }
   }))
-  return res.json(maped)
+  return res.json(propsMapped)
 })
 
 
