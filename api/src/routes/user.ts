@@ -239,7 +239,7 @@ UserRouter.post("/validateadmin", async (req: Request, res: Response) => {
   const sgMail = require("@sendgrid/mail");
   const {email} = req.body
   const code = Math.floor(Math.random() * (9999 - 1000) + 1000)
-
+  console.log('llego al back ',req.body)
   sgMail.setApiKey("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");
 
   const msg = {
@@ -253,7 +253,7 @@ UserRouter.post("/validateadmin", async (req: Request, res: Response) => {
   sgMail
     .send(msg)
     .then(() => {
-      console.log('Se mando el email')
+      console.log(code)
       return res.json(code)
     })
     .catch(err => {console.log(err)})

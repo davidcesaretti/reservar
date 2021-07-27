@@ -73,6 +73,11 @@ export interface userInfo {
   recoveryMail: string;
   civilStatus: string;
 }
+
+export interface validationAdmin {
+  type: ActionTypes.validateAdmin;
+  payload: Number;
+}
 const url = "https://app-trekker.herokuapp.com";
 
 export const onLogin = async (data: Credentials) => {
@@ -294,6 +299,18 @@ export const postReserve = (obj) => {
     await axios.post("http://localhost:3001/reserva", obj);
   };
 };
+
+export const getCodeValidation = (email) => {
+  return async (dispatch: Dispatch) => {
+    console.log('verificacion ',email)
+    const code = await axios.post("http://localhost:3001/validateadmin", {email})
+
+    dispatch<validationAdmin>({
+              type: ActionTypes.validateAdmin,
+              payload: code.data
+    })
+  }
+}
 // export function deleteUsers(data: any) {
 //   return function (dispatch: Dispatch) {
 //     return fetch(url, {

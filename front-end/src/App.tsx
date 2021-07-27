@@ -14,6 +14,9 @@ import User from "./components/User/User";
 import Favorites from "./components/Favorites/Favorites";
 import AddProperty from "./components/AddProperty/AddProperty";
 import AdminDashboard from "./components/AdminDashboard/AdminDashboard"
+import ValidationAdmin from "./components/ValidationAdmin/ValidationAdmin"
+
+
 function App() {
   const auth = useAuth();
 
@@ -34,6 +37,7 @@ function App() {
       <Route exact path="/User" component={auth.user ? User : Register} />
       <Route exact path="/AddProperty/:id" component={AddProperty} />
       <Route exact path="/Admin" component={AdminDashboard} />
+      <Route exact path="/validationAdmin" component={ValidationAdmin} />
     </Switch>
   );
 }
