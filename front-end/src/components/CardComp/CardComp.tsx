@@ -87,6 +87,8 @@ export default function CardComp({
   accommodates,
   click,
   boton,
+  deleteButton,
+
 }) {
   const classes = useStyles();
 
@@ -169,6 +171,15 @@ export default function CardComp({
                 <button>edit</button>{" "}
               </Link>
             )}
+            {deleteButton && (
+              <Link
+                style={{ textDecoration: "none" }}
+                to={`/DeleteProperty/${_id}`}
+              >
+                <button>delete</button>{" "}
+              </Link>
+            )}
+
           </div>
         </CardContent>
       </CardActionArea>

@@ -193,6 +193,7 @@ export default function Pay({
                       price={detailhotel[0]?.price}
                       click={""}
                       boton={false}
+                      deleteButton={false}
                     />
                   </Card>
                 </Grid>
