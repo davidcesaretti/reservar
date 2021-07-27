@@ -240,7 +240,7 @@ UserRouter.get("/getusers", async (req, res) => {
       phone: e.phone_number,
       email: e.email,
       lodgings_registered: find.length,
-      status_account: ["Active", "Suspended"]
+      status_account: "Active",
     }
   }))
   return res.json(userMapped)

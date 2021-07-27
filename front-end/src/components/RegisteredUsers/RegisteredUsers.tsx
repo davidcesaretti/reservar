@@ -252,11 +252,11 @@ export default function EnhancedTable() {
   const [page, setPage] = React.useState(0);
   const [dense, setDense] = React.useState(false);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
-  const [toggle, setToggle] = useState(false)
+  const [toggle, setToggle] = useState({})
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {   // Funcion para switch
-    setToggle(!toggle)
-    //setToggle({ ...toggle, [event.target.name]: event.target.checked });
+    //setToggle(!toggle)
+    setToggle({ ...toggle, [event.target.name]: event.target.checked });
   };
 
   const handleRequestSort = (event: React.MouseEvent<unknown>, property: keyof Data) => {
@@ -359,12 +359,13 @@ export default function EnhancedTable() {
                       <TableCell align="right">{row.phone}</TableCell>
                       <TableCell align="right">{row.email}</TableCell>
                       <TableCell align="right">{row.lodgings_registered}</TableCell>
-                      <TableCell align="right">{toggle ? row.status_account[0] : row.status_account[1] }</TableCell>
+                      <TableCell align="right">{row.status_account}</TableCell>
                       <Switch
-                        //checked={!toggle}
+                        checked={toggle[row.email]}  //row.status_account === 'Active'
                         onChange={handleChange}
                         name={row.name}
                         inputProps={{ 'aria-label': 'secondary checkbox' }}
+                        
                       />
                     </TableRow>
                   );
