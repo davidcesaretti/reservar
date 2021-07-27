@@ -29,21 +29,15 @@ interface Data {
   email: string;
   lodgings_registered: number;
   status_account: string;
- 
+  statusSwitch: any;
 }
 
-const [rows, setRows] = useState([]);
 
-  useEffect(() => {
-    async function fetchData() {
-      const request = await axios.get('http://localhost:3001/getusers');
-      console.log(request.data);
-      setRows(request.data);
-      return request;
-    }
-    fetchData();
-  }, []); 
-console.log(rows)
+let rows = []
+      axios.get("http://localhost:3001/getusers").then(respuesta => {
+        rows = (respuesta.data)
+        console.log(rows)
+      })
 
 // const rows = [
 // {name: 'walter', phone: '3731323423', email: 'sh@jdjd.com', lodgings: 5, status: 'active'},
@@ -101,6 +95,7 @@ const headCells: HeadCell[] = [
   { id: 'email', numeric: false, disablePadding: false, label: 'Email' },
   { id: 'lodgings_registered', numeric: true, disablePadding: false, label: '# of lodgings registered' },
   { id: 'status_account', numeric: false, disablePadding: false, label: 'Account status' },
+  { id: 'statusSwitch', numeric: false, disablePadding: false, label: 'status switch' },
 
 ];
 
@@ -257,10 +252,11 @@ export default function EnhancedTable() {
   const [page, setPage] = React.useState(0);
   const [dense, setDense] = React.useState(false);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const [toggle, setToggle] = useState(false)
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {   // Funcion para switch
-    console.log('CLICK')
-    // setState({ ...state, [event.target.name]: event.target.checked });
+    setToggle(!toggle)
+    //setToggle({ ...toggle, [event.target.name]: event.target.checked });
   };
 
   const handleRequestSort = (event: React.MouseEvent<unknown>, property: keyof Data) => {
@@ -363,11 +359,11 @@ export default function EnhancedTable() {
                       <TableCell align="right">{row.phone}</TableCell>
                       <TableCell align="right">{row.email}</TableCell>
                       <TableCell align="right">{row.lodgings_registered}</TableCell>
-                      <TableCell align="right">{row.status_account}</TableCell>
+                      <TableCell align="right">{toggle ? row.status_account[0] : row.status_account[1] }</TableCell>
                       <Switch
-                        // checked={state.checkedA}
+                        //checked={!toggle}
                         onChange={handleChange}
-                        name="status"
+                        name={row.name}
                         inputProps={{ 'aria-label': 'secondary checkbox' }}
                       />
                     </TableRow>
@@ -395,7 +391,6 @@ export default function EnhancedTable() {
         control={<Switch checked={dense} onChange={handleChangeDense} />}
         label="Dense padding"
       />
-      {/* <button>GET USER INFO</button> */}
     </div>
   );
 }
