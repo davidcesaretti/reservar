@@ -20,27 +20,26 @@ import Switch from '@material-ui/core/Switch';
 import DeleteIcon from '@material-ui/icons/Delete';
 import FilterListIcon from '@material-ui/icons/FilterList';
 
+
 interface Data {
   name: string;
   phone: string;
   email: string;
   lodgings: number;
   status: string;
-  // check1: boolean;
-  // check2: boolean;
-  // check3: boolean;
+ 
 }
 
 
 const rows = [
-{name: 'walter', phone: '3731323423', email: 'sh@jdjd.com', lodgings: 5, status: 'active', check1: false, check2: false, check3: false},
-{name: 'david', phone: '37345423', email: 'dhsh@jdjd.com', lodgings: 7, status: 'active', check1: false, check2: false, check3: false},
-{name: 'jesus', phone: '787823423', email: 'dfgsh@jdjd.com', lodgings: 3, status: 'suspended', check1: false, check2: false, check3: false},
-{name: 'pedro', phone: '99999323423', email: 'uiouihsh@jdjd.com', lodgings: 4, status: 'suspended', check1: false, check2: false, check3: false},
-{name: 'vero', phone: '3733333323', email: 'vbcv@jdjd.com', lodgings: 9, status: 'active', check1: false, check2: false, check3: false},
-{name: 'ulises', phone: '3000000423', email: 'vvvvvsh@jdjd.com', lodgings: 5, status: 'active', check1: false, check2: false, check3: false},
-{name: 'nelson', phone: '2731323423', email: 'yuiyuuuu@jdjd.com', lodgings: 5, status: 'suspended', check1: false, check2: false, check3: false},
-{name: 'dario', phone: '89989823423', email: 'vvvvvv@jdjd.com', lodgings: 5, status: 'active', check1: false, check2: false, check3: false},
+{name: 'walter', phone: '3731323423', email: 'sh@jdjd.com', lodgings: 5, status: 'active'},
+{name: 'david', phone: '37345423', email: 'dhsh@jdjd.com', lodgings: 7, status: 'active'},
+{name: 'jesus', phone: '787823423', email: 'dfgsh@jdjd.com', lodgings: 3, status: 'suspended'},
+{name: 'pedro', phone: '99999323423', email: 'uiouihsh@jdjd.com', lodgings: 4, status: 'suspended'},
+{name: 'vero', phone: '3733333323', email: 'vbcv@jdjd.com', lodgings: 9, status: 'active'},
+{name: 'ulises', phone: '3000000423', email: 'vvvvvsh@jdjd.com', lodgings: 5, status: 'active'},
+{name: 'nelson', phone: '2731323423', email: 'yuiyuuuu@jdjd.com', lodgings: 5, status: 'suspended'},
+{name: 'dario', phone: '89989823423', email: 'vvvvvv@jdjd.com', lodgings: 5, status: 'active'},
 ];
 
 function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
@@ -87,9 +86,7 @@ const headCells: HeadCell[] = [
   { id: 'email', numeric: false, disablePadding: false, label: 'Email' },
   { id: 'lodgings', numeric: true, disablePadding: false, label: '# of lodgings registered' },
   { id: 'status', numeric: false, disablePadding: false, label: 'Account status' },
-  // { id: 'check1', numeric: false, disablePadding: false, label: 'Activate account' },
-  // { id: 'check2', numeric: false, disablePadding: false, label: 'Suspend account' },
-  // { id: 'check3', numeric: false, disablePadding: false, label: 'Delete account' },
+
 ];
 
 interface EnhancedTableProps {
@@ -109,8 +106,8 @@ function EnhancedTableHead(props: EnhancedTableProps) {
   };
 
   return (
-    <TableHead>
-      <TableRow className={classes.titulos}>
+    <TableHead className={classes.titulos}>
+      <TableRow >
         <TableCell padding="checkbox">
           <Checkbox
             indeterminate={numSelected > 0 && numSelected < rowCount}
@@ -187,7 +184,7 @@ const EnhancedTableToolbar = (props: EnhancedTableToolbarProps) => {
         </Typography>
       ) : (
         <Typography className={classes.title} variant="h6" id="tableTitle" component="div">
-          Registered Lodgings
+          Registered Users
         </Typography>
       )}
       {numSelected > 0 ? (
@@ -245,6 +242,11 @@ export default function EnhancedTable() {
   const [page, setPage] = React.useState(0);
   const [dense, setDense] = React.useState(false);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {   // Funcion para switch
+    console.log('CLICK')
+    // setState({ ...state, [event.target.name]: event.target.checked });
+  };
 
   const handleRequestSort = (event: React.MouseEvent<unknown>, property: keyof Data) => {
     const isAsc = orderBy === property && order === 'asc';
@@ -328,17 +330,16 @@ export default function EnhancedTable() {
                   return (
                     <TableRow
                       hover
-                      onClick={(event) => handleClick(event, row.name)}
                       role="checkbox"
                       aria-checked={isItemSelected}
                       tabIndex={-1}
                       key={row.name}
-                      selected={isItemSelected}
                     >
                       <TableCell padding="checkbox">
                         <Checkbox
                           checked={isItemSelected}
                           inputProps={{ 'aria-labelledby': labelId }}
+                          onClick={(event) => handleClick(event, row.name)}
                         />
                       </TableCell>
                       <TableCell component="th" id={labelId} scope="row" padding="none">
@@ -348,24 +349,12 @@ export default function EnhancedTable() {
                       <TableCell align="right">{row.email}</TableCell>
                       <TableCell align="right">{row.lodgings}</TableCell>
                       <TableCell align="right">{row.status}</TableCell>
-                      <TableCell padding="checkbox">
-                        <Checkbox
-                          // checked={isItemSelected}
-                          inputProps={{ 'aria-labelledby': labelId }}
-                        />
-                      </TableCell>
-                      <TableCell padding="checkbox">
-                        <Checkbox
-                          // checked={isItemSelected}
-                          inputProps={{ 'aria-labelledby': labelId }}
-                        />
-                      </TableCell>
-                      <TableCell padding="checkbox">
-                        <Checkbox
-                          // checked={isItemSelected}
-                          inputProps={{ 'aria-labelledby': labelId }}
-                        />
-                      </TableCell>
+                      <Switch
+                        // checked={state.checkedA}
+                        onChange={handleChange}
+                        name="status"
+                        inputProps={{ 'aria-label': 'secondary checkbox' }}
+                      />
                     </TableRow>
                   );
                 })}
