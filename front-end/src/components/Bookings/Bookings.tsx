@@ -73,6 +73,7 @@ const Bookings = () => {
                           price={e.price}
                           click={console.log("")}
                           boton={false}
+                          deleteButton={false}
                         />
                       </Card>
                     </Grid>
