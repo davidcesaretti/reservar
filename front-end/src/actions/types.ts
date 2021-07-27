@@ -15,6 +15,7 @@ export enum ActionTypes {
   findPost,
   userInfo,
   usersList,
+  validateAdmin,
 }
 
 export type Action = FetchUsersAction;
