@@ -231,7 +231,6 @@ UserRouter.post("/getreserves", async (req, res) => {
 UserRouter.post("/bookchat", async (req, res) => {
   const { email } = req.body;
 
-  const hoy = new Date();
   const user = await User.findOne({ email: email });
   const reserva = await Reserva.find({ _id: user.reserveId });
   res.json(reserva);

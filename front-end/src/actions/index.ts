@@ -38,6 +38,11 @@ export interface Bookings {
   type: ActionTypes.bookings;
   payload: any;
 }
+
+export interface Bookchat {
+  type: ActionTypes.bookchat;
+  payload: any;
+}
 export interface StepRegister {
   type: ActionTypes.stateRegister;
   payload: any;
@@ -307,10 +312,7 @@ export const getBookChat = (data) => {
       email: data,
     };
     console.log("ENTRO ACCION");
-    const bookchat = await axios.post(
-      "http://localhost:3001/getbookchat",
-      user
-    );
+    const bookchat = await axios.post("http://localhost:3001/bookchat", user);
 
     console.log(bookchat, "    RESPUESTA");
     dispatch({ type: ActionTypes.bookchat, payload: bookchat.data });

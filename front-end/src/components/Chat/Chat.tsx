@@ -8,6 +8,7 @@ import "firebase/auth";
 import "firebase/analytics";
 
 import { useCollectionData } from "react-firebase-hooks/firestore";
+import { useSelector } from "react-redux";
 
 const auth = firebase.auth();
 const firestore = firebase.firestore();
@@ -18,7 +19,7 @@ function Chat() {
   const user = auth.user;
 
   return (
-    <div className="App">
+    <div className="chat">
       <header>
         <h1>⚛️🔥💬</h1>
         <SignOut />
@@ -58,30 +59,52 @@ function SignOut() {
 }
 
 function ChatRoom() {
-  const messagesRef = firestore.collection("messages");
+  const bookings = useSelector((state: any) => state.bookchat);
+  let chatcollection = [];
+  bookings.map((e) =>
+    e.host ? chatcollection.push(e.host + e.info_user) : ""
+  );
+  const [collec, setCollec] = useState(chatcollection[0]);
+
+  const messagesRef = firestore.collection(collec);
   const query = messagesRef.orderBy("createdAt").limit(25);
 
   const [messages] = useCollectionData(query, { idField: "id" });
 
   const [formValue, setFormValue] = useState("");
 
+  let handleC = (e) => {
+    setCollec(e.currentTarget.value);
+    console.log("seteando collec  ", e.currentTarget.value);
+  };
+
   const sendMessage = async (e) => {
     e.preventDefault();
 
     const { email, photoURL } = auth.currentUser;
 
-    await messagesRef.add({
-      text: formValue,
-      createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-      email,
-      photoURL,
-    });
+    if (formValue.length > 0) {
+      await messagesRef.add({
+        text: formValue,
+        createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+        email,
+        photoURL,
+      });
+      console.log(chatcollection);
 
-    setFormValue("");
+      setFormValue("");
+    }
   };
 
   return (
     <>
+      {chatcollection &&
+        chatcollection.map((e) => (
+          <button value={e} onClick={handleC}>
+            Select Collection {e}
+          </button>
+        ))}
+
       <main>
         {messages &&
           messages.map((msg) => <ChatMessage key={msg.id} message={msg} />)}

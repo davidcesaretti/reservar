@@ -1,10 +1,10 @@
-/* .App {
+.chat {
   text-align: center;
   max-width: 728px;
   margin: 0 auto;
 }
 
-.App header {
+.chat header {
   background-color: #181717;
   height: 10vh;
   min-height: 50px;
@@ -21,7 +21,7 @@
   box-sizing: border-box;
 }
 
-.App section {
+.chat section {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -78,7 +78,7 @@ input {
 }
 
 button {
-  background-color: #282c34; 
+  background-color: #282c34;
   border: none;
   color: white;
   padding: 15px 32px;
@@ -143,4 +143,3 @@ img {
   border-radius: 50%;
   margin: 2px 5px;
 }
- */

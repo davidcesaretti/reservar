@@ -1,7 +1,7 @@
 import React from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getBooking } from "../../actions";
+import { getBookChat, getBooking } from "../../actions";
 import { useAuth } from "../../firebase/index";
 import CardComp from "../CardComp/CardComp";
 import { makeStyles } from "@material-ui/core/styles";
@@ -42,6 +42,11 @@ const Bookings = () => {
     dispatch(getBooking(email));
   }, []);
 
+  const bookchat = () => {
+    dispatch(getBookChat(email));
+    console.log("holi");
+  };
+
   if (bookings === null) {
     return <Error404 />;
   } else if (bookings.length < 1) {
@@ -75,7 +80,7 @@ const Bookings = () => {
                       boton={false}
                     />
                   </Card>
-                  <button value={}>Chat with host</button>
+                  <button onClick={bookchat}>Chat with host</button>
                 </Grid>
               ))}
           </Grid>
