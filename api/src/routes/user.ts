@@ -2,6 +2,8 @@ import express, { Request, Response, NextFunction, Router } from "express";
 import { User, Reserva } from "../models/Users";
 import { Properties } from "../models/Properties";
 import { Propertiestests } from "../models/propertiestests";
+import axios from "axios";
+import { AnyAaaaRecord } from "node:dns";
 
 //-------------------------------------------
 
@@ -225,17 +227,43 @@ UserRouter.post("/getreserves", async (req, res) => {
   res.json(reserva);
 });
 
-/* UserRouter.post("/getreserves", async (req, res) => {
-  const { email } = req.body;
 
-  const hoy = new Date();
-  const user = await User.findOne({ email: email });
-  
-let reserva = await Reserva.find({ _id: user.reserveId });
-  reserva = reserva.map(x=>x._id)
-  Properties.find({_id:{$all:reserva}})
-  res.json(reserva);
-});
- */
+
+
+
+UserRouter.get("/getusers", async (req, res) => {
+  const users = await User.find({})
+  const mapp = await Promise.all(users.map(async (e) => {
+  const find = await Properties.find({ host: e.email });  
+    return {
+      name: e.name,
+      phone: e.phone_number,
+      email: e.email,
+      lodgings_registered: find.length,
+      status_account: "Active"
+    }
+  }))
+
+  return res.json(mapp)
+
+})
+
+UserRouter.get("/getprops", async (req, res) => {
+ 
+  const find = await Properties.find({host:{$exists:true}});
+  const maped = await Promise.all(find.map(async(e) => {
+  const nameUser = await User.findOne({email: e.host})
+    return {
+      name: e.name,
+      host: nameUser.name,
+      city: e.city,
+      reservations_completed: 1,
+      status_account: "Active",
+    }
+  }))
+  return res.json(maped)
+})
+
+
 
 export default UserRouter;

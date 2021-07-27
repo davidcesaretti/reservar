@@ -47,7 +47,7 @@ export function MapInit() {
   return (
     <div>
       <WrappedMap
-        googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&key=${API_KEY}`}
+        googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&language=en&key=${process.env.REACT_APP_API_KEY}`}
         containerElement={<div style={{ height: "400px", width: "600px" }} />}
         mapElement={<div style={{ height: "100%", width: "1200px" }} />}
         loadingElement={<div style={{ height: `100%` }} />}
