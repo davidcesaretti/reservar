@@ -1,6 +1,13 @@
 import mongoose, { Schema, model } from "mongoose";
 
-const properties = new Schema(
+interface IUprop extends Document {
+
+  host: string;
+  name: string;
+  city: String;
+}
+
+const properties = new Schema<IUprop>(
   {
     name: {
       type: String,
@@ -77,4 +84,4 @@ const properties = new Schema(
 // Bungalow
 // Guest suite
 
-export const Properties = model("Properties", properties);
+export const Properties = model<IUprop>("Properties", properties);
