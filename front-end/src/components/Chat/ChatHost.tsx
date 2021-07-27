@@ -14,18 +14,18 @@ const auth = firebase.auth();
 const firestore = firebase.firestore();
 const analytics = firebase.analytics();
 
-function Chat() {
+function ChatHost() {
   const auth = useAuth();
   const user = auth.user;
 
   return (
     <div className="chat">
-      <header>
-        <h1>⚛️🔥💬</h1>
+      <header className="head">
+        <h2>Chat with the host</h2>
         <SignOut />
       </header>
 
-      <section>{user ? <ChatRoom /> : <SignIn />}</section>
+      <section className="sec">{user ? <ChatRoom /> : <SignIn />}</section>
     </div>
   );
 }
@@ -59,11 +59,9 @@ function SignOut() {
 }
 
 function ChatRoom() {
-  const bookings = useSelector((state: any) => state.bookchat);
+  const hostres = useSelector((state: any) => state.hostres);
   let chatcollection = [];
-  bookings.map((e) =>
-    e.host ? chatcollection.push(e.host + e.info_user) : ""
-  );
+  hostres.map((e) => (e.host ? chatcollection.push(e.host + e.info_user) : ""));
   const [collec, setCollec] = useState(
     chatcollection[0] ? chatcollection[0] : "nores"
   );
@@ -107,19 +105,20 @@ function ChatRoom() {
               messages.map((msg) => <ChatMessage key={msg.id} message={msg} />)}
           </main>
 
-          <form onSubmit={sendMessage}>
+          <form className="formu" onSubmit={sendMessage}>
             <input
+              className="inpu"
               value={formValue}
               onChange={(e) => setFormValue(e.target.value)}
               placeholder="type here"
             />
 
-            <button type="submit" disabled={!formValue}>
+            <button className="btn" type="submit" disabled={!formValue}>
               Send
             </button>
             {chatcollection &&
               chatcollection.map((e) => (
-                <button value={e} onClick={handleC}>
+                <button className="btn" value={e} onClick={handleC}>
                   Select Collection {e}
                 </button>
               ))}
@@ -153,4 +152,4 @@ function ChatMessage(props) {
   );
 }
 
-export default Chat;
+export default ChatHost;

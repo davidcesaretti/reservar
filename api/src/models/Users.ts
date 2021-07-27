@@ -7,6 +7,7 @@ interface IUser extends Document {
   favorites: Array<String>;
   reserveId: Array<String>;
   reservas: Array<String>;
+  propertiesreserved: Array<String>;
   // photo: string;
   // reserveId: [Object];
 }
@@ -37,6 +38,7 @@ const user = new Schema<IUser>(
     favorites: { type: [] },
     reserveId: { type: [Object] },
     reservas: { type: [] },
+    propertiesreserved: { type: [] },
     alternative_email: { type: String },
   },
   { versionKey: false }

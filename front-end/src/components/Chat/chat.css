@@ -4,7 +4,7 @@
   margin: 0 auto;
 }
 
-.chat header {
+.head {
   background-color: #181717;
   height: 10vh;
   min-height: 50px;
@@ -21,7 +21,7 @@
   box-sizing: border-box;
 }
 
-.chat section {
+.sec {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -50,7 +50,7 @@ main::-webkit-scrollbar-thumb {
   background: #6649b8;
 }
 
-form {
+.formu {
   height: 10vh;
   position: fixed;
   bottom: 0;
@@ -61,12 +61,12 @@ form {
   font-size: 1.5rem;
 }
 
-form button {
+.formu button {
   width: 20%;
   background-color: rgb(56, 56, 143);
 }
 
-input {
+.inpu {
   line-height: 1.5;
   width: 100%;
   font-size: 1.5rem;
@@ -77,7 +77,7 @@ input {
   padding: 0 10px;
 }
 
-button {
+.btn {
   background-color: #282c34;
   border: none;
   color: white;

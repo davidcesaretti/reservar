@@ -43,6 +43,12 @@ export interface Bookchat {
   type: ActionTypes.bookchat;
   payload: any;
 }
+
+export interface Hostres {
+  type: ActionTypes.hostres;
+  payload: any;
+}
+
 export interface StepRegister {
   type: ActionTypes.stateRegister;
   payload: any;
@@ -311,11 +317,25 @@ export const getBookChat = (data) => {
     let user = {
       email: data,
     };
-    console.log("ENTRO ACCION");
+
     const bookchat = await axios.post("http://localhost:3001/bookchat", user);
 
-    console.log(bookchat, "    RESPUESTA");
     dispatch({ type: ActionTypes.bookchat, payload: bookchat.data });
+  };
+};
+
+export const getHostReserves = (data) => {
+  return async (dispatch: Dispatch) => {
+    let user = {
+      email: data,
+    };
+    const hostres = await axios.post(
+      "http://localhost:3001/gethostreserves",
+      user
+    );
+    console.log(hostres.data, "   RESPUESTA BACK");
+
+    dispatch({ type: ActionTypes.hostres, payload: hostres.data });
   };
 };
 

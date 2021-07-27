@@ -236,6 +236,15 @@ UserRouter.post("/bookchat", async (req, res) => {
   res.json(reserva);
 });
 
+UserRouter.post("/gethostreserves", async (req, res) => {
+  const { email } = req.body;
+
+  const hoy = new Date();
+
+  const reserva = await Reserva.find({ host: email });
+  res.json(reserva);
+});
+
 /* UserRouter.post("/getreserves", async (req, res) => {
   const { email } = req.body;
 

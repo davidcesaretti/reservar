@@ -1,3 +1,4 @@
+import { hostresRed } from "./hostres";
 import { bookchatRed } from "./bookchat";
 import { booleanoRed } from "./booleano";
 import { Favourites, Booleano, USERFAVS } from "./../actions/index";
@@ -31,6 +32,7 @@ export interface StoreState {
   postHost: Array<any>;
   user: Object;
   bookchat: Array<any>;
+  hostres: Array<any>;
 }
 
 export const reducers = combineReducers<StoreState>({
@@ -48,6 +50,7 @@ export const reducers = combineReducers<StoreState>({
   postHost: postsHost,
   user: userInfo,
   bookchat: bookchatRed,
+  hostres: hostresRed,
 });
 
 export default reducers;

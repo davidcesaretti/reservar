@@ -17,6 +17,7 @@ export enum ActionTypes {
   stateRegister = "STATE_REGISTER",
   findPost = "FIND_POST",
   userInfo = "USER_INFO",
+  hostres = "HOST_RES",
 }
 
 export type Action = FetchUsersAction;
