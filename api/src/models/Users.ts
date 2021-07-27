@@ -36,6 +36,8 @@ const user = new Schema<IUser>(
     reserveId: { type: [Object] },
     alternative_email: { type: String },
     posts: { type: [] },
+    status: { String, enum: ["Moderator", "Active", "Suspended"]},
+    admin: Boolean,
   },
   { versionKey: false }
 );

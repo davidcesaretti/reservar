@@ -228,7 +228,6 @@ export const getUsersList = () => {
   return async (dispatch: Dispatch) => {
     try {
       const list = await axios.get("http://localhost:3001/userList")
-      console.log('LISTA DE USUARIOS ', list[0])
       dispatch<listOfUsers>({
         type: ActionTypes.usersList,
         payload: list.data

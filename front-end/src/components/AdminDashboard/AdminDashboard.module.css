@@ -1,6 +1,3 @@
-.ctn {
-
-}
 .navBar{
     display:flex;
     align-items: center;
@@ -13,6 +10,7 @@
 }
 .title {
     color: #FFF;
+    margin-left: 40px;
 }
 .signOut {
     height: 40px;
@@ -21,36 +19,49 @@
     border:none;
     font-size: 16px;
     color: #FFF;
-    background-color: #b2b451
-    ;
+    background-color: #b2b451;
     font-weight: bolder;
     cursor: pointer;
+    transition: 400ms;
 }
 .signOut:hover {
-    background-color:#d6d84c
-    ;
+    background-color:#d6d84c;
 }
-.buttons {
+.ctnButtons{
     display: flex;
     align-items: center;
     justify-content: center;
+}
+.buttons {
+    width: 800px;
+    margin: auto;
+    display: flex;
     flex-wrap: wrap;
-    padding: 40px;
+    justify-content: space-between;
+    align-items: center;
 }
 .buttonNav {
-    height:150px;
-    width: 250px;
-    border-radius: 15px;
-    border: solid 1px #c4d17d;
-    margin: 1%;
-    margin-right: 5%;
-    margin-left: 5%;
+    margin-top: 2.5%;
+    height:140px;
+    border-radius: 10px;
+    border: solid 1px #859239;
     cursor: pointer;
-    font-size: 20px;
+    font-size: 18px;
     font-weight: bold;
-    color: #000000;
-    background-color: #d3d4aa
-    ;
+    color: #0f0f04;
+    background-color: #d3d4aa;
+    transition: 400ms; 
+    flex: none;
+    width: calc((100% - 40px) / 3);
+    margin-bottom:10px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem 0;
+}
+.buttonNav:hover {
+    background-color: #b7b87d;
 }
 .footer{
     position: absolute;

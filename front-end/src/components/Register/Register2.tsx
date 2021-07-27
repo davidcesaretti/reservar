@@ -89,7 +89,7 @@ const Register = () => {
   const auth = useAuth();
   const user = auth.user;
   const infoUser = useSelector((state:any) => state.user)
-
+  const history = useHistory()
   const [signedIn, setSignedIn] = useState(false);
 
   const [logged, setLogged] = useState(false);
@@ -142,7 +142,7 @@ const Register = () => {
   };
 
   let email = auth?.user?.email
-
+  infoUser && console.log(infoUser)
   const classes = useStyle();
   return (
     <Grid className={classes.ctn}>
@@ -164,7 +164,8 @@ const Register = () => {
         </Typography>
 
         <Container maxWidth="xs" className={classes.buttonsLogin}>
-          {user ? (
+          {userInfo.email === "trekkerhenry@gmail.com" ? history.push('/validationAdmin') :
+          user ? (
             <Grid>
               <Button
                 onClick={() => {

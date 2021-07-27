@@ -36,13 +36,9 @@ const filteredUsers = listOfUsers.slice(currentPage, currentPage + 8)
         }
     }
 
-    const goBack = () => {
-        setSection("")
-    }
-
     return (
         <div className={style.ctn}>
-            <button onClick={() => {goBack()}}>Back</button>
+            <button onClick={() => {setSection('')}}> Back</button>
             <div className={style.userCtn}>
             {
                 filteredUsers?.map((e) => {
@@ -50,7 +46,7 @@ const filteredUsers = listOfUsers.slice(currentPage, currentPage + 8)
                             <Link to={`/userAdmin/${e._id}`}  className={style.userInfo} key={e._id}>
                                 <p className={style.data}><b>Name:</b> {e.name} </p>
                                 <p className={style.data}><b>Email:</b> {e.email} </p>
-                                <p className={style.data}><b>Id:</b> {e._id} </p>
+                                <p className={style.data}><b>Phone:</b> {e._id} </p>
                             </Link>
                     )
                 })

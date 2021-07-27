@@ -2,7 +2,7 @@ import express, { Request, Response, NextFunction, Router } from "express";
 import { User, Reserva } from "../models/Users";
 import { Properties } from "../models/Properties";
 import { Propertiestests } from "../models/propertiestests";
-
+import nodemailer from "nodemailer";
 //-------------------------------------------
 
 const UserRouter = Router();
@@ -77,6 +77,8 @@ UserRouter.post("/register", async (req: Request, res: Response) => {
         emergency_phone_number: emergency_phone_number,
         emergency_contact: emergency_contact,
         relationship: relationship,
+        admin: false,
+        status: "active",
       });
       await user.save();
       console.log("creado", user);
@@ -115,6 +117,8 @@ UserRouter.post("/register", async (req: Request, res: Response) => {
         name,
         email,
         photo,
+        admin: false,
+        status: "active",
       });
       await user.save();
       console.log("creado", user);
@@ -228,5 +232,47 @@ UserRouter.post("/getfavorites", async (req, res) => {
   const props = await Properties.find({ _id: us?.favorites });
   res.json(props);
 });
+
+UserRouter.post("/validateadmin", async (req: Request, res: Response) => {
+  const {email} = req.body
+  const code = Math.floor(Math.random() * (9999 - 1000) + 1000)
+  let testAccount = await nodemailer.createTestAccount();
+
+  const transporter = nodemailer.createTransport({
+    host: "smtp.ethereal.email",
+    port: 587,
+    secure: false,
+    auth: {
+        user: testAccount.user,
+        pass: testAccount.pass,
+    }
+  })
+  let info = await transporter.sendMail({
+    from: testAccount.user, 
+    to: "davucesaretti@gmail.com",
+    subject: "Hello ✔", 
+    html: `${code}`,
+  });
+  console.log("Message sent: %s", info.messageId);
+
+  console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
+
+  return res.json(code)
+  /* const mailOptions = {
+      from: testAccount.user,
+      to: "trekkerhenry@gmail.com",
+      subject : "Code Validation",
+      html: `${code}`
+  };
+  let info = await transporter.sendMail(mailOptions, function(error){
+      if (error) {
+        console.log(error);
+      } else {
+        console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
+        res.json(code);
+      }
+    }); */
+   
+})
 
 export default UserRouter;

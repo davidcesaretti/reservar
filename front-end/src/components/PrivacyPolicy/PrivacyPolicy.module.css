@@ -1,0 +1,18 @@
+.init{
+    text-align: center;
+}
+
+.final{
+    margin-top: 5em; 
+    font-size: 0.7em;
+}
+
+.ctn{
+    width: 80%;
+    margin: auto;
+    border: solid 1px black;
+    margin-bottom: 50px;
+    padding: 50px;
+}
+.separator {
+}

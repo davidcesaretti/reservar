@@ -1,5 +1,5 @@
-import React, {useState, useEffect} from 'react'
-import {useDispatch, useSelector} from 'react-redux'
+import React, { useState, useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { useAuth } from "../../firebase/index";
 import style from './AdminDashboard.module.css'
 import RegisteredUsers from '../RegisteredUsers/RegisteredUsers'
@@ -29,63 +29,64 @@ const AdminDashboard = () => {
                 <img className={style.logo} alt="trekker" />
                 <h1 className={style.title} >ADMIN PANEL</h1>
                 <button className={style.signOut} >Sign Out</button>
-            </div> 
-            { section === 'Reviews' ?
-            <Reviews setSection={setSection}/> :
+            </div>
+            {section === 'Reviews' ?
+                <Reviews setSection={setSection} /> :
 
-            section === 'RegisteredUsers' ?
-            <RegisteredUsers setSection={setSection}/> :
+                section === 'RegisteredUsers' ?
+                    <RegisteredUsers setSection={setSection} /> :
 
-            section === 'RegisteredLodgings' ?
-            <RegisteredLodgings setSection={setSection}/> :
-            
-            section === 'GeneralBalance' ?
-            <GeneralBalance setSection={setSection}/> :
+                    section === 'RegisteredLodgings' ?
+                        <RegisteredLodgings setSection={setSection} /> :
 
-            section === 'Earnings' ?
-            <Earnings setSection={setSection}/> :
+                        section === 'GeneralBalance' ?
+                            <GeneralBalance setSection={setSection} /> :
 
-            section === 'Stats' ?
-            <Stats setSection={setSection}/> :
+                            section === 'Earnings' ?
+                                <Earnings setSection={setSection} /> :
 
-            section === 'TermsAndConditions' ?
-            <TermsAndConditions setSection={setSection}/> :
+                                section === 'Stats' ?
+                                    <Stats setSection={setSection} /> :
 
-            section === 'FAQ' ?
-            <FAQ setSection={setSection}/> :
+                                    section === 'TermsAndConditions' ?
+                                        <TermsAndConditions setSection={setSection} /> :
 
-            section === 'PrivacyPolicy' ?
-            <PrivacyPolicy setSection={setSection}/> :
+                                        section === 'FAQ' ?
+                                            <FAQ setSection={setSection} /> :
 
-            <nav className={style.buttons}>
-                <button name="RegisteredUsers" onClick={(e) => {handleClick(e)}} className={style.buttonNav}>
-                    Registered Users
-                </button>
-                <button name="RegisteredLodgings" onClick={(e) => {handleClick(e)}} className={style.buttonNav}>
-                    Registered Lodgings
-                </button>
-                <button name="Reviews" onClick={(e) => {handleClick(e)}} className={style.buttonNav}>
-                    Reviews
-                </button>
-                <button name="GeneralBalance" onClick={(e) => {handleClick(e)}} className={style.buttonNav}>
-                    General Balance
-                </button>
-                <button name="Earnings" onClick={(e) => {handleClick(e)}} className={style.buttonNav}>
-                    Earnings
-                </button>
-                <button name="Stats" onClick={(e) => {handleClick(e)}} className={style.buttonNav}>
-                    Stats
-                </button>
-                <button name="TermsAndConditions" onClick={(e) => {handleClick(e)}} className={style.buttonNav}>
-                    Terms And Conditions
-                </button>
-                <button name="FAQ" onClick={(e) => {handleClick(e)}} className={style.buttonNav}>
-                    FAQ
-                </button>
-                <button name="PrivacyPolicy" onClick={(e) => {handleClick(e)}} className={style.buttonNav}>
-                    Privacy Policy
-                </button>
-            </nav>
+                                            section === 'PrivacyPolicy' ?
+                                                <PrivacyPolicy setSection={setSection} /> :
+                                                <div className={style.ctnButtons}>
+                                                    <nav className={style.buttons}>
+                                                        <button name="GeneralBalance" onClick={(e) => { handleClick(e) }} className={style.buttonNav}>
+                                                            General Balance
+                                                        </button>
+                                                        <button name="RegisteredUsers" onClick={(e) => { handleClick(e) }} className={style.buttonNav}>
+                                                            Registered Users
+                                                        </button>
+                                                        <button name="RegisteredLodgings" onClick={(e) => { handleClick(e) }} className={style.buttonNav}>
+                                                            Registered Lodgings
+                                                        </button>
+                                                        <button name="Earnings" onClick={(e) => { handleClick(e) }} className={style.buttonNav}>
+                                                            Earnings
+                                                        </button>
+                                                        <button name="Stats" onClick={(e) => { handleClick(e) }} className={style.buttonNav}>
+                                                            Stats
+                                                        </button>
+                                                        <button name="Reviews" onClick={(e) => { handleClick(e) }} className={style.buttonNav}>
+                                                            Reviews
+                                                        </button>
+                                                        <button name="TermsAndConditions" onClick={(e) => { handleClick(e) }} className={style.buttonNav}>
+                                                            Terms And Conditions
+                                                        </button>
+                                                        <button name="FAQ" onClick={(e) => { handleClick(e) }} className={style.buttonNav}>
+                                                            FAQ
+                                                        </button>
+                                                        <button name="PrivacyPolicy" onClick={(e) => { handleClick(e) }} className={style.buttonNav}>
+                                                            Privacy Policy
+                                                        </button>
+                                                    </nav>
+                                                </div>
             }
             <div className={style.footer}>Copyright 2021</div>
         </div>
