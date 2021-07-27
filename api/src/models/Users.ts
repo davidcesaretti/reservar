@@ -8,6 +8,8 @@ interface IUser extends Document {
   reserveId: Array<String>;
   phone_number: Number;
   
+  reservas: Array<String>;
+  propertiesreserved: Array<String>;
   // photo: string;
   // reserveId: [Object];
 }
@@ -37,6 +39,8 @@ const user = new Schema<IUser>(
     role: { type: String, enum: ["Traveler", "Host"]},
     favorites: { type: [] },
     reserveId: { type: [Object] },
+    reservas: { type: [] },
+    propertiesreserved: { type: [] },
     alternative_email: { type: String },
     status_account: {type: String, enum: ["Active", "Suspended", "Admin" ]},
     
@@ -48,12 +52,14 @@ export const User = model<IUser>("User", user);
 //agregar #huespedes, #cantidad(resolverlo desde fecha)//
 const reserva = new Schema(
   {
+    Prop_id: { type: String },
     fechaSalida: { type: Date },
     fechaLlegada: { type: Date },
     info_user: { type: String },
     state: { type: String },
     price: { type: Number },
     payment_id: { type: String },
+    host: { type: String },
   },
   { versionKey: false }
 );

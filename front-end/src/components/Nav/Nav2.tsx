@@ -4,8 +4,7 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
-import IconButton from "@material-ui/core/IconButton";
-import MenuIcon from "@material-ui/icons/Menu";
+
 import Grid from "@material-ui/core/Grid";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../firebase/index";
@@ -56,12 +55,11 @@ export default function MenuAppBar() {
             </Link>
           </Typography>
 
-          <Link to="/categories" className={classes.linkDecoration}>
-            <Button
-              variant="contained"
-              color="secondary"
-              className={classes.link1}
-            >
+          <Link to="/chat" className={classes.link}>
+            <button>GO TO MY CHAT </button>
+          </Link>
+          <Link to="/categories" className={classes.link}>
+            <Button variant="contained" color="secondary">
               Catalogue
             </Button>
           </Link>

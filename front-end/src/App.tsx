@@ -14,6 +14,9 @@ import User from "./components/User/User";
 import Favorites from "./components/Favorites/Favorites";
 import AddProperty from "./components/AddProperty/AddProperty";
 import UserPosts from "./components/UserPosts/UserPosts";
+import Chat from "./components/Chat/Chat";
+import ChatHost from "./components/Chat/ChatHost";
+
 function App() {
   const auth = useAuth();
 
@@ -34,6 +37,8 @@ function App() {
       <Route exact path="/add" component={AddProperty} />
       <Route exact path="/userpost" component={UserPosts} />
       <Route exact path="/AddProperty/:id" component={AddProperty} />
+      <Route exact path="/chat" component={Chat} />
+      <Route exact path="/chathost" component={ChatHost} />
     </Switch>
   );
 }

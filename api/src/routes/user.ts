@@ -11,7 +11,7 @@ const UserRouter = Router();
 UserRouter.use(express.json());
 
 UserRouter.post("/login", async (req: Request, res: Response) => {
-  const {email} = req.body;
+  const { email } = req.body;
   console.log("ruta login", req.body);
   const user = await User.findOne({ email: email });
   try {
@@ -107,7 +107,7 @@ UserRouter.post("/register", async (req: Request, res: Response) => {
 });
 
 UserRouter.post("/reserva", async (req, res) => {
-  const { fechaSalida, fechaLlegada, email, Prop_id, price, payment_id } =
+  const { fechaSalida, fechaLlegada, email, Prop_id, price, payment_id, host } =
     req.body;
 
   const finded = await User.findOne({ email: email });
@@ -141,12 +141,14 @@ UserRouter.post("/reserva", async (req, res) => {
       });
     } else { */
   const reserva = new Reserva({
+    Prop_id,
     fechaSalida,
     fechaLlegada,
     info_user: finded.email,
     state: "pending",
     price,
     payment_id,
+    host,
   });
   await reserva.save();
 
@@ -156,6 +158,7 @@ UserRouter.post("/reserva", async (req, res) => {
   );
 
   await User.updateOne({ email: email }, { $push: { reserveId: reserva._id } });
+  await User.updateOne({ email: email }, { $push: { reservas: Prop_id } });
 
   res.json({
     message: "reserva exitosa!",
@@ -223,10 +226,29 @@ UserRouter.post("/getreserves", async (req, res) => {
 
   const hoy = new Date();
   const user = await User.findOne({ email: email });
+  const reserva = await Properties.find({ _id: user?.reservas });
+  res.json(reserva);
+});
+
+UserRouter.post("/bookchat", async (req, res) => {
+  const { email } = req.body;
+
+  const user = await User.findOne({ email: email });
   const reserva = await Reserva.find({ _id: user.reserveId });
   res.json(reserva);
 });
 
+UserRouter.post("/gethostreserves", async (req, res) => {
+  const { email } = req.body;
+
+  const hoy = new Date();
+
+  const reserva = await Reserva.find({ host: email });
+  res.json(reserva);
+});
+
+/* UserRouter.post("/getreserves", async (req, res) => {
+  const { email } = req.body;
 
 
 
@@ -264,5 +286,5 @@ UserRouter.get("/getprops", async (req, res) => {
 })
 
 
-
+*/
 export default UserRouter;

@@ -13,7 +13,7 @@ import CreatePublications from "../CreatePublications/CreatePublications";
 import MyProperties from "../MyProperties/MyProperties";
 import Balance from "../Balance/Balance";
 import Chat from "../Chat/Chat";
-import { getUserInfo } from "../../actions/index";
+import { getBooking, getUserInfo } from "../../actions/index";
 import Swal from "sweetalert2";
 
 const User = () => {

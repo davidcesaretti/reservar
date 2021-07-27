@@ -149,6 +149,7 @@ export default function Pay({
         price: stateregister.preciofinal,
         Prop_id: detailhotel[0]._id,
         payment_id: res.data.id,
+        host: detailhotel[0].host,
         /* const { fechaSalida, fechaLlegada, email, Prop_id, price, payment_id } = */
       };
       axios.post("http://localhost:3001/reserva", reserv); //guardamos en la bd
