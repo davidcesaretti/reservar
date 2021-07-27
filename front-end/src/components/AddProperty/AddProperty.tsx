@@ -9,12 +9,19 @@ import { useAuth } from "../../firebase/index";
 import { useParams } from "react-router-dom";
 import { clearDetail, detailHotel } from "../../actions";
 import { useDispatch, useSelector } from "react-redux";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker-cssmodules.css";
+import "react-datepicker/dist/react-datepicker.css";
+import moment from "moment";
+import subDays from "date-fns/subDays";
 
 function AddProperty() {
   interface firebase {
     uploadValue: any;
     picture: any;
   }
+  
+ 
   const dispatch = useDispatch();
   const idParam = useParams();
   const refTitle = useRef(undefined);
@@ -35,6 +42,7 @@ function AddProperty() {
   });
   const auth = useAuth().user?.email;
   const detailEdit = useSelector((state: any) => state.categorieDetail[0]);
+
 
   useEffect(() => {
     dispatch(detailHotel(idParam.id));
@@ -218,6 +226,60 @@ function AddProperty() {
     }
   };
 
+  const [aux, setAux] = React.useState<Boolean>(false);
+  const [arrivalDate, setArrivalDate] = React.useState<Date | any>(new Date());
+  const [departureDate, setdepartureDate] = React.useState<Date | any>(new Date());
+  const dateArray = [];
+
+  
+  const dataFechas = detailEdit?.available.map((x) => {
+    return [moment(x.fechaSalida), moment(x.fechaLlegada)];
+  });
+
+  function getDates(startDate, stopDate) {
+    var currentDate = moment(startDate);
+    var stopDatee = moment(stopDate);
+    while (currentDate <= stopDatee) {
+      dateArray.push(moment(currentDate).format("YYYY-MM-DD"));
+      currentDate = moment(currentDate).add(1, "days");
+    }
+    return dateArray;
+  }
+  dataFechas?.map((x) => getDates(x[0], x[1]));
+
+  const disableFinal = dateArray.map((x) => new Date(x));
+  
+
+
+  // const startDate="2021-07-28"
+  // const stopDate = "2021-07-31"
+
+  // getDates(startDate,stopDate)
+
+  const disableCustomDt = (current) => {
+    return !dateArray.includes(current.format("YYYY-MM-DD"));
+  };
+  const disableWeekends = (current) => {
+    
+    return [moment().day() === 0 || moment().day()=== 6]
+  };
+  const isWeekday = (date) => {
+   
+    const day = date.getDay();
+    return day !== 0 && day !== 6;
+  };
+  //disable past dates
+
+  const yesterday = moment().subtract(1, "day");
+  const disablePastDt = (current) => {
+    return current.isAfter(yesterday);
+  };
+
+  let fechaSiguiente = moment(arrivalDate).add(1, "days");
+
+ 
+
+
   return (
     <div>
       <h1 style={{ textAlign: "center" }}>ADD A NEW LODGING</h1>
@@ -344,6 +406,34 @@ function AddProperty() {
             <label>Only JPEG, JPG or PNG files allowed</label>
 
             <br />
+            <br />
+            
+            <div className="calendary">
+      <DatePicker
+        popperClassName="calendario"
+        selected={arrivalDate}
+        onChange={(date) => setArrivalDate(date)}
+        // minDate={new Date()}
+        excludeDates={disableFinal}
+        filterDate={isWeekday}
+        placeholderText="1º"
+        inline
+      />
+      <DatePicker
+        popperClassName="calendario"
+        selected={departureDate}
+        onChange={(date) => setdepartureDate(date)}
+        minDate={arrivalDate}
+        excludeDates={disableFinal}
+        placeholderText="2º"
+        // filterDate={isWeekday}
+        inline
+      
+      />
+    </div>
+      
+
+
           </div>
           {/* 
           <form onSubmit={(e) => onFormSubmit(e)}>
