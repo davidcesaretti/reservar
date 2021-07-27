@@ -14,6 +14,9 @@ import User from "./components/User/User";
 import Favorites from "./components/Favorites/Favorites";
 import AddProperty from "./components/AddProperty/AddProperty";
 import UserPosts from "./components/UserPosts/UserPosts";
+import Condition from "./components/Condition/Condition";
+
+
 function App() {
   const auth = useAuth();
 
@@ -34,6 +37,7 @@ function App() {
       <Route exact path="/add" component={AddProperty} />
       <Route exact path="/userpost" component={UserPosts} />
       <Route exact path="/AddProperty/:id" component={AddProperty} />
+      <Route exact path="/Conditions" component={Condition} />
     </Switch>
   );
 }
