@@ -3,6 +3,8 @@ import { User, Reserva } from "../models/Users";
 import { Properties } from "../models/Properties";
 import { Propertiestests } from "../models/propertiestests";
 import nodemailer from "nodemailer";
+import transport from "nodemailer-sendgrid-transport"
+const sgMail = require("@sendgrid/mail");
 //-------------------------------------------
 
 const UserRouter = Router();
@@ -234,30 +236,55 @@ UserRouter.post("/getfavorites", async (req, res) => {
 });
 
 UserRouter.post("/validateadmin", async (req: Request, res: Response) => {
+  const sgMail = require("@sendgrid/mail");
   const {email} = req.body
   const code = Math.floor(Math.random() * (9999 - 1000) + 1000)
-  let testAccount = await nodemailer.createTestAccount();
 
-  const transporter = nodemailer.createTransport({
-    host: "smtp.ethereal.email",
-    port: 587,
-    secure: false,
+  sgMail.setApiKey("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");
+
+  const msg = {
+    to: email,
+    from: "chesaritto_78@hotmail.com", // aqui hay que poner el correo de la pag
+    subject: "Sending with SendGrid is Fun",
+    text: "and easy to do anywhere, even with Node.js",
+    html: `<strong>${code}</strong>`,
+  };
+
+  sgMail
+    .send(msg)
+    .then(() => {
+      console.log('Se mando el email')
+      return res.json(code)
+    })
+    .catch(err => {console.log(err)})
+
+  /* const options = ({
     auth: {
-        user: testAccount.user,
-        pass: testAccount.pass,
+      api_user: 'davucesaretti@gmail.com',
+      api_key: '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'
     }
   })
-  let info = await transporter.sendMail({
+
+  const client = nodemailer.createTransport(transport(options))
+
+  
+
+  client.sendMail(msg, function(err, info){
+    if (err ){
+      console.log(err);
+    }
+    else {
+      console.log('Message sent: ' + info.response);
+      return res.json(code)
+    }
+  }); */
+
+  /* let info = await transporter.sendMail({
     from: testAccount.user, 
     to: "davucesaretti@gmail.com",
     subject: "Hello ✔", 
     html: `${code}`,
-  });
-  console.log("Message sent: %s", info.messageId);
-
-  console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
-
-  return res.json(code)
+  }); */
   /* const mailOptions = {
       from: testAccount.user,
       to: "trekkerhenry@gmail.com",
