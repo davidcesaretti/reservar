@@ -16,10 +16,7 @@ import { StepRegisterOne } from "./reserve";
 import { reservesReducer } from "./reserves";
 import { postsHost } from "./postUser";
 import { userInfo } from "./infoUser";
-<<<<<<< HEAD
 import { statePaginado } from "./paginado";
-=======
->>>>>>> fixedfavs
 
 export interface StoreState {
   fechas: any;
