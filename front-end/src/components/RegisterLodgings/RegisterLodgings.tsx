@@ -19,22 +19,26 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 import DeleteIcon from '@material-ui/icons/Delete';
 import FilterListIcon from '@material-ui/icons/FilterList';
+import { useEffect } from 'react';
+import axios from 'axios';
+import { useState } from 'react';
 
 interface Data {
   name: string;
-  hostName: string;
+  host: string;
   city: string;
-  reservations: number;
-  status: string;
-  check1: any;
-  check2: any;
-  check3: any;
+  reservations_completed: number;
+  status_account: string;
+  statusSwitch: any;
 }
 
 
-const rows = [
+let rows = []
+      axios.get("http://localhost:3001/getprops").then(respuesta => {
+        rows = (respuesta.data)
+        console.log(rows)
+      })
 
-];
 
 function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
   if (b[orderBy] < a[orderBy]) {
@@ -76,13 +80,12 @@ interface HeadCell {
 
 const headCells: HeadCell[] = [
   { id: 'name', numeric: false, disablePadding: true, label: 'Name' },
-  { id: 'hostName', numeric: false, disablePadding: false, label: 'Host Name' },
+  { id: 'host', numeric: false, disablePadding: false, label: 'Host Name' },
   { id: 'city', numeric: false, disablePadding: false, label: 'City' },
-  { id: 'reservations', numeric: true, disablePadding: false, label: '# of reservations completed' },
-  { id: 'status', numeric: false, disablePadding: false, label: 'Account status' },
-  { id: 'check1', numeric: false, disablePadding: false, label: 'Activate account' },
-  { id: 'check2', numeric: false, disablePadding: false, label: 'Suspend account' },
-  { id: 'check3', numeric: false, disablePadding: false, label: 'Delete account' },
+  { id: 'reservations_completed', numeric: true, disablePadding: false, label: '# of reservations completed' },
+  { id: 'status_account', numeric: false, disablePadding: false, label: 'Account status' },
+  { id: 'statusSwitch', numeric: false, disablePadding: false, label: 'status switch' },
+
 ];
 
 interface EnhancedTableProps {
@@ -102,8 +105,8 @@ function EnhancedTableHead(props: EnhancedTableProps) {
   };
 
   return (
-    <TableHead>
-      <TableRow>
+    <TableHead className={classes.titulos}>
+      <TableRow >
         <TableCell padding="checkbox">
           <Checkbox
             indeterminate={numSelected > 0 && numSelected < rowCount}
@@ -224,17 +227,26 @@ const useStyles = makeStyles((theme: Theme) =>
       top: 20,
       width: 1,
     },
+    titulos: {
+      backgroundColor: theme.palette.secondary.main
+    }
   }),
 );
 
 export default function EnhancedTable() {
   const classes = useStyles();
   const [order, setOrder] = React.useState<Order>('asc');
-  const [orderBy, setOrderBy] = React.useState<keyof Data>('reservations');
+  const [orderBy, setOrderBy] = React.useState<keyof Data>('reservations_completed');
   const [selected, setSelected] = React.useState<string[]>([]);
   const [page, setPage] = React.useState(0);
   const [dense, setDense] = React.useState(false);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const [toggle, setToggle] = useState({})
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {   // Funcion para switch
+    //setToggle(!toggle)
+    setToggle({ ...toggle, [event.target.name]: event.target.checked });
+  };
 
   const handleRequestSort = (event: React.MouseEvent<unknown>, property: keyof Data) => {
     const isAsc = orderBy === property && order === 'asc';
@@ -318,26 +330,32 @@ export default function EnhancedTable() {
                   return (
                     <TableRow
                       hover
-                      onClick={(event) => handleClick(event, row.name)}
                       role="checkbox"
                       aria-checked={isItemSelected}
                       tabIndex={-1}
                       key={row.name}
-                      selected={isItemSelected}
                     >
                       <TableCell padding="checkbox">
                         <Checkbox
                           checked={isItemSelected}
                           inputProps={{ 'aria-labelledby': labelId }}
+                          onClick={(event) => handleClick(event, row.name)}
                         />
                       </TableCell>
                       <TableCell component="th" id={labelId} scope="row" padding="none">
                         {row.name}
                       </TableCell>
-                      <TableCell align="right">{row.calories}</TableCell>
-                      <TableCell align="right">{row.fat}</TableCell>
-                      <TableCell align="right">{row.carbs}</TableCell>
-                      <TableCell align="right">{row.protein}</TableCell>
+                      <TableCell align="right">{row.host}</TableCell>
+                      <TableCell align="right">{row.city}</TableCell>
+                      <TableCell align="right">{row.reservations_completed}</TableCell>
+                      <TableCell align="right">{row.status_account}</TableCell>
+                      <Switch
+                        checked={toggle[row.host]}  //row.status_account === 'Active'
+                        onChange={handleChange}
+                        name={row.name}
+                        inputProps={{ 'aria-label': 'secondary checkbox' }}
+                        
+                      />
                     </TableRow>
                   );
                 })}
