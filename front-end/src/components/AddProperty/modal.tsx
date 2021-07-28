@@ -31,6 +31,12 @@ const useStyles = makeStyles((theme: Theme) =>
       boxShadow: theme.shadows[5],
       padding: theme.spacing(2, 4, 3),
       overflow: "scroll",
+      overflowX: "hidden",
+      "&::-webkit-scrollbar": {
+        width: "8px" /* Tamaño del scroll en vertical */,
+        height: "8px" /* Tamaño del scroll en horizontal */,
+        display: "none" /* Ocultar scroll */,
+      },
     },
   })
 );
@@ -51,16 +57,23 @@ export default function SimpleModal({ data }) {
 
   const body = (
     <div style={modalStyle} className={classes.paper}>
-      <h2 id="simple-modal-title">Text in a modal</h2>
-      <p id="simple-modal-description">
+      <h2 id="simple-modal-title" style={{ textAlign: "center" }}>
+        Upcoming blocked dates
+      </h2>
+      {/* <p id="simple-modal-description">
         Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-      </p>
+      </p> */}
 
       {data &&
         data.map((x, i) => (
           <div
             key={i}
-            style={{ display: "grid", gridTemplateColumns: "70% 30%" }}
+            style={{
+              display: "grid",
+              gridTemplateColumns: "80% 20%",
+              width: "60%",
+              margin: "0 auto",
+            }}
           >
             <p>{`${moment(x.fechaSalida).format("MMMM DD/YYYY")} - ${moment(
               x.fechaLlegada
@@ -70,7 +83,7 @@ export default function SimpleModal({ data }) {
             </button>
           </div>
         ))}
-      <SimpleModal data={data} />
+      {/* <SimpleModal data={data} /> */}
     </div>
   );
 

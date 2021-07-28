@@ -312,4 +312,20 @@ UserRouter.get("/selectDates", async (req, res) => {
   const obj = find[0].available.filter((x: any) => x.state === "fake");
   res.json(obj);
 });
+
+UserRouter.delete("/deleteDates", async (req, res) => {
+  const { Prop_date } = req.body;
+  console.log(Prop_date);
+  const borrado = await Properties.find({
+    _id: "6100bbe0be48093814bd90a1",
+    available: {
+      $elemMatch: {
+        state: "fake",
+        //_id: "6100d629e4130814400954dd",
+      },
+    },
+  });
+  // res.json("borrado");
+  res.json(borrado);
+});
 export default UserRouter;
