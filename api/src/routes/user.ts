@@ -60,6 +60,8 @@ UserRouter.post("/register", async (req: Request, res: Response) => {
         emergency_phone_number: emergency_phone_number,
         emergency_contact: emergency_contact,
         relationship: relationship,
+        status_account: "Active",
+        isModerator: false,
       });
       await user.save();
       console.log("creado", user);

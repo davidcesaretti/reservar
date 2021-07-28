@@ -7,9 +7,10 @@ interface IUser extends Document {
   favorites: Array<String>;
   reserveId: Array<String>;
   phone_number: Number;
-
   reservas: Array<String>;
   propertiesreserved: Array<String>;
+  status_account: String;
+  isModerator: Boolean;
   // photo: string;
   // reserveId: [Object];
 }
@@ -42,7 +43,8 @@ const user = new Schema<IUser>(
     reservas: { type: [] },
     propertiesreserved: { type: [] },
     alternative_email: { type: String },
-    status_account: { type: String, enum: ["Active", "Suspended", "Admin"] },
+    status_account: { type: String, enum: ["Active", "Suspended"] },
+    isModerator: {type: Boolean}
   },
   { versionKey: false }
 );
