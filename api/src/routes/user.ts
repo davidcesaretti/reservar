@@ -307,7 +307,9 @@ UserRouter.post("/reservafake", async (req, res) => {
 });
 UserRouter.get("/selectDates", async (req, res) => {
   const { Prop_id } = req.query;
-  const find = await Properties.find({ _id: Prop_id }, { state: "fake" });
-  res.json(find);
+  const find = await Properties.find({ _id: Prop_id });
+  console.log(find[0]);
+  const obj = find[0].available.filter((x: any) => x.state === "fake");
+  res.json(obj);
 });
 export default UserRouter;
