@@ -305,4 +305,9 @@ UserRouter.post("/reservafake", async (req, res) => {
     console.error(err);
   }
 });
+UserRouter.get("/selectDates", async (req, res) => {
+  const { Prop_id } = req.query;
+  const find = await Properties.find({ _id: Prop_id }, { state: "fake" });
+  res.json(find);
+});
 export default UserRouter;

@@ -28,7 +28,7 @@ function AddProperty() {
     setStartDate(start);
     setEndDate(end);
   };
-
+  const dateArray = [];
   const dispatch = useDispatch();
   const idParam = useParams();
   const refTitle = useRef(undefined);
@@ -44,6 +44,7 @@ function AddProperty() {
   const [bathrooms, setBathrooms] = useState(1);
   const [disable, setDisable] = useState(false);
   const [edit, setEdit] = useState(true);
+  const [amenities, setAmenities] = useState([]);
   const [firebaseStorage, setFirebaseStorage] = useState<firebase>({
     uploadValue: 0,
     picture: null,
@@ -252,7 +253,6 @@ function AddProperty() {
     }
   };
 
-  const [amenities, setAmenities] = useState([]);
   const push = function (e) {
     if (e.target.checked) {
       if (!amenities.includes(e.target.name)) {
@@ -270,7 +270,6 @@ function AddProperty() {
   const [departureDate, setdepartureDate] = React.useState<Date | any>(
     new Date()
   );
-  const dateArray = [];
 
   const dataFechas = detailEdit?.available.map((x) => {
     return [moment(x.fechaSalida), moment(x.fechaLlegada)];
@@ -312,6 +311,16 @@ function AddProperty() {
   };
 
   let fechaSiguiente = moment(arrivalDate).add(1, "days");
+
+  function dispatchDates() {
+    const objDate = {
+      fechaSalida: startDate,
+      fechaLlegada: endDate,
+      email: auth,
+      Prop_id: idParam.id,
+    };
+    axios.post("http://localhost:3001/reservafake", objDate);
+  }
 
   return (
     <div>
@@ -656,10 +665,11 @@ function AddProperty() {
               onChange={onChange}
               inline
               monthsShown={2}
-              filterDate={!disable ? isWeekday : false}
+              filterDate={disable ? isWeekday : false}
             />
           </div>
           <button onClick={() => setDisable(!disable)}>weekend</button>
+          <button onClick={() => dispatchDates()}>add dates selected</button>
         </div>
         {!idParam.id && (
           <button
