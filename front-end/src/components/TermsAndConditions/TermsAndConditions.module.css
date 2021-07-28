@@ -14,3 +14,33 @@
     margin-bottom: 50px;
     padding: 50px;
 }
+/**** BOTON ****/
+.botoncta {
+    font-size:16px;
+    background: #A6A845;
+    padding-left: 20px;
+    padding-right: 25px;
+    padding-top: 0px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    display: inline-block;
+    text-align: center;
+    margin-left: 600px;
+    }
+    .botoncta p{color:white;text-align:center;}
+
+    /*--- CAJA ---- */
+.box1{text-align: center;border: solid 1px white; padding-left: 0px; padding-right:0px;
+    height:0px; width:0px; background-color:white}
+.box1 img{height:250px; -webkit-filter: brightness(50%);
+filter: brightness(90%);}
+.box1 h3{font-family:abel; color:black; font-size: 2em;}
+.p {display: block;
+margin-block-start: 1em;
+margin-block-end: 1em;
+margin-inline-start: 100px;
+margin-inline-end: 100px;
+
+text-align: center;
+background-color:white;}
+

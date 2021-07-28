@@ -205,7 +205,7 @@ const Register = () => {
         </Container>
       </Container>
       <Grid xs={12} className={classes.footer}>
-        <Typography className={classes.infoFooter}>Copyright 2021</Typography>
+        <Typography className={classes.infoFooter}>ht 2021</Typography>
       </Grid>
     </Grid>
   );
