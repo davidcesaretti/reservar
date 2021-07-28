@@ -78,3 +78,12 @@
 .calendary-center {
   margin: 10px auto;
 }
+.boton__borrado {
+  color: black;
+  height: 3rem;
+  background-color: transparent;
+  border-style: none;
+  cursor: pointer;
+  padding-top: 0.5rem;
+  text-align: start;
+}

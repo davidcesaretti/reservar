@@ -7,7 +7,7 @@ import { Button } from "@material-ui/core";
 import photo from "../../Image/addfoto.jpeg";
 import { useAuth } from "../../firebase/index";
 import { useParams } from "react-router-dom";
-import { clearDetail, detailHotel } from "../../actions";
+import { clearDetail, detailHotel, reservefake } from "../../actions";
 import { useDispatch, useSelector } from "react-redux";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker-cssmodules.css";
@@ -52,6 +52,7 @@ function AddProperty() {
   });
   const auth = useAuth().user?.email;
   const detailEdit = useSelector((state: any) => state.categorieDetail[0]);
+  const fechasModal = useSelector((state: any) => state.reserveFake);
 
   const maps = {
     latitude: 0,
@@ -85,10 +86,11 @@ function AddProperty() {
 
   useEffect(() => {
     dispatch(detailHotel(idParam.id));
+    dispatch(reservefake(idParam.id));
     return () => {
       dispatch(clearDetail());
     };
-  }, [dispatch, idParam.id]);
+  }, [dispatch, idParam.id, startDate, endDate]);
 
   // console.log(ref?.current?.value, "ref imagen");
   // useEffect(() => {
@@ -321,6 +323,7 @@ function AddProperty() {
       Prop_id: idParam.id,
     };
     axios.post("http://localhost:3001/reservafake", objDate);
+    //  window.location.reload();
   }
 
   return (
@@ -671,7 +674,7 @@ function AddProperty() {
           </div>
           <button onClick={() => setDisable(!disable)}>weekend</button>
           <button onClick={() => dispatchDates()}>add dates selected</button>
-          <SimpleModal data={disableFinal} />
+          <SimpleModal data={fechasModal} />
         </div>
         {!idParam.id && (
           <button

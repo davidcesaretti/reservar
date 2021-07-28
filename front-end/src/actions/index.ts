@@ -327,18 +327,17 @@ export const FirstStepReserve = (obj) => {
   };
 };
 
-export const reservefake = () => {
+export const reservefake = (id) => {
   return async (dispatch: Dispatch) => {
-    const response = await axios.get("http://localhost:3001/selectDates")
+    const response = await axios.get(
+      `http://localhost:3001/selectDates?Prop_id=${id}`
+    );
     dispatch<reserveFaker>({
       type: ActionTypes.reserveFake,
-      payload: response.data
+      payload: response.data,
     });
   };
-}
-
-
-
+};
 
 // export function deleteUsers(data: any) {
 //   return function (dispatch: Dispatch) {

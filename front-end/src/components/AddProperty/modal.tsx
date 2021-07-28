@@ -2,6 +2,8 @@ import React from "react";
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
 import Modal from "@material-ui/core/Modal";
 import moment from "moment";
+import { GoTrashcan } from "react-icons/go";
+import "./addProperty.css";
 
 function rand() {
   return Math.round(Math.random() * 20) - 10;
@@ -22,7 +24,7 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     paper: {
       position: "absolute",
-      width: "30%",
+      width: "50%",
       height: "90vh",
       backgroundColor: theme.palette.background.paper,
       border: "2px solid #000",
@@ -53,11 +55,19 @@ export default function SimpleModal({ data }) {
       <p id="simple-modal-description">
         Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
       </p>
-      {console.log(data)}
+
       {data &&
-        data.map((x) => (
-          <div>
-            <p>{moment(x).format("YYYY-MM-DD")}</p> <button>borrar</button>
+        data.map((x, i) => (
+          <div
+            key={i}
+            style={{ display: "grid", gridTemplateColumns: "70% 30%" }}
+          >
+            <p>{`${moment(x.fechaSalida).format("MMMM DD/YYYY")} - ${moment(
+              x.fechaLlegada
+            ).format("MMMM DD/YYYY")}`}</p>{" "}
+            <button className="boton__borrado">
+              <GoTrashcan style={{ width: "20px", height: "20px" }} />
+            </button>
           </div>
         ))}
       <SimpleModal data={data} />
