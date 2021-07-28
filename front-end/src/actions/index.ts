@@ -77,6 +77,11 @@ export interface userInfo {
   recoveryMail: string;
   civilStatus: string;
 }
+
+export interface reserveFaker {
+  type: ActionTypes.reserveFake;
+  payload: any;
+}
 const url = "https://app-trekker.herokuapp.com";
 
 export const onLogin = async (data: Credentials) => {
@@ -321,6 +326,19 @@ export const FirstStepReserve = (obj) => {
     });
   };
 };
+
+export const reservefake = () => {
+  return async (dispatch: Dispatch) => {
+    const response = await axios.get("http://localhost:3001/selectDates")
+    dispatch<reserveFaker>({
+      type: ActionTypes.reserveFake,
+      payload: response.data
+    });
+  };
+}
+
+
+
 
 // export function deleteUsers(data: any) {
 //   return function (dispatch: Dispatch) {

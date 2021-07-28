@@ -17,6 +17,7 @@ export enum ActionTypes {
   findPost = "FIND_POST",
   userInfo = "USER_INFO",
   paginado = "PAGINADO",
+  reserveFake = "RESERVE_FAKE"
 }
 
 export type Action = FetchUsersAction;
