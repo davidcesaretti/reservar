@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./chat.css";
+import "./chathost.css";
 import { useAuth } from "../../firebase/index";
 
 import firebase from "firebase/app";
@@ -15,11 +15,11 @@ const auth = firebase.auth();
 const firestore = firebase.firestore();
 const analytics = firebase.analytics();
 
-function Chat() {
+function ChatHost() {
   const dispatch = useDispatch();
   const auth = useAuth();
   const user = auth.user;
-  const bookings = useSelector((state: any) => state.bookchat);
+  const bookings = useSelector((state: any) => state.hostres);
 
   let handleC = (e) => {
     dispatch(SetCollection(e.currentTarget.value));
@@ -27,15 +27,15 @@ function Chat() {
   };
 
   return (
-    <div className="containerrino">
-      <div className="collections">
-        <p className="select"> Select you reservation:</p>
+    <div className="container1">
+      <div className="collections1">
+        <p className="select1"> Select you reservation:</p>
 
         {bookings &&
           bookings.map((e) => (
             <button
               key={e}
-              className="btn2"
+              className="btn21"
               value={e?.host + e?.info_user}
               onClick={handleC}
             >
@@ -44,13 +44,12 @@ function Chat() {
             </button>
           ))}
       </div>
-      <div className="chat">
-        <header className="head">
-          <h3>Chat With your host</h3>
-          <SignOut />
+      <div className="chat1">
+        <header className="head1">
+          <h3>Chat With your guest</h3>
         </header>
 
-        <section className="sec">{user ? <ChatRoom /> : <SignIn />}</section>
+        <section className="sec1">{user ? <ChatRoom /> : <SignIn />}</section>
       </div>
     </div>
   );
@@ -64,7 +63,7 @@ function SignIn() {
 
   return (
     <>
-      <button className="sign-in" onClick={signInWithGoogle}>
+      <button className="sign-in1" onClick={signInWithGoogle}>
         Sign in with Google
       </button>
     </>
@@ -74,7 +73,7 @@ function SignIn() {
 function SignOut() {
   return (
     auth.currentUser && (
-      <button className="sign-out" onClick={() => auth.signOut()}>
+      <button className="sign-out1" onClick={() => auth.signOut()}>
         Sign Out
       </button>
     )
@@ -111,20 +110,20 @@ function ChatRoom() {
   return (
     <>
       <>
-        <main className="maiin">
+        <main className="maiin1">
           {messages &&
             messages.map((msg) => <ChatMessage key={msg.id} message={msg} />)}
         </main>
 
-        <form className="foorm" onSubmit={sendMessage}>
+        <form className="foorm1" onSubmit={sendMessage}>
           <input
-            className="inpuu"
+            className="inpuu1"
             value={formValue}
             onChange={(e) => setFormValue(e.target.value)}
             placeholder="type here"
           />
 
-          <button className="btn" type="submit" disabled={!formValue}>
+          <button className="btn1" type="submit" disabled={!formValue}>
             Send
           </button>
         </form>
@@ -142,7 +141,7 @@ function ChatMessage(props) {
     <>
       <div className={`message ${messageClass}`}>
         <img
-          className="imag"
+          className="imag1"
           src={
             photoURL || "https://api.adorable.io/avatars/23/abott@adorable.png"
           }
@@ -155,4 +154,4 @@ function ChatMessage(props) {
   );
 }
 
-export default Chat;
+export default ChatHost;

@@ -13,10 +13,13 @@ export enum ActionTypes {
   updateUser = "UPDATE_USER",
   favUser = "FAV_USER",
   bookings = "BOOKINGS",
+  bookchat = "BOOK_CHAT",
   stateRegister = "STATE_REGISTER",
   findPost = "FIND_POST",
   userInfo = "USER_INFO",
   paginado = "PAGINADO",
+  hostres = "HOST_RES",
+  setCollection = "SET_COLLECTION",
 }
 
 export type Action = FetchUsersAction;
