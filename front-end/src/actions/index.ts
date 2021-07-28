@@ -103,6 +103,11 @@ export interface validationAdmin {
   type: ActionTypes.validateAdmin;
   payload: Number;
 }
+
+export interface reserveFaker {
+  type: ActionTypes.reserveFake;
+  payload: any;
+}
 const url = "https://app-trekker.herokuapp.com";
 
 export const onLogin = async (data: Credentials) => {
@@ -278,16 +283,16 @@ export const getUserInfo = (email) => {
 export const getUsersList = () => {
   return async (dispatch: Dispatch) => {
     try {
-      const list = await axios.get("http://localhost:3001/userList")
+      const list = await axios.get("http://localhost:3001/userList");
       dispatch<listOfUsers>({
         type: ActionTypes.usersList,
-        payload: list.data
-      })
+        payload: list.data,
+      });
     } catch (err) {
-      console.error(err)
+      console.error(err);
     }
-  }
-}
+  };
+};
 
 export const clearDetail = () => {
   return {
@@ -400,15 +405,29 @@ export const FirstStepReserve = (obj) => {
 
 export const getCodeValidation = (email) => {
   return async (dispatch: Dispatch) => {
-    console.log('verificacion ',email)
-    const code = await axios.post("http://localhost:3001/validateadmin", {email})
+    console.log("verificacion ", email);
+    const code = await axios.post("http://localhost:3001/validateadmin", {
+      email,
+    });
 
     dispatch<validationAdmin>({
-              type: ActionTypes.validateAdmin,
-              payload: code.data
-    })
-  }
-}
+      type: ActionTypes.validateAdmin,
+      payload: code.data,
+    });
+  };
+};
+export const reservefake = (id) => {
+  return async (dispatch: Dispatch) => {
+    const response = await axios.get(
+      `http://localhost:3001/selectDates?Prop_id=${id}`
+    );
+    dispatch<reserveFaker>({
+      type: ActionTypes.reserveFake,
+      payload: response.data,
+    });
+  };
+};
+
 // export function deleteUsers(data: any) {
 //   return function (dispatch: Dispatch) {
 //     return fetch(url, {

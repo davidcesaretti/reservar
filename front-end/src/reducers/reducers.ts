@@ -18,8 +18,9 @@ import { reservesReducer } from "./reserves";
 import { postsHost } from "./postUser";
 import { userInfo } from "./infoUser";
 import { statePaginado } from "./paginado";
-import { userList } from "./usersList"
-import { validateLogAdmin } from "./validateLogAdmin"
+import { userList } from "./usersList";
+import { validateLogAdmin } from "./validateLogAdmin";
+import { getReserveFake } from "./getReserveFake";
 
 export interface StoreState {
   fechas: any;
@@ -41,6 +42,7 @@ export interface StoreState {
   collection: string;
   listOfUsers: Array<any>;
   logAdmin: Number;
+  reserveFake: Array<any>;
 }
 
 export const reducers = combineReducers<StoreState>({
@@ -63,6 +65,7 @@ export const reducers = combineReducers<StoreState>({
   collection: setCollectionRed,
   listOfUsers: userList,
   logAdmin: validateLogAdmin,
+  reserveFake: getReserveFake,
 });
 
 export default reducers;

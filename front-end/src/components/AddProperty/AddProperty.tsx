@@ -7,21 +7,29 @@ import { Button } from "@material-ui/core";
 import photo from "../../Image/addfoto.jpeg";
 import { useAuth } from "../../firebase/index";
 import { useParams } from "react-router-dom";
-import { clearDetail, detailHotel } from "../../actions";
+import { clearDetail, detailHotel, reservefake } from "../../actions";
 import { useDispatch, useSelector } from "react-redux";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker-cssmodules.css";
 import "react-datepicker/dist/react-datepicker.css";
 import moment from "moment";
 import subDays from "date-fns/subDays";
+import HostCalendary from "../HostCalendary/HostCalendary";
+import SimpleModal from "./modal";
 
 function AddProperty() {
   interface firebase {
     uploadValue: any;
     picture: any;
   }
-  
- 
+  const [startDate, setStartDate] = useState(new Date());
+  const [endDate, setEndDate] = useState(null);
+  const onChange = (dates) => {
+    const [start, end] = dates;
+    setStartDate(start);
+    setEndDate(end);
+  };
+  const dateArray = [];
   const dispatch = useDispatch();
   const idParam = useParams();
   const refTitle = useRef(undefined);
@@ -35,27 +43,61 @@ function AddProperty() {
   const [bedrooms, setBedrooms] = useState(1);
   const [beds, setBeds] = useState(1);
   const [bathrooms, setBathrooms] = useState(1);
+  const [disable, setDisable] = useState(false);
   const [edit, setEdit] = useState(true);
+  const [amenities, setAmenities] = useState([]);
   const [firebaseStorage, setFirebaseStorage] = useState<firebase>({
     uploadValue: 0,
     picture: null,
   });
   const auth = useAuth().user?.email;
   const detailEdit = useSelector((state: any) => state.categorieDetail[0]);
+  const fechasModal = useSelector((state: any) => state.reserveFake);
 
+  const maps = {
+    latitude: 0,
+    longitude: 0,
+  };
+  function geoCode() {
+    var location =
+      refAddress.current?.value +
+      "," +
+      refCity.current?.value +
+      "," +
+      refCountry.current?.value;
+    //var location = "barrio, localidad, ciudad,venezuela"refAddress.current.value
+    axios
+      .get("https://maps.googleapis.com/maps/api/geocode/json", {
+        params: {
+          address: location,
+          key: process.env.REACT_APP_API_KEY,
+        },
+      })
+      .then((respuesta) => {
+        // console.log(respuesta.data.results[0].geometry.location);
+        maps.latitude = respuesta.data.results[0].geometry.location?.lat;
+        maps.longitude = respuesta.data.results[0].geometry.location?.lng;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+  geoCode();
 
   useEffect(() => {
     dispatch(detailHotel(idParam.id));
+    dispatch(reservefake(idParam.id));
+    console.log("useEffect");
     return () => {
       dispatch(clearDetail());
     };
-  }, [dispatch, idParam.id]);
+  }, [dispatch, idParam.id, startDate, endDate]);
 
   // console.log(ref?.current?.value, "ref imagen");
   // useEffect(() => {
   //   //  console.log(ref?.current?.value, "ref imagen");
   // }, [ref]);
-  console.log(idParam.id); ///sdadasdasdsadas//
+  // console.log(idParam.id); ///sdadasdasdsadas//
 
   if (idParam.id && detailEdit && edit) {
     setEdit(false);
@@ -126,6 +168,7 @@ function AddProperty() {
         city: refCity.current.value,
         score: 0,
         host: auth,
+        coordinates: maps,
       };
       axios
         .post("http://localhost:3001/upload", formData)
@@ -183,6 +226,7 @@ function AddProperty() {
         address: refAddress.current.value + " " + refCountry.current.value,
         city: refCity.current.value,
         score: 0,
+        coordinates: maps,
         id: idParam.id,
       };
       axios
@@ -213,7 +257,6 @@ function AddProperty() {
     }
   };
 
-  const [amenities, setAmenities] = useState([]);
   const push = function (e) {
     if (e.target.checked) {
       if (!amenities.includes(e.target.name)) {
@@ -228,10 +271,10 @@ function AddProperty() {
 
   const [aux, setAux] = React.useState<Boolean>(false);
   const [arrivalDate, setArrivalDate] = React.useState<Date | any>(new Date());
-  const [departureDate, setdepartureDate] = React.useState<Date | any>(new Date());
-  const dateArray = [];
+  const [departureDate, setdepartureDate] = React.useState<Date | any>(
+    new Date()
+  );
 
-  
   const dataFechas = detailEdit?.available.map((x) => {
     return [moment(x.fechaSalida), moment(x.fechaLlegada)];
   });
@@ -248,8 +291,6 @@ function AddProperty() {
   dataFechas?.map((x) => getDates(x[0], x[1]));
 
   const disableFinal = dateArray.map((x) => new Date(x));
-  
-
 
   // const startDate="2021-07-28"
   // const stopDate = "2021-07-31"
@@ -260,11 +301,9 @@ function AddProperty() {
     return !dateArray.includes(current.format("YYYY-MM-DD"));
   };
   const disableWeekends = (current) => {
-    
-    return [moment().day() === 0 || moment().day()=== 6]
+    return [moment().day() === 0 || moment().day() === 6];
   };
   const isWeekday = (date) => {
-   
     const day = date.getDay();
     return day !== 0 && day !== 6;
   };
@@ -277,8 +316,16 @@ function AddProperty() {
 
   let fechaSiguiente = moment(arrivalDate).add(1, "days");
 
- 
-
+  function dispatchDates() {
+    const objDate = {
+      fechaSalida: startDate,
+      fechaLlegada: endDate,
+      email: auth,
+      Prop_id: idParam.id,
+    };
+    axios.post("http://localhost:3001/reservafake", objDate);
+    //  window.location.reload();
+  }
 
   return (
     <div>
@@ -404,43 +451,10 @@ function AddProperty() {
               />
             </label>
             <label>Only JPEG, JPG or PNG files allowed</label>
-
+            {/* 
             <br />
-            <br />
-            
-            <div className="calendary">
-      <DatePicker
-        popperClassName="calendario"
-        selected={arrivalDate}
-        onChange={(date) => setArrivalDate(date)}
-        // minDate={new Date()}
-        excludeDates={disableFinal}
-        filterDate={isWeekday}
-        placeholderText="1º"
-        inline
-      />
-      <DatePicker
-        popperClassName="calendario"
-        selected={departureDate}
-        onChange={(date) => setdepartureDate(date)}
-        minDate={arrivalDate}
-        excludeDates={disableFinal}
-        placeholderText="2º"
-        // filterDate={isWeekday}
-        inline
-      
-      />
-    </div>
-      
-
-
+            <br /> */}
           </div>
-          {/* 
-          <form onSubmit={(e) => onFormSubmit(e)}>
-            <h1>File Upload</h1>
-            <input type="file" name="image" onChange={(e) => onChange(e)} />
-            <button type="submit">Upload</button>
-          </form> */}
         </div>
 
         <div className="contenedor__amenities">
@@ -636,8 +650,49 @@ function AddProperty() {
         </div>
       </div>
       <div
-        style={{ margin: "10px", display: "flex", justifyContent: "center" }}
+        style={{
+          margin: "10px",
+          display: "flex",
+          justifyContent: "center",
+          flexDirection: "column",
+        }}
       >
+        <div className="calendary-center">
+          <h2>AVAILABILITY</h2>
+          <p style={{ width: "60%", margin: "0", textAlign: "match-parent" }}>
+            Select the dates you don´t want to keep available for booking. Dates
+            you dont´t select will be available for renting but don´t worry, you
+            can always changes your selections{" "}
+          </p>
+          <div className="calendary">
+            <DatePicker
+              excludeDates={disableFinal}
+              minDate={new Date()}
+              startDate={startDate}
+              endDate={endDate}
+              selectsRange
+              selected={startDate}
+              onChange={onChange}
+              inline
+              monthsShown={2}
+              filterDate={disable ? isWeekday : false}
+            />
+          </div>
+          <div
+            style={{
+              display: "flex",
+              gap: "5px",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <button onClick={() => setDisable(!disable)}>Block weekends</button>
+            <button onClick={() => dispatchDates()}>
+              Block selected dates{" "}
+            </button>
+            <SimpleModal data={fechasModal} idProp={idParam.id} />
+          </div>
+        </div>
         {!idParam.id && (
           <button
             className="boton__submit-add"
