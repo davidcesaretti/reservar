@@ -28,10 +28,17 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function HostCalendary({ data, salida, llegada }) {
+export default function HostCalendary({ data, salida, llegada, disableBoton }) {
+  const [startDate2, setStartDate2] = useState(new Date());
+  const [endDate2, setEndDate2] = useState(null);
+  const onChange = (dates) => {
+    const [start, end] = dates;
+    setStartDate2(start);
+    setEndDate2(end);
+  };
+
   const dateArray = [];
 
-  const [startDate, setStartDate] = useState(new Date());
   const classes = useStyles();
   const dataFechas = data[0]?.available.map((x) => {
     return [moment(x.fechaSalida), moment(x.fechaLlegada)];
@@ -43,8 +50,8 @@ export default function HostCalendary({ data, salida, llegada }) {
   const [departureDate, setdepartureDate] = React.useState<Date | any>(
     new Date()
   );
-  llegada(arrivalDate);
-  salida(departureDate);
+  llegada(startDate2);
+  salida(endDate2);
   const handleDateChange = (date: Date) => {
     setArrivalDate(moment(date).format("YYYY-MM-DD"));
     setAux(true);
@@ -72,7 +79,10 @@ export default function HostCalendary({ data, salida, llegada }) {
   const disableWeekends = (current) => {
     return current.day() !== 0 && current.day() !== 6;
   };
-
+  // array 1-6 meses
+  // array fechas bloquedas
+  // array 6 meses todas sin fechas bloquedas
+  // array 6 [0]
   //disable past dates
 
   const yesterday = moment().subtract(1, "day");
@@ -85,40 +95,48 @@ export default function HostCalendary({ data, salida, llegada }) {
     valor = disableWeekends;
     return valor;
   };
-  let fechaSiguiente = moment(arrivalDate).add(1, "days");
+  let fechaSiguiente = moment(arrivalDate).add(2, "days");
+  const fecha = new Date(moment(fechaSiguiente).format("YYYY-MM-DD"));
+  let fechaSiguiente2 = moment(arrivalDate).add(1, "days");
+  const fechaSiguiente3 = new Date(
+    moment(fechaSiguiente2).format("YYYY-MM-DD")
+  );
+  console.log(fechaSiguiente3, "fecha nueva");
+  console.log(
+    moment(disableFinal[1]).format("YYYY-MM-DD") ===
+      moment(fechaSiguiente3).format("YYYY-MM-DD")
+  );
+  console.log(disableFinal[1]);
+  console.log(arrivalDate, "fecha actual");
+  const fechaBotonArray = disableFinal.map((x) =>
+    moment(x).format("YYYY-MM-DD")
+  );
+  const fechaBotonMoment = moment(startDate2).format("YYYY-MM-DD");
+  // console.log(invento.includes(invento2));
+  disableBoton(fechaBotonArray, fechaBotonMoment);
+
+  // let array1 = getDates(new Date(), new Date("2021/11/08"));
+  // console.log(array1, "filtrado");
+  // const array2 = disableFinal.map((x) => moment(x).format("YYYY-MM-DD"));
+  // console.log(array2);
+  // const array3 = array1.filter((x) => array2.filter((y) => x !== y));
+  // console.log(array3, "resultado");
+  // console.log(dataFechas[dataFechas.length - 1][1]._d);
 
   return (
     <div className="calendary">
       <DatePicker
-        popperClassName="calendario"
-        selected={arrivalDate}
-        onChange={(date) => setArrivalDate(date)}
-        minDate={new Date()}
-        // excludeDates={[dateArray[0]]}
         excludeDates={disableFinal}
-        placeholderText="1º"
+        minDate={fecha}
+        selected={false}
+        onChange={onChange}
+        startDate={startDate2}
+        endDate={endDate2}
+        selectsRange
         inline
+        onClick={() => disableBoton(fechaBotonArray, fechaBotonMoment)}
+        monthsShown={3}
       />
-      <DatePicker
-        popperClassName="calendario"
-        selected={departureDate}
-        onChange={(date) => setdepartureDate(date)}
-        minDate={arrivalDate}
-        // excludeDates={[dateArray[0]]}
-        excludeDates={disableFinal}
-        placeholderText="2º"
-        inline
-      />
-      {/* <div>
-         <Button
-         onClick={eleccion}>
-          INHABILITY WEEKS
-          <DatePicker1
-           timeFormat={false}
-           isValidDate={disableWeekends}
-            />
-         </Button>
-       </div> */}
     </div>
   );
 }

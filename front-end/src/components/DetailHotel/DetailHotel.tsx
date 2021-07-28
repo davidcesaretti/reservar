@@ -110,6 +110,7 @@ const DetailHotel = () => {
   const [value, setValue] = useState(0);
   const [hover, setHover] = useState(-1);
   const [aux, setAux] = React.useState<Boolean>(false);
+  const [disable, setDisable] = useState(true);
 
   var hora = new Date();
   const [arrivalDate, setArrivalDate] = React.useState<Date | any>(
@@ -170,11 +171,11 @@ const DetailHotel = () => {
   }, [arrivalDate, departureDate]);
   const fechaLlegada = arrivalDate;
   var fechaL = moment(fechaLlegada).format("DD/MM/YY");
-  const fechaSalida = departureDate;
+  const fechaSalida = departureDate ? departureDate : arrivalDate;
   var fechaS = moment(fechaSalida).format("DD/MM/YY");
 
   var cantidad = moment(fechaSalida).diff(moment(fechaLlegada), "days"); //realizar operacion resta de fechas
-  cantidad = cantidad + 1;
+
   var total = cantidad * detailhotel[0]?.price;
   var result = cantidad === 0 ? detailhotel[0]?.price : total;
   console.log(cantidad);
@@ -195,12 +196,25 @@ const DetailHotel = () => {
     fechaSalida: arrivalDate,
     fechaLlegada: departureDate,
     email: auth.user?.email,
-    preciofinal: total,
+    preciofinal: result,
   };
   console.log(obj);
   const handleSubmit = () => {
     dispatch(FirstStepReserve(obj));
   };
+
+  function disableBoton(fechasArray, fecha) {
+    if (
+      fechasArray.includes(fecha) ||
+      moment(departureDate).format("YYYY-MM-DD") ===
+        moment(arrivalDate).format("YYYY-MM-DD")
+    ) {
+      setDisable(false);
+    } else {
+      setDisable(true);
+    }
+  }
+
   if (detailhotel === null) {
     return <Error404 />;
   } else if (detailhotel.length < 1) {
@@ -396,7 +410,7 @@ const DetailHotel = () => {
                         margin: "10px",
                       }}
                     >
-                      {`$ ${total}`}
+                      {`$ ${result}`}
                     </p>
                   </div>
                   <div
@@ -406,14 +420,24 @@ const DetailHotel = () => {
                       padding: "5px",
                     }}
                   >
-                    <Link to="/payments">
+                    {disable && (
+                      <Link to="/payments">
+                        <button
+                          onClick={() => handleSubmit()}
+                          className="boton__submit-add marginCero"
+                        >
+                          Reserve
+                        </button>
+                      </Link>
+                    )}
+                    {!disable && (
                       <button
-                        onClick={() => handleSubmit()}
+                        style={{ backgroundColor: "red" }}
                         className="boton__submit-add marginCero"
                       >
                         Reserve
                       </button>
-                    </Link>
+                    )}
                   </div>
                 </div>
               </div>
@@ -491,6 +515,7 @@ const DetailHotel = () => {
           <div>
             {" "}
             <HostCalendary
+              disableBoton={disableBoton}
               data={detailhotel}
               salida={setdepartureDate}
               llegada={setArrivalDate}

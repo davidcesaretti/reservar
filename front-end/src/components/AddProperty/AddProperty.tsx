@@ -14,14 +14,21 @@ import "react-datepicker/dist/react-datepicker-cssmodules.css";
 import "react-datepicker/dist/react-datepicker.css";
 import moment from "moment";
 import subDays from "date-fns/subDays";
+import HostCalendary from "../HostCalendary/HostCalendary";
 
 function AddProperty() {
   interface firebase {
     uploadValue: any;
     picture: any;
   }
-  
- 
+  const [startDate, setStartDate] = useState(new Date());
+  const [endDate, setEndDate] = useState(null);
+  const onChange = (dates) => {
+    const [start, end] = dates;
+    setStartDate(start);
+    setEndDate(end);
+  };
+
   const dispatch = useDispatch();
   const idParam = useParams();
   const refTitle = useRef(undefined);
@@ -35,6 +42,7 @@ function AddProperty() {
   const [bedrooms, setBedrooms] = useState(1);
   const [beds, setBeds] = useState(1);
   const [bathrooms, setBathrooms] = useState(1);
+  const [disable, setDisable] = useState(false);
   const [edit, setEdit] = useState(true);
   const [firebaseStorage, setFirebaseStorage] = useState<firebase>({
     uploadValue: 0,
@@ -42,7 +50,6 @@ function AddProperty() {
   });
   const auth = useAuth().user?.email;
   const detailEdit = useSelector((state: any) => state.categorieDetail[0]);
-
 
   useEffect(() => {
     dispatch(detailHotel(idParam.id));
@@ -228,10 +235,11 @@ function AddProperty() {
 
   const [aux, setAux] = React.useState<Boolean>(false);
   const [arrivalDate, setArrivalDate] = React.useState<Date | any>(new Date());
-  const [departureDate, setdepartureDate] = React.useState<Date | any>(new Date());
+  const [departureDate, setdepartureDate] = React.useState<Date | any>(
+    new Date()
+  );
   const dateArray = [];
 
-  
   const dataFechas = detailEdit?.available.map((x) => {
     return [moment(x.fechaSalida), moment(x.fechaLlegada)];
   });
@@ -248,8 +256,6 @@ function AddProperty() {
   dataFechas?.map((x) => getDates(x[0], x[1]));
 
   const disableFinal = dateArray.map((x) => new Date(x));
-  
-
 
   // const startDate="2021-07-28"
   // const stopDate = "2021-07-31"
@@ -260,11 +266,9 @@ function AddProperty() {
     return !dateArray.includes(current.format("YYYY-MM-DD"));
   };
   const disableWeekends = (current) => {
-    
-    return [moment().day() === 0 || moment().day()=== 6]
+    return [moment().day() === 0 || moment().day() === 6];
   };
   const isWeekday = (date) => {
-   
     const day = date.getDay();
     return day !== 0 && day !== 6;
   };
@@ -276,9 +280,6 @@ function AddProperty() {
   };
 
   let fechaSiguiente = moment(arrivalDate).add(1, "days");
-
- 
-
 
   return (
     <div>
@@ -407,9 +408,9 @@ function AddProperty() {
 
             <br />
             <br />
-            
+
             <div className="calendary">
-      <DatePicker
+              {/* <DatePicker
         popperClassName="calendario"
         selected={arrivalDate}
         onChange={(date) => setArrivalDate(date)}
@@ -429,12 +430,25 @@ function AddProperty() {
         // filterDate={isWeekday}
         inline
       
-      />
-    </div>
-      
+      /> */}
 
-
+              <div className="calendary">
+                <DatePicker
+                  excludeDates={disableFinal}
+                  minDate={new Date()}
+                  startDate={startDate}
+                  endDate={endDate}
+                  selectsRange
+                  selected={startDate}
+                  onChange={onChange}
+                  inline
+                  monthsShown={2}
+                  filterDate={!disable ? isWeekday : false}
+                />
+              </div>
+            </div>
           </div>
+          <button onClick={() => setDisable(!disable)}>weekend</button>
           {/* 
           <form onSubmit={(e) => onFormSubmit(e)}>
             <h1>File Upload</h1>

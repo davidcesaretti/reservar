@@ -11,7 +11,7 @@ const UserRouter = Router();
 UserRouter.use(express.json());
 
 UserRouter.post("/login", async (req: Request, res: Response) => {
-  const {email} = req.body;
+  const { email } = req.body;
   console.log("ruta login", req.body);
   const user = await User.findOne({ email: email });
   try {
@@ -111,7 +111,7 @@ UserRouter.post("/reserva", async (req, res) => {
     req.body;
 
   const finded = await User.findOne({ email: email });
-  /*try {
+  try {
     const reservaFind = await Properties.find({
       _id: Prop_id,
       available: {
@@ -133,46 +133,42 @@ UserRouter.post("/reserva", async (req, res) => {
         },
       },
     });
-*/
-  /*  if (reservaFind.length) {
+
+    if (reservaFind.length) {
       res.json({
         message: "No hay reservas disponibles en este lapso de tiempo",
         fechasOcupadas: reservaFind,
       });
-    } else { */
-  const reserva = new Reserva({
-    fechaSalida,
-    fechaLlegada,
-    info_user: finded.email,
-    state: "pending",
-    price,
-    payment_id,
-  });
-  await reserva.save();
+    } else {
+      const reserva = new Reserva({
+        fechaSalida,
+        fechaLlegada,
+        info_user: finded.email,
+        state: "pending",
+        price,
+        payment_id,
+      });
+      await reserva.save();
 
-  await Properties.updateOne(
-    { _id: Prop_id },
-    { $push: { available: reserva } }
-  );
+      await Properties.updateOne(
+        { _id: Prop_id },
+        { $push: { available: reserva } }
+      );
 
-  await User.updateOne({ email: email }, { $push: { reserveId: reserva._id } });
+      await User.updateOne(
+        { email: email },
+        { $push: { reserveId: reserva._id } }
+      );
 
-  res.json({
-    message: "reserva exitosa!",
-    checkIn: fechaSalida,
-    checkOut: fechaLlegada,
-  });
-  /* }
       res.json({
         message: "reserva exitosa!",
         checkIn: fechaSalida,
         checkOut: fechaLlegada,
-        guests: guests,
       });
     }
   } catch (err) {
     res.send(err);
-  } */
+  }
 });
 
 /*  UserRouter.post("/favorites", async (req, res) => {
@@ -227,42 +223,38 @@ UserRouter.post("/getreserves", async (req, res) => {
   res.json(reserva);
 });
 
-
-
-
-
 UserRouter.get("/getusers", async (req, res) => {
-  const users = await User.find({})
-  const userMapped = await Promise.all(users.map(async (e) => {
-  const find = await Properties.find({ host: e.email });
-    return {
-      name: e.name,
-      phone: e.phone_number,
-      email: e.email,
-      lodgings_registered: find.length,
-      status_account: "Active"
-    }
-  }))
-  return res.json(userMapped)
-
-})
+  const users = await User.find({});
+  const userMapped = await Promise.all(
+    users.map(async (e) => {
+      const find = await Properties.find({ host: e.email });
+      return {
+        name: e.name,
+        phone: e.phone_number,
+        email: e.email,
+        lodgings_registered: find.length,
+        status_account: "Active",
+      };
+    })
+  );
+  return res.json(userMapped);
+});
 
 UserRouter.get("/getprops", async (req, res) => {
- 
-  const find = await Properties.find({host:{$exists:true}});
-  const propsMapped = await Promise.all(find.map(async(e) => {
-  const nameUser = await User.findOne({email: e.host})
-    return {
-      name: e.name,
-      host: nameUser.name,
-      city: e.city,
-      reservations_completed: 1,
-      status_account: "Active",
-    }
-  }))
-  return res.json(propsMapped)
-})
-
-
+  const find = await Properties.find({ host: { $exists: true } });
+  const propsMapped = await Promise.all(
+    find.map(async (e) => {
+      const nameUser = await User.findOne({ email: e.host });
+      return {
+        name: e.name,
+        host: nameUser.name,
+        city: e.city,
+        reservations_completed: 1,
+        status_account: "Active",
+      };
+    })
+  );
+  return res.json(propsMapped);
+});
 
 export default UserRouter;
