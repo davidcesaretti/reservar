@@ -1,11 +1,20 @@
 import React from 'react'
 import style from './PrivacyPolicy.module.css'
 
+
 const PrivacyPolicy = ({ setSection }) => {
+
+    function salvet(ev){
+        var newValue=ev.target.textContent;
+        console.log("termino",newValue)
+      }
+
     return (
         <div>
             <button onClick={() => { setSection('') }}>Back</button>
             <h2 className={style.init}><b>PRIVACY POLICY</b></h2>
+            <p contentEditable="true" onBlur={salvet} className={style.p}>
+
             <div className={style.ctn}>
                 <p>Effective date: 2023-10-27</p>
                 <p>1. <b>Introduction</b></p>
@@ -145,6 +154,9 @@ const PrivacyPolicy = ({ setSection }) => {
                 <p className={style.final}>This <a href="https://policymaker.io/privacy-policy/">Privacy Policy</a> was created for <b>trekker.com</b> by <a href="https://policymaker.io">PolicyMaker.io</a> on 2023-10-27.</p>
                 <div className={style.separator}></div>
             </div>
+
+            </p>
+            
         </div>
     )
 }

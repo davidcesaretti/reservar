@@ -16,3 +16,12 @@
 }
 .separator {
 }
+
+.p {display: block;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 100px;
+    margin-inline-end: 100px;
+    
+    text-align: center;
+    background-color:white;}
