@@ -15,6 +15,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import moment from "moment";
 import subDays from "date-fns/subDays";
 import HostCalendary from "../HostCalendary/HostCalendary";
+import SimpleModal from "./modal";
 
 function AddProperty() {
   interface firebase {
@@ -670,6 +671,7 @@ function AddProperty() {
           </div>
           <button onClick={() => setDisable(!disable)}>weekend</button>
           <button onClick={() => dispatchDates()}>add dates selected</button>
+          <SimpleModal data={disableFinal} />
         </div>
         {!idParam.id && (
           <button
