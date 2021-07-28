@@ -20,6 +20,8 @@ export enum ActionTypes {
   paginado = "PAGINADO",
   hostres = "HOST_RES",
   setCollection = "SET_COLLECTION",
+  usersList = "LIST_OF_USERS",
+  validateAdmin = "VALIDATION_CODE",
 }
 
 export type Action = FetchUsersAction;

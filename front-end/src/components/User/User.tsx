@@ -20,6 +20,8 @@ import {
   getHostReserves,
   getUserInfo,
 } from "../../actions/index";
+import AddProperty from '../AddProperty/AddProperty'
+import UserPosts from '../UserPosts/UserPosts'
 import Swal from "sweetalert2";
 import ChatHost from "../ChatHost/ChatHost";
 

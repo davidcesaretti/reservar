@@ -2,10 +2,20 @@ import React, { useState, useEffect, useContext, createContext } from "react";
 import firebase from "firebase/app";
 import "firebase/auth";
 import 'firebase/storage'
+/* require('dotenv').config();
+
+const {
+    FIREBASE_API_KEY,
+    AUTH_DOMAIN_FIREBASE,
+    PROJECT_ID_FIREBASE,
+    STORAGE_BUCKET_FIREBASE,
+    MESSAGING_SENDER_ID_FIREBASE,
+    APP_ID_FIREBASE,
+} = process.env */
 
 const firebaseConfig = {
     apiKey: "AIzaSyBh2wY42foyI4uwoW9wfIKtCz2ie-mXELw",
-    authDomain: "reservar-319305.firebaseapp.com",
+    authDomain:  "reservar-319305.firebaseapp.com",
     projectId: "reservar-319305",
     storageBucket: "reservar-319305.appspot.com",
     messagingSenderId: "283885012153",

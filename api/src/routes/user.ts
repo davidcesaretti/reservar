@@ -5,7 +5,13 @@ import { Propertiestests } from "../models/propertiestests";
 import axios from "axios";
 import { AnyAaaaRecord } from "node:dns";
 
+import nodemailer from "nodemailer";
+import transport from "nodemailer-sendgrid-transport"
+const sgMail = require("@sendgrid/mail");
+/* require('dotenv').config(); */
 //-------------------------------------------
+
+/* const {SENDGRID_API_KEY_ADMIN} = process.env */
 
 const UserRouter = Router();
 UserRouter.use(express.json());
@@ -21,6 +27,25 @@ UserRouter.post("/login", async (req: Request, res: Response) => {
     console.log(error);
   }
 });
+
+UserRouter.get("/userList", async (req: Request, res: Response) => {
+  try{
+    const users = await User.find({"_id": {$not: {$eq: "60fcc07b78416d2aa4fd8b6e"}}})
+    return res.json(users)
+  } catch (err) {
+    console.error(err)
+  }
+})
+
+UserRouter.get("/userAdmin/:_id", async (req: Request, res: Response) => {
+  try {
+    const {_id} = req.params
+    const user = await User.findOne({ _id: _id })
+    return res.json(user)
+  } catch (err) {
+    console.error(err)
+  }
+})
 
 UserRouter.post("/register", async (req: Request, res: Response) => {
   if (req.body.userInfo) {
@@ -60,6 +85,8 @@ UserRouter.post("/register", async (req: Request, res: Response) => {
         emergency_phone_number: emergency_phone_number,
         emergency_contact: emergency_contact,
         relationship: relationship,
+        admin: false,
+        status: "active",
       });
       await user.save();
       console.log("creado", user);
@@ -98,6 +125,8 @@ UserRouter.post("/register", async (req: Request, res: Response) => {
         name,
         email,
         photo,
+        admin: false,
+        status: "active",
       });
       await user.save();
       console.log("creado", user);
@@ -285,5 +314,73 @@ UserRouter.get("/getprops", async (req, res) => {
   return res.json(propsMapped)
 })
 */
+
+
+UserRouter.post("/validateadmin", async (req: Request, res: Response) => {
+  const sgMail = require("@sendgrid/mail");
+  const {email} = req.body
+  const code = Math.floor(Math.random() * (9999 - 1000) + 1000)
+  console.log('llego al back ',req.body)
+  sgMail.setApiKey("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");
+
+  const msg = {
+    to: email,
+    from: "chesaritto_78@hotmail.com", // aqui hay que poner el correo de la pag
+    subject: "Sending with SendGrid is Fun",
+    text: "and easy to do anywhere, even with Node.js",
+    html: `<strong>${code}</strong>`,
+  };
+
+  sgMail
+    .send(msg)
+    .then(() => {
+      console.log(code)
+      return res.json(code)
+    })
+    .catch(err => {console.log(err)})
+
+  /* const options = ({
+    auth: {
+      api_user: 'davucesaretti@gmail.com',
+      api_key: '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'
+    }
+  })
+
+  const client = nodemailer.createTransport(transport(options))
+
+  
+
+  client.sendMail(msg, function(err, info){
+    if (err ){
+      console.log(err);
+    }
+    else {
+      console.log('Message sent: ' + info.response);
+      return res.json(code)
+    }
+  }); */
+
+  /* let info = await transporter.sendMail({
+    from: testAccount.user, 
+    to: "davucesaretti@gmail.com",
+    subject: "Hello ✔", 
+    html: `${code}`,
+  }); */
+  /* const mailOptions = {
+      from: testAccount.user,
+      to: "trekkerhenry@gmail.com",
+      subject : "Code Validation",
+      html: `${code}`
+  };
+  let info = await transporter.sendMail(mailOptions, function(error){
+      if (error) {
+        console.log(error);
+      } else {
+        console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
+        res.json(code);
+      }
+    }); */
+   
+})
 
 export default UserRouter;
