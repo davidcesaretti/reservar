@@ -30,6 +30,7 @@ interface Data {
   reservations_completed: number;
   status_account: string;
   statusSwitch: any;
+  adminSwitch: any;
 }
 
 
@@ -85,6 +86,7 @@ const headCells: HeadCell[] = [
   { id: 'reservations_completed', numeric: true, disablePadding: false, label: '# of reservations completed' },
   { id: 'status_account', numeric: false, disablePadding: false, label: 'Account status' },
   { id: 'statusSwitch', numeric: false, disablePadding: false, label: 'status switch' },
+  { id: 'adminSwitch', numeric: false, disablePadding: false, label: 'admin switch' },
 
 ];
 
@@ -215,6 +217,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     table: {
       minWidth: 750,
+      
     },
     visuallyHidden: {
       border: 0,
@@ -229,6 +232,9 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     titulos: {
       backgroundColor: theme.palette.secondary.main
+    },
+    switch: {
+      
     }
   }),
 );
@@ -242,11 +248,17 @@ export default function EnhancedTable() {
   const [dense, setDense] = React.useState(false);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const [toggle, setToggle] = useState({})
+  const [admin, setAdmin] = useState({})
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {   // Funcion para switch
     //setToggle(!toggle)
-    setToggle({ ...toggle, [event.target.name]: event.target.checked || false });
+    setToggle({ ...toggle, [event.target.name]: event.target.checked});
   };
+
+  const handleChangeAdmin = (event: React.ChangeEvent<HTMLInputElement>) => {   
+    setAdmin({ ...admin, [event.target.name]: event.target.checked });
+  };
+
 
   const handleRequestSort = (event: React.MouseEvent<unknown>, property: keyof Data) => {
     const isAsc = orderBy === property && order === 'asc';
@@ -345,17 +357,28 @@ export default function EnhancedTable() {
                       <TableCell component="th" id={labelId} scope="row" padding="none">
                         {row.name}
                       </TableCell>
-                      <TableCell align="right">{row.host}</TableCell>
-                      <TableCell align="right">{row.city}</TableCell>
-                      <TableCell align="right">{row.reservations_completed}</TableCell>
-                      <TableCell align="right">{toggle[row.name] ? row.status_account[0]: row.status_account[1]}
+                      <TableCell align="center">{row.host}</TableCell>
+                      <TableCell align="center">{row.city}</TableCell>
+                      <TableCell align="center">{row.reservations_completed}</TableCell>
+                      <TableCell align="center">{toggle[row.name] ? row.status_account[0]: row.status_account[1]}
                       </TableCell>
-                      <Switch
-                        checked={toggle[row.name]}  //row.status_account === 'Active'
-                        onChange={handleChange}
-                        name={row.name}
-                        inputProps={{ 'aria-label': 'secondary checkbox' }}
-                      />
+                      <TableCell>
+                        <Switch
+                          checked={toggle[row.name]}  //row.status_account === 'Active'
+                          onChange={handleChange}
+                          name={row.name}
+                          inputProps={{ 'aria-label': 'secondary checkbox' }}
+                        />
+                      </TableCell>
+                      <TableCell>
+                        <Switch
+                          className={classes.switch}
+                          checked={admin[row.name]}  
+                          onChange={handleChangeAdmin}
+                          name={row.name}
+                          inputProps={{ 'aria-label': 'secondary checkbox' }}
+                        />
+                      </TableCell>
                     </TableRow>
                   );
                 })}

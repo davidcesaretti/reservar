@@ -257,7 +257,7 @@ UserRouter.get("/getprops", async (req, res) => {
       host: nameUser.name,
       city: e.city,
       reservations_completed: 1,
-      status_account: "Active",
+      status_account: ["Active", "Suspended", "Moderador"]
     }
   }))
   return res.json(propsMapped)
