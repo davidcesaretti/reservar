@@ -245,7 +245,7 @@ export default function EnhancedTable() {
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {   // Funcion para switch
     //setToggle(!toggle)
-    setToggle({ ...toggle, [event.target.name]: event.target.checked });
+    setToggle({ ...toggle, [event.target.name]: event.target.checked || false });
   };
 
   const handleRequestSort = (event: React.MouseEvent<unknown>, property: keyof Data) => {
@@ -348,13 +348,13 @@ export default function EnhancedTable() {
                       <TableCell align="right">{row.host}</TableCell>
                       <TableCell align="right">{row.city}</TableCell>
                       <TableCell align="right">{row.reservations_completed}</TableCell>
-                      <TableCell align="right">{row.status_account}</TableCell>
+                      <TableCell align="right">{toggle[row.name] ? row.status_account[0]: row.status_account[1]}
+                      </TableCell>
                       <Switch
-                        checked={toggle[row.host]}  //row.status_account === 'Active'
+                        checked={toggle[row.name]}  //row.status_account === 'Active'
                         onChange={handleChange}
                         name={row.name}
                         inputProps={{ 'aria-label': 'secondary checkbox' }}
-                        
                       />
                     </TableRow>
                   );
