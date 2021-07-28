@@ -1,11 +1,18 @@
 import mongoose, { Schema, model } from "mongoose";
 
+interface available {
+  _id: String;
+  fechaSalida: String;
+  fechaLlegada: String;
+  info_user: String;
+  state: String;
+}
 interface IUprop extends Document {
-
   host: string;
   name: string;
   city: String;
-  status_account:String
+  status_account: String;
+  available: [available];
 }
 
 const properties = new Schema<IUprop>(
@@ -67,7 +74,7 @@ const properties = new Schema<IUprop>(
     reviews: {
       type: [Object],
     },
-    status_account:{type: String, enum: ["Active", "Suspended"]}
+    status_account: { type: String, enum: ["Active", "Suspended"] },
   },
   { versionKey: false }
 );

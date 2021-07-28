@@ -6,7 +6,7 @@ import axios from "axios";
 import { AnyAaaaRecord } from "node:dns";
 
 import nodemailer from "nodemailer";
-import transport from "nodemailer-sendgrid-transport"
+import transport from "nodemailer-sendgrid-transport";
 const sgMail = require("@sendgrid/mail");
 /* require('dotenv').config(); */
 //-------------------------------------------
@@ -29,23 +29,25 @@ UserRouter.post("/login", async (req: Request, res: Response) => {
 });
 
 UserRouter.get("/userList", async (req: Request, res: Response) => {
-  try{
-    const users = await User.find({"_id": {$not: {$eq: "60fcc07b78416d2aa4fd8b6e"}}})
-    return res.json(users)
+  try {
+    const users = await User.find({
+      _id: { $not: { $eq: "60fcc07b78416d2aa4fd8b6e" } },
+    });
+    return res.json(users);
   } catch (err) {
-    console.error(err)
+    console.error(err);
   }
-})
+});
 
 UserRouter.get("/userAdmin/:_id", async (req: Request, res: Response) => {
   try {
-    const {_id} = req.params
-    const user = await User.findOne({ _id: _id })
-    return res.json(user)
+    const { _id } = req.params;
+    const user = await User.findOne({ _id: _id });
+    return res.json(user);
   } catch (err) {
-    console.error(err)
+    console.error(err);
   }
-})
+});
 
 UserRouter.post("/register", async (req: Request, res: Response) => {
   if (req.body.userInfo) {
@@ -141,7 +143,7 @@ UserRouter.post("/reserva", async (req, res) => {
     req.body;
 
   const finded = await User.findOne({ email: email });
-  /*try {
+  try {
     const reservaFind = await Properties.find({
       _id: Prop_id,
       available: {
@@ -163,49 +165,45 @@ UserRouter.post("/reserva", async (req, res) => {
         },
       },
     });
-*/
-  /*  if (reservaFind.length) {
+
+    if (reservaFind.length) {
       res.json({
         message: "No hay reservas disponibles en este lapso de tiempo",
         fechasOcupadas: reservaFind,
       });
-    } else { */
-  const reserva = new Reserva({
-    Prop_id,
-    fechaSalida,
-    fechaLlegada,
-    info_user: finded.email,
-    state: "pending",
-    price,
-    payment_id,
-    host,
-  });
-  await reserva.save();
+    } else {
+      const reserva = new Reserva({
+        Prop_id,
+        fechaSalida,
+        fechaLlegada,
+        info_user: finded.email,
+        state: "pending",
+        price,
+        payment_id,
+        host,
+      });
+      await reserva.save();
 
-  await Properties.updateOne(
-    { _id: Prop_id },
-    { $push: { available: reserva } }
-  );
+      await Properties.updateOne(
+        { _id: Prop_id },
+        { $push: { available: reserva } }
+      );
 
-  await User.updateOne({ email: email }, { $push: { reserveId: reserva._id } });
-  await User.updateOne({ email: email }, { $push: { reservas: Prop_id } });
+      await User.updateOne(
+        { email: email },
+        { $push: { reserveId: reserva._id } }
+      );
+      await User.updateOne({ email: email }, { $push: { reservas: Prop_id } });
 
-  res.json({
-    message: "reserva exitosa!",
-    checkIn: fechaSalida,
-    checkOut: fechaLlegada,
-  });
-  /* }
       res.json({
         message: "reserva exitosa!",
         checkIn: fechaSalida,
         checkOut: fechaLlegada,
-        guests: guests,
       });
     }
   } catch (err) {
     res.send(err);
-  } */
+  }
 });
 
 /*  UserRouter.post("/favorites", async (req, res) => {
@@ -280,24 +278,77 @@ UserRouter.post("/gethostreserves", async (req, res) => {
 /* UserRouter.post("/getreserves", async (req, res) => {
   const { email } = req.body;
 
+UserRouter.get("/getprops", async (req, res) => {
+  const find = await Properties.find({ host: { $exists: true } });
+  const propsMapped = await Promise.all(
+    find.map(async (e) => {
+      const nameUser = await User.findOne({ email: e.host });
+      return {
+        name: e.name,
+        host: nameUser.name,
+        city: e.city,
+        reservations_completed: 1,
+        status_account: "Active",
+      };
+    })
+  );
+  return res.json(propsMapped);
+});
 
+UserRouter.post("/reservafake", async (req, res) => {
+  const { fechaSalida, fechaLlegada, email, Prop_id } = req.body;
+  const finded = await User.findOne({ email: email });
+  try {
+    const reservaFind = await Properties.find({
+      _id: Prop_id,
+      available: {
+        $elemMatch: {
+          $or: [
+            {
+              fechaSalida: {
+                $gte: new Date(fechaSalida),
+                $lte: new Date(fechaLlegada),
+              },
+            },
+            {
+              fechaLlegada: {
+                $gte: new Date(fechaSalida),
+                $lte: new Date(fechaLlegada),
+              },
+            },
+          ],
+        },
+      },
+    });
 
-
-UserRouter.get("/getusers", async (req, res) => {
-  const users = await User.find({})
-  const userMapped = await Promise.all(users.map(async (e) => {
-  const find = await Properties.find({ host: e.email });
-    return {
-      name: e.name,
-      phone: e.phone_number,
-      email: e.email,
-      lodgings_registered: find.length,
-      status_account: "Active"
+    if (reservaFind.length) {
+      res.json({
+        message: "No hay reservas disponibles en este lapso de tiempo",
+        fechasOcupadas: reservaFind,
+      });
+    } else {
+      const reserva = new Reserva({
+        fechaSalida,
+        fechaLlegada,
+        info_user: finded.email,
+        state: "fake",
+      });
+      await Properties.updateOne(
+        { _id: Prop_id },
+        { $push: { available: reserva } }
+      );
+      res.send("reserva exitosa");
     }
-  }))
-  return res.json(userMapped)
-
-})
+  } catch (err) {
+    console.error(err);
+  }
+});
+UserRouter.get("/selectDates", async (req, res) => {
+  const { Prop_id } = req.query;
+  const find = await Properties.find({ _id: Prop_id });
+  const obj = find[0].available.filter((x: any) => x.state === "fake");
+  res.json(obj);
+});
 
 UserRouter.get("/getprops", async (req, res) => {
  
@@ -316,13 +367,14 @@ UserRouter.get("/getprops", async (req, res) => {
 })
 */
 
-
 UserRouter.post("/validateadmin", async (req: Request, res: Response) => {
   const sgMail = require("@sendgrid/mail");
-  const {email} = req.body
-  const code = Math.floor(Math.random() * (9999 - 1000) + 1000)
-  console.log('llego al back ',req.body)
-  sgMail.setApiKey("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");
+  const { email } = req.body;
+  const code = Math.floor(Math.random() * (9999 - 1000) + 1000);
+  console.log("llego al back ", req.body);
+  sgMail.setApiKey(
+    "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"
+  );
 
   const msg = {
     to: email,
@@ -335,10 +387,12 @@ UserRouter.post("/validateadmin", async (req: Request, res: Response) => {
   sgMail
     .send(msg)
     .then(() => {
-      console.log(code)
-      return res.json(code)
+      console.log(code);
+      return res.json(code);
     })
-    .catch(err => {console.log(err)})
+    .catch((err) => {
+      console.log(err);
+    });
 
   /* const options = ({
     auth: {
@@ -381,7 +435,27 @@ UserRouter.post("/validateadmin", async (req: Request, res: Response) => {
         res.json(code);
       }
     }); */
-   
-})
+});
+UserRouter.post("/deleteDates", async (req, res) => {
+  const { Prop_id, Prop_date } = req.body;
 
+  const borrado: any = await Properties.find({
+    _id: Prop_id,
+  });
+  //const filtro = borrado[0].available[0]._id;
+  const reservas = borrado[0].available.map((x: any) => x);
+  const filtro = reservas.filter((x) => x._id.toString() !== Prop_date);
+
+  const properyUpdate = await Properties.updateOne(
+    { _id: Prop_id },
+    {
+      $set: {
+        available: filtro,
+      },
+    }
+  );
+
+  // res.json("borrado");
+  res.json(properyUpdate);
+});
 export default UserRouter;
