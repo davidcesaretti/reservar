@@ -72,6 +72,10 @@ export interface userInformation {
   type: ActionTypes.userInfo;
   payload: Object;
 }
+export interface listOfUsers {
+  type: ActionTypes.usersList;
+  payload: Array<Object>;
+}
 export interface USERFAVS {
   type: ActionTypes.favUser;
   payload: Array<Object>;
@@ -93,6 +97,11 @@ export interface userInfo {
   emergencyPhone: number;
   recoveryMail: string;
   civilStatus: string;
+}
+
+export interface validationAdmin {
+  type: ActionTypes.validateAdmin;
+  payload: Number;
 }
 const url = "https://app-trekker.herokuapp.com";
 
@@ -266,6 +275,20 @@ export const getUserInfo = (email) => {
   };
 };
 
+export const getUsersList = () => {
+  return async (dispatch: Dispatch) => {
+    try {
+      const list = await axios.get("http://localhost:3001/userList")
+      dispatch<listOfUsers>({
+        type: ActionTypes.usersList,
+        payload: list.data
+      })
+    } catch (err) {
+      console.error(err)
+    }
+  }
+}
+
 export const clearDetail = () => {
   return {
     type: ActionTypes.detailHotel,
@@ -375,6 +398,17 @@ export const FirstStepReserve = (obj) => {
   };
 };
 
+export const getCodeValidation = (email) => {
+  return async (dispatch: Dispatch) => {
+    console.log('verificacion ',email)
+    const code = await axios.post("http://localhost:3001/validateadmin", {email})
+
+    dispatch<validationAdmin>({
+              type: ActionTypes.validateAdmin,
+              payload: code.data
+    })
+  }
+}
 // export function deleteUsers(data: any) {
 //   return function (dispatch: Dispatch) {
 //     return fetch(url, {

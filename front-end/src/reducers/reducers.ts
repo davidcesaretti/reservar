@@ -18,6 +18,8 @@ import { reservesReducer } from "./reserves";
 import { postsHost } from "./postUser";
 import { userInfo } from "./infoUser";
 import { statePaginado } from "./paginado";
+import { userList } from "./usersList"
+import { validateLogAdmin } from "./validateLogAdmin"
 
 export interface StoreState {
   fechas: any;
@@ -37,6 +39,8 @@ export interface StoreState {
   bookchat: Array<any>;
   hostres: Array<any>;
   collection: string;
+  listOfUsers: Array<any>;
+  logAdmin: Number;
 }
 
 export const reducers = combineReducers<StoreState>({
@@ -57,6 +61,8 @@ export const reducers = combineReducers<StoreState>({
   bookchat: bookchatRed,
   hostres: hostresRed,
   collection: setCollectionRed,
+  listOfUsers: userList,
+  logAdmin: validateLogAdmin,
 });
 
 export default reducers;

@@ -20,6 +20,8 @@ import {
   getHostReserves,
   getUserInfo,
 } from "../../actions/index";
+import AddProperty from '../AddProperty/AddProperty'
+import UserPosts from '../UserPosts/UserPosts'
 import Swal from "sweetalert2";
 import ChatHost from "../ChatHost/ChatHost";
 
@@ -356,18 +358,18 @@ const User = () => {
           userType={userType}
           setUserType={setUserType}
         />
-      ) : sectionHost === "CreatePublications" ? (
-        <CreatePublications />
-      ) : sectionHost === "MyProperties" ? (
-        <MyProperties />
-      ) : sectionHost === "Balance" ? (
-        <Balance />
+        ) : sectionHost === "CreatePublications" ? (
+          <AddProperty />
+        ) : sectionHost === "MyProperties" ? (
+          <UserPosts />
+        ) : sectionHost === "Balance" ? (
+          <Balance />
       ) : sectionHost === "Chat" ? (
         <ChatHost />
       ) : (
         <Spinner />
       )}
-
+        
       <div className={style.footerHost}>
         <p className={style.infoFooter}>COPYRIGHT 2021</p>
       </div>
