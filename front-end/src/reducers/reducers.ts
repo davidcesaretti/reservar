@@ -1,3 +1,4 @@
+import { setCollectionRed } from "./collection";
 import { hostresRed } from "./hostres";
 import { bookchatRed } from "./bookchat";
 import { booleanoRed } from "./booleano";
@@ -35,6 +36,7 @@ export interface StoreState {
   paginado: Object;
   bookchat: Array<any>;
   hostres: Array<any>;
+  collection: string;
 }
 
 export const reducers = combineReducers<StoreState>({
@@ -54,6 +56,7 @@ export const reducers = combineReducers<StoreState>({
   paginado: statePaginado,
   bookchat: bookchatRed,
   hostres: hostresRed,
+  collection: setCollectionRed,
 });
 
 export default reducers;

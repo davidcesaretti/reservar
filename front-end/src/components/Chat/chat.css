@@ -1,7 +1,12 @@
+.container {
+  display: flex;
+  margin-top: 40px;
+}
 .chat {
   text-align: center;
   max-width: 400px;
   margin: 0 auto;
+  min-width: 400px;
 }
 
 .head {
@@ -47,12 +52,10 @@
 }
 
 .foorm {
-  height: 10vh;
-
   bottom: 0;
-  background-color: rgb(24, 23, 23);
+  background-color: #324021;
   width: 100%;
-  max-width: 728px;
+
   display: flex;
   font-size: 1.5rem;
 }
@@ -76,13 +79,26 @@
 }
 
 .btn {
-  background-color: #034912e3;
+  background-color: #324021;
   border: none;
   color: white;
   padding: 15px 32px;
   text-align: center;
   text-decoration: none;
   cursor: pointer;
+}
+
+.btn2 {
+  background-color: #324021;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  margin-top: 5px;
 }
 
 .btn:disabled {
@@ -98,4 +114,16 @@
 }
 
 .collections {
+  margin-left: 50px;
+  align-items: center;
+  background-color: "#324021";
+}
+
+.select {
+  align-items: center;
+  background-color: "#324021";
+}
+
+.inpuu {
+  width: 80%;
 }

@@ -58,6 +58,12 @@ export interface UserEmail {
   type: ActionTypes.usersLogged;
   payload: string;
 }
+
+export interface Collection {
+  type: ActionTypes.setCollection;
+  payload: string;
+}
+
 export interface Favourites {
   type: ActionTypes.addFav;
   payload: any;
@@ -187,6 +193,15 @@ export const UserEmailGlobal = (data) => {
   return async (dispatch: Dispatch) => {
     dispatch<UserEmail>({
       type: ActionTypes.usersLogged,
+      payload: data,
+    });
+  };
+};
+
+export const SetCollection = (data) => {
+  return async (dispatch: Dispatch) => {
+    dispatch<Collection>({
+      type: ActionTypes.setCollection,
       payload: data,
     });
   };
