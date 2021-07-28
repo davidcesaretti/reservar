@@ -16,6 +16,7 @@ import Chat from "../Chat/Chat";
 
 import { getBooking, getUserInfo } from "../../actions/index";
 import Swal from "sweetalert2";
+import ChatHost from "../Chat/ChatHost";
 
 const User = () => {
   const auth = useAuth();
@@ -86,7 +87,7 @@ const User = () => {
   };
 
   const clickHistoryTravels = () => {
-    setSection("History");
+    setSection("Chat");
   };
 
   const clickCreate = () => {
@@ -191,7 +192,7 @@ const User = () => {
                 clickHistoryTravels();
               }}
             >
-              History of travels
+              Chat
             </button>
             <div className={style.line}></div>
             <button className={style.buttonOption} onClick={() => logOut()}>
@@ -225,8 +226,8 @@ const User = () => {
         <Bookings />
       ) : section === "Favorites" ? (
         <Favorites />
-      ) : section === "History" ? (
-        <HistoryTravels />
+      ) : section === "Chat" ? (
+        <Chat />
       ) : (
         <Spinner />
       )}
@@ -351,7 +352,7 @@ const User = () => {
       ) : sectionHost === "Balance" ? (
         <Balance />
       ) : sectionHost === "Chat" ? (
-        <Chat />
+        <ChatHost />
       ) : (
         <Spinner />
       )}

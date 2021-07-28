@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import "./chat.css";
+
 import { useAuth } from "../../firebase/index";
 
 import firebase from "firebase/app";

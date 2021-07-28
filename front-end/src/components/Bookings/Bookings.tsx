@@ -40,12 +40,8 @@ const Bookings = () => {
 
   useEffect(() => {
     dispatch(getBooking(email));
-  }, []);
-
-  const bookchat = () => {
     dispatch(getBookChat(email));
-    console.log("holi");
-  };
+  }, []);
 
   if (bookings === null) {
     return <Error404 />;
@@ -80,7 +76,6 @@ const Bookings = () => {
                       boton={false}
                     />
                   </Card>
-                  <button onClick={bookchat}>Chat with host</button>
                 </Grid>
               ))}
           </Grid>

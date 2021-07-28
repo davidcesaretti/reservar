@@ -20,12 +20,12 @@ function Chat() {
 
   return (
     <div className="chat">
-      <header>
-        <h1>⚛️🔥💬</h1>
+      <header className="head">
+        <h3>Chat With your host</h3>
         <SignOut />
       </header>
 
-      <section>{user ? <ChatRoom /> : <SignIn />}</section>
+      <section className="sec">{user ? <ChatRoom /> : <SignIn />}</section>
     </div>
   );
 }
@@ -41,9 +41,6 @@ function SignIn() {
       <button className="sign-in" onClick={signInWithGoogle}>
         Sign in with Google
       </button>
-      <p>
-        Do not violate the community guidelines or you will be banned for life!
-      </p>
     </>
   );
 }
@@ -102,27 +99,29 @@ function ChatRoom() {
     <>
       {chatcollection.length > 0 ? (
         <>
-          <main>
+          <main className="maiin">
             {messages &&
               messages.map((msg) => <ChatMessage key={msg.id} message={msg} />)}
           </main>
 
-          <form onSubmit={sendMessage}>
+          <form className="foorm" onSubmit={sendMessage}>
             <input
               value={formValue}
               onChange={(e) => setFormValue(e.target.value)}
               placeholder="type here"
             />
 
-            <button type="submit" disabled={!formValue}>
+            <button className="btn" type="submit" disabled={!formValue}>
               Send
             </button>
-            {chatcollection &&
-              chatcollection.map((e) => (
-                <button value={e} onClick={handleC}>
-                  Select Collection {e}
-                </button>
-              ))}
+            <div className="collections">
+              {chatcollection &&
+                chatcollection.map((e) => (
+                  <button className="btn" value={e} onClick={handleC}>
+                    Select Collection {e}
+                  </button>
+                ))}
+            </div>
           </form>
         </>
       ) : (
@@ -141,6 +140,7 @@ function ChatMessage(props) {
     <>
       <div className={`message ${messageClass}`}>
         <img
+          className="imag"
           src={
             photoURL || "https://api.adorable.io/avatars/23/abott@adorable.png"
           }
