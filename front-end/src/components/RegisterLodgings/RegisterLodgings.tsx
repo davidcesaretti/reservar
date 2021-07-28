@@ -22,6 +22,7 @@ import FilterListIcon from '@material-ui/icons/FilterList';
 import { useEffect } from 'react';
 import axios from 'axios';
 import { useState } from 'react';
+import Button from "@material-ui/core/Button";
 
 interface Data {
   name: string;
@@ -233,8 +234,17 @@ const useStyles = makeStyles((theme: Theme) =>
     titulos: {
       backgroundColor: theme.palette.secondary.main
     },
-    switch: {
-      
+    link1: {
+      textDecoration: "none",
+      color: "white",
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    btn: {
+      display: 'flex',
+      justifyContent: 'center',
+      alignContent: 'center'
     }
   }),
 );
@@ -362,7 +372,7 @@ export default function EnhancedTable() {
                       <TableCell align="center">{row.reservations_completed}</TableCell>
                       <TableCell align="center">{toggle[row.name] ? row.status_account[0]: row.status_account[1]}
                       </TableCell>
-                      <TableCell>
+                      <TableCell align="center">
                         <Switch
                           checked={toggle[row.name]}  //row.status_account === 'Active'
                           onChange={handleChange}
@@ -370,9 +380,8 @@ export default function EnhancedTable() {
                           inputProps={{ 'aria-label': 'secondary checkbox' }}
                         />
                       </TableCell>
-                      <TableCell>
+                      <TableCell align="center">
                         <Switch
-                          className={classes.switch}
                           checked={admin[row.name]}  
                           onChange={handleChangeAdmin}
                           name={row.name}
@@ -403,8 +412,17 @@ export default function EnhancedTable() {
       <FormControlLabel
         control={<Switch checked={dense} onChange={handleChangeDense} />}
         label="Dense padding"
-        
       />
+              <div className={classes.btn}>
+                <Button
+                  className={classes.link1}
+                  variant="contained"
+                  color="secondary"
+                  // onClick={}
+                >
+                  Update
+                </Button>
+              </div>
     </div>
   );
 }
