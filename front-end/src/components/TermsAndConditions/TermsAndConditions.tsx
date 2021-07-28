@@ -1,3 +1,4 @@
+import ActionViewArray from 'material-ui/svg-icons/action/view-array';
 import React from 'react'
 import style from './TermsAndConditions.module.css'
 
@@ -5,8 +6,9 @@ const TermsAndConditions = ({ setSection }) => {
 
     function save(ev){
         var newValue=ev.target.textContent;
-
+        console.log("termino",newValue)
       }
+    
     return (
         <div>
             <button onClick={() => { setSection('') }}>Back</button>
@@ -104,7 +106,7 @@ const TermsAndConditions = ({ setSection }) => {
                     <p className={style.final}>These <a href="https://policymaker.io/terms-and-conditions/">Terms of Service</a> were created for <b>trekker.com</b> by <a href="https://policymaker.io">PolicyMaker.io</a> on 2023-05-17.</p>
 
                </p>
-                <div className={style.botoncta}><p>Update</p></div>
+                <input type="button"  className={style.botoncta}><p className={style.botonup}>Update</p></input>
             </div>
         </div>
     )

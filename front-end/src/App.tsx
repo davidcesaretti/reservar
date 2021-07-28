@@ -15,6 +15,7 @@ import Favorites from "./components/Favorites/Favorites";
 import AddProperty from "./components/AddProperty/AddProperty";
 import AdminDashboard from "./components/AdminDashboard/AdminDashboard"
 import ValidationAdmin from "./components/ValidationAdmin/ValidationAdmin"
+import FAQ from "./components/FAQ/FAQ";
 
 
 function App() {
@@ -38,6 +39,7 @@ function App() {
       <Route exact path="/AddProperty/:id" component={AddProperty} />
       <Route exact path="/Admin" component={AdminDashboard} />
       <Route exact path="/validationAdmin" component={ValidationAdmin} />
+      <Route exact path="/prueba" component={FAQ} />
     </Switch>
   );
 }
