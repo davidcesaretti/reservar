@@ -75,7 +75,22 @@ margin-left: 51px;
 }
 .submit{
     display:flex;
+    align-items: center;
+    justify-content: center;
     margin: auto;
+    width: 150px;
+    height: 40px;
+    border-radius: 10px;
+    border: solid 1px grey;
+    cursor: pointer;
+    background-color: #d3d4aa;
+    color: #0f0f04;
+    transition: 300ms;
+    font-size: 16px;
+}
+.submit:hover{
+    background-color: #a6a77d;
+    color: #fff;
 }
 .propertiesData{
     height: 500px;

@@ -6,10 +6,10 @@ import style from './Balance.module.css'
 const Balance = () => {
 
     const dispatch = useDispatch()
-    const [monthInitial, setMonthInitial] = useState('January')
-    const [yearInitial, setYearInitial] = useState(2020)
-    const [monthFinal, setMonthFinal] = useState('January')
-    const [yearFinal, setYearFinal] = useState(2020)
+    const [monthInitial, setMonthInitial] = useState('')
+    const [yearInitial, setYearInitial] = useState(0)
+    const [monthFinal, setMonthFinal] = useState('')
+    const [yearFinal, setYearFinal] = useState(0)
     let month = new Date().toLocaleString("en-US", { month: "long" })
     let year = new Date().getFullYear()
     const years = Array.from(new Array(20),( val, index) => index + year);
@@ -59,7 +59,7 @@ const Balance = () => {
                 <form className={style.form} onSubmit={(e) => {submitHandle(e)}}>
                 <div className={style.filters}>
                     <label className={style.filterLabel}>Month:</label>
-                    <select className={style.filterSelect}>
+                    <select onChange={(e) => {handleInitialMonth(e)}} className={style.filterSelect}>
                         <option className={style.options} value='January'>January</option>
                         <option className={style.options} value='February'>February</option>
                         <option className={style.options} value='March'>March</option>
@@ -74,7 +74,7 @@ const Balance = () => {
                         <option className={style.options} value='December'>December</option>
                     </select>
                     <label className={style.filterLabel}>Year:</label>
-                    <select className={style.filterSelect}>
+                    <select onChange={(e) => {handleInitialYear(e)}} className={style.filterSelect}>
                         {
                             years.map((year, index) => {
                                 return (<option key={`year${index}`} value={year}>{year}</option>)
@@ -83,7 +83,7 @@ const Balance = () => {
                     </select>
                     <div className={style.separator}></div>
                     <label className={style.filterLabel}>Month:</label>
-                    <select className={style.filterSelect}>
+                    <select onChange={(e) => {handleFinalMonth(e)}} className={style.filterSelect}>
                         <option className={style.options} value='January'>January</option>
                         <option className={style.options} value='February'>February</option>
                         <option className={style.options} value='March'>March</option>
@@ -98,7 +98,7 @@ const Balance = () => {
                         <option className={style.options} value='December'>December</option>
                     </select>
                     <label className={style.filterLabel}>Year:</label>
-                    <select className={style.filterSelect}>
+                    <select onChange={(e) => {handleFinalYear(e)}} className={style.filterSelect}>
                     {
                             years.map((year, index) => {
                                 return (<option key={`year${index}`} value={year}>{year}</option>)
