@@ -6,7 +6,7 @@ import axios from "axios";
 import { AnyAaaaRecord } from "node:dns";
 
 import nodemailer from "nodemailer";
-import transport from "nodemailer-sendgrid-transport"
+import transport from "nodemailer-sendgrid-transport";
 const sgMail = require("@sendgrid/mail");
 /* require('dotenv').config(); */
 //-------------------------------------------
@@ -29,23 +29,25 @@ UserRouter.post("/login", async (req: Request, res: Response) => {
 });
 
 UserRouter.get("/userList", async (req: Request, res: Response) => {
-  try{
-    const users = await User.find({"_id": {$not: {$eq: "60fcc07b78416d2aa4fd8b6e"}}})
-    return res.json(users)
+  try {
+    const users = await User.find({
+      _id: { $not: { $eq: "60fcc07b78416d2aa4fd8b6e" } },
+    });
+    return res.json(users);
   } catch (err) {
-    console.error(err)
+    console.error(err);
   }
-})
+});
 
 UserRouter.get("/userAdmin/:_id", async (req: Request, res: Response) => {
   try {
-    const {_id} = req.params
-    const user = await User.findOne({ _id: _id })
-    return res.json(user)
+    const { _id } = req.params;
+    const user = await User.findOne({ _id: _id });
+    return res.json(user);
   } catch (err) {
-    console.error(err)
+    console.error(err);
   }
-})
+});
 
 UserRouter.post("/register", async (req: Request, res: Response) => {
   if (req.body.userInfo) {
@@ -169,26 +171,29 @@ UserRouter.post("/reserva", async (req, res) => {
         message: "No hay reservas disponibles en este lapso de tiempo",
         fechasOcupadas: reservaFind,
       });
-    } else { */
-  const reserva = new Reserva({
-    Prop_id,
-    fechaSalida,
-    fechaLlegada,
-    info_user: finded.email,
-    state: "pending",
-    price,
-    payment_id,
-    host,
-  });
-  await reserva.save();
+    } else {
+      const reserva = new Reserva({
+        Prop_id,
+        fechaSalida,
+        fechaLlegada,
+        info_user: finded.email,
+        state: "pending",
+        price,
+        payment_id,
+        host,
+      });
+      await reserva.save();
 
       await Properties.updateOne(
         { _id: Prop_id },
         { $push: { available: reserva } }
       );
 
-  await User.updateOne({ email: email }, { $push: { reserveId: reserva._id } });
-  await User.updateOne({ email: email }, { $push: { reservas: Prop_id } });
+      await User.updateOne(
+        { email: email },
+        { $push: { reserveId: reserva._id } }
+      );
+      await User.updateOne({ email: email }, { $push: { reservas: Prop_id } });
 
       res.json({
         message: "reserva exitosa!",
@@ -362,13 +367,14 @@ UserRouter.get("/getprops", async (req, res) => {
 })
 */
 
-
 UserRouter.post("/validateadmin", async (req: Request, res: Response) => {
   const sgMail = require("@sendgrid/mail");
-  const {email} = req.body
-  const code = Math.floor(Math.random() * (9999 - 1000) + 1000)
-  console.log('llego al back ',req.body)
-  sgMail.setApiKey("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");
+  const { email } = req.body;
+  const code = Math.floor(Math.random() * (9999 - 1000) + 1000);
+  console.log("llego al back ", req.body);
+  sgMail.setApiKey(
+    "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"
+  );
 
   const msg = {
     to: email,
@@ -381,10 +387,12 @@ UserRouter.post("/validateadmin", async (req: Request, res: Response) => {
   sgMail
     .send(msg)
     .then(() => {
-      console.log(code)
-      return res.json(code)
+      console.log(code);
+      return res.json(code);
     })
-    .catch(err => {console.log(err)})
+    .catch((err) => {
+      console.log(err);
+    });
 
   /* const options = ({
     auth: {
@@ -427,8 +435,7 @@ UserRouter.post("/validateadmin", async (req: Request, res: Response) => {
         res.json(code);
       }
     }); */
-   
-})
+});
 UserRouter.post("/deleteDates", async (req, res) => {
   const { Prop_id, Prop_date } = req.body;
 
