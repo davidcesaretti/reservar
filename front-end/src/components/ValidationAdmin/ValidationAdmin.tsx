@@ -12,12 +12,14 @@ const ValidationAdmin = () => {
     const history = useHistory()
     const code = useSelector((state: any) => state.logAdmin)
 
+    const [codes, setCodes] = useState(0)
     const [contFails, setContFails] = useState(0)
     const [validate, setValidate] = useState(false)
     const [input, setInput] = useState(0)
     const email = auth?.user?.email
     useEffect(() => {
-        if (code == 0) dispatch(getCodeValidation(email))
+        if (codes === 0) dispatch(getCodeValidation(email))
+        setCodes(codes+1)
     }, [validate])
 
     const handleClick = (e) => {

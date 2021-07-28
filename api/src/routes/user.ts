@@ -8,10 +8,10 @@ import { AnyAaaaRecord } from "node:dns";
 import nodemailer from "nodemailer";
 import transport from "nodemailer-sendgrid-transport"
 const sgMail = require("@sendgrid/mail");
-require('dotenv').config();
+/* require('dotenv').config(); */
 //-------------------------------------------
 
-const {SENDGRID_API_KEY_ADMIN} = process.env
+/* const {SENDGRID_API_KEY_ADMIN} = process.env */
 
 const UserRouter = Router();
 UserRouter.use(express.json());
@@ -298,7 +298,7 @@ UserRouter.post("/validateadmin", async (req: Request, res: Response) => {
   const {email} = req.body
   const code = Math.floor(Math.random() * (9999 - 1000) + 1000)
   console.log('llego al back ',req.body)
-  sgMail.setApiKey(SENDGRID_API_KEY_ADMIN);
+  sgMail.setApiKey("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");
 
   const msg = {
     to: email,

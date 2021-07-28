@@ -93,5 +93,17 @@ margin-left: 51px;
     color: #fff;
 }
 .propertiesData{
-    height: 500px;
+    width: 800px;
+    margin: auto;
+    margin-bottom: 120px;
+}
+.propertie{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: solid 1px grey;
+    padding-left: 15px;
+    padding-right: 15px;
+    margin: 15px;
+    border-radius: 10px;
 }
