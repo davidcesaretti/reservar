@@ -210,6 +210,7 @@ export default function Album() {
                       price={e.price}
                       click={handleClick}
                       boton={false}
+                      deleteButton={false}
                     />
                   </Card>
                 </Grid>
