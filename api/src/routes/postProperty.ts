@@ -122,4 +122,18 @@ router.post(
     res.json(properyUpdate);
   }
 );
+
+router.get(
+  "/delete/:id",
+  async (req: Request, res: Response, next: NextFunction) => {
+    const {
+      id,
+    } = req.params;
+
+    const deleteProperty = await Properties.deleteOne(
+      {_id: id}
+    )
+      res.send('Propiedad borrada')
+})
+
 export default router;

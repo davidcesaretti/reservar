@@ -73,6 +73,7 @@ function UserPosts() {
                     price={e.price}
                     click={console.log("")}
                     boton={true}
+                    deleteButton={true}
                   />
                 </Card>
               </Grid>
