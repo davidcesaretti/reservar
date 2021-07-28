@@ -34,7 +34,7 @@ const Bookings = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const auth = useAuth();
-  const cards = useSelector((state: any) => state.categorieDetail);
+  const cards = useSelector((state: any) => state.bookings);
   let email = auth.user.email;
 
   useEffect(() => {

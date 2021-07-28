@@ -139,8 +139,17 @@ UserRouter.post("/register", async (req: Request, res: Response) => {
 });
 
 UserRouter.post("/reserva", async (req, res) => {
-  const { fechaSalida, fechaLlegada, email, Prop_id, price, payment_id, host } =
-    req.body;
+  const {
+    fechaSalida,
+    fechaLlegada,
+    email,
+    Prop_id,
+    price,
+    payment_id,
+    host,
+    propimg,
+    propname,
+  } = req.body;
 
   const finded = await User.findOne({ email: email });
   try {
@@ -181,6 +190,8 @@ UserRouter.post("/reserva", async (req, res) => {
         price,
         payment_id,
         host,
+        propimg,
+        propname,
       });
       await reserva.save();
 
