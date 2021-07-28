@@ -10,6 +10,7 @@ import Container from "@material-ui/core/Container";
 import { Grid, Typography } from "@material-ui/core";
 import Error404 from "../Error404/Error404";
 import Spinner from "../Spinner/Spinner";
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   cardGrid: {
@@ -81,6 +82,11 @@ const Bookings = () => {
                     />
                   </Card>
                   <button onClick={bookchat}>Chat with host</button>
+                  <Link to={`/categories/${e._id}`}>
+                  <button>
+                    review
+                  </button>
+                  </Link>
                 </Grid>
               ))}
           </Grid>

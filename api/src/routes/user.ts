@@ -247,9 +247,23 @@ UserRouter.post("/gethostreserves", async (req, res) => {
   res.json(reserva);
 });
 
+UserRouter.post("/review", async (req, res) => {
+  const { username, idPropertie, review } = req.body;
+  interface IReview {
+    reviewer_name: string;
+    comments: string;
+  }
+  const Review:IReview = {
+    reviewer_name: username,
+    comments: review
+  }
+
+  const propertie = await Properties.updateOne({_id : idPropertie}, {$push: {reviews: Review}})
+  res.send(propertie)
+})
+
 /* UserRouter.post("/getreserves", async (req, res) => {
   const { email } = req.body;
-
 
 
 
