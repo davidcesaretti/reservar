@@ -5,6 +5,7 @@ interface IUprop extends Document {
   host: string;
   name: string;
   city: String;
+  status_account:String
 }
 
 const properties = new Schema<IUprop>(
@@ -66,6 +67,7 @@ const properties = new Schema<IUprop>(
     reviews: {
       type: [Object],
     },
+    status_account:{type: String, enum: ["Active", "Suspended"]}
   },
   { versionKey: false }
 );
