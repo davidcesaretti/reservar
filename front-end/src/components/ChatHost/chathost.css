@@ -1,0 +1,132 @@
+.container1 {
+  display: flex;
+  margin-top: 40px;
+}
+.chat1 {
+  text-align: center;
+  max-width: 400px;
+  margin: 0 auto;
+  min-width: 400px;
+  margin-right: 350px;
+}
+
+.head1 {
+  background-color: rgb(90, 110, 56);
+  height: 1vh;
+  min-height: 20px;
+  color: white;
+  width: 100%;
+  max-width: 728px;
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 99;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.sec1 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 4 00px;
+
+  background-color: rgba(90, 110, 56, 0.85);
+}
+
+.maiin1 {
+  padding: 10px;
+  height: 300px;
+
+  overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
+}
+
+.maiin1::-webkit-scrollbar {
+  width: 0.25rem;
+}
+
+.maiin1::-webkit-scrollbar-thumb {
+  background: rgb(59, 73, 36);
+}
+
+.foorm1 {
+  bottom: 0;
+  background-color: rgba(90, 110, 56, 0.85);
+  width: 100%;
+
+  display: flex;
+  font-size: 1.5rem;
+}
+
+.message1 {
+  display: flex;
+  align-items: center;
+}
+
+.sent1 {
+  flex-direction: row-reverse;
+}
+
+.sent1 p {
+  color: rgb(255, 255, 255);
+
+  align-self: flex-end;
+}
+.received1 p {
+  color: rgb(255, 255, 255);
+}
+
+.btn1 {
+  background-color: rgba(90, 110, 56, 0.85);
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.btn21 {
+  background-color: rgba(90, 110, 56, 0.85);
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  margin-top: 5px;
+}
+.btn21:hover {
+  background-color: rgb(90, 110, 56);
+  transition: 0.3s;
+}
+
+.btn1:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.imag1 {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin: 2px 5px;
+}
+
+.collections1 {
+  margin-left: 300px;
+  align-items: center;
+}
+
+.select1 {
+  align-items: center;
+}
+
+.inpuu1 {
+  width: 80%;
+}

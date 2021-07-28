@@ -1,12 +1,9 @@
-import { Bookings } from "../actions/index";
+import { Bookchat } from "../actions/index";
 import { ActionTypes } from "../actions/types";
 
-export const reservesReducer = (
-  state: Array<Object> = [],
-  action: Bookings
-) => {
+export const bookchatRed = (state: Array<Object> = [], action: Bookchat) => {
   switch (action.type) {
-    case ActionTypes.bookings:
+    case ActionTypes.bookchat:
       console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaa");
       return action.payload;
     default:
