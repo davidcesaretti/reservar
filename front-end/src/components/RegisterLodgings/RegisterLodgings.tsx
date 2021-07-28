@@ -36,7 +36,7 @@ interface Data {
 
 
 let rows = []
-      axios.get("http://localhost:3001/getprops").then(respuesta => {
+      axios.get("http://localhost:3001/admin/getprops").then(respuesta => {
         rows = (respuesta.data)
         console.log(rows)
       })
@@ -237,9 +237,7 @@ const useStyles = makeStyles((theme: Theme) =>
     link1: {
       textDecoration: "none",
       color: "white",
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center',
+    
     },
     btn: {
       display: 'flex',

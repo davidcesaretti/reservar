@@ -34,7 +34,7 @@ interface Data {
 
 
 let rows = []
-      axios.get("http://localhost:3001/getusers").then(respuesta => {
+      axios.get("http://localhost:3001/admin/getusers").then(respuesta => {
         rows = (respuesta.data)
         console.log(rows)
       })
