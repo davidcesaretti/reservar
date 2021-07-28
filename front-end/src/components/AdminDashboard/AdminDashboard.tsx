@@ -12,6 +12,7 @@ import Earnings from '../Earnings/Earnings'
 import Stats from '../Stats/Stats'
 import GeneralBalance from '../GeneralBalance/GeneralBalance'
 import PrivacyPolicy from '../PrivacyPolicy/PrivacyPolicy'
+import logo from "../../Image/trekker.svg";
 
 
 const AdminDashboard = () => {
@@ -32,7 +33,7 @@ const AdminDashboard = () => {
     return (
         <div className={style.ctn}>
             <div className={style.navBar}>
-                <img className={style.logo} alt="trekker" />
+                <img src={logo} alt="trekker" width="150px" height="60px" />
                 <h1 className={style.title} >ADMIN PANEL</h1>
                 <button className={style.signOut} onClick={() => {logOut()}}>Sign Out</button>
             </div>

@@ -64,7 +64,7 @@ const Balance = () => {
                     </div>
                     <div className={style.field}>
                         <h2 className={style.titleField}>90% NET INCOME</h2>
-                        <h4 className={style.numberField}>${income - (income/10)} USD</h4>
+                        <h4 className={style.numberField}>${income - (income / 10)} USD</h4>
                         <p className={style.footerField}>Update daily</p>
                     </div>
                 </div>
@@ -127,20 +127,23 @@ const Balance = () => {
             </div>
 
             <div className={style.propertiesData}>
-                {userPosts[0]?.available?.map((e) => {
-                    /* income === 0 && setIncome(income + e.price) */
+                {userPosts?.map((f) => {
                     return (
-                        <div className={style.propertie} key={e._id}>
-                            <div>
-                                <h3>{e.fechaLlegada.slice(0, 10)}</h3>
-                                <p>Reservation: {e._id}</p>
-                                <p>Property: {userPosts[0].name}</p>
-                            </div>
-                            <div>
-                                <p>Gross Income: {e.price}</p>
-                                <p>Net Income: {e.price - (e.price / 10)}</p>
-                            </div>
-                        </div>
+                        f.available?.map((e) => {
+                            return (
+                                <div className={style.propertie} key={e._id}>
+                                    <div>
+                                        <h3>{e.fechaLlegada.slice(0, 10)}</h3>
+                                        <p>Reservation: {e._id}</p>
+                                        <p>Property: {userPosts[0].name}</p>
+                                    </div>
+                                    <div>
+                                        <p>Gross Income: {e.price}</p>
+                                        <p>Net Income: {e.price - (e.price / 10)}</p>
+                                    </div>
+                                </div>
+                            )
+                        })
                     )
                 })}
             </div>

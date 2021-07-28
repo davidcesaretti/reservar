@@ -15,6 +15,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import backImg from "../../Image/fondoLogin.jpeg";
 import "@fontsource/roboto";
 import { useAuth } from "../../firebase/index";
+import logo from "../../Image/trekker.svg";
 
 const useStyle = makeStyles((theme) => ({
   login: {
@@ -152,7 +153,7 @@ const Register = () => {
   return (
     <Grid className={classes.ctn}>
       <Grid xs={12} className={classes.navBar}>
-        <img alt="trekker" />
+        <img src={logo} alt="trekker" width="150px" height="60px" />
         <Button
           className={classes.homeButton}
           color="secondary"

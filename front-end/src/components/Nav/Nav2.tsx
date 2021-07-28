@@ -14,6 +14,9 @@ import logo from "../../Image/trekker.svg";
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
+    display: "flex",
+    alignItems: "center",
+    
   },
   menuButton: {
     marginTop: theme.spacing(2),
