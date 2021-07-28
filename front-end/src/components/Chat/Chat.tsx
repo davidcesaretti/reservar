@@ -27,7 +27,7 @@ function Chat() {
   };
 
   return (
-    <div className="container">
+    <div className="containerrino">
       <div className="collections">
         <p className="select"> Select you reservation:</p>
 

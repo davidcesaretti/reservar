@@ -1,5 +1,5 @@
-import React, { useEffect, useRef, useState } from "react";
-
+import React, { useState } from "react";
+import "./chathost.css";
 import { useAuth } from "../../firebase/index";
 
 import firebase from "firebase/app";
@@ -8,24 +8,50 @@ import "firebase/auth";
 import "firebase/analytics";
 
 import { useCollectionData } from "react-firebase-hooks/firestore";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { SetCollection } from "../../actions";
 
 const auth = firebase.auth();
 const firestore = firebase.firestore();
 const analytics = firebase.analytics();
 
 function ChatHost() {
+  const dispatch = useDispatch();
   const auth = useAuth();
   const user = auth.user;
+  const bookings = useSelector((state: any) => state.hostres);
+
+  let handleC = (e) => {
+    dispatch(SetCollection(e.currentTarget.value));
+    console.log("seteando collec  ", e.currentTarget.value);
+  };
 
   return (
-    <div className="chat">
-      <header className="head">
-        <h2>Chat with the host</h2>
-        <SignOut />
-      </header>
+    <div className="container">
+      <div className="collections">
+        <p className="select"> Select you reservation:</p>
 
-      <section className="sec">{user ? <ChatRoom /> : <SignIn />}</section>
+        {bookings &&
+          bookings.map((e) => (
+            <button
+              key={e}
+              className="btn2"
+              value={e?.host + e?.info_user}
+              onClick={handleC}
+            >
+              Arrival: {e.fechaSalida} <br />
+              Departure: {e.fechaLlegada}
+            </button>
+          ))}
+      </div>
+      <div className="chat">
+        <header className="head">
+          <h3>Chat With your host</h3>
+          <SignOut />
+        </header>
+
+        <section className="sec">{user ? <ChatRoom /> : <SignIn />}</section>
+      </div>
     </div>
   );
 }
@@ -41,9 +67,6 @@ function SignIn() {
       <button className="sign-in" onClick={signInWithGoogle}>
         Sign in with Google
       </button>
-      <p>
-        Do not violate the community guidelines or you will be banned for life!
-      </p>
     </>
   );
 }
@@ -59,24 +82,14 @@ function SignOut() {
 }
 
 function ChatRoom() {
-  const hostres = useSelector((state: any) => state.hostres);
-  let chatcollection = [];
-  hostres.map((e) => (e.host ? chatcollection.push(e.host + e.info_user) : ""));
-  const [collec, setCollec] = useState(
-    chatcollection[0] ? chatcollection[0] : "nores"
-  );
+  const collec = useSelector((state: any) => state.collection);
 
-  const messagesRef = firestore.collection(collec);
+  const messagesRef = firestore.collection(collec ? collec : "nores");
   const query = messagesRef.orderBy("createdAt").limit(25);
 
   const [messages] = useCollectionData(query, { idField: "id" });
 
   const [formValue, setFormValue] = useState("");
-
-  let handleC = (e) => {
-    setCollec(e.currentTarget.value);
-    console.log("seteando collec  ", e.currentTarget.value);
-  };
 
   const sendMessage = async (e) => {
     e.preventDefault();
@@ -90,7 +103,6 @@ function ChatRoom() {
         email,
         photoURL,
       });
-      console.log(chatcollection);
 
       setFormValue("");
     }
@@ -98,35 +110,25 @@ function ChatRoom() {
 
   return (
     <>
-      {chatcollection.length > 0 ? (
-        <>
-          <main>
-            {messages &&
-              messages.map((msg) => <ChatMessage key={msg.id} message={msg} />)}
-          </main>
+      <>
+        <main className="maiin">
+          {messages &&
+            messages.map((msg) => <ChatMessage key={msg.id} message={msg} />)}
+        </main>
 
-          <form className="formu" onSubmit={sendMessage}>
-            <input
-              className="inpu"
-              value={formValue}
-              onChange={(e) => setFormValue(e.target.value)}
-              placeholder="type here"
-            />
+        <form className="foorm" onSubmit={sendMessage}>
+          <input
+            className="inpuu"
+            value={formValue}
+            onChange={(e) => setFormValue(e.target.value)}
+            placeholder="type here"
+          />
 
-            <button className="btn" type="submit" disabled={!formValue}>
-              Send
-            </button>
-            {chatcollection &&
-              chatcollection.map((e) => (
-                <button className="btn" value={e} onClick={handleC}>
-                  Select Collection {e}
-                </button>
-              ))}
-          </form>
-        </>
-      ) : (
-        <div>realiza una reserva para ver sus chats</div>
-      )}
+          <button className="btn" type="submit" disabled={!formValue}>
+            Send
+          </button>
+        </form>
+      </>
     </>
   );
 }
@@ -140,6 +142,7 @@ function ChatMessage(props) {
     <>
       <div className={`message ${messageClass}`}>
         <img
+          className="imag"
           src={
             photoURL || "https://api.adorable.io/avatars/23/abott@adorable.png"
           }

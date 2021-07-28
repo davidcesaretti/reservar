@@ -14,9 +14,14 @@ import MyProperties from "../MyProperties/MyProperties";
 import Balance from "../Balance/Balance";
 import Chat from "../Chat/Chat";
 
-import { getBooking, getUserInfo } from "../../actions/index";
+import {
+  getBookChat,
+  getBooking,
+  getHostReserves,
+  getUserInfo,
+} from "../../actions/index";
 import Swal from "sweetalert2";
-import ChatHost from "../Chat/ChatHost";
+import ChatHost from "../ChatHost/ChatHost";
 
 const User = () => {
   const auth = useAuth();
@@ -31,6 +36,12 @@ const User = () => {
 
   let email = auth.user.email;
   console.log("useSelector ", userInfo);
+
+  useEffect(() => {
+    dispatch(getBooking(email));
+    dispatch(getBookChat(email));
+    dispatch(getHostReserves(email));
+  }, []);
 
   useEffect(() => {
     dispatch(getUserInfo(email));

@@ -1,4 +1,4 @@
-.containerrino {
+.container {
   display: flex;
   margin-top: 40px;
 }
@@ -11,7 +11,7 @@
 }
 
 .head {
-  background-color: #324021;
+  background-color: #4d1414;
   height: 1vh;
   min-height: 20px;
   color: white;
@@ -32,7 +32,7 @@
   justify-content: center;
   height: 4 00px;
 
-  background-color: #324021be;
+  background-color: #4d1414d5;
 }
 
 .maiin {
@@ -49,12 +49,12 @@
 }
 
 .maiin::-webkit-scrollbar-thumb {
-  background: #324021;
+  background: #000000;
 }
 
 .foorm {
   bottom: 0;
-  background-color: #324021;
+  background-color: #4d1414;
   width: 100%;
 
   display: flex;
@@ -80,7 +80,7 @@
 }
 
 .btn {
-  background-color: #324021;
+  background-color: #4d1414;
   border: none;
   color: white;
   padding: 15px 32px;
@@ -90,7 +90,7 @@
 }
 
 .btn2 {
-  background-color: #324021;
+  background-color: #4d1414;
   border: none;
   color: white;
   padding: 15px 32px;
@@ -117,12 +117,10 @@
 .collections {
   margin-left: 300px;
   align-items: center;
-  background-color: "#324021";
 }
 
 .select {
   align-items: center;
-  background-color: "#324021";
 }
 
 .inpuu {

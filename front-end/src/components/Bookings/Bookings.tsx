@@ -38,11 +38,6 @@ const Bookings = () => {
   const bookings = useSelector((state: any) => state.bookings);
   let email = auth.user.email;
 
-  useEffect(() => {
-    dispatch(getBooking(email));
-    dispatch(getBookChat(email));
-  }, []);
-
   if (bookings === null) {
     return <Error404 />;
   } else if (bookings.length < 1) {

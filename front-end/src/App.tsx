@@ -15,7 +15,7 @@ import Favorites from "./components/Favorites/Favorites";
 import AddProperty from "./components/AddProperty/AddProperty";
 import UserPosts from "./components/UserPosts/UserPosts";
 import Chat from "./components/Chat/Chat";
-import ChatHost from "./components/Chat/ChatHost";
+import ChatHost from "./components/ChatHost/ChatHost";
 
 function App() {
   const auth = useAuth();
