@@ -22,33 +22,24 @@ import FilterListIcon from '@material-ui/icons/FilterList';
 import { useEffect } from 'react';
 import axios from 'axios';
 import { useState } from 'react';
+import Button from "@material-ui/core/Button";
 
 interface Data {
   name: string;
-  phone: string;
-  email: string;
-  lodgings_registered: number;
+  host: string;
+  city: string;
+  reservations_completed: number;
   status_account: string;
   statusSwitch: any;
+  adminSwitch: any;
 }
 
 
 let rows = []
-      axios.get("http://localhost:3001/admin/getusers").then(respuesta => {
+      axios.get("http://localhost:3001/admin/getprops").then(respuesta => {
         rows = (respuesta.data)
         console.log(rows)
       })
-
-// const rows = [
-// {name: 'walter', phone: '3731323423', email: 'sh@jdjd.com', lodgings: 5, status: 'active'},
-// {name: 'david', phone: '37345423', email: 'dhsh@jdjd.com', lodgings: 7, status: 'active'},
-// {name: 'jesus', phone: '787823423', email: 'dfgsh@jdjd.com', lodgings: 3, status: 'suspended'},
-// {name: 'pedro', phone: '99999323423', email: 'uiouihsh@jdjd.com', lodgings: 4, status: 'suspended'},
-// {name: 'vero', phone: '3733333323', email: 'vbcv@jdjd.com', lodgings: 9, status: 'active'},
-// {name: 'ulises', phone: '3000000423', email: 'vvvvvsh@jdjd.com', lodgings: 5, status: 'active'},
-// {name: 'nelson', phone: '2731323423', email: 'yuiyuuuu@jdjd.com', lodgings: 5, status: 'suspended'},
-// {name: 'dario', phone: '89989823423', email: 'vvvvvv@jdjd.com', lodgings: 5, status: 'active'},
-// ];
 
 
 function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
@@ -91,11 +82,12 @@ interface HeadCell {
 
 const headCells: HeadCell[] = [
   { id: 'name', numeric: false, disablePadding: true, label: 'Name' },
-  { id: 'phone', numeric: false, disablePadding: false, label: 'Phone' },
-  { id: 'email', numeric: false, disablePadding: false, label: 'Email' },
-  { id: 'lodgings_registered', numeric: true, disablePadding: false, label: '# of lodgings registered' },
+  { id: 'host', numeric: false, disablePadding: false, label: 'Host Name' },
+  { id: 'city', numeric: false, disablePadding: false, label: 'City' },
+  { id: 'reservations_completed', numeric: true, disablePadding: false, label: '# of reservations completed' },
   { id: 'status_account', numeric: false, disablePadding: false, label: 'Account status' },
   { id: 'statusSwitch', numeric: false, disablePadding: false, label: 'status switch' },
+  { id: 'adminSwitch', numeric: false, disablePadding: false, label: 'admin switch' },
 
 ];
 
@@ -194,7 +186,7 @@ const EnhancedTableToolbar = (props: EnhancedTableToolbarProps) => {
         </Typography>
       ) : (
         <Typography className={classes.title} variant="h6" id="tableTitle" component="div">
-          Registered Users
+          Registered Lodgings
         </Typography>
       )}
       {numSelected > 0 ? (
@@ -226,6 +218,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     table: {
       minWidth: 750,
+      
     },
     visuallyHidden: {
       border: 0,
@@ -240,6 +233,16 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     titulos: {
       backgroundColor: theme.palette.secondary.main
+    },
+    link1: {
+      textDecoration: "none",
+      color: "white",
+    
+    },
+    btn: {
+      display: 'flex',
+      justifyContent: 'center',
+      alignContent: 'center'
     }
   }),
 );
@@ -247,17 +250,23 @@ const useStyles = makeStyles((theme: Theme) =>
 export default function EnhancedTable({setSection}) {
   const classes = useStyles();
   const [order, setOrder] = React.useState<Order>('asc');
-  const [orderBy, setOrderBy] = React.useState<keyof Data>('lodgings_registered');
+  const [orderBy, setOrderBy] = React.useState<keyof Data>('reservations_completed');
   const [selected, setSelected] = React.useState<string[]>([]);
   const [page, setPage] = React.useState(0);
   const [dense, setDense] = React.useState(false);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const [toggle, setToggle] = useState({})
+  const [admin, setAdmin] = useState({})
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {   // Funcion para switch
     //setToggle(!toggle)
-    setToggle({ ...toggle, [event.target.name]: event.target.checked });
+    setToggle({ ...toggle, [event.target.name]: event.target.checked});
   };
+
+  const handleChangeAdmin = (event: React.ChangeEvent<HTMLInputElement>) => {   
+    setAdmin({ ...admin, [event.target.name]: event.target.checked });
+  };
+
 
   const handleRequestSort = (event: React.MouseEvent<unknown>, property: keyof Data) => {
     const isAsc = orderBy === property && order === 'asc';
@@ -356,17 +365,27 @@ export default function EnhancedTable({setSection}) {
                       <TableCell component="th" id={labelId} scope="row" padding="none">
                         {row.name}
                       </TableCell>
-                      <TableCell align="right">{row.phone}</TableCell>
-                      <TableCell align="right">{row.email}</TableCell>
-                      <TableCell align="right">{row.lodgings_registered}</TableCell>
-                      <TableCell align="right">{row.status_account}</TableCell>
-                      <Switch
-                        checked={toggle[row.email]}  //row.status_account === 'Active'
-                        onChange={handleChange}
-                        name={row.name}
-                        inputProps={{ 'aria-label': 'secondary checkbox' }}
-                        
-                      />
+                      <TableCell align="center">{row.host}</TableCell>
+                      <TableCell align="center">{row.city}</TableCell>
+                      <TableCell align="center">{row.reservations_completed}</TableCell>
+                      <TableCell align="center">{toggle[row.name] ? row.status_account[0]: row.status_account[1]}
+                      </TableCell>
+                      <TableCell align="center">
+                        <Switch
+                          checked={toggle[row.name]}  //row.status_account === 'Active'
+                          onChange={handleChange}
+                          name={row.name}
+                          inputProps={{ 'aria-label': 'secondary checkbox' }}
+                        />
+                      </TableCell>
+                      <TableCell align="center">
+                        <Switch
+                          checked={admin[row.name]}  
+                          onChange={handleChangeAdmin}
+                          name={row.name}
+                          inputProps={{ 'aria-label': 'secondary checkbox' }}
+                        />
+                      </TableCell>
                     </TableRow>
                   );
                 })}
@@ -392,6 +411,16 @@ export default function EnhancedTable({setSection}) {
         control={<Switch checked={dense} onChange={handleChangeDense} />}
         label="Dense padding"
       />
+              <div className={classes.btn}>
+                <Button
+                  className={classes.link1}
+                  variant="contained"
+                  color="secondary"
+                  // onClick={}
+                >
+                  Update
+                </Button>
+              </div>
     </div>
   );
 }

@@ -4,7 +4,7 @@ import {useHistory} from 'react-router-dom'
 import { useAuth } from "../../firebase/index";
 import style from './AdminDashboard.module.css'
 import RegisteredUsers from '../RegisteredUsers/RegisteredUsers'
-import RegisteredLodgings from '../RegisteredLodgings/RegisteredLodgings'
+import RegisterLodgings from '../RegisterLodgings/RegisterLodgings'
 import Reviews from '../Reviews/Reviews'
 import FAQ from '../FAQ/FAQ'
 import TermsAndConditions from '../TermsAndConditions/TermsAndConditions'
@@ -44,7 +44,7 @@ const AdminDashboard = () => {
                 <RegisteredUsers setSection={setSection} /> :
 
             section === 'RegisteredLodgings' ?
-                <RegisteredLodgings setSection={setSection} /> :
+                <RegisterLodgings setSection={setSection} /> :
 
             section === 'GeneralBalance' ?
                 <GeneralBalance setSection={setSection} /> :
