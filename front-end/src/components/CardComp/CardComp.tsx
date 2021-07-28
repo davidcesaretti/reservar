@@ -87,6 +87,7 @@ export default function CardComp({
   accommodates,
   click,
   boton,
+  state = "",
 }) {
   const classes = useStyles();
 
@@ -161,6 +162,7 @@ export default function CardComp({
               <MonetizationOnIcon className={classes.icon}></MonetizationOnIcon>
               {price}
             </div>
+            {state && <h5>Pago: {state}</h5>}
             {boton && (
               <Link
                 style={{ textDecoration: "none" }}

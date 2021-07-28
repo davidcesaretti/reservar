@@ -309,12 +309,23 @@ export const getBooking = (data) => {
     };
     console.log("ENTRO ACCION");
     const bookingUsers = await axios.post(
-      "http://localhost:3001/getreserves",
+      "http://localhost:3001/bookchat2",
       user
     );
 
-    console.log(bookingUsers, "    RESPUESTA");
-    dispatch({ type: ActionTypes.bookings, payload: bookingUsers.data });
+    const nuevo = [];
+    bookingUsers.data.map((e) =>
+      axios
+        .get(`http://localhost:3001/filter/properties/${e.Prop_id}`)
+        .then((res) => {
+          Object.assign(e, res.data[0]);
+          nuevo.push(e);
+          /* console.log(nuevo); */
+        })
+    );
+    setTimeout(() => {
+      dispatch({ type: ActionTypes.bookings, payload: nuevo });
+    }, 5000);
   };
 };
 

@@ -79,13 +79,12 @@ const Bookings = () => {
                       price={e.price}
                       click={console.log("")}
                       boton={false}
+                      state={e.state}
                     />
                   </Card>
                   <button onClick={bookchat}>Chat with host</button>
                   <Link to={`/categories/${e._id}`}>
-                  <button>
-                    review
-                  </button>
+                    <button>review</button>
                   </Link>
                 </Grid>
               ))}
