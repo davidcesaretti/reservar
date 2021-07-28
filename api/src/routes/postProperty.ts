@@ -46,6 +46,7 @@ router.post("/", async (req: Request, res: Response, next: NextFunction) => {
     address,
     city,
     score,
+    coordinates,
     host,
   } = req.body;
   const property = await new Properties({
@@ -63,6 +64,7 @@ router.post("/", async (req: Request, res: Response, next: NextFunction) => {
     image,
     score,
     address,
+    coordinates,
     host,
   });
   await property.save();
@@ -96,6 +98,7 @@ router.post(
       address,
       city,
       score,
+      coordinates,
       id,
     } = req.body;
 
@@ -115,6 +118,7 @@ router.post(
           image,
           address,
           city,
+          coordinates,
           score,
         },
       }

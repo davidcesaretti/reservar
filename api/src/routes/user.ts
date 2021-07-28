@@ -257,4 +257,52 @@ UserRouter.get("/getprops", async (req, res) => {
   return res.json(propsMapped);
 });
 
+UserRouter.post("/reservafake", async (req, res) => {
+  const { fechaSalida, fechaLlegada, email, Prop_id } = req.body;
+  const finded = await User.findOne({ email: email });
+  try {
+    const reservaFind = await Properties.find({
+      _id: Prop_id,
+      available: {
+        $elemMatch: {
+          $or: [
+            {
+              fechaSalida: {
+                $gte: new Date(fechaSalida),
+                $lte: new Date(fechaLlegada),
+              },
+            },
+            {
+              fechaLlegada: {
+                $gte: new Date(fechaSalida),
+                $lte: new Date(fechaLlegada),
+              },
+            },
+          ],
+        },
+      },
+    });
+
+    if (reservaFind.length) {
+      res.json({
+        message: "No hay reservas disponibles en este lapso de tiempo",
+        fechasOcupadas: reservaFind,
+      });
+    } else {
+      const reserva = new Reserva({
+        fechaSalida,
+        fechaLlegada,
+        info_user: finded.email,
+        state: "fake",
+      });
+      await Properties.updateOne(
+        { _id: Prop_id },
+        { $push: { available: reserva } }
+      );
+      res.send("reserva exitosa");
+    }
+  } catch (err) {
+    console.error(err);
+  }
+});
 export default UserRouter;

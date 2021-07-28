@@ -51,6 +51,36 @@ function AddProperty() {
   const auth = useAuth().user?.email;
   const detailEdit = useSelector((state: any) => state.categorieDetail[0]);
 
+  const maps = {
+    latitude: 0,
+    longitude: 0,
+  };
+  function geoCode() {
+    var location =
+      refAddress.current?.value +
+      "," +
+      refCity.current?.value +
+      "," +
+      refCountry.current?.value;
+    //var location = "barrio, localidad, ciudad,venezuela"refAddress.current.value
+    axios
+      .get("https://maps.googleapis.com/maps/api/geocode/json", {
+        params: {
+          address: location,
+          key: process.env.REACT_APP_API_KEY,
+        },
+      })
+      .then((respuesta) => {
+        // console.log(respuesta.data.results[0].geometry.location);
+        maps.latitude = respuesta.data.results[0].geometry.location?.lat;
+        maps.longitude = respuesta.data.results[0].geometry.location?.lng;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+  geoCode();
+
   useEffect(() => {
     dispatch(detailHotel(idParam.id));
     return () => {
@@ -62,7 +92,7 @@ function AddProperty() {
   // useEffect(() => {
   //   //  console.log(ref?.current?.value, "ref imagen");
   // }, [ref]);
-  console.log(idParam.id); ///sdadasdasdsadas//
+  // console.log(idParam.id); ///sdadasdasdsadas//
 
   if (idParam.id && detailEdit && edit) {
     setEdit(false);
@@ -133,6 +163,7 @@ function AddProperty() {
         city: refCity.current.value,
         score: 0,
         host: auth,
+        coordinates: maps,
       };
       axios
         .post("http://localhost:3001/upload", formData)
@@ -190,6 +221,7 @@ function AddProperty() {
         address: refAddress.current.value + " " + refCountry.current.value,
         city: refCity.current.value,
         score: 0,
+        coordinates: maps,
         id: idParam.id,
       };
       axios
@@ -405,56 +437,10 @@ function AddProperty() {
               />
             </label>
             <label>Only JPEG, JPG or PNG files allowed</label>
-
+            {/* 
             <br />
-            <br />
-
-            <div className="calendary">
-              {/* <DatePicker
-        popperClassName="calendario"
-        selected={arrivalDate}
-        onChange={(date) => setArrivalDate(date)}
-        // minDate={new Date()}
-        excludeDates={disableFinal}
-        filterDate={isWeekday}
-        placeholderText="1º"
-        inline
-      />
-      <DatePicker
-        popperClassName="calendario"
-        selected={departureDate}
-        onChange={(date) => setdepartureDate(date)}
-        minDate={arrivalDate}
-        excludeDates={disableFinal}
-        placeholderText="2º"
-        // filterDate={isWeekday}
-        inline
-      
-      /> */}
-
-              <div className="calendary">
-                <DatePicker
-                  excludeDates={disableFinal}
-                  minDate={new Date()}
-                  startDate={startDate}
-                  endDate={endDate}
-                  selectsRange
-                  selected={startDate}
-                  onChange={onChange}
-                  inline
-                  monthsShown={2}
-                  filterDate={!disable ? isWeekday : false}
-                />
-              </div>
-            </div>
+            <br /> */}
           </div>
-          <button onClick={() => setDisable(!disable)}>weekend</button>
-          {/* 
-          <form onSubmit={(e) => onFormSubmit(e)}>
-            <h1>File Upload</h1>
-            <input type="file" name="image" onChange={(e) => onChange(e)} />
-            <button type="submit">Upload</button>
-          </form> */}
         </div>
 
         <div className="contenedor__amenities">
@@ -650,8 +636,31 @@ function AddProperty() {
         </div>
       </div>
       <div
-        style={{ margin: "10px", display: "flex", justifyContent: "center" }}
+        style={{
+          margin: "10px",
+          display: "flex",
+          justifyContent: "center",
+          flexDirection: "column",
+        }}
       >
+        <div className="calendary-center">
+          <p>Select the dates that you don´t want to keep available</p>
+          <div className="calendary">
+            <DatePicker
+              excludeDates={disableFinal}
+              minDate={new Date()}
+              startDate={startDate}
+              endDate={endDate}
+              selectsRange
+              selected={startDate}
+              onChange={onChange}
+              inline
+              monthsShown={2}
+              filterDate={!disable ? isWeekday : false}
+            />
+          </div>
+          <button onClick={() => setDisable(!disable)}>weekend</button>
+        </div>
         {!idParam.id && (
           <button
             className="boton__submit-add"
