@@ -16,6 +16,9 @@ import AddProperty from "./components/AddProperty/AddProperty";
 import UserPosts from "./components/UserPosts/UserPosts";
 import Chat from "./components/Chat/Chat";
 import ChatHost from "./components/ChatHost/ChatHost";
+import AdminDashboard from "./components/AdminDashboard/AdminDashboard"
+import ValidationAdmin from "./components/ValidationAdmin/ValidationAdmin"
+
 
 function App() {
   const auth = useAuth();
@@ -34,11 +37,11 @@ function App() {
       <Route exact path="/favourites" component={Favorites} />
       <Route exact path="/Calendary" component={Calendary} />
       <Route exact path="/User" component={auth.user ? User : Register} />
-      <Route exact path="/add" component={AddProperty} />
-      <Route exact path="/userpost" component={UserPosts} />
       <Route exact path="/AddProperty/:id" component={AddProperty} />
       <Route exact path="/chat" component={Chat} />
       <Route exact path="/chathost" component={ChatHost} />
+      <Route exact path="/Admin" component={AdminDashboard} />
+      <Route exact path="/validationAdmin" component={ValidationAdmin} />
     </Switch>
   );
 }

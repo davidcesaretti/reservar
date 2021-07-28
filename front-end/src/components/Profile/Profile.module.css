@@ -80,10 +80,10 @@
     width: 8em;
     border: none;
     border-radius: 10px;
-    background: rgba(77, 20, 20, 0.85);;
+    background: rgba(90, 110, 56, 0.85);;
     color: #FFF;
     cursor: pointer;
 }
 .buttonHost:hover{
-    background: rgba(77, 20, 20, 0.60);;
+    background: rgba(90, 110, 56);;
 }

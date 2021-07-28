@@ -27,14 +27,14 @@ const Profile = (
                     <div className={style.prop}><b>Name: </b>{name}</div>
                     <div className={style.prop}><b>Email: </b>{auth.user.email}</div>
                     <div className={style.prop}><b>Alternative Email: </b>{alternative_email}</div>
-                    <div className={style.prop}><b>Phone Number: </b>{phone_number}</div>
+                    <div className={style.prop}><b>Phone Number: </b>+{phone_number}</div>
                     <div className={style.prop}><b>Identity Document Type: </b>{identity_document_type}</div>
                     <div className={style.prop}><b>Identity Document Number: </b>{identity_document_number}</div>
                     <div className={style.prop}><b>Nationality: </b>{nationality}</div>
                     <div className={style.prop}><b>Birth Day: </b>{date_birth?.slice(0, 10)}</div>
                     <div className={style.prop}><b>Residence Address: </b>{residence_address}</div>
                     <div className={style.prop}><b>City and Country of Residence: </b>{city_and_country_of_residence}</div>
-                    <div className={style.prop}><b>Emergency Phone Number: </b>{emergency_phone_number}</div>
+                    <div className={style.prop}><b>Emergency Phone Number: </b>+{emergency_phone_number}</div>
                     <div className={style.prop}><b>Emergency Email: </b>{emergency_contact}</div>
                     <div className={style.prop}><b>Relationship of Contact: </b>{relationship}</div>
                 </div>
