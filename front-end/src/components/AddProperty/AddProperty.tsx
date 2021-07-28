@@ -87,6 +87,7 @@ function AddProperty() {
   useEffect(() => {
     dispatch(detailHotel(idParam.id));
     dispatch(reservefake(idParam.id));
+    console.log("useEffect");
     return () => {
       dispatch(clearDetail());
     };
@@ -657,7 +658,12 @@ function AddProperty() {
         }}
       >
         <div className="calendary-center">
-          <p>Select the dates that you don´t want to keep available</p>
+          <h2>AVAILABILITY</h2>
+          <p style={{ width: "60%", margin: "0", textAlign: "match-parent" }}>
+            Select the dates you don´t want to keep available for booking. Dates
+            you dont´t select will be available for renting but don´t worry, you
+            can always changes your selections{" "}
+          </p>
           <div className="calendary">
             <DatePicker
               excludeDates={disableFinal}
@@ -672,9 +678,20 @@ function AddProperty() {
               filterDate={disable ? isWeekday : false}
             />
           </div>
-          <button onClick={() => setDisable(!disable)}>weekend</button>
-          <button onClick={() => dispatchDates()}>add dates selected</button>
-          <SimpleModal data={fechasModal} />
+          <div
+            style={{
+              display: "flex",
+              gap: "5px",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <button onClick={() => setDisable(!disable)}>Block weekends</button>
+            <button onClick={() => dispatchDates()}>
+              Block selected dates{" "}
+            </button>
+            <SimpleModal data={fechasModal} idProp={idParam.id} />
+          </div>
         </div>
         {!idParam.id && (
           <button

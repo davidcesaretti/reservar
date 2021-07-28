@@ -308,24 +308,30 @@ UserRouter.post("/reservafake", async (req, res) => {
 UserRouter.get("/selectDates", async (req, res) => {
   const { Prop_id } = req.query;
   const find = await Properties.find({ _id: Prop_id });
-  console.log(find[0]);
   const obj = find[0].available.filter((x: any) => x.state === "fake");
   res.json(obj);
 });
 
-UserRouter.delete("/deleteDates", async (req, res) => {
-  const { Prop_date } = req.body;
-  console.log(Prop_date);
-  const borrado = await Properties.find({
-    _id: "6100bbe0be48093814bd90a1",
-    available: {
-      $elemMatch: {
-        state: "fake",
-        //_id: "6100d629e4130814400954dd",
-      },
-    },
+UserRouter.post("/deleteDates", async (req, res) => {
+  const { Prop_id, Prop_date } = req.body;
+
+  const borrado: any = await Properties.find({
+    _id: Prop_id,
   });
+  //const filtro = borrado[0].available[0]._id;
+  const reservas = borrado[0].available.map((x: any) => x);
+  const filtro = reservas.filter((x) => x._id.toString() !== Prop_date);
+
+  const properyUpdate = await Properties.updateOne(
+    { _id: Prop_id },
+    {
+      $set: {
+        available: filtro,
+      },
+    }
+  );
+
   // res.json("borrado");
-  res.json(borrado);
+  res.json(properyUpdate);
 });
 export default UserRouter;

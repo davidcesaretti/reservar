@@ -3,7 +3,10 @@ import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
 import Modal from "@material-ui/core/Modal";
 import moment from "moment";
 import { GoTrashcan } from "react-icons/go";
+import axios from "axios";
 import "./addProperty.css";
+import { reservefake } from "../../actions";
+import { useDispatch, useSelector } from "react-redux";
 
 function rand() {
   return Math.round(Math.random() * 20) - 10;
@@ -25,13 +28,14 @@ const useStyles = makeStyles((theme: Theme) =>
     paper: {
       position: "absolute",
       width: "50%",
-      height: "90vh",
+      height: "80%",
       backgroundColor: theme.palette.background.paper,
       border: "2px solid #000",
       boxShadow: theme.shadows[5],
       padding: theme.spacing(2, 4, 3),
       overflow: "scroll",
       overflowX: "hidden",
+      margin: "0 auto",
       "&::-webkit-scrollbar": {
         width: "8px" /* Tamaño del scroll en vertical */,
         height: "8px" /* Tamaño del scroll en horizontal */,
@@ -41,11 +45,14 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-export default function SimpleModal({ data }) {
+export default function SimpleModal({ data, idProp }) {
   const classes = useStyles();
   // getModalStyle is not a pure function, we roll the style only on the first render
   const [modalStyle] = React.useState(getModalStyle);
   const [open, setOpen] = React.useState(false);
+  const [tachado, setTachado] = React.useState(data);
+  const [mostrar, setMostrar] = React.useState(true);
+  const dispatch = useDispatch();
 
   const handleOpen = () => {
     setOpen(true);
@@ -54,6 +61,22 @@ export default function SimpleModal({ data }) {
   const handleClose = () => {
     setOpen(false);
   };
+  function borrado(idProperty, idReserve) {
+    axios.post("http://localhost:3001/deleteDates", {
+      Prop_id: idProperty,
+      Prop_date: idReserve,
+    });
+  }
+  function checkbox() {
+    if (mostrar === true) {
+      setMostrar(false);
+    } else {
+      setMostrar(true);
+    }
+  }
+  React.useEffect(() => {
+    dispatch(reservefake(idProp));
+  }, []);
 
   const body = (
     <div style={modalStyle} className={classes.paper}>
@@ -78,7 +101,14 @@ export default function SimpleModal({ data }) {
             <p>{`${moment(x.fechaSalida).format("MMMM DD/YYYY")} - ${moment(
               x.fechaLlegada
             ).format("MMMM DD/YYYY")}`}</p>{" "}
-            <button className="boton__borrado">
+            <button
+              onClick={() => {
+                borrado(idProp, x._id);
+                checkbox();
+                dispatch(reservefake(idProp));
+              }}
+              className="boton__borrado"
+            >
               <GoTrashcan style={{ width: "20px", height: "20px" }} />
             </button>
           </div>
@@ -90,7 +120,7 @@ export default function SimpleModal({ data }) {
   return (
     <div>
       <button type="button" onClick={handleOpen}>
-        See Selected Days
+        See blocked days
       </button>
       <Modal
         open={open}

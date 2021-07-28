@@ -77,6 +77,10 @@
 }
 .calendary-center {
   margin: 10px auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 .boton__borrado {
   color: black;
@@ -87,4 +91,7 @@
   padding-top: 0.5rem;
   text-align: start;
   margin-right: 0;
+}
+.checkbox {
+  text-decoration: line-through;
 }
