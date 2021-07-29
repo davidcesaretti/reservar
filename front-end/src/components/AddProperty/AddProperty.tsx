@@ -233,6 +233,16 @@ function AddProperty() {
     ) {
       alert("Please complete all the fields correctly");
     } else {
+      Swal.fire({
+        title: "Do you want to edit this property ?",
+        showDenyButton: true,
+        showCancelButton: true,
+        confirmButtonText: `Accept`,
+        // denyButtonText: `Cancel`,
+      }).then((result) => {
+        /* Read more about isConfirmed, isDenied below */
+        if (result.isConfirmed) {
+          // axios.get(`http://localhost:3001/upload/delete/${_id}`);
       const formData = {
         name: refTitle.current.value,
         summary: refDescription.current.value,
@@ -254,7 +264,6 @@ function AddProperty() {
         .post("http://localhost:3001/upload/edit", formData)
         .then()
         .catch((error) => console.log(error));
-      alert("The file is successfully updated");
       [
         refTitle.current.value,
         refDescription.current.value,
@@ -275,6 +284,12 @@ function AddProperty() {
       setBathrooms(1);
       setBeds(1);
       setBedrooms(1);
+      Swal.fire("Edited!", "", "success");
+          // setTimeout(dispatchuser, 2000);
+        } else if (result.isDenied) {
+          Swal.fire("Property not edited", "", "info");
+        }
+      });
     }
   };
 
