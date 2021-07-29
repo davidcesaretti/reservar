@@ -40,12 +40,11 @@ const Bookings = () => {
   const [review, setReview] = useState({
     username: "",
     review: "",
-  })
+  });
 
   const handleSubmit = (e) => {
-    e.preventDefault()
-    dispatch(addreview(review))
-  }
+    console.log(e.target.value);
+  };
 
   useEffect(() => {
     dispatch(getBooking(email));
@@ -87,10 +86,15 @@ const Bookings = () => {
                     />
                   </Card>
                   {e.flag && (
-                  <form onSubmit={handleSubmit}>
-                    <button>send review</button>
-                      <input value={e.Prop_id} className="input" placeholder="Let your review"></input>
-                  </form>
+                    <form>
+                      <button onClick={handleSubmit} value={e.Prop_id}>
+                        send review
+                      </button>
+                      <input
+                        className="input"
+                        placeholder="Let your review"
+                      ></input>
+                    </form>
                   )}
                 </Grid>
               ))}
