@@ -6,7 +6,7 @@ import { GoTrashcan } from "react-icons/go";
 import axios from "axios";
 import "./addProperty.css";
 import { reservefake } from "../../actions";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 function rand() {
   return Math.round(Math.random() * 20) - 10;
@@ -42,12 +42,24 @@ const useStyles = makeStyles((theme: Theme) =>
         display: "none" /* Ocultar scroll */,
       },
     },
+    btnProperties: {
+      margin: '5px auto',
+      width: '140px',
+      height: '20px',
+      color: 'white',
+      backgroundColor: '#b2b451',
+      border: '0.5px solid #000000',
+      boxSizing: 'border-box',
+      boxShadow: '0px 2px 2px rgba(0, 0, 0, 0.25)',
+      borderRadius: '5px',
+      cursor: 'pointer',
+    }
   })
 );
 
 export default function SimpleModal({ data, idProp }) {
   const classes = useStyles();
-  // getModalStyle is not a pure function, we roll the style only on the first render
+
   const [modalStyle] = React.useState(getModalStyle);
   const [open, setOpen] = React.useState(false);
   const [tachado, setTachado] = React.useState(data);
@@ -119,7 +131,7 @@ export default function SimpleModal({ data, idProp }) {
 
   return (
     <div>
-      <button style={{cursor: 'pointer'}} type="button" onClick={handleOpen}>
+      <button className={classes.btnProperties} type="button" onClick={handleOpen}>
         See blocked days
       </button>
       <Modal

@@ -16,11 +16,8 @@ import moment from "moment";
 import subDays from "date-fns/subDays";
 import HostCalendary from "../HostCalendary/HostCalendary";
 import SimpleModal from "./modal";
-<<<<<<< HEAD
 import Swal from "sweetalert2";
-=======
 import NavBar from "../Nav/Nav2";
->>>>>>> main
 
 function AddProperty() {
   interface firebase {
@@ -727,7 +724,6 @@ function AddProperty() {
               justifyContent: "center",
             }}
           >
-            <button className="btn-days" onClick={() => setDisable(!disable)}>Block weekends</button>
             <button className="btn-days" onClick={() => dispatchDates()}>
               Block selected dates{" "}
             </button>

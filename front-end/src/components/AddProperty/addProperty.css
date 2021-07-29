@@ -98,5 +98,14 @@
   text-decoration: line-through;
 }
 .btn-days {
+  margin: 10px auto;
+  width: 140px;
+  height: 20px;
+  color: white;
+  background-color: #b2b451;
+  border: 0.5px solid #000000;
+  box-sizing: border-box;
+  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25);
+  border-radius: 5px;
   cursor: pointer;
 }
