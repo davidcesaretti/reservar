@@ -243,13 +243,13 @@ const Home = () => {
 
   return (
     <div>
+      <MenuAppBar />
       <Grid
         container
         justifyContent="center"
         spacing={5}
         className={classes.containerGeneral}
       >
-        <MenuAppBar />
         <Grid
           container
           item
