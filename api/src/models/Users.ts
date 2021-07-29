@@ -24,10 +24,10 @@ const user = new Schema<IUser>(
     identity_document_type: {
       type: String,
       enum: [
-        "Cédula de Identidad",
-        "Documento nacional de Identidad",
-        "Cédula de Ciudadanía",
-        "Registro de Identidad Civil",
+        "ID Card",
+        "Passport",
+        "Social Security card",
+        "Birth certificate",
       ],
     },
     identity_document_number: { type: Number },

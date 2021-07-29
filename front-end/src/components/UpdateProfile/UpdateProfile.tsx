@@ -35,13 +35,20 @@ const Perfil = () => {
     });
   };
 
+  const handleSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setInfo({
+      ...info,
+      [e.target.name]: e.target.value,
+    })
+  }
+
   const emailRegex =
     /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i;
 
   const handleUpdate = (e) => {
     e.preventDefault();
 
-    if (typeof info.name !== "string") {
+    if (info.name === "") {
       alert("write your name");
       return;
     }
@@ -55,27 +62,27 @@ const Perfil = () => {
       alert("write your phone number");
       return;
     }
-    if (typeof info.identity_document_type !== "string") {
-      alert("write your document type");
+    if (info.identity_document_type === "Select") {
+      alert("select your document type");
       return;
     }
     if (info.identity_document_number < 1000000) {
       alert("write your document number");
       return;
     }
-    if (typeof info.nationality !== "string") {
+    if (info.nationality === "") {
       alert("write your nationality");
       return;
     }
-    if (typeof info.date_birth !== "string") {
+    if (info.date_birth === "") {
       alert("write your birth date");
       return;
     }
-    if (typeof info.residence_address !== "string") {
+    if (info.residence_address === "") {
       alert("write your adress");
       return;
     }
-    if (typeof info.city_and_country_of_residence !== "string") {
+    if (info.city_and_country_of_residence === "") {
       alert("write your residence");
       return;
     }
@@ -87,7 +94,7 @@ const Perfil = () => {
       alert("write the email of the emergency contact");
       return;
     }
-    if (typeof info.relationship !== "string") {
+    if (info.relationship === "") {
       alert("write your relationship with the emergency contact");
       return;
     }
@@ -166,17 +173,17 @@ const Perfil = () => {
               <div className={style.field}>
                 <label className={style.nameField}>Document type</label>
 
-                <select name="identity_document_type" id="">
-                  <option value="Documento nacional de Identidad">
-                    ID Card
-                  </option>
-                  <option value="Cédula de Identidad">Passport</option>
-                  <option value="Cédula de Ciudadanía">
-                    Social Security card
-                  </option>
-                  <option value="Registro de Identidad Civil">
-                    Birth certificate
-                  </option>
+                <select
+                  name="identity_document_type"
+                  onChange={(e) => {
+                    handleSelect(e)
+                  }}
+                >
+                  <option value="Select">Select</option>
+                  <option value="ID Card">ID Card</option>
+                  <option value="Passport">Passport</option>
+                  <option value="Social Security card">Social Security card</option>
+                  <option value="Birth certificate">Birth certificate</option>
                 </select>
                 {/*  <input
                   placeholder="DNI"
