@@ -276,12 +276,12 @@ const Perfil = () => {
                 }}
               />
             </div>
-          </form>{" "}
           <div className={style.ctnUpdate}>
             <button type="submit" className={style.update}>
               Update
             </button>
           </div>
+          </form>{" "}
         </div>
       </div>
     </div>
