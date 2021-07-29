@@ -72,6 +72,18 @@ const useStyles = makeStyles((theme: Theme) =>
     boxIcons: {
       padding: "0.3125rem 0.3125rem",
     },
+    btnProperties: {
+      margin: '5px auto',
+      width: '70px',
+      height: '20px',
+      color: 'white',
+      backgroundColor: '#b2b451',
+      border: '0.5px solid #000000',
+      boxSizing: 'border-box',
+      boxShadow: '0px 2px 2px rgba(0, 0, 0, 0.25)',
+      borderRadius: '5px',
+      cursor: 'pointer',
+    }
   })
 );
 
@@ -113,16 +125,7 @@ export default function CardComp({
   });
   }
 
- 
 
-  // const handleClick =(e) => {
-  //   e.preventDefault();
-  //   if (favs.favos.includes(e.currentTarget.value)) {
-  //     setFav(!fav)
-  //   }
-  // }
-
-  // {fav ? classes.iconfavclicked : classes.iconfav}
   return (
     <Card className={classes.root}>
       <CardActionArea>
@@ -190,11 +193,11 @@ export default function CardComp({
                 style={{ textDecoration: "none" }}
                 to={`/AddProperty/${_id}`}
               >
-                <button>edit</button>{" "}
+                <button className={classes.btnProperties} >edit</button>{" "}
               </Link>
             )}
             {deleteButton && (
-                <button onClick={() => handleClick(_id)} >delete</button>
+                <button className={classes.btnProperties} onClick={() => handleClick(_id)} >delete</button>
             )}
           </div>
         </CardContent>

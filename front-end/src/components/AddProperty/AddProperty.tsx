@@ -16,6 +16,7 @@ import moment from "moment";
 import subDays from "date-fns/subDays";
 import HostCalendary from "../HostCalendary/HostCalendary";
 import SimpleModal from "./modal";
+import Swal from "sweetalert2";
 import NavBar from "../Nav/Nav2";
 
 function AddProperty() {
@@ -142,6 +143,7 @@ function AddProperty() {
       }
     );
   };
+
   const onFormSubmit = function (e) {
     e.preventDefault();
 
@@ -156,48 +158,65 @@ function AddProperty() {
     ) {
       alert("Please complete all the fields correctly");
     } else {
-      const formData = {
-        name: refTitle.current.value,
-        summary: refDescription.current.value,
-        type: refType.current.value,
-        accommodates: guests,
-        beds: beds,
-        bedrooms: bedrooms,
-        bathrooms: bathrooms,
-        amenities: amenities,
-        price: refPrice.current.value,
-        image: firebaseStorage.picture,
-        address: refAddress.current.value + " " + refCountry.current.value,
-        city: refCity.current.value,
-        score: 0,
-        host: auth,
-        coordinates: maps,
-      };
-      axios
-        .post("http://localhost:3001/upload", formData)
-        .then()
-        .catch((error) => console.log(error));
-      alert("The file is successfully uploaded");
-      [
-        refTitle.current.value,
-        refDescription.current.value,
-        refType.current.value,
-        refPrice.current.value,
-        firebaseStorage.picture,
-        refAddress.current.value,
-        refCity.current.value,
-        refCountry.current.value,
-      ] = ["", "", "", "", "", "", "", ""];
-      setAmenities([]);
-      firebaseStorage.uploadValue = 0;
-      const check: any = document.querySelectorAll("input[type='checkbox']");
-      check.forEach((x) => {
-        x.checked = false;
+      Swal.fire({
+        title: "Do you want to create this property ?",
+        showDenyButton: true,
+        showCancelButton: true,
+        confirmButtonText: `Accept`,
+        // denyButtonText: `Cancel`,
+      }).then((result) => {
+        /* Read more about isConfirmed, isDenied below */
+        if (result.isConfirmed) {
+          // axios.get(`http://localhost:3001/upload/delete/${_id}`);
+          const formData = {
+            name: refTitle.current.value,
+            summary: refDescription.current.value,
+            type: refType.current.value,
+            accommodates: guests,
+            beds: beds,
+            bedrooms: bedrooms,
+            bathrooms: bathrooms,
+            amenities: amenities,
+            price: refPrice.current.value,
+            image: firebaseStorage.picture,
+            address: refAddress.current.value + " " + refCountry.current.value,
+            city: refCity.current.value,
+            score: 0,
+            host: auth,
+            coordinates: maps,
+          };
+          axios
+            .post("http://localhost:3001/upload", formData)
+            .then()
+            .catch((error) => console.log(error));
+          [
+            refTitle.current.value,
+            refDescription.current.value,
+            refType.current.value,
+            refPrice.current.value,
+            firebaseStorage.picture,
+            refAddress.current.value,
+            refCity.current.value,
+            refCountry.current.value,
+          ] = ["", "", "", "", "", "", "", ""];
+          setAmenities([]);
+          firebaseStorage.uploadValue = 0;
+          const check: any = document.querySelectorAll(
+            "input[type='checkbox']"
+          );
+          check.forEach((x) => {
+            x.checked = false;
+          });
+          setGuests(1);
+          setBathrooms(1);
+          setBeds(1);
+          setBedrooms(1);
+          Swal.fire("Created!", "", "success");
+          // setTimeout(dispatchuser, 2000);
+        } else if (result.isDenied) {
+          Swal.fire("Property not created", "", "info");
+        }
       });
-      setGuests(1);
-      setBathrooms(1);
-      setBeds(1);
-      setBedrooms(1);
     }
   };
 
@@ -215,48 +234,65 @@ function AddProperty() {
     ) {
       alert("Please complete all the fields correctly");
     } else {
-      const formData = {
-        name: refTitle.current.value,
-        summary: refDescription.current.value,
-        type: refType.current.value,
-        accommodates: guests,
-        beds: beds,
-        bedrooms: bedrooms,
-        bathrooms: bathrooms,
-        amenities: amenities,
-        price: refPrice.current.value,
-        image: firebaseStorage.picture,
-        address: refAddress.current.value + " " + refCountry.current.value,
-        city: refCity.current.value,
-        score: 0,
-        coordinates: maps,
-        id: idParam.id,
-      };
-      axios
-        .post("http://localhost:3001/upload/edit", formData)
-        .then()
-        .catch((error) => console.log(error));
-      alert("The file is successfully updated");
-      [
-        refTitle.current.value,
-        refDescription.current.value,
-        refType.current.value,
-        refPrice.current.value,
-        firebaseStorage.picture,
-        refAddress.current.value,
-        refCity.current.value,
-        refCountry.current.value,
-      ] = ["", "", "", "", "", "", "", ""];
-      setAmenities([]);
-      firebaseStorage.uploadValue = 0;
-      const check: any = document.querySelectorAll("input[type='checkbox']");
-      check.forEach((x) => {
-        x.checked = false;
+      Swal.fire({
+        title: "Do you want to edit this property ?",
+        showDenyButton: true,
+        showCancelButton: true,
+        confirmButtonText: `Accept`,
+        // denyButtonText: `Cancel`,
+      }).then((result) => {
+        /* Read more about isConfirmed, isDenied below */
+        if (result.isConfirmed) {
+          // axios.get(`http://localhost:3001/upload/delete/${_id}`);
+          const formData = {
+            name: refTitle.current.value,
+            summary: refDescription.current.value,
+            type: refType.current.value,
+            accommodates: guests,
+            beds: beds,
+            bedrooms: bedrooms,
+            bathrooms: bathrooms,
+            amenities: amenities,
+            price: refPrice.current.value,
+            image: firebaseStorage.picture,
+            address: refAddress.current.value + " " + refCountry.current.value,
+            city: refCity.current.value,
+            score: 0,
+            coordinates: maps,
+            id: idParam.id,
+          };
+          axios
+            .post("http://localhost:3001/upload/edit", formData)
+            .then()
+            .catch((error) => console.log(error));
+          [
+            refTitle.current.value,
+            refDescription.current.value,
+            refType.current.value,
+            refPrice.current.value,
+            firebaseStorage.picture,
+            refAddress.current.value,
+            refCity.current.value,
+            refCountry.current.value,
+          ] = ["", "", "", "", "", "", "", ""];
+          setAmenities([]);
+          firebaseStorage.uploadValue = 0;
+          const check: any = document.querySelectorAll(
+            "input[type='checkbox']"
+          );
+          check.forEach((x) => {
+            x.checked = false;
+          });
+          setGuests(1);
+          setBathrooms(1);
+          setBeds(1);
+          setBedrooms(1);
+          Swal.fire("Edited!", "", "success");
+          // setTimeout(dispatchuser, 2000);
+        } else if (result.isDenied) {
+          Swal.fire("Property not edited", "", "info");
+        }
       });
-      setGuests(1);
-      setBathrooms(1);
-      setBeds(1);
-      setBedrooms(1);
     }
   };
 

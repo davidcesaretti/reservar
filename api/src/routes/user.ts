@@ -195,13 +195,16 @@ UserRouter.post("/reserva", async (req, res) => {
       });
       await reserva.save();
 
-      /*   await Properties.updateOne(
-    { _id: Prop_id },
-    { $push: { available: reserva } }
-  );
+      await Properties.updateOne(
+        { _id: Prop_id },
+        { $push: { available: reserva } }
+      );
 
-  await User.updateOne({ email: email }, { $push: { reserveId: reserva._id } });
-  await User.updateOne({ email: email }, { $push: { reservas: Prop_id } }); */
+      await User.updateOne(
+        { email: email },
+        { $push: { reserveId: reserva._id } }
+      );
+      await User.updateOne({ email: email }, { $push: { reservas: Prop_id } });
 
       res.json({
         message: "reserva exitosa!",
