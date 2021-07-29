@@ -121,167 +121,168 @@ const Perfil = () => {
         <div>
           <h2 className={style.header}>My Profile</h2>
           <form
-            className={style.ctn}
             onSubmit={(e) => {
               handleUpdate(e);
             }}
           >
-            <div className={style.field}>
-              <label className={style.nameField}>Complete name</label>
-              <input
-                placeholder="Toni Tralice"
-                className={style.inputField}
-                name="name"
-                value={info.name}
-                onChange={(e) => {
-                  handleChange(e);
-                }}
-              />
+            <div className={style.ctn}>
+              <div className={style.field}>
+                <label className={style.nameField}>Complete name</label>
+                <input
+                  placeholder="Toni Tralice"
+                  className={style.inputField}
+                  name="name"
+                  value={info.name}
+                  onChange={(e) => {
+                    handleChange(e);
+                  }}
+                />
+              </div>
+              <div className={style.field}>
+                <label className={style.nameField}>Recuperation Email</label>
+                <input
+                  placeholder="henry@gmail.com"
+                  className={style.inputField}
+                  name="recuperation_email"
+                  value={info.recuperation_email}
+                  onChange={(e) => {
+                    handleChange(e);
+                  }}
+                />
+              </div>
+              <div className={style.field}>
+                <label className={style.nameField}>Phone number</label>
+                <input
+                  type="tel"
+                  placeholder="+543402538301"
+                  className={style.inputField}
+                  name="phone_number"
+                  value={info.phone_number}
+                  onChange={(e) => {
+                    handleChange(e);
+                  }}
+                />
+              </div>
+              <div className={style.field}>
+                <label className={style.nameField}>Document type</label>
+                <input
+                  placeholder="DNI"
+                  className={style.inputField}
+                  name="identity_document_type"
+                  value={info.identity_document_type}
+                  onChange={(e) => {
+                    handleChange(e);
+                  }}
+                />
+              </div>
+              <div className={style.field}>
+                <label className={style.nameField}>Document number</label>
+                <input
+                  placeholder="37594328"
+                  className={style.inputField}
+                  name="identity_document_number"
+                  value={info.identity_document_number}
+                  onChange={(e) => {
+                    handleChange(e);
+                  }}
+                />
+              </div>
+              <div className={style.field}>
+                <label className={style.nameField}>Nationality</label>
+                <input
+                  placeholder="Argentina"
+                  className={style.inputField}
+                  name="nationality"
+                  value={info.nationality}
+                  onChange={(e) => {
+                    handleChange(e);
+                  }}
+                />
+              </div>
+              <div className={style.field}>
+                <label className={style.nameField}>Date of birth</label>
+                <input
+                  placeholder="04/10/1995"
+                  type="date"
+                  className={style.inputField}
+                  name="date_birth"
+                  value={info.date_birth}
+                  onChange={(e) => {
+                    handleChange(e);
+                  }}
+                />
+              </div>
+              <div className={style.field}>
+                <label className={style.nameField}>Residence address</label>
+                <input
+                  placeholder="Italia 165"
+                  className={style.inputField}
+                  name="residence_address"
+                  value={info.residence_address}
+                  onChange={(e) => {
+                    handleChange(e);
+                  }}
+                />
+              </div>
+              <div className={style.field}>
+                <label className={style.nameField}>
+                  City and country of residence
+                </label>
+                <input
+                  placeholder="General Lagos, Argentina"
+                  className={style.inputField}
+                  name="city_and_country_of_residence"
+                  value={info.city_and_country_of_residence}
+                  onChange={(e) => {
+                    handleChange(e);
+                  }}
+                />
+              </div>
+              <div className={style.field}>
+                <label className={style.nameField}>Emergency contact</label>
+                <input
+                  placeholder="+54341598621"
+                  className={style.inputField}
+                  name="emergency_phone_number"
+                  value={info.emergency_phone_number}
+                  onChange={(e) => {
+                    handleChange(e);
+                  }}
+                />
+              </div>
+              <div className={style.field}>
+                <label className={style.nameField}>Contact email </label>
+                <input
+                  placeholder="plataforma5@gmail.com"
+                  className={style.inputField}
+                  name="emergency_contact"
+                  value={info.emergency_contact}
+                  onChange={(e) => {
+                    handleChange(e);
+                  }}
+                />
+              </div>
+              <div className={style.field}>
+                <label className={style.nameField}>
+                  Relationship with contact
+                </label>
+                <input
+                  placeholder="Friend"
+                  className={style.inputField}
+                  name="relationship"
+                  value={info.relationship}
+                  onChange={(e) => {
+                    handleChange(e);
+                  }}
+                />
+              </div>
             </div>
-            <div className={style.field}>
-              <label className={style.nameField}>Recuperation Email</label>
-              <input
-                placeholder="henry@gmail.com"
-                className={style.inputField}
-                name="recuperation_email"
-                value={info.recuperation_email}
-                onChange={(e) => {
-                  handleChange(e);
-                }}
-              />
+            <div className={style.ctnUpdate}>
+              <button type="submit" className={style.update}>
+                Update
+              </button>
             </div>
-            <div className={style.field}>
-              <label className={style.nameField}>Phone number</label>
-              <input
-                type="tel"
-                placeholder="+543402538301"
-                className={style.inputField}
-                name="phone_number"
-                value={info.phone_number}
-                onChange={(e) => {
-                  handleChange(e);
-                }}
-              />
-            </div>
-            <div className={style.field}>
-              <label className={style.nameField}>Document type</label>
-              <input
-                placeholder="DNI"
-                className={style.inputField}
-                name="identity_document_type"
-                value={info.identity_document_type}
-                onChange={(e) => {
-                  handleChange(e);
-                }}
-              />
-            </div>
-            <div className={style.field}>
-              <label className={style.nameField}>Document number</label>
-              <input
-                placeholder="37594328"
-                className={style.inputField}
-                name="identity_document_number"
-                value={info.identity_document_number}
-                onChange={(e) => {
-                  handleChange(e);
-                }}
-              />
-            </div>
-            <div className={style.field}>
-              <label className={style.nameField}>Nationality</label>
-              <input
-                placeholder="Argentina"
-                className={style.inputField}
-                name="nationality"
-                value={info.nationality}
-                onChange={(e) => {
-                  handleChange(e);
-                }}
-              />
-            </div>
-            <div className={style.field}>
-              <label className={style.nameField}>Date of birth</label>
-              <input
-                placeholder="04/10/1995"
-                type="date"
-                className={style.inputField}
-                name="date_birth"
-                value={info.date_birth}
-                onChange={(e) => {
-                  handleChange(e);
-                }}
-              />
-            </div>
-            <div className={style.field}>
-              <label className={style.nameField}>Residence address</label>
-              <input
-                placeholder="Italia 165"
-                className={style.inputField}
-                name="residence_address"
-                value={info.residence_address}
-                onChange={(e) => {
-                  handleChange(e);
-                }}
-              />
-            </div>
-            <div className={style.field}>
-              <label className={style.nameField}>
-                City and country of residence
-              </label>
-              <input
-                placeholder="General Lagos, Argentina"
-                className={style.inputField}
-                name="city_and_country_of_residence"
-                value={info.city_and_country_of_residence}
-                onChange={(e) => {
-                  handleChange(e);
-                }}
-              />
-            </div>
-            <div className={style.field}>
-              <label className={style.nameField}>Emergency contact</label>
-              <input
-                placeholder="+54341598621"
-                className={style.inputField}
-                name="emergency_phone_number"
-                value={info.emergency_phone_number}
-                onChange={(e) => {
-                  handleChange(e);
-                }}
-              />
-            </div>
-            <div className={style.field}>
-              <label className={style.nameField}>Contact email </label>
-              <input
-                placeholder="plataforma5@gmail.com"
-                className={style.inputField}
-                name="emergency_contact"
-                value={info.emergency_contact}
-                onChange={(e) => {
-                  handleChange(e);
-                }}
-              />
-            </div>
-            <div className={style.field}>
-              <label className={style.nameField}>
-                Relationship with contact
-              </label>
-              <input
-                placeholder="Friend"
-                className={style.inputField}
-                name="relationship"
-                value={info.relationship}
-                onChange={(e) => {
-                  handleChange(e);
-                }}
-              />
-            </div>
-          </form>{" "}
-          <div className={style.ctnUpdate}>
-            <button type="submit" className={style.update}>
-              Update
-            </button>
-          </div>
+          </form>
         </div>
       </div>
     </div>

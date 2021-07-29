@@ -200,11 +200,11 @@ UserRouter.post("/reserva", async (req, res) => {
         { $push: { available: reserva } }
       );
 
-      await User.updateOne(
+      /* await User.updateOne(
         { email: email },
         { $push: { reserveId: reserva._id } }
       );
-      await User.updateOne({ email: email }, { $push: { reservas: Prop_id } });
+      await User.updateOne({ email: email }, { $push: { reservas: Prop_id } });  */
 
       res.json({
         message: "reserva exitosa!",
