@@ -38,12 +38,23 @@ const Bookings = () => {
   const cards = useSelector((state: any) => state.bookings);
   let email = auth.user.email;
   const [review, setReview] = useState({
-    username: "",
+    username: auth.user.displayName,
     review: "",
+    Prop_id: "",
   });
-
+  const onInputChange = (e) => {
+    setReview({
+      ...review,
+      [e.target.name]: e.target.value,
+    });
+  };
   const handleSubmit = (e) => {
-    console.log(e.target.value);
+    e.preventDefault();
+    setReview({
+      ...review,
+      Prop_id: e.target.value,
+    });
+    console.log(review);
   };
 
   useEffect(() => {
@@ -91,6 +102,8 @@ const Bookings = () => {
                         send review
                       </button>
                       <input
+                        name="review"
+                        onChange={onInputChange}
                         className="input"
                         placeholder="Let your review"
                       ></input>
