@@ -129,7 +129,7 @@ const Perfil = () => {
               <div className={style.field}>
                 <label className={style.nameField}>Complete name</label>
                 <input
-                  placeholder="Toni Tralice"
+                  placeholder="Your name"
                   className={style.inputField}
                   name="name"
                   value={info.name}
@@ -165,7 +165,20 @@ const Perfil = () => {
               </div>
               <div className={style.field}>
                 <label className={style.nameField}>Document type</label>
-                <input
+
+                <select name="identity_document_type" id="">
+                  <option value="Documento nacional de Identidad">
+                    ID Card
+                  </option>
+                  <option value="Cédula de Identidad">Passport</option>
+                  <option value="Cédula de Ciudadanía">
+                    Social Security card
+                  </option>
+                  <option value="Registro de Identidad Civil">
+                    Birth certificate
+                  </option>
+                </select>
+                {/*  <input
                   placeholder="DNI"
                   className={style.inputField}
                   name="identity_document_type"
@@ -173,7 +186,7 @@ const Perfil = () => {
                   onChange={(e) => {
                     handleChange(e);
                   }}
-                />
+                /> */}
               </div>
               <div className={style.field}>
                 <label className={style.nameField}>Document number</label>
