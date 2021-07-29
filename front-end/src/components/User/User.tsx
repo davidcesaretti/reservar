@@ -13,6 +13,7 @@ import CreatePublications from "../CreatePublications/CreatePublications";
 import MyProperties from "../MyProperties/MyProperties";
 import Balance from "../Balance/Balance";
 import Chat from "../Chat/Chat";
+import {findPost} from "../../actions/index"
 
 import {
   getBookChat,
@@ -125,7 +126,7 @@ const User = () => {
   };
 
   return userType === "Traveller" ? (
-    <div>
+    <div className={style.ctn1}>
       <div className={style.navBar}>
         <div>
           {auth.user.photoURL ? (
@@ -209,7 +210,7 @@ const User = () => {
             </button>
             <div className={style.line}></div>
             <button className={style.buttonOption} onClick={() => logOut()}>
-              Signout
+              Sign Out
             </button>
           </nav>
         </div>

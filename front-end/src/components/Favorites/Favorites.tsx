@@ -12,6 +12,7 @@ import { Box, Button, Grid, Typography } from "@material-ui/core";
 import NavBar from "../Nav/Nav2";
 import Error404 from "../Error404/Error404";
 import Spinner from "../Spinner/Spinner";
+import ErrorNoprop from "../Error404/Noprop";
 
 const useStyles = makeStyles((theme) => ({
   cardGrid: {
@@ -43,8 +44,8 @@ const Favorites = () => {
     dispatch(getFavos(email));
   }, []);
 
-  if (cards === null) {
-    return <Error404 />;
+  if (cards.length === 0) {
+    return <ErrorNoprop />;
   } else if (cards.length < 1) {
     return <Spinner />;
   } else {

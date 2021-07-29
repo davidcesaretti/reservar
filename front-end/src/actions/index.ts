@@ -180,7 +180,8 @@ export function findPost(data) {
       .catch((error) => console.error("Error:", error))
       .then((json) => {
         dispatch({ type: ActionTypes?.findPost, payload: json });
-      });
+      })
+      .catch((error) => console.error("Error:", error));
   };
 }
 export const signUser = (data) => {
