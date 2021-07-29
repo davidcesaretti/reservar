@@ -5,6 +5,7 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import { Link } from "react-router-dom";
+import logo from "../../Image/trekker.svg";
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -39,7 +40,13 @@ export default function PagoAppBar() {
         <Toolbar>
           <Typography variant="h6" className={classes.title}>
             <Link to="/" className={classes.link}>
-              Trekker Logo
+              <img
+                src={logo}
+                alt="trekker logo"
+                width="120"
+                height="50"
+                style={{ margin: "0" }}
+              />
             </Link>
           </Typography>
           <Link to="/" className={classes.link1}>

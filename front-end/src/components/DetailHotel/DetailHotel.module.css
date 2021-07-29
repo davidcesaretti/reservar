@@ -156,3 +156,6 @@
 .gridHijo4 {
   text-align: center;
 }
+.marginCero .color-alert {
+  background-color: rgb(180, 42, 42);
+}
