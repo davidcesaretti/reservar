@@ -125,7 +125,7 @@ const User = () => {
   };
 
   return userType === "Traveller" ? (
-    <div>
+    <div className={style.ctn1}>
       <div className={style.navBar}>
         <div>
           {auth.user.photoURL ? (
