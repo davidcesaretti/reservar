@@ -228,7 +228,7 @@
 .box {
   display: grid;
   grid-template-columns: 40% 60%;
-  margin-bottom: 100px;
+
   color: white;
 }
 
@@ -263,7 +263,7 @@
   background-color: rgba(182, 182, 182, 0.411);
   border-bottom: 1px solid #000;
   border-left: 1px solid #000;
-  min-height: 353px;
+  min-height: 390px;
 }
 
 .allchatwin {

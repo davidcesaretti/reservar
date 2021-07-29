@@ -27,8 +27,6 @@ function ChatHost() {
 
   let handleC = (e) => {
     dispatch(SetCollection(e.currentTarget.value));
-    console.log("seteando collec  ", e.currentTarget.value);
-    console.log(bookings);
   };
 
   /*    <div className="minicard">
@@ -90,7 +88,7 @@ function ChatHost() {
                       <Button
                         variant="contained"
                         color="primary"
-                        value={e?.host + e?.info_user}
+                        value={e?.host + e?.info_user + e?.Prop_id}
                         onClick={handleC}
                         className="btncol"
                       >

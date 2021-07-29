@@ -1,0 +1,22 @@
+.container404 {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 200px;
+  margin-top: 75px;
+}
+
+.str404 {
+  font-size: 1.4rem;
+  font-weight: bolder;
+  text-shadow: 1px 3px 3px #324021;
+  color: #a6a845;
+}
+
+.titleError {
+  margin-top: 50px;
+  display: flex;
+  justify-content: center;
+  color: #a6a845;
+  text-shadow: 2px 2px 2px #324021;
+  font-size: 2rem;
+}
