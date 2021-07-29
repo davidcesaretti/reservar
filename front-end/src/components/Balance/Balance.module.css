@@ -109,5 +109,9 @@ margin-left: 51px;
 }
 .message{
     text-align: center;
-    margin: auto;
+}
+.ctnMessage{
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
