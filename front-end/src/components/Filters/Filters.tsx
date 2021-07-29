@@ -39,7 +39,7 @@ const useStyles = makeStyles({
     marginTop: "120px",
     marginLeft: "20px",
     width: "20%",
-    height: "173%",
+    height: "200%",
   },
   nombredetipo: {
     color: "white",
@@ -54,16 +54,13 @@ const useStyles = makeStyles({
     marginBottom: "10px",
   },
   btn: {
-    backgroundColor: "#324021" /* Green */,
-    "&:hover": {
-      background: "white",
-      transition: "0.4s",
-      color: "black",
-    },
+    backgroundColor: "white" /* Green */,
+    cursor: 'pointer',
+    "&:focus":{
+      background: "#A6A845"},
     border: "none",
-    color: "white",
+    color: "black",
     padding: "10px",
-
     textAlign: "center",
     textDecoration: "none",
     display: "flex",
@@ -77,6 +74,24 @@ const useStyles = makeStyles({
       borderColor: "white",
     },
   },
+  btnEstado: {
+    backgroundColor: "#A6A845" /* Green */,
+    "&:hover": {
+      background: "white",
+      transition: "0.4s",
+      color: "black",
+    },
+    border: "none",
+    color: "white",
+    padding: "10px",
+    textAlign: "center",
+    textDecoration: "none",
+    display: "flex",
+    fontSize: "16px",
+    borderRadius: "5px",
+    margin: "10px",
+    width: "90%"
+  }
 });
 
 let Categories = [
@@ -383,7 +398,7 @@ export default function CheckboxList() {
               <Divider />
             </>
           ))}
-          <Button variant="text" color="inherit" type="submit">
+          <Button className={classes.btnEstado} variant="text" color="inherit" type="submit">
             Estado
           </Button>
           {/* <Button
