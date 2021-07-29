@@ -80,6 +80,10 @@ export interface USERFAVS {
   type: ActionTypes.favUser;
   payload: Array<Object>;
 }
+export interface Reviews {
+  type: ActionTypes.review;
+  payload: any;
+}
 export interface Credentials {
   username: string;
   password: string;
@@ -444,6 +448,12 @@ export const reservefake = (id) => {
     });
   };
 };
+
+export const addreview = (review) => {
+  return async (dispatch: Dispatch) =>{
+    await axios.post(`http://localhost:3001/review`, review);
+  }
+}
 
 // export function deleteUsers(data: any) {
 //   return function (dispatch: Dispatch) {

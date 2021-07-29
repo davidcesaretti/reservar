@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getBookChat, getBooking } from "../../actions";
+import { addreview, getBookChat, getBooking } from "../../actions";
 import { useAuth } from "../../firebase/index";
 import CardComp from "../CardComp/CardComp";
 import { makeStyles } from "@material-ui/core/styles";
@@ -37,6 +37,14 @@ const Bookings = () => {
   const auth = useAuth();
   const cards = useSelector((state: any) => state.bookings);
   let email = auth.user.email;
+  const [review, setReview] = useState({
+    username: "",
+    review: "",
+  })
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    dispatch(addreview))
+  }
 
   useEffect(() => {
     dispatch(getBooking(email));
@@ -78,12 +86,10 @@ const Bookings = () => {
                     />
                   </Card>
                   {e.flag && (
-                  <Link to={`/categories/${e._id}`}>
-                    <form>
-                      <button>review</button>
-                        <input placeholder="Let your review"></input>
-                    </form>
-                  </Link>
+                  <form onSubmit={handleSubmit}>
+                    <button>send review</button>
+                      <input className="input" placeholder="Let your review"></input>
+                  </form>
                   )}
                 </Grid>
               ))}
