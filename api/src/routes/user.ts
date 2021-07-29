@@ -195,16 +195,13 @@ UserRouter.post("/reserva", async (req, res) => {
       });
       await reserva.save();
 
-      await Properties.updateOne(
-        { _id: Prop_id },
-        { $push: { available: reserva } }
-      );
+      /*   await Properties.updateOne(
+    { _id: Prop_id },
+    { $push: { available: reserva } }
+  );
 
-      await User.updateOne(
-        { email: email },
-        { $push: { reserveId: reserva._id } }
-      );
-      await User.updateOne({ email: email }, { $push: { reservas: Prop_id } });
+  await User.updateOne({ email: email }, { $push: { reserveId: reserva._id } });
+  await User.updateOne({ email: email }, { $push: { reservas: Prop_id } }); */
 
       res.json({
         message: "reserva exitosa!",
@@ -276,6 +273,12 @@ UserRouter.post("/bookchat", async (req, res) => {
   const reserva = await Reserva.find({ _id: user.reserveId });
   res.json(reserva);
 });
+//con esta ruta ↓↓↓↓↓ traen las reservas de un usuario
+UserRouter.post("/bookchat2", async (req, res) => {
+  const { email } = req.body;
+  const reserva = await Reserva.find({ info_user: email });
+  res.json(reserva);
+});
 
 UserRouter.post("/gethostreserves", async (req, res) => {
   const { email } = req.body;
@@ -284,6 +287,24 @@ UserRouter.post("/gethostreserves", async (req, res) => {
 
   const reserva = await Reserva.find({ host: email });
   res.json(reserva);
+});
+
+UserRouter.post("/review", async (req, res) => {
+  const { username, idPropertie, review } = req.body;
+  interface IReview {
+    reviewer_name: string;
+    comments: string;
+  }
+  const Review: IReview = {
+    reviewer_name: username,
+    comments: review,
+  };
+
+  const propertie = await Properties.updateOne(
+    { _id: idPropertie },
+    { $push: { reviews: Review } }
+  );
+  res.send(propertie);
 });
 
 /* UserRouter.post("/getreserves", async (req, res) => {
@@ -332,6 +353,7 @@ UserRouter.post("/reservafake", async (req, res) => {
       },
     });
 
+<<<<<<< HEAD
     if (reservaFind.length) {
       res.json({
         message: "No hay reservas disponibles en este lapso de tiempo",
@@ -349,6 +371,18 @@ UserRouter.post("/reservafake", async (req, res) => {
         { $push: { available: reserva } }
       );
       res.send("reserva exitosa");
+=======
+UserRouter.get("/getusers", async (req, res) => {
+  const users = await User.find({})
+  const userMapped = await Promise.all(users.map(async (e) => {
+  const find = await Properties.find({ host: e.email });
+    return {
+      name: e.name,
+      phone: e.phone_number,
+      email: e.email,
+      lodgings_registered: find.length,
+      status_account: "Active"
+>>>>>>> chatmerge
     }
   } catch (err) {
     console.error(err);
