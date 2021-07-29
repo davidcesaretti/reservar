@@ -57,7 +57,7 @@ function UserPosts() {
       <Container className={classes.cardGrid} maxWidth="md">
         {/* End hero unit */}
         <Grid container spacing={4}>
-          {post &&
+          {post.length === 0 ? <div>NO TENES PROPIEDADES</div> :
             post.map((e) => (
               <Grid item key={e} xs={12} sm={6} md={6}>
                 <Card className={classes.card}>
