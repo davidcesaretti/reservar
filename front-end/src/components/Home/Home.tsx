@@ -140,6 +140,7 @@ const Home = () => {
     "rio de janeiro",
     "hong kong",
     "sydney",
+    "barcelona",
   ];
   let random1 = Math.floor(Math.random() * 4);
   let page = Math.floor(Math.random() * 12);
@@ -148,7 +149,7 @@ const Home = () => {
   useEffect(() => {
     dispatch(
       fetchCardsHotels(
-        page,
+        1,
         undefined,
         undefined,
         undefined,
