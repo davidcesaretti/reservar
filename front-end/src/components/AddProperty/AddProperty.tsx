@@ -362,7 +362,7 @@ function AddProperty() {
       email: auth,
       Prop_id: idParam.id,
     };
-    axios.post("http://localhost:3001/reservafake", objDate);
+    axios.post("https://app-trekker.herokuapp.com/reservafake", objDate);
     //  window.location.reload();
   }
 
