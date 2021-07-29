@@ -49,7 +49,7 @@ const Bookings = () => {
     });
   };
   const handleSubmit = (e) => {
-    e.preventDefault();
+    /* e.preventDefault(); */
     setReview({
       ...review,
       Prop_id: e.target.value,
