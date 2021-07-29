@@ -40,7 +40,7 @@ const Bookings = () => {
   const [review, setReview] = useState({
     username: auth.user.displayName,
     review: "",
-    Prop_id: "",
+    idPropertie: "",
   });
   const onInputChange = (e) => {
     setReview({
@@ -52,8 +52,9 @@ const Bookings = () => {
     e.preventDefault();
     setReview({
       ...review,
-      Prop_id: e.target.value,
+      idPropertie: e.target.value,
     });
+    dispatch(addreview(review));
   };
 
   useEffect(() => {
