@@ -11,6 +11,7 @@ import { Grid, Typography } from "@material-ui/core";
 import Error404 from "../Error404/Error404";
 import Spinner from "../Spinner/Spinner";
 import { Link } from "react-router-dom";
+import swal from "sweetalert";
 
 const useStyles = makeStyles((theme) => ({
   cardGrid: {
@@ -47,14 +48,16 @@ const Bookings = () => {
       ...review,
       [e.target.name]: e.target.value,
     });
+    if(review.review.length === 0){
+      return swal("escribe algo primero")
+    }
   };
   const handleSubmit = (e) => {
-    /* e.preventDefault(); */
+    e.preventDefault();
     setReview({
       ...review,
       Prop_id: e.target.value,
     });
-    console.log(review);
   };
 
   useEffect(() => {
