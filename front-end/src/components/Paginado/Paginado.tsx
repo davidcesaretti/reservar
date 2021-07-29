@@ -33,11 +33,11 @@ function Paginado() {
 
   const onPrev = (e) => {
     // if (pagination.page > 2 && pagination.page !== undefined) {
-    //  if (paginador.paginado > 1) {
-    dispatch(
-      BotonesPaginado({ ...paginador, paginado: paginador.paginado - 1 })
-    );
-    // }
+    if (paginador?.paginado > 1) {
+      dispatch(
+        BotonesPaginado({ ...paginador, paginado: paginador.paginado - 1 })
+      );
+    }
 
     //setPaginado(paginado - 1);
     setTimeout(() => {
