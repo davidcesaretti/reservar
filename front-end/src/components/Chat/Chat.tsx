@@ -55,10 +55,6 @@ function ChatHost() {
 
             </div>  */
 
-  const check = (e) => {
-    console.log(bookings);
-  };
-
   function truncate(str, n) {
     return str?.length > n ? str.substring(0, n - 1) + "..." : str;
   }
@@ -69,38 +65,45 @@ function ChatHost() {
         <header className="select1">
           <h3>Select your reservation:</h3>
         </header>
-        <button onClick={check}>Check</button>
 
-        <div className="scroll">
-          {bookings &&
-            bookings.map((e) => (
-              <div className="clase">
-                <div className="clase1">
-                  <img src={e.propimg} alt="noImg" className="imgprop" />
-                </div>
-                <div className="clase2">
-                  <p>
-                    {truncate(e.propname, 20)}
-                    <p>
-                      From: {moment(e.fechaSalida).format("MMMM DD/YYYY")}
-                      <br />
-                      To: {moment(e.fechaLlegada).format("MMMM DD/YYYY")}
-                    </p>
-                  </p>
-                </div>
-                <div className="clase3">
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    value={e?.host + e?.info_user}
-                    onClick={handleC}
-                    className="btncol"
-                  >
-                    Chat
-                  </Button>
-                </div>
-              </div>
-            ))}
+        <div>
+          {bookings.length > 0 ? (
+            <div className="scroll">
+              {bookings.length > 0}
+
+              {bookings &&
+                bookings.map((e) => (
+                  <div className="clase">
+                    <div className="clase1">
+                      <img src={e.propimg} alt="noImg" className="imgprop" />
+                    </div>
+                    <div className="clase2">
+                      <p>
+                        {truncate(e.propname, 20)}
+                        <p>
+                          From: {moment(e.fechaSalida).format("MMMM DD/YYYY")}
+                          <br />
+                          To: {moment(e.fechaLlegada).format("MMMM DD/YYYY")}
+                        </p>
+                      </p>
+                    </div>
+                    <div className="clase3">
+                      <Button
+                        variant="contained"
+                        color="primary"
+                        value={e?.host + e?.info_user}
+                        onClick={handleC}
+                        className="btncol"
+                      >
+                        Chat
+                      </Button>
+                    </div>
+                  </div>
+                ))}
+            </div>
+          ) : (
+            <div className="nochat">Make a reservation first</div>
+          )}
         </div>
       </div>
 
@@ -160,24 +163,30 @@ function ChatRoom() {
   };
 
   return (
-    <div className="allchatwin">
-      <main className="maiin1">
-        {messages &&
-          messages.map((msg) => <ChatMessage key={msg.id} message={msg} />)}
-      </main>
+    <div>
+      {collec ? (
+        <div className="allchatwin">
+          <main className="maiin1">
+            {messages &&
+              messages.map((msg) => <ChatMessage key={msg.id} message={msg} />)}
+          </main>
 
-      <form className="foorm1" onSubmit={sendMessage}>
-        <input
-          className="inpuu1"
-          value={formValue}
-          onChange={(e) => setFormValue(e.target.value)}
-          placeholder="type here"
-        />
+          <form className="foorm1" onSubmit={sendMessage}>
+            <input
+              className="inpuu1"
+              value={formValue}
+              onChange={(e) => setFormValue(e.target.value)}
+              placeholder="type here"
+            />
 
-        <button className="btn1" type="submit" disabled={!formValue}>
-          Send
-        </button>
-      </form>
+            <button className="btn1" type="submit" disabled={!formValue}>
+              Send
+            </button>
+          </form>
+        </div>
+      ) : (
+        <div className="nochat">Select a Chat</div>
+      )}
     </div>
   );
 }

@@ -125,12 +125,7 @@
   padding: 15px 32px;
   text-align: center;
   text-decoration: none;
-  cursor: pointer;
-  width: 20%;
-  margin-left: 5px;
-  margin-bottom: 5px;
-  border: 1px black solid;
-  margin-right: 5px;
+  cursor: not-allowed;
 }
 
 .imag1 {
@@ -241,6 +236,7 @@
   background-color: rgba(182, 182, 182, 0.411);
   border-right: 1px solid black;
   border-bottom: 1px solid #000;
+  min-height: 353px;
 }
 .scroll {
   max-height: 400px;
@@ -267,8 +263,22 @@
   background-color: rgba(182, 182, 182, 0.411);
   border-bottom: 1px solid #000;
   border-left: 1px solid #000;
+  min-height: 353px;
 }
 
 .allchatwin {
   height: 100%;
+}
+.nochat {
+  margin-top: 50px;
+  margin-left: 50px;
+  font-size: 30px;
+  color: black;
+}
+
+.nochat1 {
+  margin-top: 50px;
+  margin-left: 20px;
+  font-size: 30px;
+  color: black;
 }
