@@ -41,9 +41,10 @@ const Bookings = () => {
     username: "",
     review: "",
   })
+
   const handleSubmit = (e) => {
     e.preventDefault()
-    dispatch(addreview))
+    dispatch(addreview(review))
   }
 
   useEffect(() => {
@@ -88,7 +89,7 @@ const Bookings = () => {
                   {e.flag && (
                   <form onSubmit={handleSubmit}>
                     <button>send review</button>
-                      <input className="input" placeholder="Let your review"></input>
+                      <input value={e.Prop_id} className="input" placeholder="Let your review"></input>
                   </form>
                   )}
                 </Grid>
