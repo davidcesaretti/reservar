@@ -163,7 +163,7 @@ export default function CardComp({
               <MonetizationOnIcon className={classes.icon}></MonetizationOnIcon>
               {price}
             </div>
-            {state && <h5>Pay: {state}</h5>}
+            {state && <h5>Payment status: {state}</h5>}
             {boton && (
               <Link
                 style={{ textDecoration: "none" }}
