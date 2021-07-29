@@ -14,6 +14,7 @@ const useStyles = makeStyles((theme) =>
 
 export default function PaginationButtons() {
   const classes = useStyles();
+  React.useEffect(() => {});
 
   return (
     <div className={classes.root}>

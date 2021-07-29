@@ -86,9 +86,11 @@ function AddProperty() {
   geoCode();
 
   useEffect(() => {
-    dispatch(detailHotel(idParam.id));
-    dispatch(reservefake(idParam.id));
-    console.log("useEffect");
+    if (idParam.id) {
+      dispatch(detailHotel(idParam.id));
+      dispatch(reservefake(idParam.id));
+    }
+
     return () => {
       dispatch(clearDetail());
     };
@@ -659,42 +661,47 @@ function AddProperty() {
           flexDirection: "column",
         }}
       >
-        <div className="calendary-center">
-          <h2>AVAILABILITY</h2>
-          <p style={{ width: "60%", margin: "0", textAlign: "match-parent" }}>
-            Select the dates you don´t want to keep available for booking. Dates
-            you dont´t select will be available for renting but don´t worry, you
-            can always changes your selections{" "}
-          </p>
-          <div className="calendary">
-            <DatePicker
-              excludeDates={disableFinal}
-              minDate={new Date()}
-              startDate={startDate}
-              endDate={endDate}
-              selectsRange
-              selected={startDate}
-              onChange={onChange}
-              inline
-              monthsShown={2}
-              filterDate={disable ? isWeekday : false}
-            />
+        {idParam.id && (
+          <div className="calendary-center">
+            <h2>AVAILABILITY</h2>
+            <p style={{ width: "60%", margin: "0", textAlign: "match-parent" }}>
+              Select the dates you don´t want to keep available for booking.
+              Dates you dont´t select will be available for renting but don´t
+              worry, you can always changes your selections{" "}
+            </p>
+
+            <div className="calendary">
+              <DatePicker
+                excludeDates={disableFinal}
+                minDate={new Date()}
+                startDate={startDate}
+                endDate={endDate}
+                selectsRange
+                selected={startDate}
+                onChange={onChange}
+                inline
+                monthsShown={2}
+                filterDate={disable ? isWeekday : false}
+              />
+            </div>
+            <div
+              style={{
+                display: "flex",
+                gap: "5px",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <button onClick={() => setDisable(!disable)}>
+                Block weekends
+              </button>
+              <button onClick={() => dispatchDates()}>
+                Block selected dates{" "}
+              </button>
+              <SimpleModal data={fechasModal} idProp={idParam.id} />
+            </div>
           </div>
-          <div
-            style={{
-              display: "flex",
-              gap: "5px",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            <button onClick={() => setDisable(!disable)}>Block weekends</button>
-            <button onClick={() => dispatchDates()}>
-              Block selected dates{" "}
-            </button>
-            <SimpleModal data={fechasModal} idProp={idParam.id} />
-          </div>
-        </div>
+        )}
         {!idParam.id && (
           <button
             className="boton__submit-add"

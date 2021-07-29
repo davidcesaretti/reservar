@@ -71,15 +71,18 @@ router.post("/", async (req: Request, res: Response, next: NextFunction) => {
   return;
 });
 
-router.post(
-  "/find",
-  async (req: Request, res: Response, next: NextFunction) => {
+router.post("/find", async (req: Request, res: Response) => {
+  try {
     const { email } = req.body;
     const find = await Properties.find({ host: email });
-    console.log(find);
+    // console.log(find);
     res.json(find);
+
+    return;
+  } catch (error) {
+    console.log(error);
   }
-);
+});
 
 router.post(
   "/edit",
@@ -130,14 +133,11 @@ router.post(
 router.get(
   "/delete/:id",
   async (req: Request, res: Response, next: NextFunction) => {
-    const {
-      id,
-    } = req.params;
+    const { id } = req.params;
 
-    const deleteProperty = await Properties.deleteOne(
-      {_id: id}
-    )
-      res.send('Propiedad borrada')
-})
+    const deleteProperty = await Properties.deleteOne({ _id: id });
+    res.send("Propiedad borrada");
+  }
+);
 
 export default router;

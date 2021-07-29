@@ -195,7 +195,7 @@ const Home = () => {
     dispatch(FechasReserva({ ...fechas, cities, guest }));
     dispatch(
       fetchCardsHotels(
-        undefined,
+        1,
         undefined,
         undefined,
         undefined,
@@ -212,7 +212,7 @@ const Home = () => {
     dispatch(FechasReserva({ ...fechas, type: tipos }));
     dispatch(
       fetchCardsHotels(
-        undefined,
+        1,
         undefined,
         undefined,
         tipos,
