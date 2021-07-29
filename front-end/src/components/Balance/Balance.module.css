@@ -107,3 +107,11 @@ margin-left: 51px;
     margin: 15px;
     border-radius: 10px;
 }
+.message{
+    text-align: center;
+}
+.ctnMessage{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
