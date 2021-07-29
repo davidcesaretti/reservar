@@ -39,7 +39,7 @@ const useStyles = makeStyles({
     marginTop: "120px",
     marginLeft: "20px",
     width: "20%",
-    height: "77%",
+    height: "173%",
   },
   nombredetipo: {
     color: "white",
