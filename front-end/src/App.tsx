@@ -18,7 +18,7 @@ import Chat from "./components/Chat/Chat";
 import ChatHost from "./components/ChatHost/ChatHost";
 import AdminDashboard from "./components/AdminDashboard/AdminDashboard"
 import ValidationAdmin from "./components/ValidationAdmin/ValidationAdmin"
-
+import Error404 from './components/Error404/Error404'
 
 function App() {
   const auth = useAuth();
@@ -42,6 +42,7 @@ function App() {
       <Route exact path="/chathost" component={ChatHost} />
       <Route exact path="/Admin" component={AdminDashboard} />
       <Route exact path="/validationAdmin" component={ValidationAdmin} />
+      <Route path="*" component={Error404} />
     </Switch>
   );
 }
