@@ -85,7 +85,7 @@ const Balance = () => {
                         })}
                     </div>
                 </div> :
-                <div>
+                <div className={style.message}>
                     <h1>You dont have Earning yet</h1>
                 </div>
 
