@@ -16,7 +16,11 @@ import moment from "moment";
 import subDays from "date-fns/subDays";
 import HostCalendary from "../HostCalendary/HostCalendary";
 import SimpleModal from "./modal";
+<<<<<<< HEAD
 import Swal from "sweetalert2";
+=======
+import NavBar from "../Nav/Nav2";
+>>>>>>> main
 
 function AddProperty() {
   interface firebase {
@@ -365,6 +369,7 @@ function AddProperty() {
 
   return (
     <div>
+      {idParam.id && <NavBar />}
       <h1 style={{ textAlign: "center" }}>ADD A NEW LODGING</h1>
       <div className="Add__property">
         <div className="contendor__property">

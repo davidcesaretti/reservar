@@ -57,19 +57,24 @@
 .message {
   display: flex;
   align-items: center;
+  font-size: larger;
 }
 
 .sent {
   flex-direction: row-reverse;
+  margin-right: 15px;
+}
+.received {
+  margin-left: 15px;
 }
 
 .sent p {
-  color: rgb(255, 255, 255);
+  color: rgb(0, 0, 0);
 
   align-self: flex-end;
 }
 .received p {
-  color: rgb(255, 255, 255);
+  color: rgb(0, 0, 0);
 }
 
 .btn1 {
@@ -233,7 +238,7 @@
 }
 
 .allcollec {
-  background-color: rgba(90, 110, 56, 0.85);
+  background-color: rgba(182, 182, 182, 0.411);
   border-right: 1px solid black;
   border-bottom: 1px solid #000;
 }
@@ -259,7 +264,7 @@
   height: 30%;
 }
 .allchat {
-  background-color: rgba(90, 110, 56, 0.85);
+  background-color: rgba(182, 182, 182, 0.411);
   border-bottom: 1px solid #000;
   border-left: 1px solid #000;
 }

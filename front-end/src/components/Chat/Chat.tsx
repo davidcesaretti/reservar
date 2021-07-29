@@ -10,8 +10,9 @@ import "firebase/analytics";
 
 import { useCollectionData } from "react-firebase-hooks/firestore";
 import { useDispatch, useSelector } from "react-redux";
-import { SetCollection } from "../../actions";
+import { getBooking, SetCollection } from "../../actions";
 import Button from "@material-ui/core/Button";
+import { useEffect } from "react";
 
 const auth = firebase.auth();
 const firestore = firebase.firestore();
@@ -21,7 +22,11 @@ function ChatHost() {
   const dispatch = useDispatch();
   const auth = useAuth();
   const user = auth.user;
-  const bookings = useSelector((state: any) => state.bookchat);
+  const bookings = useSelector((state: any) => state.bookings);
+
+  useEffect(() => {
+    dispatch(getBooking(user.email));
+  }, [user]);
 
   let handleC = (e) => {
     dispatch(SetCollection(e.currentTarget.value));
@@ -44,14 +49,15 @@ function ChatHost() {
               </button>
 
               function truncate(str, n) {
-  return str?.length > n ? str.substring(0, n - 1) + "..." : str; //funcion para recortar parrafos y dejar los ...
-}
-
-
+  return str?.length > n ? str.substring(0, n - 1) + "..." : str; //funcion para recortar parrafos y dejar los 
 
 
 
             </div>  */
+
+  const check = (e) => {
+    console.log(bookings);
+  };
 
   function truncate(str, n) {
     return str?.length > n ? str.substring(0, n - 1) + "..." : str;
@@ -63,6 +69,7 @@ function ChatHost() {
         <header className="select1">
           <h3>Select your reservation:</h3>
         </header>
+        <button onClick={check}>Check</button>
 
         <div className="scroll">
           {bookings &&
@@ -100,7 +107,7 @@ function ChatHost() {
       <div className="allchat">
         <div className="chat1">
           <header className="head1">
-            <h3>Chat With your guest</h3>
+            <h3>Chat With your host:</h3>
           </header>
 
           {user ? <ChatRoom /> : <SignIn />}
