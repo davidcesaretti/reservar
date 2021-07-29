@@ -139,8 +139,17 @@ UserRouter.post("/register", async (req: Request, res: Response) => {
 });
 
 UserRouter.post("/reserva", async (req, res) => {
-  const { fechaSalida, fechaLlegada, email, Prop_id, price, payment_id, host } =
-    req.body;
+  const {
+    fechaSalida,
+    fechaLlegada,
+    email,
+    Prop_id,
+    price,
+    payment_id,
+    host,
+    propimg,
+    propname,
+  } = req.body;
 
   const finded = await User.findOne({ email: email });
   try {
@@ -181,19 +190,18 @@ UserRouter.post("/reserva", async (req, res) => {
         price,
         payment_id,
         host,
+        propimg,
+        propname,
       });
       await reserva.save();
 
-      await Properties.updateOne(
-        { _id: Prop_id },
-        { $push: { available: reserva } }
-      );
+      /*   await Properties.updateOne(
+    { _id: Prop_id },
+    { $push: { available: reserva } }
+  );
 
-      await User.updateOne(
-        { email: email },
-        { $push: { reserveId: reserva._id } }
-      );
-      await User.updateOne({ email: email }, { $push: { reservas: Prop_id } });
+  await User.updateOne({ email: email }, { $push: { reserveId: reserva._id } });
+  await User.updateOne({ email: email }, { $push: { reservas: Prop_id } }); */
 
       res.json({
         message: "reserva exitosa!",
@@ -265,6 +273,12 @@ UserRouter.post("/bookchat", async (req, res) => {
   const reserva = await Reserva.find({ _id: user.reserveId });
   res.json(reserva);
 });
+//con esta ruta ↓↓↓↓↓ traen las reservas de un usuario
+UserRouter.post("/bookchat2", async (req, res) => {
+  const { email } = req.body;
+  const reserva = await Reserva.find({ info_user: email });
+  res.json(reserva);
+});
 
 UserRouter.post("/gethostreserves", async (req, res) => {
   const { email } = req.body;
@@ -275,74 +289,24 @@ UserRouter.post("/gethostreserves", async (req, res) => {
   res.json(reserva);
 });
 
-/* UserRouter.post("/getreserves", async (req, res) => {
-  const { email } = req.body;
-
-UserRouter.get("/getprops", async (req, res) => {
-  const find = await Properties.find({ host: { $exists: true } });
-  const propsMapped = await Promise.all(
-    find.map(async (e) => {
-      const nameUser = await User.findOne({ email: e.host });
-      return {
-        name: e.name,
-        host: nameUser.name,
-        city: e.city,
-        reservations_completed: 1,
-        status_account: "Active",
-      };
-    })
-  );
-  return res.json(propsMapped);
-});
-
-UserRouter.post("/reservafake", async (req, res) => {
-  const { fechaSalida, fechaLlegada, email, Prop_id } = req.body;
-  const finded = await User.findOne({ email: email });
-  try {
-    const reservaFind = await Properties.find({
-      _id: Prop_id,
-      available: {
-        $elemMatch: {
-          $or: [
-            {
-              fechaSalida: {
-                $gte: new Date(fechaSalida),
-                $lte: new Date(fechaLlegada),
-              },
-            },
-            {
-              fechaLlegada: {
-                $gte: new Date(fechaSalida),
-                $lte: new Date(fechaLlegada),
-              },
-            },
-          ],
-        },
-      },
-    });
-
-    if (reservaFind.length) {
-      res.json({
-        message: "No hay reservas disponibles en este lapso de tiempo",
-        fechasOcupadas: reservaFind,
-      });
-    } else {
-      const reserva = new Reserva({
-        fechaSalida,
-        fechaLlegada,
-        info_user: finded.email,
-        state: "fake",
-      });
-      await Properties.updateOne(
-        { _id: Prop_id },
-        { $push: { available: reserva } }
-      );
-      res.send("reserva exitosa");
-    }
-  } catch (err) {
-    console.error(err);
+UserRouter.post("/review", async (req, res) => {
+  const { username, idPropertie, review } = req.body;
+  interface IReview {
+    reviewer_name: string;
+    comments: string;
   }
+  const Review: IReview = {
+    reviewer_name: username,
+    comments: review,
+  };
+
+  const propertie = await Properties.updateOne(
+    { _id: idPropertie },
+    { $push: { reviews: Review } }
+  );
+  res.send(propertie);
 });
+
 UserRouter.get("/selectDates", async (req, res) => {
   const { Prop_id } = req.query;
   const find = await Properties.find({ _id: Prop_id });
@@ -350,22 +314,52 @@ UserRouter.get("/selectDates", async (req, res) => {
   res.json(obj);
 });
 
-UserRouter.get("/getprops", async (req, res) => {
- 
-  const find = await Properties.find({host:{$exists:true}});
-  const propsMapped = await Promise.all(find.map(async(e) => {
-  const nameUser = await User.findOne({email: e.host})
-    return {
-      name: e.name,
-      host: nameUser.name,
-      city: e.city,
-      reservations_completed: 1,
-      status_account: "Active",
-    }
-  }))
-  return res.json(propsMapped)
-})
-*/
+UserRouter.post("/reservafake", async (req, res, next) => {
+  const { fechaSalida, fechaLlegada, email, Prop_id } = req.body;
+  const finded = await User.findOne({ email: email });
+
+  const reservaFind = await Properties.find({
+    _id: Prop_id,
+    available: {
+      $elemMatch: {
+        $or: [
+          {
+            fechaSalida: {
+              $gte: new Date(fechaSalida),
+              $lte: new Date(fechaLlegada),
+            },
+          },
+          {
+            fechaLlegada: {
+              $gte: new Date(fechaSalida),
+              $lte: new Date(fechaLlegada),
+            },
+          },
+        ],
+      },
+    },
+  });
+
+  if (reservaFind.length) {
+    res.json({
+      message: "No hay reservas disponibles en este lapso de tiempo",
+      fechasOcupadas: reservaFind,
+    });
+  } else {
+    const reserva = new Reserva({
+      fechaSalida,
+      fechaLlegada,
+      info_user: finded.email,
+      state: "fake",
+    });
+    await Properties.updateOne(
+      { _id: Prop_id },
+      { $push: { available: reserva } }
+    );
+    res.send("reserva exitosa");
+  }
+  next();
+});
 
 UserRouter.post("/validateadmin", async (req: Request, res: Response) => {
   const sgMail = require("@sendgrid/mail");
@@ -393,49 +387,8 @@ UserRouter.post("/validateadmin", async (req: Request, res: Response) => {
     .catch((err) => {
       console.log(err);
     });
-
-  /* const options = ({
-    auth: {
-      api_user: 'davucesaretti@gmail.com',
-      api_key: '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'
-    }
-  })
-
-  const client = nodemailer.createTransport(transport(options))
-
-  
-
-  client.sendMail(msg, function(err, info){
-    if (err ){
-      console.log(err);
-    }
-    else {
-      console.log('Message sent: ' + info.response);
-      return res.json(code)
-    }
-  }); */
-
-  /* let info = await transporter.sendMail({
-    from: testAccount.user, 
-    to: "davucesaretti@gmail.com",
-    subject: "Hello ✔", 
-    html: `${code}`,
-  }); */
-  /* const mailOptions = {
-      from: testAccount.user,
-      to: "trekkerhenry@gmail.com",
-      subject : "Code Validation",
-      html: `${code}`
-  };
-  let info = await transporter.sendMail(mailOptions, function(error){
-      if (error) {
-        console.log(error);
-      } else {
-        console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
-        res.json(code);
-      }
-    }); */
 });
+
 UserRouter.post("/deleteDates", async (req, res) => {
   const { Prop_id, Prop_date } = req.body;
 

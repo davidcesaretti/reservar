@@ -140,6 +140,7 @@ const Home = () => {
     "rio de janeiro",
     "hong kong",
     "sydney",
+    "barcelona",
   ];
   let random1 = Math.floor(Math.random() * 4);
   let page = Math.floor(Math.random() * 12);
@@ -148,12 +149,12 @@ const Home = () => {
   useEffect(() => {
     dispatch(
       fetchCardsHotels(
-        page,
+        1,
         undefined,
         undefined,
         undefined,
         undefined,
-        10,
+        undefined,
         ciudadRandom,
         undefined
       )
@@ -401,7 +402,7 @@ const Home = () => {
                 </Typography>
               </Grid>
               <Grid item xs={12} md={12} className={classes.btnGo}>
-                <Link to={"/categories"}>
+                <Link to={"/categories"} style={{ textDecoration: "none" }}>
                   <Button
                     variant="contained"
                     onClick={() => chooseTypes("Hostel")}
@@ -428,7 +429,7 @@ const Home = () => {
                 </Typography>
               </Grid>
               <Grid item xs={12} md={12} className={classes.btnGo}>
-                <Link to={"/categories"}>
+                <Link to={"/categories"} style={{ textDecoration: "none" }}>
                   <Button
                     variant="contained"
                     onClick={() => chooseTypes("Apartment")}
@@ -455,7 +456,7 @@ const Home = () => {
                 </Typography>
               </Grid>
               <Grid item xs={12} md={12} className={classes.btnGo}>
-                <Link to={"/categories"}>
+                <Link to={"/categories"} style={{ textDecoration: "none" }}>
                   <Button
                     variant="contained"
                     onClick={() => chooseTypes("House")}
@@ -489,7 +490,9 @@ const Home = () => {
             </Typography>
           </Grid>
           <Grid item xs={6}>
-            <Button variant="contained">make me a Host !</Button>
+            <Link to="/User" style={{ textDecoration: "none" }}>
+              <Button variant="contained">make me a Host !</Button>
+            </Link>
           </Grid>
         </Grid>
 

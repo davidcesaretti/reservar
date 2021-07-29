@@ -1,6 +1,7 @@
 import { Response, Request, Router, NextFunction } from "express";
 import config from "../lib/config";
-import { Reserva } from "../models/Users";
+import { Properties } from "../models/Properties";
+import { Reserva, User } from "../models/Users";
 const router = Router();
 // SDK de Mercado Pago
 const mercadopago = require("mercadopago");
@@ -45,6 +46,7 @@ router.get("/pago", async (req, res, next) => {
   /*   const payment_id = req.query.payment_id; */
   const preference_id = req.query.preference_id;
   const payment_status = req.query.status;
+
   const sgMail = require("@sendgrid/mail");
   sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
@@ -58,11 +60,28 @@ router.get("/pago", async (req, res, next) => {
   );
 
   if (payment_status === "approved") {
-    var basura = [];
+    const aux2 = [];
+    Reserva.find({ payment_id: preference_id }).then(async (res) => {
+      aux2.push(res);
+      await Properties.updateOne(
+        { _id: aux2[0].Prop_id },
+        { $push: { available: aux2[0] } }
+      );
+
+      await User.updateOne(
+        { email: aux2[0].info_user },
+        { $push: { reserveId: aux[0]._id } }
+      );
+      await User.updateOne(
+        { email: aux2[0].info_user },
+        { $push: { reservas: aux2[0].Prop_id } }
+      );
+    });
+    var aux = [];
     Reserva.find({ payment_id: preference_id }).then((res) => {
-      basura.push(res[0]);
+      aux.push(res[0]);
       const msg = {
-        to: basura[0].info_user,
+        to: aux[0].info_user,
         from: "nitovillafuerte@outlook.com", // aqui hay que poner el correo de la pag
         subject: "Sending with SendGrid is Fun",
         text: "and easy to do anywhere, even with Node.js",

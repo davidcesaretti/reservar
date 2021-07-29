@@ -207,7 +207,9 @@ const DetailHotel = () => {
     if (
       fechasArray.includes(fecha) ||
       moment(departureDate).format("YYYY-MM-DD") ===
-        moment(arrivalDate).format("YYYY-MM-DD")
+        moment(arrivalDate).format("YYYY-MM-DD") ||
+      arrivalDate === null ||
+      departureDate === null
     ) {
       setDisable(false);
     } else {
@@ -425,6 +427,7 @@ const DetailHotel = () => {
                         <button
                           onClick={() => handleSubmit()}
                           className="boton__submit-add marginCero"
+                          style={{ cursor: "pointer" }}
                         >
                           Reserve
                         </button>
@@ -432,8 +435,11 @@ const DetailHotel = () => {
                     )}
                     {!disable && (
                       <button
-                        style={{ backgroundColor: "red" }}
-                        className="boton__submit-add marginCero"
+                        style={{
+                          backgroundColor: "grey",
+                          cursor: "not-allowed",
+                        }}
+                        className="boton__submit-add marginCero color-alert"
                       >
                         Reserve
                       </button>
@@ -522,7 +528,7 @@ const DetailHotel = () => {
             />
           </div>
         </div>
-        <div className="container-reviews">
+        <div style={{ overflow: "scroll" }} className="container-reviews">
           <h2 style={{ textAlign: "center", fontWeight: "bold" }}>
             REVIEWS FROM OUR GUESTS
           </h2>
@@ -546,6 +552,14 @@ const DetailHotel = () => {
                 </p>
               </div>
             ))}
+          {auth.user && (
+            <div>
+              <button>create review</button>
+              <form>
+                <input placeholder="Let your review"></input>
+              </form>
+            </div>
+          )}
         </div>
         {/* <div>
           <Grid

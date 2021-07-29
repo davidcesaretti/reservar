@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import "./chat.css";
+import "../ChatHost/ChatHost";
 import { useAuth } from "../../firebase/index";
+import moment from "moment";
 
 import firebase from "firebase/app";
 import "firebase/firestore";
@@ -10,12 +11,13 @@ import "firebase/analytics";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 import { useDispatch, useSelector } from "react-redux";
 import { SetCollection } from "../../actions";
+import Button from "@material-ui/core/Button";
 
 const auth = firebase.auth();
 const firestore = firebase.firestore();
 const analytics = firebase.analytics();
 
-function Chat() {
+function ChatHost() {
   const dispatch = useDispatch();
   const auth = useAuth();
   const user = auth.user;
@@ -24,33 +26,85 @@ function Chat() {
   let handleC = (e) => {
     dispatch(SetCollection(e.currentTarget.value));
     console.log("seteando collec  ", e.currentTarget.value);
+    console.log(bookings);
   };
 
-  return (
-    <div className="containerrino">
-      <div className="collections">
-        <p className="select"> Select you reservation:</p>
+  /*    <div className="minicard">
+              <img src={e.propimg} alt="noImg" className="propimg" />
+              <p>{e.propname}</p>
+              Arrival: {moment(e.fechaSalida).format("MMMM DD/YYYY")} <br />
+              Departure: {moment(e.fechaLlegada).format("MMMM DD/YYYY")}
+              <button
+                key={e}
+                className="btn21"
+                value={e?.host + e?.info_user}
+                onClick={handleC}
+              >
+                Chat
+              </button>
 
-        {bookings &&
-          bookings.map((e) => (
-            <button
-              key={e}
-              className="btn2"
-              value={e?.host + e?.info_user}
-              onClick={handleC}
-            >
-              Arrival: {e.fechaSalida} <br />
-              Departure: {e.fechaLlegada}
-            </button>
-          ))}
-      </div>
-      <div className="chat">
-        <header className="head">
-          <h3>Chat With your host</h3>
-          <SignOut />
+              function truncate(str, n) {
+  return str?.length > n ? str.substring(0, n - 1) + "..." : str; //funcion para recortar parrafos y dejar los ...
+}
+
+
+
+
+
+            </div>  */
+
+  function truncate(str, n) {
+    return str?.length > n ? str.substring(0, n - 1) + "..." : str;
+  }
+
+  return (
+    <div className="box">
+      <div className="allcollec">
+        <header className="select1">
+          <h3>Select your reservation:</h3>
         </header>
 
-        <section className="sec">{user ? <ChatRoom /> : <SignIn />}</section>
+        <div className="scroll">
+          {bookings &&
+            bookings.map((e) => (
+              <div className="clase">
+                <div className="clase1">
+                  <img src={e.propimg} alt="noImg" className="imgprop" />
+                </div>
+                <div className="clase2">
+                  <p>
+                    {truncate(e.propname, 20)}
+                    <p>
+                      From: {moment(e.fechaSalida).format("MMMM DD/YYYY")}
+                      <br />
+                      To: {moment(e.fechaLlegada).format("MMMM DD/YYYY")}
+                    </p>
+                  </p>
+                </div>
+                <div className="clase3">
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    value={e?.host + e?.info_user}
+                    onClick={handleC}
+                    className="btncol"
+                  >
+                    Chat
+                  </Button>
+                </div>
+              </div>
+            ))}
+        </div>
+      </div>
+
+      <div className="allchat">
+        <div className="chat1">
+          <header className="head1">
+            <h3>Chat With your guest</h3>
+          </header>
+
+          {user ? <ChatRoom /> : <SignIn />}
+        </div>
       </div>
     </div>
   );
@@ -64,20 +118,10 @@ function SignIn() {
 
   return (
     <>
-      <button className="sign-in" onClick={signInWithGoogle}>
+      <button className="sign-in1" onClick={signInWithGoogle}>
         Sign in with Google
       </button>
     </>
-  );
-}
-
-function SignOut() {
-  return (
-    auth.currentUser && (
-      <button className="sign-out" onClick={() => auth.signOut()}>
-        Sign Out
-      </button>
-    )
   );
 }
 
@@ -109,42 +153,41 @@ function ChatRoom() {
   };
 
   return (
-    <>
-      <>
-        <main className="maiin">
-          {messages &&
-            messages.map((msg) => <ChatMessage key={msg.id} message={msg} />)}
-        </main>
+    <div className="allchatwin">
+      <main className="maiin1">
+        {messages &&
+          messages.map((msg) => <ChatMessage key={msg.id} message={msg} />)}
+      </main>
 
-        <form className="foorm" onSubmit={sendMessage}>
-          <input
-            className="inpuu"
-            value={formValue}
-            onChange={(e) => setFormValue(e.target.value)}
-            placeholder="type here"
-          />
+      <form className="foorm1" onSubmit={sendMessage}>
+        <input
+          className="inpuu1"
+          value={formValue}
+          onChange={(e) => setFormValue(e.target.value)}
+          placeholder="type here"
+        />
 
-          <button className="btn" type="submit" disabled={!formValue}>
-            Send
-          </button>
-        </form>
-      </>
-    </>
+        <button className="btn1" type="submit" disabled={!formValue}>
+          Send
+        </button>
+      </form>
+    </div>
   );
 }
 
 function ChatMessage(props) {
   const { text, email, photoURL } = props.message;
 
-  const messageClass = email === auth.currentUser.email ? "sent" : "received";
+  const messageClass = email === auth.currentUser.email ? "received" : "sent";
 
   return (
     <>
       <div className={`message ${messageClass}`}>
         <img
-          className="imag"
+          className="imag1"
           src={
-            photoURL || "https://api.adorable.io/avatars/23/abott@adorable.png"
+            photoURL ||
+            "https://w7.pngwing.com/pngs/762/632/png-transparent-computer-icons-share-icon-me-share-icon-me-area.png"
           }
           alt="noimg"
         />
@@ -155,4 +198,4 @@ function ChatMessage(props) {
   );
 }
 
-export default Chat;
+export default ChatHost;

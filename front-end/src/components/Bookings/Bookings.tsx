@@ -10,6 +10,7 @@ import Container from "@material-ui/core/Container";
 import { Grid, Typography } from "@material-ui/core";
 import Error404 from "../Error404/Error404";
 import Spinner from "../Spinner/Spinner";
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   cardGrid: {
@@ -34,7 +35,7 @@ const Bookings = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const auth = useAuth();
-  const cards = useSelector((state: any) => state.categorieDetail);
+  const cards = useSelector((state: any) => state.bookings);
   let email = auth.user.email;
 
   useEffect(() => {
@@ -73,8 +74,12 @@ const Bookings = () => {
                       click={console.log("")}
                       boton={false}
                       deleteButton={false}
+                      state={e.state}
                     />
                   </Card>
+                  <Link to={`/categories/${e._id}`}>
+                    <button>review</button>
+                  </Link>
                 </Grid>
               ))}
           </Grid>

@@ -63,6 +63,8 @@ const reserva = new Schema(
     price: { type: Number },
     payment_id: { type: String },
     host: { type: String },
+    propimg: { type: String },
+    propname: { type: String },
   },
   { versionKey: false }
 );

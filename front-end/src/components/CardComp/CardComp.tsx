@@ -88,6 +88,7 @@ export default function CardComp({
   click,
   boton,
   deleteButton,
+  state = "",
 }) {
   const classes = useStyles();
 
@@ -183,6 +184,7 @@ export default function CardComp({
               <MonetizationOnIcon className={classes.icon}></MonetizationOnIcon>
               {price}
             </div>
+            {state && <h5>Pago: {state}</h5>}
             {boton && (
               <Link
                 style={{ textDecoration: "none" }}
@@ -194,7 +196,6 @@ export default function CardComp({
             {deleteButton && (
                 <button onClick={() => handleClick(_id)} >delete</button>
             )}
-
           </div>
         </CardContent>
       </CardActionArea>
