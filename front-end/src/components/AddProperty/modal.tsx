@@ -119,7 +119,7 @@ export default function SimpleModal({ data, idProp }) {
 
   return (
     <div>
-      <button type="button" onClick={handleOpen}>
+      <button style={{cursor: 'pointer'}} type="button" onClick={handleOpen}>
         See blocked days
       </button>
       <Modal
