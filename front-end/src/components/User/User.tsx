@@ -13,6 +13,7 @@ import CreatePublications from "../CreatePublications/CreatePublications";
 import MyProperties from "../MyProperties/MyProperties";
 import Balance from "../Balance/Balance";
 import Chat from "../Chat/Chat";
+import {findPost} from "../../actions/index"
 
 import {
   getBookChat,
