@@ -356,18 +356,25 @@ export const getBooking = (data) => {
       user
     );
 
-    const nuevo = [];
+    const nuevo2 = [];
+    const obj = {
+      flag: "false",
+    };
     bookingUsers.data.map((e) =>
       axios
         .get(`http://localhost:3001/filter/properties/${e.Prop_id}`)
         .then((res) => {
-          Object.assign(e, res.data[0]);
-          nuevo.push(e);
-          /* console.log(nuevo); */
+          const nuevo = Object.assign(e, res.data[0]);
+
+          if (e.state === "approved") {
+            Object.assign(nuevo, obj);
+            console.log("dasodnasodi");
+          }
+          nuevo2.push(nuevo);
         })
     );
     setTimeout(() => {
-      dispatch({ type: ActionTypes.bookings, payload: nuevo });
+      dispatch({ type: ActionTypes.bookings, payload: nuevo2 });
     }, 5000);
   };
 };
