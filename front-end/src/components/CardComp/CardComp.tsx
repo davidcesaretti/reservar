@@ -4,10 +4,9 @@ import Card from "@material-ui/core/Card";
 import CardMedia from "@material-ui/core/CardMedia";
 import CardContent from "@material-ui/core/CardContent";
 import CardActions from "@material-ui/core/CardActions";
-
+import Swal from "sweetalert2";
 import Collapse from "@material-ui/core/Collapse";
 import Button from "@material-ui/core/Button";
-
 import { useSelector } from "react-redux";
 import Box from "@material-ui/core/Box";
 import CardActionArea from "@material-ui/core/CardActionArea";
@@ -21,6 +20,7 @@ import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import HotelIcon from "@material-ui/icons/Hotel";
 import MonetizationOnIcon from "@material-ui/icons/MonetizationOn";
 import { Link } from "react-router-dom";
+import axios from 'axios';
 
 // import { RootState } from '../../store';
 
@@ -93,6 +93,27 @@ export default function CardComp({
   const classes = useStyles();
 
   const favs = useSelector((state: any) => state.favourites);
+
+  function handleClick(_id) {
+     Swal.fire({
+    title: "Do you want to delete this property ?",
+    showDenyButton: true,
+    showCancelButton: true,
+    confirmButtonText: `Accept`,
+    // denyButtonText: `Cancel`,
+  }).then((result) => {
+    /* Read more about isConfirmed, isDenied below */
+    if (result.isConfirmed) {
+      axios.get(`http://localhost:3001/upload/delete/${_id}`);
+      Swal.fire("Deleted!", "", "success");
+      // setTimeout(dispatchuser, 2000);
+    } else if (result.isDenied) {
+      Swal.fire("Property not deleted", "", "info");
+    }
+  });
+  }
+
+ 
 
   // const handleClick =(e) => {
   //   e.preventDefault();
@@ -173,12 +194,7 @@ export default function CardComp({
               </Link>
             )}
             {deleteButton && (
-              <Link
-                style={{ textDecoration: "none" }}
-                to={`/DeleteProperty/${_id}`}
-              >
-                <button>delete</button>{" "}
-              </Link>
+                <button onClick={() => handleClick(_id)} >delete</button>
             )}
           </div>
         </CardContent>
