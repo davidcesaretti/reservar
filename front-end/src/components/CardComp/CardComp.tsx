@@ -20,7 +20,7 @@ import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import HotelIcon from "@material-ui/icons/Hotel";
 import MonetizationOnIcon from "@material-ui/icons/MonetizationOn";
 import { Link } from "react-router-dom";
-import axios from 'axios';
+import axios from "axios";
 
 // import { RootState } from '../../store';
 
@@ -73,17 +73,17 @@ const useStyles = makeStyles((theme: Theme) =>
       padding: "0.3125rem 0.3125rem",
     },
     btnProperties: {
-      margin: '5px auto',
-      width: '70px',
-      height: '20px',
-      color: 'white',
-      backgroundColor: '#b2b451',
-      border: '0.5px solid #000000',
-      boxSizing: 'border-box',
-      boxShadow: '0px 2px 2px rgba(0, 0, 0, 0.25)',
-      borderRadius: '5px',
-      cursor: 'pointer',
-    }
+      margin: "5px auto",
+      width: "70px",
+      height: "20px",
+      color: "white",
+      backgroundColor: "#b2b451",
+      border: "0.5px solid #000000",
+      boxSizing: "border-box",
+      boxShadow: "0px 2px 2px rgba(0, 0, 0, 0.25)",
+      borderRadius: "5px",
+      cursor: "pointer",
+    },
   })
 );
 
@@ -107,24 +107,23 @@ export default function CardComp({
   const favs = useSelector((state: any) => state.favourites);
 
   function handleClick(_id) {
-     Swal.fire({
-    title: "Do you want to delete this property ?",
-    showDenyButton: true,
-    showCancelButton: true,
-    confirmButtonText: `Accept`,
-    // denyButtonText: `Cancel`,
-  }).then((result) => {
-    /* Read more about isConfirmed, isDenied below */
-    if (result.isConfirmed) {
-      axios.get(`http://localhost:3001/upload/delete/${_id}`);
-      Swal.fire("Deleted!", "", "success");
-      // setTimeout(dispatchuser, 2000);
-    } else if (result.isDenied) {
-      Swal.fire("Property not deleted", "", "info");
-    }
-  });
+    Swal.fire({
+      title: "Do you want to delete this property ?",
+      showDenyButton: true,
+      showCancelButton: true,
+      confirmButtonText: `Accept`,
+      // denyButtonText: `Cancel`,
+    }).then((result) => {
+      /* Read more about isConfirmed, isDenied below */
+      if (result.isConfirmed) {
+        axios.get(`https://app-trekker.herokuapp.com/upload/delete/${_id}`);
+        Swal.fire("Deleted!", "", "success");
+        // setTimeout(dispatchuser, 2000);
+      } else if (result.isDenied) {
+        Swal.fire("Property not deleted", "", "info");
+      }
+    });
   }
-
 
   return (
     <Card className={classes.root}>
@@ -193,11 +192,16 @@ export default function CardComp({
                 style={{ textDecoration: "none" }}
                 to={`/AddProperty/${_id}`}
               >
-                <button className={classes.btnProperties} >edit</button>{" "}
+                <button className={classes.btnProperties}>edit</button>{" "}
               </Link>
             )}
             {deleteButton && (
-                <button className={classes.btnProperties} onClick={() => handleClick(_id)} >delete</button>
+              <button
+                className={classes.btnProperties}
+                onClick={() => handleClick(_id)}
+              >
+                delete
+              </button>
             )}
           </div>
         </CardContent>
