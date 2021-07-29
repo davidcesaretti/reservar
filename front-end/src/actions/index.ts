@@ -368,7 +368,6 @@ export const getBooking = (data) => {
 
           if (e.state === "approved") {
             Object.assign(nuevo, obj);
-            console.log("dasodnasodi");
           }
           nuevo2.push(nuevo);
         })

@@ -77,14 +77,14 @@ const Bookings = () => {
                       state={e.state}
                     />
                   </Card>
-                  {e.state&&
+                  {e.flag && (
                   <Link to={`/categories/${e._id}`}>
                     <form>
                       <button>review</button>
                         <input placeholder="Let your review"></input>
                     </form>
                   </Link>
-                  }
+                  )}
                 </Grid>
               ))}
           </Grid>
