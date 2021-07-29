@@ -210,7 +210,7 @@ const User = () => {
             </button>
             <div className={style.line}></div>
             <button className={style.buttonOption} onClick={() => logOut()}>
-              Signout
+              Sign Out
             </button>
           </nav>
         </div>

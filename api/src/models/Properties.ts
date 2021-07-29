@@ -1,7 +1,7 @@
 import mongoose, { Schema, model } from "mongoose";
 
 interface available {
-  _id: String;
+  _id: any;
   fechaSalida: String;
   fechaLlegada: String;
   info_user: String;

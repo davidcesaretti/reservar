@@ -87,9 +87,11 @@ function AddProperty() {
   geoCode();
 
   useEffect(() => {
-    dispatch(detailHotel(idParam.id));
-    dispatch(reservefake(idParam.id));
-    console.log("useEffect");
+    if (idParam.id) {
+      dispatch(detailHotel(idParam.id));
+      dispatch(reservefake(idParam.id));
+    }
+
     return () => {
       dispatch(clearDetail());
     };
@@ -142,8 +144,6 @@ function AddProperty() {
     );
   };
 
-
-
   const onFormSubmit = function (e) {
     e.preventDefault();
 
@@ -158,7 +158,6 @@ function AddProperty() {
     ) {
       alert("Please complete all the fields correctly");
     } else {
-      
       Swal.fire({
         title: "Do you want to create this property ?",
         showDenyButton: true,
@@ -187,36 +186,37 @@ function AddProperty() {
             coordinates: maps,
           };
           axios
-          .post("http://localhost:3001/upload", formData)
-          .then()
-          .catch((error) => console.log(error));
-        [
-          refTitle.current.value,
-          refDescription.current.value,
-          refType.current.value,
-          refPrice.current.value,
-          firebaseStorage.picture,
-          refAddress.current.value,
-          refCity.current.value,
-          refCountry.current.value,
-        ] = ["", "", "", "", "", "", "", ""];
-        setAmenities([]);
-        firebaseStorage.uploadValue = 0;
-        const check: any = document.querySelectorAll("input[type='checkbox']");
-        check.forEach((x) => {
-          x.checked = false;
-        });
-        setGuests(1);
-        setBathrooms(1);
-        setBeds(1);
-        setBedrooms(1);
+            .post("http://localhost:3001/upload", formData)
+            .then()
+            .catch((error) => console.log(error));
+          [
+            refTitle.current.value,
+            refDescription.current.value,
+            refType.current.value,
+            refPrice.current.value,
+            firebaseStorage.picture,
+            refAddress.current.value,
+            refCity.current.value,
+            refCountry.current.value,
+          ] = ["", "", "", "", "", "", "", ""];
+          setAmenities([]);
+          firebaseStorage.uploadValue = 0;
+          const check: any = document.querySelectorAll(
+            "input[type='checkbox']"
+          );
+          check.forEach((x) => {
+            x.checked = false;
+          });
+          setGuests(1);
+          setBathrooms(1);
+          setBeds(1);
+          setBedrooms(1);
           Swal.fire("Created!", "", "success");
           // setTimeout(dispatchuser, 2000);
         } else if (result.isDenied) {
           Swal.fire("Property not created", "", "info");
         }
       });
-     
     }
   };
 
@@ -244,48 +244,50 @@ function AddProperty() {
         /* Read more about isConfirmed, isDenied below */
         if (result.isConfirmed) {
           // axios.get(`http://localhost:3001/upload/delete/${_id}`);
-      const formData = {
-        name: refTitle.current.value,
-        summary: refDescription.current.value,
-        type: refType.current.value,
-        accommodates: guests,
-        beds: beds,
-        bedrooms: bedrooms,
-        bathrooms: bathrooms,
-        amenities: amenities,
-        price: refPrice.current.value,
-        image: firebaseStorage.picture,
-        address: refAddress.current.value + " " + refCountry.current.value,
-        city: refCity.current.value,
-        score: 0,
-        coordinates: maps,
-        id: idParam.id,
-      };
-      axios
-        .post("http://localhost:3001/upload/edit", formData)
-        .then()
-        .catch((error) => console.log(error));
-      [
-        refTitle.current.value,
-        refDescription.current.value,
-        refType.current.value,
-        refPrice.current.value,
-        firebaseStorage.picture,
-        refAddress.current.value,
-        refCity.current.value,
-        refCountry.current.value,
-      ] = ["", "", "", "", "", "", "", ""];
-      setAmenities([]);
-      firebaseStorage.uploadValue = 0;
-      const check: any = document.querySelectorAll("input[type='checkbox']");
-      check.forEach((x) => {
-        x.checked = false;
-      });
-      setGuests(1);
-      setBathrooms(1);
-      setBeds(1);
-      setBedrooms(1);
-      Swal.fire("Edited!", "", "success");
+          const formData = {
+            name: refTitle.current.value,
+            summary: refDescription.current.value,
+            type: refType.current.value,
+            accommodates: guests,
+            beds: beds,
+            bedrooms: bedrooms,
+            bathrooms: bathrooms,
+            amenities: amenities,
+            price: refPrice.current.value,
+            image: firebaseStorage.picture,
+            address: refAddress.current.value + " " + refCountry.current.value,
+            city: refCity.current.value,
+            score: 0,
+            coordinates: maps,
+            id: idParam.id,
+          };
+          axios
+            .post("http://localhost:3001/upload/edit", formData)
+            .then()
+            .catch((error) => console.log(error));
+          [
+            refTitle.current.value,
+            refDescription.current.value,
+            refType.current.value,
+            refPrice.current.value,
+            firebaseStorage.picture,
+            refAddress.current.value,
+            refCity.current.value,
+            refCountry.current.value,
+          ] = ["", "", "", "", "", "", "", ""];
+          setAmenities([]);
+          firebaseStorage.uploadValue = 0;
+          const check: any = document.querySelectorAll(
+            "input[type='checkbox']"
+          );
+          check.forEach((x) => {
+            x.checked = false;
+          });
+          setGuests(1);
+          setBathrooms(1);
+          setBeds(1);
+          setBedrooms(1);
+          Swal.fire("Edited!", "", "success");
           // setTimeout(dispatchuser, 2000);
         } else if (result.isDenied) {
           Swal.fire("Property not edited", "", "info");
@@ -695,41 +697,47 @@ function AddProperty() {
           flexDirection: "column",
         }}
       >
-        <div className="calendary-center">
-          <h2>AVAILABILITY</h2>
-          <p style={{ width: "60%", margin: "0", textAlign: "match-parent" }}>
-            Select the dates you don´t want to keep available for booking. Dates
-            you dont´t select will be available for renting but don´t worry, you
-            can always changes your selections{" "}
-          </p>
-          <div className="calendary">
-            <DatePicker
-              excludeDates={disableFinal}
-              minDate={new Date()}
-              startDate={startDate}
-              endDate={endDate}
-              selectsRange
-              selected={startDate}
-              onChange={onChange}
-              inline
-              monthsShown={2}
-              filterDate={disable ? isWeekday : false}
-            />
+        {idParam.id && (
+          <div className="calendary-center">
+            <h2>AVAILABILITY</h2>
+            <p style={{ width: "60%", margin: "0", textAlign: "match-parent" }}>
+              Select the dates you don´t want to keep available for booking.
+              Dates you dont´t select will be available for renting but don´t
+              worry, you can always changes your selections{" "}
+            </p>
+
+            <div className="calendary">
+              <DatePicker
+                excludeDates={disableFinal}
+                minDate={new Date()}
+                startDate={startDate}
+                endDate={endDate}
+                selectsRange
+                selected={startDate}
+                onChange={onChange}
+                inline
+                monthsShown={2}
+                filterDate={disable ? isWeekday : false}
+              />
+            </div>
+            <div
+              style={{
+                display: "flex",
+                gap: "5px",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <button onClick={() => setDisable(!disable)}>
+                Block weekends
+              </button>
+              <button onClick={() => dispatchDates()}>
+                Block selected dates{" "}
+              </button>
+              <SimpleModal data={fechasModal} idProp={idParam.id} />
+            </div>
           </div>
-          <div
-            style={{
-              display: "flex",
-              gap: "5px",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            <button className="btn-days" onClick={() => dispatchDates()}>
-              Block selected dates{" "}
-            </button>
-            <SimpleModal data={fechasModal} idProp={idParam.id} />
-          </div>
-        </div>
+        )}
         {!idParam.id && (
           <button
             className="boton__submit-add"
