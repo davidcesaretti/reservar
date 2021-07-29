@@ -77,9 +77,14 @@ const Bookings = () => {
                       state={e.state}
                     />
                   </Card>
+                  {e.state&&
                   <Link to={`/categories/${e._id}`}>
-                    <button>review</button>
+                    <form>
+                      <button>review</button>
+                        <input placeholder="Let your review"></input>
+                    </form>
                   </Link>
+                  }
                 </Grid>
               ))}
           </Grid>

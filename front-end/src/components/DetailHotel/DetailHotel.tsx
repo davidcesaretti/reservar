@@ -546,14 +546,13 @@ const DetailHotel = () => {
                 </p>
               </div>
             ))}
-          {auth.user && (
+          {/* {auth.user && (
             <div>
-              <button>create review</button>
               <form>
                 <input placeholder="Let your review"></input>
               </form>
             </div>
-          )}
+          )} */}
         </div>
         {/* <div>
           <Grid
