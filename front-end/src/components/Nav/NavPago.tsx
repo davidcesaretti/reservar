@@ -43,8 +43,8 @@ export default function PagoAppBar() {
               <img
                 src={logo}
                 alt="trekker logo"
-                width="120"
-                height="50"
+                width="150"
+                height="60"
                 style={{ margin: "0" }}
               />
             </Link>
