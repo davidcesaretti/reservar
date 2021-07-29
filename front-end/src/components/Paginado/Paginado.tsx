@@ -28,57 +28,33 @@ function Paginado() {
   const dispatch = useDispatch();
   const paginador = useSelector((state: any) => state.paginado);
   const cards = useSelector((state: any) => state.cardsHotel);
-  console.log(cards);
-  React.useEffect(() => {}, [cards.page]);
 
-  const onPrev = (e) => {
-    // if (pagination.page > 2 && pagination.page !== undefined) {
-    //  if (paginador.paginado > 1) {
+  React.useEffect(() => {
     dispatch(
-      BotonesPaginado({ ...paginador, paginado: paginador.paginado - 1 })
+      //fetchCardsHotels(page, price, amenities, type, accommodates, score);
+      fetchCardsHotels(
+        page,
+        paginador.price === "nada" ? undefined : paginador.price,
+        paginador.amenities === "nada" ? undefined : paginador.amenities,
+        paginador.type === "nada" ? undefined : paginador.type,
+        paginador.guest === "nada" ? undefined : paginador.guest,
+        paginador.score === "nada" ? undefined : paginador.score,
+        paginador.cities === "nada" ? undefined : paginador.cities,
+        paginador.fechas === "nada" ? undefined : paginador.fechas
+      )
     );
-    // }
+  }, [page]);
 
-    //setPaginado(paginado - 1);
-    setTimeout(() => {
-      dispatch(
-        //fetchCardsHotels(page, price, amenities, type, accommodates, score);
-        fetchCardsHotels(
-          paginador.paginado === "nada" ? undefined : paginador.paginado,
-          paginador.price === "nada" ? undefined : paginador.price,
-          paginador.amenities === "nada" ? undefined : paginador.amenities,
-          paginador.type === "nada" ? undefined : paginador.type,
-          paginador.guest === "nada" ? undefined : paginador.guest,
-          paginador.score === "nada" ? undefined : paginador.score,
-          paginador.cities === "nada" ? undefined : paginador.cities,
-          paginador.fechas === "nada" ? undefined : paginador.fechas
-        )
-      );
-    }, 100);
-
-    //}
+  const onPrev = () => {
+    if (page > 1) {
+      setPage(page - 1);
+    }
   };
 
-  const onNext = (e) => {
-    dispatch(
-      BotonesPaginado({ ...paginador, paginado: paginador.paginado + 1 })
-    );
-
-    setTimeout(() => {
-      dispatch(
-        //fetchCardsHotels(page, price, amenities, type, accommodates, score);
-        fetchCardsHotels(
-          paginador.paginado === "nada" ? undefined : paginador.paginado,
-          paginador.price === "nada" ? undefined : paginador.price,
-          paginador.amenities === "nada" ? undefined : paginador.amenities,
-          paginador.type === "nada" ? undefined : paginador.type,
-          paginador.guest === "nada" ? undefined : paginador.guest,
-          paginador.score === "nada" ? undefined : paginador.score,
-          paginador.cities === "nada" ? undefined : paginador.cities,
-          paginador.fechas === "nada" ? undefined : paginador.fechas
-        )
-      );
-    }, 100);
+  const onNext = () => {
+    if (page < cards.pageCount) {
+      setPage(page + 1);
+    }
   };
 
   return (
@@ -86,8 +62,8 @@ function Paginado() {
       <Button
         variant="text"
         color="inherit"
-        onClick={(e) => {
-          onPrev(e);
+        onClick={() => {
+          onPrev();
         }}
       >
         {" "}
@@ -96,15 +72,15 @@ function Paginado() {
       <div className={classes.root}>
         <Pagination
           count={cards.pageCount}
-          page={cards.page - 1}
+          page={page ? page : 1}
           onChange={handleChange}
         />
       </div>
       <Button
         variant="text"
         color="inherit"
-        onClick={(e) => {
-          onNext(e);
+        onClick={() => {
+          onNext();
         }}
       >
         {" "}

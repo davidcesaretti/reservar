@@ -29,6 +29,14 @@ const useStyles = makeStyles((theme) => ({
     textShadow: "1.4px 1.4px 1px #B2B1B9",
     fontSize: "calc(2vw + 1em)",
   },
+  noPublications: {
+    fontSize: '2em',
+    display: 'flex',
+    justifyContent: 'center',
+    alignContent: 'center',
+    margin: '0 auto',
+    paddingTop: '50px'
+  }
 }));
 
 function UserPosts() {
@@ -57,7 +65,7 @@ function UserPosts() {
       <Container className={classes.cardGrid} maxWidth="md">
         {/* End hero unit */}
         <Grid container spacing={4}>
-          {post &&
+          {post.length === 0 ? <div className={classes.noPublications}>You don't have published properties</div> :
             post.map((e) => (
               <Grid item key={e} xs={12} sm={6} md={6}>
                 <Card className={classes.card}>

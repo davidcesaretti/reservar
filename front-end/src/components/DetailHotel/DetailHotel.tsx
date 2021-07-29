@@ -207,7 +207,9 @@ const DetailHotel = () => {
     if (
       fechasArray.includes(fecha) ||
       moment(departureDate).format("YYYY-MM-DD") ===
-        moment(arrivalDate).format("YYYY-MM-DD")
+        moment(arrivalDate).format("YYYY-MM-DD") ||
+      arrivalDate === null ||
+      departureDate === null
     ) {
       setDisable(false);
     } else {
@@ -425,6 +427,7 @@ const DetailHotel = () => {
                         <button
                           onClick={() => handleSubmit()}
                           className="boton__submit-add marginCero"
+                          style={{ cursor: "pointer" }}
                         >
                           Reserve
                         </button>
@@ -432,8 +435,11 @@ const DetailHotel = () => {
                     )}
                     {!disable && (
                       <button
-                        style={{ backgroundColor: "red" }}
-                        className="boton__submit-add marginCero"
+                        style={{
+                          backgroundColor: "grey",
+                          cursor: "not-allowed",
+                        }}
+                        className="boton__submit-add marginCero color-alert"
                       >
                         Reserve
                       </button>

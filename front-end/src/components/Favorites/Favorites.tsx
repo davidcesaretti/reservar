@@ -12,6 +12,7 @@ import { Box, Button, Grid, Typography } from "@material-ui/core";
 import NavBar from "../Nav/Nav2";
 import Error404 from "../Error404/Error404";
 import Spinner from "../Spinner/Spinner";
+import ErrorNoprop from "../Error404/Noprop";
 
 const useStyles = makeStyles((theme) => ({
   cardGrid: {
@@ -30,6 +31,15 @@ const useStyles = makeStyles((theme) => ({
     textShadow: "1.4px 1.4px 1px #B2B1B9",
     fontSize: "calc(2vw + 1em)",
   },
+  noPublications: {
+    fontSize: '2em',
+    display: 'flex',
+    justifyContent: 'center',
+    alignContent: 'center',
+    margin: '0 auto',
+    paddingTop: '50px',
+    marginBottom: '209px',
+  }
 }));
 
 const Favorites = () => {
@@ -43,11 +53,11 @@ const Favorites = () => {
     dispatch(getFavos(email));
   }, []);
 
-  if (cards === null) {
-    return <Error404 />;
-  } else if (cards.length < 1) {
-    return <Spinner />;
-  } else {
+  // if (cards.length === 0) {
+  //   return <ErrorNoprop />;
+  // } else if (cards.length < 1) {
+  //   return <Spinner />;
+  // } else {
     return (
       <div>
         <Grid>
@@ -58,7 +68,7 @@ const Favorites = () => {
         <Container className={classes.cardGrid} maxWidth="md">
           {/* End hero unit */}
           <Grid container spacing={4}>
-            {cards &&
+            {cards.length === 0 ? <div className={classes.noPublications}>You don't have favourites properties</div> :
               cards.map((e) => (
                 <Grid item key={e} xs={12} sm={6} md={6}>
                   <Card className={classes.card}>
@@ -83,6 +93,5 @@ const Favorites = () => {
         </Container>
       </div>
     );
-  }
 };
 export default Favorites;

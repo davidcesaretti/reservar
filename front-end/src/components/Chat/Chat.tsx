@@ -10,8 +10,9 @@ import "firebase/analytics";
 
 import { useCollectionData } from "react-firebase-hooks/firestore";
 import { useDispatch, useSelector } from "react-redux";
-import { SetCollection } from "../../actions";
+import { getBooking, SetCollection } from "../../actions";
 import Button from "@material-ui/core/Button";
+import { useEffect } from "react";
 
 const auth = firebase.auth();
 const firestore = firebase.firestore();
@@ -21,12 +22,14 @@ function ChatHost() {
   const dispatch = useDispatch();
   const auth = useAuth();
   const user = auth.user;
-  const bookings = useSelector((state: any) => state.bookchat);
+  const bookings = useSelector((state: any) => state.bookings);
+
+  useEffect(() => {
+    dispatch(getBooking(user.email));
+  }, [user]);
 
   let handleC = (e) => {
     dispatch(SetCollection(e.currentTarget.value));
-    console.log("seteando collec  ", e.currentTarget.value);
-    console.log(bookings);
   };
 
   /*    <div className="minicard">
@@ -44,10 +47,7 @@ function ChatHost() {
               </button>
 
               function truncate(str, n) {
-  return str?.length > n ? str.substring(0, n - 1) + "..." : str; //funcion para recortar parrafos y dejar los ...
-}
-
-
+  return str?.length > n ? str.substring(0, n - 1) + "..." : str; //funcion para recortar parrafos y dejar los 
 
 
 
@@ -64,43 +64,51 @@ function ChatHost() {
           <h3>Select your reservation:</h3>
         </header>
 
-        <div className="scroll">
-          {bookings &&
-            bookings.map((e) => (
-              <div className="clase">
-                <div className="clase1">
-                  <img src={e.propimg} alt="noImg" className="imgprop" />
-                </div>
-                <div className="clase2">
-                  <p>
-                    {truncate(e.propname, 20)}
-                    <p>
-                      From: {moment(e.fechaSalida).format("MMMM DD/YYYY")}
-                      <br />
-                      To: {moment(e.fechaLlegada).format("MMMM DD/YYYY")}
-                    </p>
-                  </p>
-                </div>
-                <div className="clase3">
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    value={e?.host + e?.info_user}
-                    onClick={handleC}
-                    className="btncol"
-                  >
-                    Chat
-                  </Button>
-                </div>
-              </div>
-            ))}
+        <div>
+          {bookings.length > 0 ? (
+            <div className="scroll">
+              {bookings.length > 0}
+
+              {bookings &&
+                bookings.map((e) => (
+                  <div className="clase">
+                    <div className="clase1">
+                      <img src={e.propimg} alt="noImg" className="imgprop" />
+                    </div>
+                    <div className="clase2">
+                      <p>
+                        {truncate(e.propname, 20)}
+                        <p>
+                          From: {moment(e.fechaSalida).format("MMMM DD/YYYY")}
+                          <br />
+                          To: {moment(e.fechaLlegada).format("MMMM DD/YYYY")}
+                        </p>
+                      </p>
+                    </div>
+                    <div className="clase3">
+                      <Button
+                        variant="contained"
+                        color="primary"
+                        value={e?.host + e?.info_user + e?.Prop_id}
+                        onClick={handleC}
+                        className="btncol"
+                      >
+                        Chat
+                      </Button>
+                    </div>
+                  </div>
+                ))}
+            </div>
+          ) : (
+            <div className="nochat">Make a reservation first</div>
+          )}
         </div>
       </div>
 
       <div className="allchat">
         <div className="chat1">
           <header className="head1">
-            <h3>Chat With your guest</h3>
+            <h3>Chat With your host:</h3>
           </header>
 
           {user ? <ChatRoom /> : <SignIn />}
@@ -153,24 +161,30 @@ function ChatRoom() {
   };
 
   return (
-    <div className="allchatwin">
-      <main className="maiin1">
-        {messages &&
-          messages.map((msg) => <ChatMessage key={msg.id} message={msg} />)}
-      </main>
+    <div>
+      {collec ? (
+        <div className="allchatwin">
+          <main className="maiin1">
+            {messages &&
+              messages.map((msg) => <ChatMessage key={msg.id} message={msg} />)}
+          </main>
 
-      <form className="foorm1" onSubmit={sendMessage}>
-        <input
-          className="inpuu1"
-          value={formValue}
-          onChange={(e) => setFormValue(e.target.value)}
-          placeholder="type here"
-        />
+          <form className="foorm1" onSubmit={sendMessage}>
+            <input
+              className="inpuu1"
+              value={formValue}
+              onChange={(e) => setFormValue(e.target.value)}
+              placeholder="type here"
+            />
 
-        <button className="btn1" type="submit" disabled={!formValue}>
-          Send
-        </button>
-      </form>
+            <button className="btn1" type="submit" disabled={!formValue}>
+              Send
+            </button>
+          </form>
+        </div>
+      ) : (
+        <div className="nochat">Select a Chat</div>
+      )}
     </div>
   );
 }

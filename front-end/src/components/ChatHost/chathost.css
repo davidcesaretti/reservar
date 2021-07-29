@@ -57,19 +57,24 @@
 .message {
   display: flex;
   align-items: center;
+  font-size: larger;
 }
 
 .sent {
   flex-direction: row-reverse;
+  margin-right: 15px;
+}
+.received {
+  margin-left: 15px;
 }
 
 .sent p {
-  color: rgb(255, 255, 255);
+  color: rgb(0, 0, 0);
 
   align-self: flex-end;
 }
 .received p {
-  color: rgb(255, 255, 255);
+  color: rgb(0, 0, 0);
 }
 
 .btn1 {
@@ -120,12 +125,7 @@
   padding: 15px 32px;
   text-align: center;
   text-decoration: none;
-  cursor: pointer;
-  width: 20%;
-  margin-left: 5px;
-  margin-bottom: 5px;
-  border: 1px black solid;
-  margin-right: 5px;
+  cursor: not-allowed;
 }
 
 .imag1 {
@@ -228,14 +228,15 @@
 .box {
   display: grid;
   grid-template-columns: 40% 60%;
-  margin-bottom: 100px;
+
   color: white;
 }
 
 .allcollec {
-  background-color: rgba(90, 110, 56, 0.85);
+  background-color: rgba(182, 182, 182, 0.411);
   border-right: 1px solid black;
   border-bottom: 1px solid #000;
+  min-height: 353px;
 }
 .scroll {
   max-height: 400px;
@@ -259,11 +260,25 @@
   height: 30%;
 }
 .allchat {
-  background-color: rgba(90, 110, 56, 0.85);
+  background-color: rgba(182, 182, 182, 0.411);
   border-bottom: 1px solid #000;
   border-left: 1px solid #000;
+  min-height: 390px;
 }
 
 .allchatwin {
   height: 100%;
+}
+.nochat {
+  margin-top: 50px;
+  margin-left: 50px;
+  font-size: 30px;
+  color: black;
+}
+
+.nochat1 {
+  margin-top: 50px;
+  margin-left: 20px;
+  font-size: 30px;
+  color: black;
 }

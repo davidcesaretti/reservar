@@ -5,7 +5,7 @@ import { Properties } from "../models/Properties";
 import { Reserva, User } from "../models/Users";
 import { Propertiestests } from "../models/propertiestests";
 // import cors from "cors";
-// import config from "../lib/config";
+//import config from "../lib/config";
 const router = Router();
 
 router.post("/", (req: Request, res: Response, next: NextFunction) => {
@@ -97,17 +97,16 @@ router.post("/", (req: Request, res: Response, next: NextFunction) => {
   Properties.find({}).then((data: any) => res.json(paginado(req, res, data)));
 });
 
-router.get("/properties/:id", async (req: Request, res: Response) => {
-  const idPropiedad = req.params.id;
+router.get("/properties/:id", async (req: Request, res: Response, next) => {
+  const idPropiedad: any = req.params.id;
 
-  try {
-    if (idPropiedad) {
-      Properties.find({ _id: idPropiedad }).then((data) => res.json(data));
-      return;
-    }
-  } catch (error) {
-    console.log(error);
+  if (typeof req.params.id === "string" || idPropiedad.length > 2) {
+    Properties.find({ _id: idPropiedad })
+      .then((data) => res.json(data))
+      .catch((err) => console.log(err));
+    return;
   }
+  next();
 });
 
 export default router;
