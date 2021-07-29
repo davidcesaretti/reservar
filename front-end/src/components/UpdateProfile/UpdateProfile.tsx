@@ -174,6 +174,7 @@ const Perfil = () => {
                 <label className={style.nameField}>Document type</label>
 
                 <select
+                  className={style.selectField}
                   name="identity_document_type"
                   onChange={(e) => {
                     handleSelect(e)
@@ -187,7 +188,7 @@ const Perfil = () => {
                 </select>
                 {/*  <input
                   placeholder="DNI"
-                  className={style.inputField}
+                  
                   name="identity_document_type"
                   value={info.identity_document_type}
                   onChange={(e) => {

@@ -19,6 +19,14 @@
 
   width: 15rem;
 }
+.selectField{
+  padding-left: 1rem;
+  padding-right: 4rem;
+  height: 2rem;
+  width: 15rem;
+  border-radius: 5px;
+  border: solid 2px black;
+}
 .nameField {
   padding-bottom: 1rem;
 }
@@ -26,6 +34,8 @@
   height: 25px;
   border-radius: 4px;
   padding-left: 10px;
+  
+  border: solid 2px black;
 }
 .ctnUpdate {
   display: flex;
