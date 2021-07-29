@@ -41,23 +41,31 @@ const Bookings = () => {
   const [review, setReview] = useState({
     username: auth.user.displayName,
     review: "",
-    Prop_id: "",
+    idPropertie: "",
   });
   const onInputChange = (e) => {
     setReview({
       ...review,
       [e.target.name]: e.target.value,
     });
-    if(review.review.length === 0){
-      return swal("escribe algo primero")
-    }
   };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     setReview({
       ...review,
-      Prop_id: e.target.value,
+      idPropertie: e.target.value,
     });
+    if(review.review.length === 0){
+      return swal("Write something first")
+    }
+    else if(review.review.length > 150){
+      return swal("Up to 150 characters only supported")
+    }
+    else{
+      alert("Published review")
+    }
+    dispatch(addreview(review));
   };
 
   useEffect(() => {
@@ -105,6 +113,7 @@ const Bookings = () => {
                         send review
                       </button>
                       <input
+                        required autoComplete="off"
                         name="review"
                         onChange={onInputChange}
                         className="input"

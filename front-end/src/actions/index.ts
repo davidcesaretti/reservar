@@ -450,10 +450,10 @@ export const reservefake = (id) => {
 };
 
 export const addreview = (review) => {
-  return async (dispatch: Dispatch) =>{
+  return async (dispatch: Dispatch) => {
     await axios.post(`http://localhost:3001/review`, review);
-  }
-}
+  };
+};
 
 // export function deleteUsers(data: any) {
 //   return function (dispatch: Dispatch) {
