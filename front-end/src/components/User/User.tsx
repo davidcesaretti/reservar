@@ -13,7 +13,7 @@ import CreatePublications from "../CreatePublications/CreatePublications";
 import MyProperties from "../MyProperties/MyProperties";
 import Balance from "../Balance/Balance";
 import Chat from "../Chat/Chat";
-import { findPost, SetCollection } from "../../actions/index";
+import { findPost, getFavos, SetCollection } from "../../actions/index";
 
 import {
   getBookChat,
@@ -44,6 +44,7 @@ const User = () => {
     dispatch(getBooking(email));
     dispatch(getBookChat(email));
     dispatch(getHostReserves(email));
+    dispatch(getFavos(email));
   }, []);
 
   useEffect(() => {
