@@ -3,9 +3,23 @@ import { useDispatch, useSelector } from 'react-redux'
 import { findPost } from '../../actions/index'
 import { useAuth } from '../../firebase/index'
 import style from './Balance.module.css'
+import { Grid, Typography } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
+
+const useStyles = makeStyles((theme) => ({
+
+  title: {
+    paddingTop: "1rem",
+    marginTop: "1rem",
+    color: "black",
+    textShadow: "1.4px 1.4px 1px #B2B1B9",
+    fontSize: "calc(2vw + 1em)",
+  },
+}));
 
 
 const Balance = () => {
+  const classes = useStyles();
   const auth = useAuth()
   const dispatch = useDispatch()
   const [income, setIncome] = useState(0)
@@ -34,7 +48,13 @@ const Balance = () => {
   }
 
   return (
-    <div>{reserved ?
+    <div>
+        <Grid>
+          <Typography className={classes.title} variant="h4" align="center">
+            Balance
+          </Typography>
+        </Grid>
+      {reserved ?
       <div>
         <h1 className={style.title}>BALANCE SHEET</h1>
         <h3 className={style.subTitle1}>Current month: {month} {year}</h3>
@@ -76,9 +96,9 @@ const Balance = () => {
         </div>
       </div> :
       <div className={style.ctnMessage}>
-        <h1 className={style.message}>
+        <div className={style.message}>
           You dont have earnings yet
-        </h1>
+        </div>
       </div>
     }
     </div>

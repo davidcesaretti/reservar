@@ -109,6 +109,14 @@ margin-left: 51px;
 }
 .message{
     text-align: center;
+    font-size: 2em;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    margin: 0 auto;
+    padding-Top: 50px;
+    margin-bottom: 209px;
+    color: #787A91
 }
 .ctnMessage{
     display: flex;
