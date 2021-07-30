@@ -66,6 +66,7 @@ router.post("/", async (req: Request, res: Response, next: NextFunction) => {
     address,
     coordinates,
     host,
+    status_account: "Active"
   });
   await property.save();
   return;
@@ -123,6 +124,7 @@ router.post(
           city,
           coordinates,
           score,
+          status_account: "Active"
         },
       }
     );

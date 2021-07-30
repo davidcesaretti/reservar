@@ -533,7 +533,6 @@ const DetailHotel = () => {
             Having different dates in mind? Check availability
           </p>
           <div>
-            {" "}
             <HostCalendary
               disableBoton={disableBoton}
               data={detailhotel}
