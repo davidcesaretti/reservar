@@ -18,14 +18,11 @@ UserRouter.use(express.json());
 
 UserRouter.post("/login", async (req: Request, res: Response) => {
   const { email } = req.body;
-  console.log("ruta login", req.body);
+
   const user = await User.findOne({ email: email });
   try {
-    console.log("info del usuario", user);
     return res.json(user);
-  } catch (error) {
-    console.log(error);
-  }
+  } catch (error) {}
 });
 
 UserRouter.get("/userList", async (req: Request, res: Response) => {
@@ -68,11 +65,8 @@ UserRouter.post("/register", async (req: Request, res: Response) => {
 
     const { userEmail } = req.body;
 
-    console.log(req.body, " BODYYY");
-
     const emailUser = await User.findOne({ email: userEmail });
     if (!emailUser && userEmail) {
-      console.log("ENTRO ACA");
       const user = new User({
         name: name,
         email: userEmail,
@@ -92,7 +86,7 @@ UserRouter.post("/register", async (req: Request, res: Response) => {
         isModerator: false,
       });
       await user.save();
-      console.log("creado", user);
+
       return res.json(user);
     } else if (emailUser) {
       const userupdate = await User.updateOne(
@@ -111,10 +105,12 @@ UserRouter.post("/register", async (req: Request, res: Response) => {
             emergency_phone_number: emergency_phone_number,
             emergency_contact: emergency_contact,
             relationship: relationship,
+            status_account: "Active",
+            isModerator: false,
           },
         }
       );
-      console.log("updateada", userupdate);
+
       res.json(userupdate);
     } else {
       res.send("no se pudo crear usuario");
@@ -129,10 +125,11 @@ UserRouter.post("/register", async (req: Request, res: Response) => {
         email,
         photo,
         admin: false,
-        status: "active",
+        status_account: "Active",
+        isModerator: false,
       });
       await user.save();
-      console.log("creado", user);
+
       return res.json(user);
     }
   }
@@ -240,7 +237,6 @@ UserRouter.post("/favorites", async (req, res) => {
 
     await User.updateOne({ email: email }, { favorites: favorites });
 
-    console.log(favorites, " AGREGANDO FAV BACK");
     res.json(favorites);
   } catch (error) {
     res.send(error);
@@ -365,7 +361,7 @@ UserRouter.post("/validateadmin", async (req: Request, res: Response) => {
   const sgMail = require("@sendgrid/mail");
   const { email } = req.body;
   const code = Math.floor(Math.random() * (9999 - 1000) + 1000);
-  console.log("llego al back ", req.body);
+
   sgMail.setApiKey(
     "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"
   );
@@ -381,7 +377,6 @@ UserRouter.post("/validateadmin", async (req: Request, res: Response) => {
   sgMail
     .send(msg)
     .then(() => {
-      console.log(code);
       return res.json(code);
     })
     .catch((err) => {

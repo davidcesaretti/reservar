@@ -35,60 +35,65 @@ const Perfil = () => {
     });
   };
 
+  const handleSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setInfo({
+      ...info,
+      [e.target.name]: e.target.value,
+    })
+  }
+
   const emailRegex =
     /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i;
 
   const handleUpdate = (e) => {
     e.preventDefault();
 
-    if (typeof info.name !== "string") {
-      alert("write your name");
+    if (info.name === "") {
+      Swal.fire("Write your name")
       return;
     }
     if (!emailRegex.test(info.recuperation_email)) {
-      alert(
-        "write an alternative mail in case you need to recover your account"
-      );
+      Swal.fire("Write an alternative mail in case you need to recover your account")
       return;
     }
-    if (info.phone_number < 1000000) {
-      alert("write your phone number");
+    if (info.phone_number === undefined) {
+      Swal.fire("Write your phone number")
       return;
     }
-    if (typeof info.identity_document_type !== "string") {
-      alert("write your document type");
+    if (info.identity_document_type === "") {
+      Swal.fire("Select your document type")
       return;
     }
-    if (info.identity_document_number < 1000000) {
-      alert("write your document number");
+    if (info.identity_document_number === undefined) {
+      Swal.fire("Write your document number")
       return;
     }
-    if (typeof info.nationality !== "string") {
-      alert("write your nationality");
+    if (info.nationality === "") {
+      Swal.fire("Write your nationality")
       return;
     }
-    if (typeof info.date_birth !== "string") {
-      alert("write your birth date");
+    if (info.date_birth === "") {
+      Swal.fire("Write your birth date")
       return;
     }
-    if (typeof info.residence_address !== "string") {
-      alert("write your adress");
+    if (info.residence_address === "") {
+      Swal.fire("Write your adress")
       return;
     }
-    if (typeof info.city_and_country_of_residence !== "string") {
-      alert("write your residence");
+    if (info.city_and_country_of_residence === "") {
+      Swal.fire("Write your residence")
       return;
     }
-    if (info.emergency_phone_number < 1000000) {
-      alert("write the phone of an emergency contact");
+    if (info.emergency_phone_number === undefined) {
+      Swal.fire("Write the phone of an emergency contact")
       return;
     }
     if (!emailRegex.test(info.emergency_contact)) {
-      alert("write the email of the emergency contact");
+      Swal.fire("Write the email of the emergency contact")
       return;
     }
-    if (typeof info.relationship !== "string") {
-      alert("write your relationship with the emergency contact");
+    if (info.relationship === "") {
+      Swal.fire("Write your relationship with the emergency contact")
       return;
     }
 
@@ -121,11 +126,12 @@ const Perfil = () => {
         <div>
           <h2 className={style.header}>My Profile</h2>
           <form
-            className={style.ctn}
+            className={style.ctnMerge}
             onSubmit={(e) => {
               handleUpdate(e);
             }}
           >
+            <div className={style.ctn}>
             <div className={style.field}>
               <label className={style.nameField}>Complete name</label>
               <input
@@ -165,15 +171,19 @@ const Perfil = () => {
             </div>
             <div className={style.field}>
               <label className={style.nameField}>Document type</label>
-              <input
-                placeholder="DNI"
-                className={style.inputField}
-                name="identity_document_type"
-                value={info.identity_document_type}
-                onChange={(e) => {
-                  handleChange(e);
-                }}
-              />
+              <select
+                  className={style.selectField}
+                  name="identity_document_type"
+                  onChange={(e) => {
+                    handleSelect(e)
+                  }}
+                >
+                  <option value="Select">Select</option>
+                  <option value="ID Card">ID Card</option>
+                  <option value="Passport">Passport</option>
+                  <option value="Social Security card">Social Security card</option>
+                  <option value="Birth certificate">Birth certificate</option>
+                </select>
             </div>
             <div className={style.field}>
               <label className={style.nameField}>Document number</label>
@@ -276,11 +286,12 @@ const Perfil = () => {
                 }}
               />
             </div>
-            <div className={style.ctnUpdate}>
-              <button type="submit" className={style.update}>
-                Update
-              </button>
             </div>
+          <div className={style.ctnUpdate}>
+            <button type="submit" className={style.update}>
+              Update
+            </button>
+          </div>
           </form>
         </div>
       </div>

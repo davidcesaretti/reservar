@@ -1,4 +1,6 @@
-
+.container{
+    min-height: 466px;
+}
 .title{
 text-align: center;
 }

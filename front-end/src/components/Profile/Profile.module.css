@@ -1,6 +1,7 @@
 .ctn {
     display: flex;
     justify-content: space-between;
+    min-height: 485px;
 }
 .information{
     padding: 1em;

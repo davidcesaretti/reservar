@@ -13,6 +13,9 @@ import {
 import CardComp from "../CardComp/CardComp";
 
 const useStyles = makeStyles((theme) => ({
+  container: {
+    minHeight: "466px",
+  },
   cardGrid: {
     paddingTop: theme.spacing(6),
     paddingBottom: theme.spacing(8),
@@ -57,7 +60,7 @@ function UserPosts() {
   console.log(post, "       POSTTTT");
 
   return (
-    <div>
+    <div className={classes.container}>
       <Grid>
         <Typography className={classes.title} variant="h4" align="center">
           My properties
