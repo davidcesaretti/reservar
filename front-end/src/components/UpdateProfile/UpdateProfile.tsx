@@ -276,19 +276,11 @@ const Perfil = () => {
                 }}
               />
             </div>
-<<<<<<< HEAD
-            <div className={style.ctnUpdate}>
-              <button type="submit" className={style.update}>
-                Update
-              </button>
-            </div>
-=======
           <div className={style.ctnUpdate}>
             <button type="submit" className={style.update}>
               Update
             </button>
           </div>
->>>>>>> fix/color/font
           </form>{" "}
         </div>
       </div>
