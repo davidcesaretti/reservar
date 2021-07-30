@@ -82,10 +82,10 @@ router.get("/pago", async (req, res, next) => {
       aux.push(res[0]);
       const msg = {
         to: aux[0].info_user,
-        from: "nitovillafuerte@outlook.com", // aqui hay que poner el correo de la pag
-        subject: "Sending with SendGrid is Fun",
-        text: "and easy to do anywhere, even with Node.js",
-        html: "<strong>hola mariano</strong>",
+        from: "trekkerhenry@gmail.com", // aqui hay que poner el correo de la pag
+        subject: "Trekker Rent",
+        text: "Gracias por confiar en trekker!",
+        html: "<h2>Gracias por confiar en trekker!</h2>",
       };
       sgMail
         .send(msg)
