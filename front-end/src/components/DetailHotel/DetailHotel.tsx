@@ -528,7 +528,7 @@ const DetailHotel = () => {
             />
           </div>
         </div>
-        <div style={{ overflow: "scroll" }} className="container-reviews">
+        <div className="container-reviews">
           <h2 style={{ textAlign: "center", fontWeight: "bold" }}>
             REVIEWS FROM OUR GUESTS
           </h2>

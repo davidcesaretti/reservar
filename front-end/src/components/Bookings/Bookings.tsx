@@ -38,6 +38,7 @@ const Bookings = () => {
   const auth = useAuth();
   const cards = useSelector((state: any) => state.bookings);
   let email = auth.user.email;
+  console.log(auth.user, "aaaaaaaaaaaaaaaaaaaaaaaa")
   const [review, setReview] = useState({
     username: auth.user.displayName,
     review: "",
