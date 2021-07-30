@@ -1,45 +1,43 @@
 .container {
-  height: 800px;
+  height: 790px;
 }
 .header {
   text-align: center;
   font-size: 2rem;
-  margin-bottom: 50px;
 }
 .ctnMerge{
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  
+  margin: auto;
 }
 .ctn {
   height: 600px;
+  width: 100%;
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-around;
-  padding-left: 3rem;
-  padding-right: 3rem;
+  justify-content: center;
 }
 .field {
   display: flex;
+  align-items: center;
   flex-direction: column;
-  padding-left: 4rem;
-  padding-right: 4rem;
-
-  width: 15rem;
+  width: 28rem;
 }
 .nameField {
   padding-bottom: 1rem;
 }
 .inputField {
-    height: 25px;
+    height: 30px;
     border-radius: 4px;
     padding-left: 10px;
-    width: 200px;
+    width: 220px;
     border: solid 2px black;
   }
 .selectField{
-  height: 30px;
+  height: 31px;
   border-radius: 4px;
   padding-left: 10px;
   width: 220px;
@@ -70,6 +68,4 @@
 .update:hover {
   background: rgb(88, 114, 43);
 }
-.container {
-  height: 700px;
-}
+

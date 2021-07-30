@@ -48,7 +48,7 @@ const Balance = () => {
   }
 
   return (
-    <div>
+    <div className={style.container}>
         <Grid>
           <Typography className={classes.title} variant="h4" align="center">
             Balance
