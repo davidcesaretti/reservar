@@ -1,0 +1,23 @@
+.container-tabla {
+  width: 80%;
+  height: 75vh;
+  /* background-color: aqua; */
+  border-style: solid;
+  margin: 80px auto;
+  margin-bottom: 0;
+}
+.grid-tabla {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  justify-content: center;
+  align-items: center;
+}
+.boton-map {
+  margin: 0;
+  width: 50px;
+  height: 20px;
+}
+.color-grid {
+  background-color: rgba(90, 110, 56, 0.85);
+  padding: 12px;
+}
