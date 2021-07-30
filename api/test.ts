@@ -21,6 +21,7 @@ export const createdTest = async () => {
           bathrooms: x._doc.bathrooms ? parseInt(x._doc.bathrooms) : 0,
           amenities: x._doc.amenities,
           price: parseInt(x._doc.price),
+          status_account: "Active",
           city: x._doc.address.market
             ? x._doc.address.market.toLowerCase()
             : x._doc.address.country.toLowerCase(),
