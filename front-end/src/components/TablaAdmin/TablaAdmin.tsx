@@ -79,7 +79,19 @@ function TablaAdmin() {
     <div className="con-homeAdmin">
       <MenuAdmin />
       <div style={{ display: "grid" }}>
-        <h2 className="title">Registered Users</h2>
+        <h2
+          style={{
+            margin: "0",
+            paddingTop: "1rem",
+            marginTop: "1rem",
+            color: "black",
+            textShadow: "1.4px 1.4px 1px #B2B1B9",
+            fontSize: "calc(2vw + 1em)",
+          }}
+          className="title"
+        >
+          Registered Users
+        </h2>
         <div className="container-tabla">
           <div className="grid-tabla color-grid">
             {" "}
