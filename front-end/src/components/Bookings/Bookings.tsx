@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addreview, getBookChat, getBooking } from "../../actions";
 import { useAuth } from "../../firebase/index";
-import CardComp from "../CardComp/CardComp";
+import CardBook from "./CardBookings";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import Container from "@material-ui/core/Container";
@@ -12,6 +12,7 @@ import Error404 from "../Error404/Error404";
 import Spinner from "../Spinner/Spinner";
 import { Link } from "react-router-dom";
 import swal from "sweetalert";
+import "./Bookings.css"
 
 const useStyles = makeStyles((theme) => ({
   cardGrid: {
@@ -96,7 +97,7 @@ const Bookings = () => {
               cards.map((e) => (
                 <Grid item key={e} xs={12} sm={6} md={6}>
                   <Card className={classes.card}>
-                    <CardComp
+                    <CardBook
                       _id={e._id}
                       image={e.image}
                       score={e.score}
@@ -111,21 +112,21 @@ const Bookings = () => {
                       deleteButton={false}
                       state={e.state}
                     />
-                  </Card>
-                  {e.flag && (
-                    <form>
-                      <button onClick={handleSubmit} value={e.Prop_id}>
-                        send review
-                      </button>
-                      <input
-                        required autoComplete="off"
-                        name="review"
-                        onChange={onInputChange}
-                        className="input"
-                        placeholder="Let your review"
-                      ></input>
-                    </form>
+                    {e.flag && (
+                     <div>
+                     <div>
+                       <form>
+                         <input required autoComplete="off"
+                                           name="review"
+                                           onChange={onInputChange}
+                                           className="forminput"
+                                           placeholder="Let your review"/>
+                         <button className="formbutton" onClick={handleSubmit} value={e.Prop_id}>SEND REVIEW</button>
+                       </form>
+                     </div>
+                   </div>
                   )}
+                  </Card>
                 </Grid>
               ))}
           </Grid>
