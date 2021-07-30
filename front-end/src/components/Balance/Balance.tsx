@@ -33,19 +33,24 @@ const Balance = () => {
 
   const email = auth.user.email;
 
+  let cont = 0;
+
   useEffect(() => {
     dispatch(findPost({ email: email }))
   }, [])
 
   if (loaded && userPosts.length > 1) {
-    userPosts.map((e) => {
-      if (e.available.length > 0) setReserved(true)
-    })
-    income === 0 && setIncome(userPosts[0]?.available?.reduce((acum, e) => {
+    console.log("hola")
+  userPosts.map((e) => {
+    if (e.available.length > 0) setReserved(true)
+    cont += e.available?.reduce((acum, e) => {
       return acum + e.price
-    }, 0))
-    setLoaded(false)
-  }
+    }, 0)
+    console.log('contador ', cont)
+  })
+  setIncome(cont)
+  setLoaded(false)
+}
 
   return (
     <div className={style.container}>

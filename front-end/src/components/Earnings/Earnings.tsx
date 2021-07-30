@@ -37,14 +37,18 @@ const Earnings = ({setSection}) => {
     dispatch(findPost({ email: email }))
   }, [dispatch])
 
+  let cont = 0;
+
   if (loaded && userPosts.length > 1) {
       console.log("hola")
     userPosts.map((e) => {
       if (e.available.length > 0) setReserved(true)
+      cont += e.available?.reduce((acum, e) => {
+        return acum + e.price
+      }, 0)
+      console.log('contador ', cont)
     })
-    income === 0 && setIncome(userPosts[0]?.available?.reduce((acum, e) => {
-      return acum + e.price
-    }, 0))
+    setIncome(cont)
     setLoaded(false)
   }
 

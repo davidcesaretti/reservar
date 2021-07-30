@@ -29,16 +29,6 @@ const GeneralBalance = ({ setSection }) => {
                         <h4 className={style.numberField}>845</h4>
                         <p className={style.footerField}>Update monthly</p>
                     </div>
-                    <div className={style.field}>
-                        <h2 className={style.titleField}>BOOKINGS CANCELED</h2>
-                        <h4 className={style.numberField}>150</h4>
-                        <p className={style.footerField}>Update monthly</p>
-                    </div>
-                    <div className={style.field}>
-                        <h2 className={style.titleField}>WEBSITE VISITS</h2>
-                        <h4 className={style.numberField}>3560</h4>
-                        <p className={style.footerField}>Update monthly</p>
-                    </div>
                 </div>
             </div>
         </div>

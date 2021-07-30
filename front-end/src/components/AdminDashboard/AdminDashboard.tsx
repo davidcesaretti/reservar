@@ -96,7 +96,7 @@ const AdminDashboard = () => {
                                                     </nav>
                                                 </div>
             }
-            <div className={style.footer}>Copyright 2021</div>
+           {/*  <div className={style.footer}>Copyright 2021</div> */}
         </div>
     )
 }
