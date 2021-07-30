@@ -101,6 +101,7 @@ const Register = () => {
 
   const [logged, setLogged] = useState(false);
   const dispatch = useDispatch();
+  console.log( 'infoUser', infoUser)
 
   const uiConfig = {
     signInFlow: "popup",
@@ -149,20 +150,7 @@ const Register = () => {
   };
 
   const goToProfile = (e) => {
-    infoUser.status_account === "Suspended"
-      ? Swal.fire({
-          title: "Your Account has been Suspended",
-          text: "Going to Home?",
-          icon: "warning",
-          confirmButtonColor: "#313b1e",
-          confirmButtonText: "Yes, go!",
-        }).then((result) => {
-          if (result.isConfirmed) {
-            auth.signout();
-            history.push("/");
-          }
-        })
-      : history.push("/User");
+     history.push("/User");
   };
 
   let email = auth?.user?.email;
@@ -189,7 +177,21 @@ const Register = () => {
         </Typography>
 
         <Container maxWidth="xs" className={classes.buttonsLogin}>
-          {userInfo.email === "trekkerhenry@gmail.com" ? (
+          {
+          infoUser?.status_account === "Suspended" ? 
+Swal.fire({
+  title: 'Your account has been suspended',
+  text: "Going back to home",
+  icon: 'warning',
+  showCancelButton: true,
+  confirmButtonColor: '#3085d6',
+  confirmButtonText: 'Ok!'
+}).then((result) => {
+    auth.signout()
+    history.push("/")
+})
+:
+          userInfo.email === "trekkerhenry@gmail.com" ? (
             history.push("/Admin")
           ) : user ? (
             <Grid>

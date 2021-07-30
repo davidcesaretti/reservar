@@ -1,6 +1,6 @@
 import React from "react";
 import "./MenuAdmin.css";
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 import { useAuth } from "../../firebase/index";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -16,28 +16,28 @@ function MenuAdmin() {
   return (
     <div className="contenedor-adminMenu">
       <div className="div-parrafo">
-        <p>Registered User</p>
+        <Link className="links-menuAdmin" to="/homeAdminTabla"><p>Registered User</p></Link>
         <div className="separador-adminMenu"></div>
       </div>
-      <div className="div-parrafo">
+      {/* <div className="div-parrafo">
         <p>Registered Lodgings</p>
         <div className="separador-adminMenu"></div>
-      </div>
+      </div> */}
       <div className="div-parrafo">
-        <p>Earnings</p>
+      <Link className="links-menuAdmin"  to="/earnings"><p>Earnings</p></Link>
         <div className="separador-adminMenu"></div>
       </div>
 
       <div className="div-parrafo">
-        <p>Terms & Conditions</p>
+      {/* <Link className="links-menuAdmin"  to="/terms"> */}<p>Terms & Conditions</p>{/* </Link> */}
         <div className="separador-adminMenu"></div>
       </div>
       <div className="div-parrafo">
-        <p>FAQ</p>
+      {/* <Link className="links-menuAdmin"  to="/FAQ"> */}<p>FAQ</p>{/* </Link> */}
         <div className="separador-adminMenu"></div>
       </div>
       <div className="div-parrafo">
-        <p>Privacy Policy</p>
+      {/* <Link className="links-menuAdmin" to="/privacy"> */}<p>Privacy Policy</p>{/* </Link> */}
         <div className="separador-adminMenu"></div>
       </div>
       <div className="position-botonAdmin">

@@ -7,6 +7,10 @@
   grid-template-rows: 10% 10% 10% 10% 10% 10% 40%;
   color: white;
 }
+.links-menuAdmin{
+  text-decoration: none;
+  color:#FFF;
+}
 .separador-adminMenu {
   width: 40%;
   border-bottom: solid 1px white;

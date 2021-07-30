@@ -25,6 +25,7 @@ import FAQ from "./components/FAQ/FAQ"
 import TermsAndConditions from "./components/TermsAndConditions/TermsAndConditions";
 import GeneralBalance from "./components/GeneralBalance/GeneralBalance"
 import Earnings from "./components/Earnings/Earnings"
+import PrivacyPolicy from "./components/PrivacyPolicy/PrivacyPolicy"
 
 function App() {
   const auth = useAuth();
@@ -54,6 +55,7 @@ function App() {
       <Route exact path="/terms" component={auth?.user?.email === "trekkerhenry@gmail.com" ? TermsAndConditions : Error404} />
       <Route exact path="/Balance" component={auth?.user?.email === "trekkerhenry@gmail.com" ? GeneralBalance : Error404} />
       <Route exact path="/earnings" component={auth?.user?.email === "trekkerhenry@gmail.com" ? Earnings : Error404} />
+      <Route exact path="/privacy" component={auth?.user?.email === "trekkerhenry@gmail.com" ? PrivacyPolicy : Error404} />
       <Route path="*" component={Error404} />
     </Switch>
   );
