@@ -16,6 +16,7 @@ import backImg from "../../Image/fondoLogin.jpeg";
 import "@fontsource/roboto";
 import { useAuth } from "../../firebase/index";
 import logo from "../../Image/trekker.svg";
+import Swal from "sweetalert2";
 
 const useStyle = makeStyles((theme) => ({
   login: {
@@ -147,6 +148,24 @@ const Register = () => {
     dispatch(UserEmailGlobal(""));
   };
 
+  const goToProfile = (e) => {
+    infoUser.status_account === "Suspended" ?
+    Swal.fire({
+      title: 'Your Account has been Suspended',
+      text: "Going to Home?",
+      icon: 'warning',
+      confirmButtonColor: '#313b1e',
+      confirmButtonText: 'Yes, go!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        auth.signout()
+        history.push('/')
+      }
+    }) :
+    history.push('/User')
+  }
+
+  console.log(infoUser)
   let email = auth?.user?.email;
 
   const classes = useStyle();
@@ -171,7 +190,10 @@ const Register = () => {
         </Typography>
 
         <Container maxWidth="xs" className={classes.buttonsLogin}>
-          {userInfo.email === "trekkerhenry@gmail.com" ? history.push('/validationAdmin') :
+          {
+          
+          userInfo.email === "trekkerhenry@gmail.com" ? history.push('/validationAdmin') 
+          :
           user ? (
             <Grid>
               <Button
@@ -190,8 +212,8 @@ const Register = () => {
               </Typography>
               <img src={firebase.auth().currentUser.photoURL} alt="user" />
               <div className={classes.completediv}>
-                <Link to="/User" className={classes.link1}>
-                  <Button variant="contained" color="secondary">
+                <Link className={classes.link1}>
+                  <Button onClick={((e) => {goToProfile(e)})} variant="contained" color="secondary">
                     Go to your Profile!
                   </Button>
                 </Link>

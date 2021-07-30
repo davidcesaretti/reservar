@@ -37,7 +37,7 @@ const Balance = () => {
     dispatch(findPost({ email: email }))
   }, [])
 
-  if (loaded) {
+  if (loaded && userPosts.length > 1) {
     userPosts.map((e) => {
       if (e.available.length > 0) setReserved(true)
     })
