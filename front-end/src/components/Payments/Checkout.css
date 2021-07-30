@@ -1,0 +1,47 @@
+.wrapper{
+    width: 250px;
+    height: auto;
+    border-style: solid;
+    border-color: black;
+    border-width : 1px;
+  }
+  
+  .ticket{
+    width: auto;
+    height: auto;
+    margin: 10px;
+    font-family: "Lato";
+  }
+  
+  .titulo{
+    text-align: center;
+    font-size: 1.5em;
+    font-weight: bold;
+  }
+  
+  .direccion{
+    margin-top: 5px;
+    text-align: center;
+    font-size: 1em;
+    font-weight: lighter;
+  }
+  
+  .datos_orden{
+    display: inline-block;
+    margin-top: 20px;
+    font-size: 0.7em;
+    width:100%;
+  }
+  
+  .id_consumo{
+    float: left;
+  }
+  
+  .fecha{
+   float: right;
+  }
+  
+  .despedida{
+    margin-top: 20px;
+    text-align: center;
+  }
