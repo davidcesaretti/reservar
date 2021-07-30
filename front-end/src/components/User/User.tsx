@@ -13,7 +13,7 @@ import CreatePublications from "../CreatePublications/CreatePublications";
 import MyProperties from "../MyProperties/MyProperties";
 import Balance from "../Balance/Balance";
 import Chat from "../Chat/Chat";
-import {findPost} from "../../actions/index"
+import { findPost, SetCollection } from "../../actions/index";
 
 import {
   getBookChat,
@@ -101,6 +101,7 @@ const User = () => {
   };
 
   const clickHistoryTravels = () => {
+    dispatch(SetCollection(""));
     setSection("Chat");
   };
 
@@ -117,6 +118,7 @@ const User = () => {
   };
 
   const clickChat = () => {
+    dispatch(SetCollection(""));
     setSectionHost("Chat");
   };
 
