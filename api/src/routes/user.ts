@@ -288,14 +288,16 @@ UserRouter.post("/gethostreserves", async (req, res) => {
 });
 
 UserRouter.post("/review", async (req, res) => {
-  const { username, idPropertie, review } = req.body;
+  const { username, idPropertie, review, foto } = req.body;
   interface IReview {
     reviewer_name: string;
     comments: string;
+    foto: string;
   }
   const Review: IReview = {
     reviewer_name: username,
     comments: review,
+    foto,
   };
 
   const propertie = await Properties.updateOne(

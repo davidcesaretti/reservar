@@ -536,7 +536,13 @@ const DetailHotel = () => {
             detailhotel[0].reviews.map((x) => (
               <div style={{ marginBottom: "20px" }}>
                 <div className="div-user-reviews">
-                  <img width="40px" height="40px" src={user} alt="user" />
+                  <img
+                    style={{ borderRadius: "50%" }}
+                    width="40px"
+                    height="40px"
+                    src={x.foto || user}
+                    alt="user"
+                  />
                   <p style={{ fontWeight: "bold", fontSize: "18px" }}>
                     Guest: {`${x.reviewer_name}`}
                   </p>
