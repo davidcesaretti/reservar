@@ -41,7 +41,7 @@ function App() {
       <Route exact path="/AddProperty/:id" component={AddProperty} />
       <Route exact path="/Admin" component={AdminDashboard} />
       <Route exact path="/validationAdmin" component={ValidationAdmin} />
-      <Route exact path="/prueba" component={Earnings} />
+      <Route exact path="/prueba" component={FAQ} />
     </Switch>
   );
 }

@@ -10,11 +10,8 @@
 .ctn{
     width: 80%;
     margin: auto;
-    border: solid 1px black;
     margin-bottom: 50px;
     padding: 50px;
-}
-.separator {
 }
 
 .p {display: block;

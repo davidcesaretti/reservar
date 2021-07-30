@@ -107,7 +107,7 @@ const TermsAndConditions = ({ setSection }) => {
 
                </p>
             
-                <input type="button"  className={style.botoncta}><p className={style.botonup}>Update</p></input>
+                <input id="botonuno"type="button"  className={style.botoncta}>Update</input>
             </div>
         </div>
     )

@@ -4,8 +4,8 @@ body {
 }
 
 h2 {
-  margin: 20px auto 80px;
-  font-size: 38px;
+  margin-bottom: 40px;
+  font-size: 30px;
   font-weight: 300;
   text-align: center;
   letter-spacing: 2px;
@@ -16,7 +16,7 @@ details {
   width: 75%;
   min-height: 5px;
   max-width: 700px;
-  padding: 45px 70px 45px 45px;
+  padding: 15px 30px 15px 15px;
   margin: 0 auto;
   position: relative;
   font-size: 22px;
@@ -87,6 +87,6 @@ details[open] .controliconclose {
 details[open] .controliconexpand {
   display: none;
 }
-sty {
+.sty {
   visibility: hidden; position: absolute; width: 0px; height: 0px;
 }
