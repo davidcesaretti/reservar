@@ -52,12 +52,8 @@ const Bookings = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const onSubmit = (e) => {
     e.preventDefault();
-    setReview({
-      ...review,
-      idPropertie: e.target.value,
-    });
     if (review.review.length === 0) {
       return swal("Write something first");
     } else if (review.review.length > 150) {
@@ -108,8 +104,13 @@ const Bookings = () => {
                     />
                   </Card>
                   {e.flag && (
-                    <form>
-                      <button onClick={handleSubmit} value={e.Prop_id}>
+                    <form onSubmit={onSubmit}>
+                      <button
+                        name="idPropertie"
+                        onClick={onInputChange}
+                        value={e.Prop_id}
+                        type="submit"
+                      >
                         send review
                       </button>
                       <input
