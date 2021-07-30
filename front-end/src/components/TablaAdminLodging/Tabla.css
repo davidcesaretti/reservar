@@ -1,0 +1,40 @@
+.title {
+  text-align: center;
+  color: #000000;
+}
+.container-tabla {
+  width: 80%;
+  height: 75vh;
+  /* background-color: aqua; */
+  border-style: solid;
+  margin: 30px auto;
+  margin-bottom: 0;
+}
+.grid-tabla {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  justify-content: center;
+  align-items: center;
+}
+.boton-map {
+  margin: 0;
+  width: 60px;
+  height: 20px;
+}
+.color-grid {
+  background-color: rgba(90, 110, 56, 0.85);
+  padding: 12px;
+}
+.pagButton {
+  margin-left: 15px;
+  margin-top: 15px;
+  font-size: 18px;
+  border: none;
+  border-bottom: solid 1px #e2e0da;
+  cursor: pointer;
+  margin-bottom: 15px;
+}
+.pagButton:hover {
+  background-color: #e2e0da;
+  border-radius: 10px;
+}
