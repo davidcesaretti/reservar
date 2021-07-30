@@ -12,6 +12,7 @@ import Error404 from "../Error404/Error404";
 import Spinner from "../Spinner/Spinner";
 import { Link } from "react-router-dom";
 import swal from "sweetalert";
+import CardBook from "./CardBookings";
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -104,7 +105,7 @@ const Bookings = () => {
             cards.map((e) => (
               <Grid item key={e} xs={12} sm={6} md={6}>
                 <Card className={classes.card}>
-                  <CardComp
+                  <CardBook
                     _id={e._id}
                     image={e.image}
                     score={e.score}
@@ -119,27 +120,29 @@ const Bookings = () => {
                     deleteButton={false}
                     state={e.state}
                   />
-                </Card>
-                {e.flag && (
+                   {e.flag && (
                   <form onSubmit={onSubmit}>
                     <button
+                      className="formbutton"
                       name="idPropertie"
                       onClick={onInputChange}
                       value={e.Prop_id}
                       type="submit"
                     >
-                      send review
+                      SEND REVIEW
                     </button>
                     <input
                       required
                       autoComplete="off"
                       name="review"
                       onChange={onInputChange}
-                      className="input"
+                      className="forminput"
                       placeholder="Let your review"
                     ></input>
                   </form>
                 )}
+                </Card>
+               
               </Grid>
             ))
           )}
