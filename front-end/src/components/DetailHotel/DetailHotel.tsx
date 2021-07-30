@@ -537,6 +537,7 @@ const DetailHotel = () => {
               <div style={{ marginBottom: "20px" }}>
                 <div className="div-user-reviews">
                   <img
+                    style={{ borderRadius: "50%" }}
                     width="40px"
                     height="40px"
                     src={x.foto || user}
