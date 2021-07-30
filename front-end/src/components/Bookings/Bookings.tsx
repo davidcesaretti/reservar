@@ -13,6 +13,7 @@ import Spinner from "../Spinner/Spinner";
 import { Link } from "react-router-dom";
 import swal from "sweetalert";
 import CardBook from "./CardBookings";
+import "./Bookings.css";
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -120,29 +121,28 @@ const Bookings = () => {
                     deleteButton={false}
                     state={e.state}
                   />
-                   {e.flag && (
-                  <form onSubmit={onSubmit}>
-                    <button
-                      className="formbutton"
-                      name="idPropertie"
-                      onClick={onInputChange}
-                      value={e.Prop_id}
-                      type="submit"
-                    >
-                      SEND REVIEW
-                    </button>
-                    <input
-                      required
-                      autoComplete="off"
-                      name="review"
-                      onChange={onInputChange}
-                      className="forminput"
-                      placeholder="Let your review"
-                    ></input>
-                  </form>
-                )}
+                  {e.flag && (
+                    <form onSubmit={onSubmit}>
+                      <input
+                        required
+                        autoComplete="off"
+                        name="review"
+                        onChange={onInputChange}
+                        className="forminput"
+                        placeholder="Write your review"
+                      ></input>{" "}
+                      <button
+                        className="formbutton"
+                        name="idPropertie"
+                        onClick={onInputChange}
+                        value={e.Prop_id}
+                        type="submit"
+                      >
+                        SEND REVIEW
+                      </button>
+                    </form>
+                  )}
                 </Card>
-               
               </Grid>
             ))
           )}
