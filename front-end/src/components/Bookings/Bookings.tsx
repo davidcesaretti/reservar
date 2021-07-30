@@ -41,6 +41,7 @@ const Bookings = () => {
   console.log(auth.user, "aaaaaaaaaaaaaaaaaaaaaaaa")
   const [review, setReview] = useState({
     username: auth.user.displayName,
+    foto: auth.user.photoURL,
     review: "",
     idPropertie: "",
   });
@@ -57,14 +58,12 @@ const Bookings = () => {
       ...review,
       idPropertie: e.target.value,
     });
-    if(review.review.length === 0){
-      return swal("Write something first")
-    }
-    else if(review.review.length > 150){
-      return swal("Up to 150 characters only supported")
-    }
-    else{
-      alert("Published review")
+    if (review.review.length === 0) {
+      return swal("Write something first");
+    } else if (review.review.length > 150) {
+      return swal("Up to 150 characters only supported");
+    } else {
+      alert("Published review");
     }
     dispatch(addreview(review));
   };
@@ -114,7 +113,8 @@ const Bookings = () => {
                         send review
                       </button>
                       <input
-                        required autoComplete="off"
+                        required
+                        autoComplete="off"
                         name="review"
                         onChange={onInputChange}
                         className="input"
