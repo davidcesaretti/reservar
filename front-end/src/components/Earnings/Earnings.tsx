@@ -5,6 +5,7 @@ import { useAuth } from '../../firebase/index'
 import style from './Earnings.module.css'
 import { Grid, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+import Spinner from '../Spinner/Spinner'
 
 const useStyles = makeStyles((theme) => ({
 
@@ -35,18 +36,16 @@ const Earnings = ({setSection}) => {
 
   useEffect(() => {
     dispatch(findPost({ email: email }))
-  }, [dispatch])
+  }, [dispatch, loaded])
 
   let cont = 0;
 
   if (loaded && userPosts.length > 1) {
-      console.log("hola")
     userPosts.map((e) => {
       if (e.available.length > 0) setReserved(true)
       cont += e.available?.reduce((acum, e) => {
         return acum + e.price
       }, 0)
-      console.log('contador ', cont)
     })
     setIncome(cont)
     setLoaded(false)
@@ -62,7 +61,8 @@ console.log('income ',income)
             Earnings
           </Typography>
         </Grid>
-      {reserved ?
+      {loaded === true ? <Spinner /> :
+      reserved ?
       <div>
         <h1 className={style.title}>BALANCE SHEET</h1>
         <h3 className={style.subTitle1}>Current month: {month} {year}</h3>
