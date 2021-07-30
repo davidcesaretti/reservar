@@ -116,7 +116,7 @@ export default function CardComp({
     }).then((result) => {
       /* Read more about isConfirmed, isDenied below */
       if (result.isConfirmed) {
-        axios.get(`https://app-trekker.herokuapp.com/upload/delete/${_id}`);
+        axios.get(`http://localhost:3001/upload/delete/${_id}`);
         Swal.fire("Deleted!", "", "success");
         // setTimeout(dispatchuser, 2000);
       } else if (result.isDenied) {
