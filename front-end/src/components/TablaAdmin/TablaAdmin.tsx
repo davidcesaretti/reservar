@@ -23,21 +23,42 @@ function TablaAdmin() {
   const user = useSelector((state: any) => state.listOfUsers);
   const [data, setData] = useState(undefined);
   const [currentPage, setCurrentPage] = useState(0);
-  const filteredUsers = user?.slice(currentPage, currentPage + 9);
+  const [name, setName] = useState({});
+
+  const onChange = (e: any) => {
+    setName({
+      ...name,
+      [e.target.name]: e.target.value ? e.target.value : "Active",
+    });
+    const obj = { [e.target.name]: e.target.value, email: e.target.name };
+
+    if (obj[e.target.name] === "Active") {
+      axios.post("http://localhost:3001/admin/suspended", {
+        email: e.target.name,
+      });
+    } else {
+      axios.post("http://localhost:3001/admin/habilite", {
+        email: e.target.name,
+      });
+    }
+    dispatch(getUsersList());
+  };
+
+  const filteredUsers = user?.slice(currentPage, currentPage + 8);
 
   const nextPage = () => {
-    if (user.length < currentPage + 9) {
+    if (user.length < currentPage + 8) {
       setCurrentPage(currentPage);
     } else {
-      setCurrentPage(currentPage + 9);
+      setCurrentPage(currentPage + 8);
     }
   };
 
   const prevPage = () => {
-    if (currentPage < 8) {
+    if (currentPage < 7) {
       setCurrentPage(0);
     } else {
-      setCurrentPage(currentPage - 9);
+      setCurrentPage(currentPage - 8);
     }
   };
 
@@ -48,17 +69,9 @@ function TablaAdmin() {
   };
   const dispatch = useDispatch();
 
-  console.log(data);
-  console.log(user);
-
   useEffect(() => {
     dispatch(getUsersList());
   }, [dispatch]);
-
-  //   axios.get("http://localhost:3001/admin/getusers").then((respuesta) => {
-  //     setData(respuesta.data);
-  //     console.log(data);
-  //   });
 
   const handleClickChange = (e) => {
     Swal.fire({
@@ -111,8 +124,11 @@ function TablaAdmin() {
                 <p style={{ margin: "14px" }}>{x.status_account}</p>
                 {/* <input style={{ margin: "14px" }} type="checkbox" /> */}
                 <button
+                  name={x.email}
+                  value={x.status_account}
                   onClick={(e) => {
                     handleClickChange(e);
+                    onChange(e);
                   }}
                   style={{ margin: "14px" }}
                   className="boton-map"

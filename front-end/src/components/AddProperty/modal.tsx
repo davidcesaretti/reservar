@@ -74,7 +74,7 @@ export default function SimpleModal({ data, idProp }) {
     setOpen(false);
   };
   function borrado(idProperty, idReserve) {
-    axios.post("http://localhost:3001/deleteDates", {
+    axios.post("https://app-trekker.herokuapp.com/deleteDates", {
       Prop_id: idProperty,
       Prop_date: idReserve,
     });

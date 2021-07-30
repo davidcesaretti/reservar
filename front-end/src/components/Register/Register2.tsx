@@ -149,7 +149,7 @@ const Register = () => {
   };
 
   const goToProfile = (e) => {
-    infoUser.status_account === "Suspended"
+    infoUser?.status_account === "Suspended"
       ? Swal.fire({
           title: "Your Account has been Suspended",
           text: "Going to Home?",

@@ -186,7 +186,7 @@ function AddProperty() {
             coordinates: maps,
           };
           axios
-            .post("http://localhost:3001/upload", formData)
+            .post("https://app-trekker.herokuapp.com/upload", formData)
             .then()
             .catch((error) => console.log(error));
           [
@@ -262,7 +262,7 @@ function AddProperty() {
             id: idParam.id,
           };
           axios
-            .post("http://localhost:3001/upload/edit", formData)
+            .post("https://app-trekker.herokuapp.com/upload/edit", formData)
             .then()
             .catch((error) => console.log(error));
           [
@@ -362,7 +362,7 @@ function AddProperty() {
       email: auth,
       Prop_id: idParam.id,
     };
-    axios.post("http://localhost:3001/reservafake", objDate);
+    axios.post("https://app-trekker.herokuapp.com/reservafake", objDate);
     //  window.location.reload();
   }
 
