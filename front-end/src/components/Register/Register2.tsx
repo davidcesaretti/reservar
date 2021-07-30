@@ -149,23 +149,22 @@ const Register = () => {
   };
 
   const goToProfile = (e) => {
-    infoUser.status_account === "Suspended" ?
-    Swal.fire({
-      title: 'Your Account has been Suspended',
-      text: "Going to Home?",
-      icon: 'warning',
-      confirmButtonColor: '#313b1e',
-      confirmButtonText: 'Yes, go!'
-    }).then((result) => {
-      if (result.isConfirmed) {
-        auth.signout()
-        history.push('/')
-      }
-    }) :
-    history.push('/User')
-  }
+    infoUser.status_account === "Suspended"
+      ? Swal.fire({
+          title: "Your Account has been Suspended",
+          text: "Going to Home?",
+          icon: "warning",
+          confirmButtonColor: "#313b1e",
+          confirmButtonText: "Yes, go!",
+        }).then((result) => {
+          if (result.isConfirmed) {
+            auth.signout();
+            history.push("/");
+          }
+        })
+      : history.push("/User");
+  };
 
-  console.log(infoUser)
   let email = auth?.user?.email;
 
   const classes = useStyle();
@@ -211,7 +210,13 @@ const Register = () => {
               <img src={firebase.auth().currentUser.photoURL} alt="user" />
               <div className={classes.completediv}>
                 <Link className={classes.link1}>
-                  <Button onClick={((e) => {goToProfile(e)})} variant="contained" color="secondary">
+                  <Button
+                    onClick={(e) => {
+                      goToProfile(e);
+                    }}
+                    variant="contained"
+                    color="secondary"
+                  >
                     Go to your Profile!
                   </Button>
                 </Link>

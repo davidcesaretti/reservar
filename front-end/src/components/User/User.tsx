@@ -38,7 +38,6 @@ const User = () => {
   const [sectionHost, setSectionHost] = useState("Profile");
 
   let email = auth.user.email;
-  console.log("useSelector ", userInfo);
 
   useEffect(() => {
     dispatch(getBooking(email));

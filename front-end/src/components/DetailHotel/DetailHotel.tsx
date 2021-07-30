@@ -194,8 +194,6 @@ const DetailHotel = () => {
 
   var total = cantidad * detailhotel[0]?.price;
   var result = cantidad === 0 ? detailhotel[0]?.price : total;
-  console.log(cantidad);
-  console.log(total);
 
   let properties = [];
   function exploreProperties() {
@@ -206,7 +204,7 @@ const DetailHotel = () => {
     }
   }
   exploreProperties();
-  console.log(properties);
+
   const obj = {
     Prop_id: id,
     fechaSalida: arrivalDate,
@@ -214,7 +212,7 @@ const DetailHotel = () => {
     email: auth.user?.email,
     preciofinal: result,
   };
-  console.log(obj);
+
   const handleSubmit = () => {
     dispatch(FirstStepReserve(obj));
   };

@@ -50,8 +50,6 @@ const Earnings = ({ setSection }) => {
     setLoaded(false);
   }
 
-  console.log("income ", income);
-
   return (
     <div className="con-homeAdmin">
       <MenuAdmin />

@@ -270,11 +270,10 @@ export const updateUser = (userInfo: object, userEmail) => {
 export const getUserInfo = (email) => {
   return async (dispatch: Dispatch) => {
     try {
-      console.log(email);
       const infoUser = await axios.post("http://localhost:3001/login", {
         email,
       });
-      console.log("action getUserInfo", infoUser);
+
       dispatch<userInformation>({
         type: ActionTypes.userInfo,
         payload: infoUser.data,
@@ -309,9 +308,7 @@ export const clearDetail = () => {
 export const addFavourites = (data) => {
   return async (dispatch: Dispatch) => {
     if (data.favorites?.length < 0) {
-      console.log("ERROR NO FAVO");
     } else {
-      console.log("Dispatch favourites", data);
       let favs = {
         favorites: data.favos,
         email: data.email,
@@ -336,7 +333,6 @@ export const setBoolean = (data) => {
 
 export const getFavos = (data) => {
   return async (dispatch: Dispatch) => {
-    console.log(data, "   DATA");
     let user = {
       email: data,
     };
@@ -344,7 +340,6 @@ export const getFavos = (data) => {
       "http://localhost:3001/getfavorites",
       user
     );
-    console.log(favUsers.data, "    FAV USERS");
 
     dispatch({ type: ActionTypes.favUser, payload: favUsers.data });
   };
@@ -355,7 +350,7 @@ export const getBooking = (data) => {
     let user = {
       email: data,
     };
-    console.log("ENTRO ACCION");
+
     const bookingUsers = await axios.post(
       "http://localhost:3001/bookchat2",
       user
@@ -404,7 +399,6 @@ export const getHostReserves = (data) => {
       "http://localhost:3001/gethostreserves",
       user
     );
-    console.log(hostres.data, "   RESPUESTA BACK");
 
     dispatch({ type: ActionTypes.hostres, payload: hostres.data });
   };
