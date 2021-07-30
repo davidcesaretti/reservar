@@ -116,7 +116,7 @@ const Perfil = () => {
     });
   };
   return (
-    <div>
+    <div className={style.container}>
       <div className={style.navBar}>
         <div>
           <h2 className={style.header}>My Profile</h2>
