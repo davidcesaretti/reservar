@@ -5,6 +5,7 @@ import AdminDashboard from '../AdminDashboard/AdminDashboard'
 import { useAuth } from '../../firebase/index'
 import { getCodeValidation } from '../../actions/index'
 import style from './ValidationAdmin.module.css'
+import logo from "../../Image/trekker.svg";
 
 const ValidationAdmin = () => {
     const auth = useAuth()
@@ -51,7 +52,7 @@ const ValidationAdmin = () => {
             {(validate === false) ?
                 <div className={style.ctn}>
                     <div className={style.navBar}>
-                        <img className={style.logo} alt="trekker" />
+                        <img src={logo} alt="trekker" width="150px" height="60px" />
                         <h1 className={style.title}>ADMIN</h1>
                         <button className={style.logOut} onClick={() => logOut()}>Sign Out </button>
                     </div>
