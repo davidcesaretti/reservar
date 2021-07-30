@@ -23,6 +23,7 @@ export enum ActionTypes {
   usersList = "LIST_OF_USERS",
   validateAdmin = "VALIDATION_CODE",
   reserveFake = "RESERVE_FAKE",
+  review = "REVIEW"
 }
 
 export type Action = FetchUsersAction;

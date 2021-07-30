@@ -80,6 +80,10 @@ export interface USERFAVS {
   type: ActionTypes.favUser;
   payload: Array<Object>;
 }
+export interface Reviews {
+  type: ActionTypes.review;
+  payload: any;
+}
 export interface Credentials {
   username: string;
   password: string;
@@ -368,18 +372,24 @@ export const getBooking = (data) => {
       user
     );
 
-    const nuevo = [];
+    const nuevo2 = [];
+    const obj = {
+      flag: "false",
+    };
     bookingUsers.data.map((e) =>
       axios
         .get(`https://app-trekker.herokuapp.com/filter/properties/${e.Prop_id}`)
         .then((res) => {
-          Object.assign(e, res.data[0]);
-          nuevo.push(e);
-          /* console.log(nuevo); */
+          const nuevo = Object.assign(e, res.data[0]);
+
+          if (e.state === "approved") {
+            Object.assign(nuevo, obj);
+          }
+          nuevo2.push(nuevo);
         })
     );
     setTimeout(() => {
-      dispatch({ type: ActionTypes.bookings, payload: nuevo });
+      dispatch({ type: ActionTypes.bookings, payload: nuevo2 });
     }, 5000);
   };
 };
@@ -454,6 +464,12 @@ export const reservefake = (id) => {
       type: ActionTypes.reserveFake,
       payload: response.data,
     });
+  };
+};
+
+export const addreview = (review) => {
+  return async (dispatch: Dispatch) => {
+    await axios.post(`http://localhost:3001/review`, review);
   };
 };
 

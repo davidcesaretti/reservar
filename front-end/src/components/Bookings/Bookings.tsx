@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getBookChat, getBooking } from "../../actions";
+import { addreview, getBookChat, getBooking } from "../../actions";
 import { useAuth } from "../../firebase/index";
 import CardComp from "../CardComp/CardComp";
 import { makeStyles } from "@material-ui/core/styles";
@@ -11,6 +11,7 @@ import { Grid, Typography } from "@material-ui/core";
 import Error404 from "../Error404/Error404";
 import Spinner from "../Spinner/Spinner";
 import { Link } from "react-router-dom";
+import swal from "sweetalert";
 
 const useStyles = makeStyles((theme) => ({
   cardGrid: {
@@ -37,6 +38,35 @@ const Bookings = () => {
   const auth = useAuth();
   const cards = useSelector((state: any) => state.bookings);
   let email = auth.user.email;
+  const [review, setReview] = useState({
+    username: auth.user.displayName,
+    review: "",
+    idPropertie: "",
+  });
+  const onInputChange = (e) => {
+    setReview({
+      ...review,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setReview({
+      ...review,
+      idPropertie: e.target.value,
+    });
+    if(review.review.length === 0){
+      return swal("Write something first")
+    }
+    else if(review.review.length > 150){
+      return swal("Up to 150 characters only supported")
+    }
+    else{
+      alert("Published review")
+    }
+    dispatch(addreview(review));
+  };
 
   useEffect(() => {
     dispatch(getBooking(email));
@@ -77,9 +107,20 @@ const Bookings = () => {
                       state={e.state}
                     />
                   </Card>
-                  <Link to={`/categories/${e._id}`}>
-                    <button>review</button>
-                  </Link>
+                  {e.flag && (
+                    <form>
+                      <button onClick={handleSubmit} value={e.Prop_id}>
+                        send review
+                      </button>
+                      <input
+                        required autoComplete="off"
+                        name="review"
+                        onChange={onInputChange}
+                        className="input"
+                        placeholder="Let your review"
+                      ></input>
+                    </form>
+                  )}
                 </Grid>
               ))}
           </Grid>
