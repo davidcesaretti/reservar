@@ -512,16 +512,24 @@ function AddProperty() {
             <input name="Heating" type="checkbox" onClick={(e) => push(e)} />
           </div>
           <div className="div__amenities">
-            <p>Bathtub</p>
-            <input name="Bathtub" type="checkbox" onClick={(e) => push(e)} />
+            <p>Kitchen</p>
+            <input name="Kitchen" type="checkbox" onClick={(e) => push(e)} />
           </div>
           <div className="div__amenities">
-            <p>Bidet</p>
-            <input name="Bidet" type="checkbox" onClick={(e) => push(e)} />
+            <p>First aid kit</p>
+            <input
+              name="First aid kit"
+              type="checkbox"
+              onClick={(e) => push(e)}
+            />
           </div>
           <div className="div__amenities">
-            <p>Body soap</p>
-            <input name="Body soap" type="checkbox" onClick={(e) => push(e)} />
+            <p>Smoke detector</p>
+            <input
+              name="Smoke detector"
+              type="checkbox"
+              onClick={(e) => push(e)}
+            />
           </div>
           <div className="div__amenities">
             <p>Hair dryer</p>
@@ -532,9 +540,9 @@ function AddProperty() {
             <input name="Hot water" type="checkbox" onClick={(e) => push(e)} />
           </div>
           <div className="div__amenities">
-            <p>Clothing storage</p>
+            <p>Long term stays allowed</p>
             <input
-              name="Clothing storage"
+              name="Long term stays allowed"
               type="checkbox"
               onClick={(e) => push(e)}
             />
@@ -544,9 +552,9 @@ function AddProperty() {
             <input name="Dryer" type="checkbox" onClick={(e) => push(e)} />
           </div>
           <div className="div__amenities">
-            <p>Drying rack</p>
+            <p>Pack ’n Play/travel crib</p>
             <input
-              name="Drying rack"
+              name="Pack ’n Play/travel crib"
               type="checkbox"
               onClick={(e) => push(e)}
             />
@@ -560,12 +568,8 @@ function AddProperty() {
             <input name="Iron" type="checkbox" onClick={(e) => push(e)} />
           </div>
           <div className="div__amenities">
-            <p>Sound system</p>
-            <input
-              name="Sound system"
-              type="checkbox"
-              onClick={(e) => push(e)}
-            />
+            <p>Microwave</p>
+            <input name="Microwave" type="checkbox" onClick={(e) => push(e)} />
           </div>
           <div className="div__amenities">
             <p>TV</p>
@@ -573,7 +577,7 @@ function AddProperty() {
           </div>
           <div className="div__amenities">
             <p>WIFI</p>
-            <input name="WIFI" type="checkbox" onClick={(e) => push(e)} />
+            <input name="Wifi" type="checkbox" onClick={(e) => push(e)} />
           </div>
           <div className="div__amenities">
             <p>Fire extinguisher</p>
@@ -592,13 +596,13 @@ function AddProperty() {
             />
           </div>
           <div className="div__amenities">
-            <p>Blender</p>
-            <input name="Blender" type="checkbox" onClick={(e) => push(e)} />
+            <p>Stove</p>
+            <input name="Stove" type="checkbox" onClick={(e) => push(e)} />
           </div>
           <div className="div__amenities">
-            <p>Coffe machine</p>
+            <p>Coffee maker</p>
             <input
-              name="Coffe machine"
+              name="Coffee maker"
               type="checkbox"
               onClick={(e) => push(e)}
             />
@@ -628,21 +632,25 @@ function AddProperty() {
             <input name="Oven" type="checkbox" onClick={(e) => push(e)} />
           </div>
           <div className="div__amenities">
-            <p>Backyard</p>
-            <input name="Backyard" type="checkbox" onClick={(e) => push(e)} />
+            <p>Waterfront</p>
+            <input name="Waterfront" type="checkbox" onClick={(e) => push(e)} />
           </div>
           <div className="div__amenities">
-            <p>Balcony</p>
-            <input name="Balcony" type="checkbox" onClick={(e) => push(e)} />
-          </div>
-          <div className="div__amenities">
-            <p>BBQ Grill</p>
-            <input name="BBQ Grill" type="checkbox" onClick={(e) => push(e)} />
-          </div>
-          <div className="div__amenities">
-            <p>Beach access</p>
+            <p>Laptop friendly workspace</p>
             <input
-              name="Beach access"
+              name="Laptop friendly workspace"
+              type="checkbox"
+              onClick={(e) => push(e)}
+            />
+          </div>
+          <div className="div__amenities">
+            <p>Gym</p>
+            <input name="Gym" type="checkbox" onClick={(e) => push(e)} />
+          </div>
+          <div className="div__amenities">
+            <p>24-hour check-in</p>
+            <input
+              name="24-hour check-in"
               type="checkbox"
               onClick={(e) => push(e)}
             />
@@ -656,13 +664,13 @@ function AddProperty() {
             />
           </div>
           <div className="div__amenities">
-            <p>Hammock</p>
-            <input name="Hammock" type="checkbox" onClick={(e) => push(e)} />
+            <p>Doorman</p>
+            <input name="Doorman" type="checkbox" onClick={(e) => push(e)} />
           </div>
           <div className="div__amenities">
-            <p>Parking (free)</p>
+            <p>Carbon monoxide detector (free)</p>
             <input
-              name="Parking (free)"
+              name="Carbon monoxide detector"
               type="checkbox"
               onClick={(e) => push(e)}
             />
@@ -680,9 +688,9 @@ function AddProperty() {
             <input name="Pool" type="checkbox" onClick={(e) => push(e)} />
           </div>
           <div className="div__amenities">
-            <p>Private entrance</p>
+            <p>Ethernet connection</p>
             <input
-              name="Private entrance"
+              name="Ethernet connection"
               type="checkbox"
               onClick={(e) => push(e)}
             />

@@ -70,6 +70,11 @@ const useStyles = makeStyles((theme: Theme) =>
       boxShadow: theme.shadows[5],
       padding: theme.spacing(2, 4, 3),
       height: "70%",
+      "&::-webkit-scrollbar": {
+        width: "8px" /* Tamaño del scroll en vertical */,
+        height: "8px" /* Tamaño del scroll en horizontal */,
+        display: "none" /* Ocultar scroll */,
+      },
     },
     buton: {
       margin: "1rem",
@@ -144,17 +149,28 @@ const DetailHotel = () => {
     dispatch(detailHotel(id));
   }, []);
 
-  let page = Math.floor(Math.random() * 12);
+  let ciudades = [
+    "porto",
+    "new york",
+    "istanbul",
+    "rio de janeiro",
+    "hong kong",
+    "sydney",
+    "barcelona",
+  ];
+  let random1 = Math.floor(Math.random() * 4);
+
+  let ciudadRandom = ciudades[random1];
   useEffect(() => {
     dispatch(
       fetchCardsHotels(
-        page,
+        1,
         undefined,
         undefined,
         undefined,
         undefined,
         undefined,
-        fechas.cities,
+        ciudadRandom,
         undefined
       )
     );
