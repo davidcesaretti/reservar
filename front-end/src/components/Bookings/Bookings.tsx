@@ -31,15 +31,15 @@ const useStyles = makeStyles((theme) => ({
     fontSize: "calc(2vw + 1em)",
   },
   noPublications: {
-    fontSize: '2em',
-    display: 'flex',
-    justifyContent: 'center',
-    alignContent: 'center',
-    margin: '0 auto',
-    paddingTop: '50px',
-    marginBottom: '209px',
-    color: '#787A91'
-  }
+    fontSize: "2em",
+    display: "flex",
+    justifyContent: "center",
+    alignContent: "center",
+    margin: "0 auto",
+    paddingTop: "50px",
+    marginBottom: "209px",
+    color: "#787A91",
+  },
 }));
 
 const Bookings = () => {
@@ -66,14 +66,12 @@ const Bookings = () => {
       ...review,
       idPropertie: e.target.value,
     });
-    if(review.review.length === 0){
-      return swal("Write something first")
-    }
-    else if(review.review.length > 150){
-      return swal("Up to 150 characters only supported")
-    }
-    else{
-      alert("Published review")
+    if (review.review.length === 0) {
+      return swal("Write something first");
+    } else if (review.review.length > 150) {
+      return swal("Up to 150 characters only supported");
+    } else {
+      alert("Published review");
     }
     dispatch(addreview(review));
   };
@@ -82,56 +80,62 @@ const Bookings = () => {
     dispatch(getBooking(email));
   }, []);
 
-    return (
-      <div>
-        <Grid>
-          <Typography className={classes.title} variant="h4" align="center">
-            Booking properties
-          </Typography>
+  return (
+    <div>
+      <Grid>
+        <Typography className={classes.title} variant="h4" align="center">
+          Booking properties
+        </Typography>
+      </Grid>
+      <Container className={classes.cardGrid} maxWidth="md">
+        {/* End hero unit */}
+        <Grid container spacing={4}>
+          {cards.length === 0 ? (
+            <div className={classes.noPublications}>
+              You don't have any Bookings
+            </div>
+          ) : (
+            cards.map((e) => (
+              <Grid item key={e} xs={12} sm={6} md={6}>
+                <Card className={classes.card}>
+                  <CardComp
+                    _id={e._id}
+                    image={e.image}
+                    score={e.score}
+                    name={e.name}
+                    type={e.type}
+                    address={e.address}
+                    accommodates={e.accommodates}
+                    beds={e.beds}
+                    price={e.price}
+                    click={console.log("")}
+                    boton={false}
+                    deleteButton={false}
+                    state={e.state}
+                  />
+                </Card>
+                {e.flag && (
+                  <form>
+                    <button onClick={handleSubmit} value={e.Prop_id}>
+                      send review
+                    </button>
+                    <input
+                      required
+                      autoComplete="off"
+                      name="review"
+                      onChange={onInputChange}
+                      className="input"
+                      placeholder="Let your review"
+                    ></input>
+                  </form>
+                )}
+              </Grid>
+            ))
+          )}
         </Grid>
-        <Container className={classes.cardGrid} maxWidth="md">
-          {/* End hero unit */}
-          <Grid container spacing={4}>
-          {cards.length === 0 ? <div className={classes.noPublications}>You don't have favourites properties</div> :
-              cards.map((e) => (
-                <Grid item key={e} xs={12} sm={6} md={6}>
-                  <Card className={classes.card}>
-                    <CardComp
-                      _id={e._id}
-                      image={e.image}
-                      score={e.score}
-                      name={e.name}
-                      type={e.type}
-                      address={e.address}
-                      accommodates={e.accommodates}
-                      beds={e.beds}
-                      price={e.price}
-                      click={console.log("")}
-                      boton={false}
-                      deleteButton={false}
-                      state={e.state}
-                    />
-                  </Card>
-                  {e.flag && (
-                    <form>
-                      <button onClick={handleSubmit} value={e.Prop_id}>
-                        send review
-                      </button>
-                      <input
-                        required autoComplete="off"
-                        name="review"
-                        onChange={onInputChange}
-                        className="input"
-                        placeholder="Let your review"
-                      ></input>
-                    </form>
-                  )}
-                </Grid>
-              ))}
-          </Grid>
-        </Container>
-      </div>
-    );
+      </Container>
+    </div>
+  );
 };
 
 export default Bookings;
