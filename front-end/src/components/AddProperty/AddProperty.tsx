@@ -362,7 +362,7 @@ function AddProperty() {
       email: auth,
       Prop_id: idParam.id,
     };
-    axios.post("https://app-trekker.herokuapp.com/reservafake", objDate);
+    axios.post("http://localhost:3001/reservafake", objDate);
     //  window.location.reload();
   }
 
@@ -728,12 +728,47 @@ function AddProperty() {
                 justifyContent: "center",
               }}
             >
-              <button onClick={() => setDisable(!disable)}>
+              {/* <button onClick={() => setDisable(!disable)}>
                 Block weekends
-              </button>
-              <button onClick={() => dispatchDates()}>
-                Block selected dates{" "}
-              </button>
+              </button> */}
+              {!endDate && (
+                <button
+                  style={{
+                    border: "0.5px solid #000000",
+                    boxSizing: "border-box",
+                    boxShadow: "0px 2px 2px rgba(0, 0, 0, 0.25)",
+                    borderRadius: "5px",
+                  }}
+                  disabled={true}
+                  onClick={() => {
+                    dispatchDates();
+                  }}
+                >
+                  Block selected dates{" "}
+                </button>
+              )}
+              {endDate && (
+                <button
+                  style={{
+                    margin: "5px auto",
+                    width: "140px",
+                    height: "20px",
+                    color: "white",
+                    backgroundColor: "#b2b451",
+                    border: "0.5px solid #000000",
+                    boxSizing: "border-box",
+                    boxShadow: "0px 2px 2px rgba(0, 0, 0, 0.25)",
+                    borderRadius: "5px",
+                    cursor: "pointer",
+                  }}
+                  onClick={() => {
+                    dispatchDates();
+                  }}
+                >
+                  Block selected dates{" "}
+                </button>
+              )}
+
               <SimpleModal data={fechasModal} idProp={idParam.id} />
             </div>
           </div>

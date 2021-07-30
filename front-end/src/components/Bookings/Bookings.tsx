@@ -30,6 +30,16 @@ const useStyles = makeStyles((theme) => ({
     textShadow: "1.4px 1.4px 1px #B2B1B9",
     fontSize: "calc(2vw + 1em)",
   },
+  noPublications: {
+    fontSize: "2em",
+    display: "flex",
+    justifyContent: "center",
+    alignContent: "center",
+    margin: "0 auto",
+    paddingTop: "50px",
+    marginBottom: "209px",
+    color: "#787A91",
+  },
 }));
 
 const Bookings = () => {
@@ -54,6 +64,10 @@ const Bookings = () => {
 
   const onSubmit = (e) => {
     e.preventDefault();
+    setReview({
+      ...review,
+      idPropertie: e.target.value,
+    });
     if (review.review.length === 0) {
       return swal("Write something first");
     } else if (review.review.length > 150) {
@@ -68,22 +82,22 @@ const Bookings = () => {
     dispatch(getBooking(email));
   }, []);
 
-  if (cards === null) {
-    return <Error404 />;
-  } else if (cards.length < 1) {
-    return <Spinner />;
-  } else {
-    return (
-      <div>
-        <Grid>
-          <Typography className={classes.title} variant="h4" align="center">
-            Booking properties
-          </Typography>
-        </Grid>
+  return (
+    <div>
+      <Grid>
+        <Typography className={classes.title} variant="h4" align="center">
+          Booking properties
+        </Typography>
+      </Grid>
         <Container className={classes.cardGrid} maxWidth="md">
           {/* End hero unit */}
           <Grid container spacing={4}>
-            {cards &&
+          {cards.length === 0 ? (
+            <div className={classes.noPublications}>
+              You don't have any Bookings
+            </div>
+          ) : (
+            cards &&
               cards.map((e) => (
                 <Grid item key={e} xs={12} sm={6} md={6}>
                   <Card className={classes.card}>
@@ -124,12 +138,11 @@ const Bookings = () => {
                     </form>
                   )}
                 </Grid>
-              ))}
+              )))}
           </Grid>
         </Container>
       </div>
     );
-  }
 };
 
 export default Bookings;

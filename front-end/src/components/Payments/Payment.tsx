@@ -140,7 +140,7 @@ export default function Pay({
       unit_price: stateregister.preciofinal,
     };
 
-    axios.post("https://app-trekker.herokuapp.com/mp", pago).then((res) => {
+    axios.post("http://localhost:3001/mp", pago).then((res) => {
       setLink(res.data.sandbox_init_point);
       const reserv = {
         fechaSalida,
@@ -154,7 +154,7 @@ export default function Pay({
         propimg: detailhotel[0].image,
         /* const { fechaSalida, fechaLlegada, email, Prop_id, price, payment_id } = */
       };
-      axios.post("https://app-trekker.herokuapp.com/reserva", reserv); //guardamos en la bd
+      axios.post("http://localhost:3001/reserva", reserv); //guardamos en la bd
     });
   }, []);
 

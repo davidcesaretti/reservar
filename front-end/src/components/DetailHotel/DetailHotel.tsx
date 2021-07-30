@@ -558,53 +558,8 @@ const DetailHotel = () => {
                 </p>
               </div>
             ))}
-          {/* {auth.user && (
-            <div>
-              <form>
-                <input placeholder="Let your review"></input>
-              </form>
-            </div>
-          )} */}
         </div>
-        {/* <div>
-          <Grid
-            xs={12}
-            alignItems="center"
-            justifyContent="space-evenly"
-            direction="row"
-            container
-            className={classes.containerRecomendados}
-          >
-            <Grid item xs={2}>
-              <img
-                src={`${Recom1}`}
-                alt=""
-                className={classes.imgRecomendadas}
-              />
-            </Grid>
-            <Grid item xs={2}>
-              <img
-                src={`${Recom2}`}
-                alt=""
-                className={classes.imgRecomendadas}
-              />
-            </Grid>
-            <Grid item xs={2}>
-              <img
-                src={`${Recom3}`}
-                alt=""
-                className={classes.imgRecomendadas}
-              />
-            </Grid>
-            <Grid item xs={2}>
-              <img
-                src={`${Recom4}`}
-                alt=""
-                className={classes.imgRecomendadas}
-              />
-            </Grid>
-          </Grid>
-        </div> */}
+
         <Grid
           md={12}
           alignItems="center"
@@ -637,6 +592,7 @@ const DetailHotel = () => {
               </Grid>
             ))}
         </Grid>
+
         <Footer />
       </div>
     );

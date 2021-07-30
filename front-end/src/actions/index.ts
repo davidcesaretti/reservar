@@ -173,7 +173,7 @@ export const fetchCardsHotels = (
 };
 export function findPost(data) {
   return function (dispatch) {
-    return fetch("https://app-trekker.herokuapp.com/upload/find", {
+    return fetch("http://localhost:3001/upload/find", {
       method: "POST",
       body: JSON.stringify(data),
       headers: {
@@ -196,7 +196,7 @@ export const signUser = (data) => {
       photo: data.photo,
     };
     const newUser = await axios.post(
-      "https://app-trekker.herokuapp.com/register",
+      "http://localhost:3001/register",
       userInfo
     );
     console.log("Registrando", userInfo);
@@ -256,13 +256,10 @@ export const detailHotel = (id) => {
 export const updateUser = (userInfo: object, userEmail) => {
   return async (dispatch: Dispatch) => {
     try {
-      const updatedUser = await axios.post(
-        "https://app-trekker.herokuapp.com/register",
-        {
-          userInfo,
-          userEmail,
-        }
-      );
+      const updatedUser = await axios.post("http://localhost:3001/register", {
+        userInfo,
+        userEmail,
+      });
       console.log(userInfo);
     } catch (err) {
       console.error(err);
@@ -274,12 +271,9 @@ export const getUserInfo = (email) => {
   return async (dispatch: Dispatch) => {
     try {
       console.log(email);
-      const infoUser = await axios.post(
-        "https://app-trekker.herokuapp.com/login",
-        {
-          email,
-        }
-      );
+      const infoUser = await axios.post("http://localhost:3001/login", {
+        email,
+      });
       console.log("action getUserInfo", infoUser);
       dispatch<userInformation>({
         type: ActionTypes.userInfo,
@@ -294,9 +288,7 @@ export const getUserInfo = (email) => {
 export const getUsersList = () => {
   return async (dispatch: Dispatch) => {
     try {
-      const list = await axios.get(
-        "https://app-trekker.herokuapp.com/userList"
-      );
+      const list = await axios.get("http://localhost:3001/userList");
       dispatch<listOfUsers>({
         type: ActionTypes.usersList,
         payload: list.data,
@@ -328,10 +320,7 @@ export const addFavourites = (data) => {
         type: ActionTypes.addFav,
         payload: data,
       });
-      const newFavs = await axios.post(
-        "https://app-trekker.herokuapp.com/favorites",
-        favs
-      );
+      const newFavs = await axios.post("http://localhost:3001/favorites", favs);
     }
   };
 };
@@ -352,7 +341,7 @@ export const getFavos = (data) => {
       email: data,
     };
     const favUsers = await axios.post(
-      "https://app-trekker.herokuapp.com/getfavorites",
+      "http://localhost:3001/getfavorites",
       user
     );
     console.log(favUsers.data, "    FAV USERS");
@@ -368,7 +357,7 @@ export const getBooking = (data) => {
     };
     console.log("ENTRO ACCION");
     const bookingUsers = await axios.post(
-      "https://app-trekker.herokuapp.com/bookchat2",
+      "http://localhost:3001/bookchat2",
       user
     );
 
@@ -378,7 +367,7 @@ export const getBooking = (data) => {
     };
     bookingUsers.data.map((e) =>
       axios
-        .get(`https://app-trekker.herokuapp.com/filter/properties/${e.Prop_id}`)
+        .get(`http://localhost:3001/filter/properties/${e.Prop_id}`)
         .then((res) => {
           const nuevo = Object.assign(e, res.data[0]);
 
@@ -400,10 +389,7 @@ export const getBookChat = (data) => {
       email: data,
     };
 
-    const bookchat = await axios.post(
-      "https://app-trekker.herokuapp.com/bookchat",
-      user
-    );
+    const bookchat = await axios.post("http://localhost:3001/bookchat", user);
 
     dispatch({ type: ActionTypes.bookchat, payload: bookchat.data });
   };
@@ -415,7 +401,7 @@ export const getHostReserves = (data) => {
       email: data,
     };
     const hostres = await axios.post(
-      "https://app-trekker.herokuapp.com/gethostreserves",
+      "http://localhost:3001/gethostreserves",
       user
     );
     console.log(hostres.data, "   RESPUESTA BACK");
@@ -426,7 +412,7 @@ export const getHostReserves = (data) => {
 
 export const postReserve = (obj) => {
   return async (dispatch: Dispatch) => {
-    await axios.post("https://app-trekker.herokuapp.com/reserva", obj);
+    await axios.post("http://localhost:3001/reserva", obj);
   };
 };
 
@@ -442,12 +428,9 @@ export const FirstStepReserve = (obj) => {
 export const getCodeValidation = (email) => {
   return async (dispatch: Dispatch) => {
     console.log("verificacion ", email);
-    const code = await axios.post(
-      "https://app-trekker.herokuapp.com/validateadmin",
-      {
-        email,
-      }
-    );
+    const code = await axios.post("http://localhost:3001/validateadmin", {
+      email,
+    });
 
     dispatch<validationAdmin>({
       type: ActionTypes.validateAdmin,
@@ -458,7 +441,7 @@ export const getCodeValidation = (email) => {
 export const reservefake = (id) => {
   return async (dispatch: Dispatch) => {
     const response = await axios.get(
-      `https://app-trekker.herokuapp.com/selectDates?Prop_id=${id}`
+      `http://localhost:3001/selectDates?Prop_id=${id}`
     );
     dispatch<reserveFaker>({
       type: ActionTypes.reserveFake,

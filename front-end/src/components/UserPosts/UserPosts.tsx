@@ -35,7 +35,8 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'center',
     alignContent: 'center',
     margin: '0 auto',
-    paddingTop: '50px'
+    paddingTop: '50px',
+    color: '#787A91'
   }
 }));
 

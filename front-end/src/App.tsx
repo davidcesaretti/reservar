@@ -16,9 +16,9 @@ import AddProperty from "./components/AddProperty/AddProperty";
 import UserPosts from "./components/UserPosts/UserPosts";
 import Chat from "./components/Chat/Chat";
 import ChatHost from "./components/ChatHost/ChatHost";
-import AdminDashboard from "./components/AdminDashboard/AdminDashboard"
-import ValidationAdmin from "./components/ValidationAdmin/ValidationAdmin"
-import Error404 from './components/Error404/Error404'
+import AdminDashboard from "./components/AdminDashboard/AdminDashboard";
+import ValidationAdmin from "./components/ValidationAdmin/ValidationAdmin";
+import Error404 from "./components/Error404/Error404";
 
 function App() {
   const auth = useAuth();

@@ -20,6 +20,7 @@ import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 import InputLabel from "@material-ui/core/InputLabel";
+import LineWeightIcon from "@material-ui/icons/LineWeight";
 
 const GreenCheckbox = withStyles({
   root: {
@@ -39,7 +40,7 @@ const useStyles = makeStyles({
     marginTop: "120px",
     marginLeft: "20px",
     width: "20%",
-    height: "77%",
+    height: "200%",
   },
   nombredetipo: {
     color: "white",
@@ -49,21 +50,21 @@ const useStyles = makeStyles({
       fontSize: "13px",
     },
   },
+
   nombredecat: {
     marginTop: "27px",
     marginBottom: "10px",
   },
+
   btn: {
-    backgroundColor: "#324021" /* Green */,
-    "&:hover": {
-      background: "white",
-      transition: "0.4s",
-      color: "black",
+    backgroundColor: "white" /* Green */,
+    cursor: "pointer",
+    "&:focus": {
+      background: "#A6A845",
     },
     border: "none",
-    color: "white",
+    color: "black",
     padding: "10px",
-
     textAlign: "center",
     textDecoration: "none",
     display: "flex",
@@ -76,6 +77,44 @@ const useStyles = makeStyles({
     "&:before": {
       borderColor: "white",
     },
+  },
+
+  selectugly: {
+    color: "black",
+    backgroundColor: "white",
+    borderRadius: "3px",
+
+    "&:before": {
+      borderColor: "white",
+    },
+    minWidth: "100px",
+  },
+
+  label1: {
+    color: "white",
+
+    "&:before": {
+      color: "black",
+    },
+  },
+
+  btnEstado: {
+    backgroundColor: "#A6A845" /* Green */,
+    "&:hover": {
+      background: "white",
+      transition: "0.4s",
+      color: "black",
+    },
+    border: "none",
+    color: "white",
+    padding: "10px",
+    textAlign: "center",
+    textDecoration: "none",
+    display: "flex",
+    fontSize: "16px",
+    borderRadius: "5px",
+    margin: "10px",
+    width: "90%",
   },
 });
 
@@ -364,11 +403,11 @@ export default function CheckboxList() {
                   ) : (
                     <ListItem className={classes.nombredetipo}>
                       <FormControl>
-                        <InputLabel>-</InputLabel>
+                        <InputLabel className={classes.label1}></InputLabel>
                         <Select
                           name={cat.keyword}
                           onChange={setDataHandler}
-                          className={classes.select}
+                          className={classes.selectugly}
                         >
                           {cat?.filtros?.map((value) => (
                             <MenuItem value={value.id}>{value.msg}</MenuItem>
@@ -383,8 +422,14 @@ export default function CheckboxList() {
               <Divider />
             </>
           ))}
-          <Button variant="text" color="inherit" type="submit">
-            Estado
+          <Button
+            className={classes.btnEstado}
+            variant="text"
+            color="inherit"
+            type="submit"
+          >
+            <LineWeightIcon />
+            Filter
           </Button>
           {/* <Button
             variant="text"

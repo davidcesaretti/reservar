@@ -43,17 +43,17 @@ const useStyles = makeStyles((theme: Theme) =>
       },
     },
     btnProperties: {
-      margin: '5px auto',
-      width: '140px',
-      height: '20px',
-      color: 'white',
-      backgroundColor: '#b2b451',
-      border: '0.5px solid #000000',
-      boxSizing: 'border-box',
-      boxShadow: '0px 2px 2px rgba(0, 0, 0, 0.25)',
-      borderRadius: '5px',
-      cursor: 'pointer',
-    }
+      margin: "5px auto",
+      width: "140px",
+      height: "20px",
+      color: "white",
+      backgroundColor: "#b2b451",
+      border: "0.5px solid #000000",
+      boxSizing: "border-box",
+      boxShadow: "0px 2px 2px rgba(0, 0, 0, 0.25)",
+      borderRadius: "5px",
+      cursor: "pointer",
+    },
   })
 );
 
@@ -131,7 +131,11 @@ export default function SimpleModal({ data, idProp }) {
 
   return (
     <div>
-      <button className={classes.btnProperties} type="button" onClick={handleOpen}>
+      <button
+        className={classes.btnProperties}
+        type="button"
+        onClick={handleOpen}
+      >
         See blocked days
       </button>
       <Modal
