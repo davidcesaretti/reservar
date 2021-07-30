@@ -32,15 +32,15 @@ const Earnings = ({setSection}) => {
   let month = new Date().toLocaleString("en-US", { month: "long" })
   let year = new Date().getFullYear()
 
-  const email = auth.user.email;
+  const email = auth?.user?.email;
 
   useEffect(() => {
-    dispatch(findPost({ email: email }))
+    dispatch(findPost({}))
   }, [dispatch, loaded])
 
   let cont = 0;
 
-  if (loaded && userPosts.length > 1) {
+  if (loaded && userPosts.length > 0) {
     userPosts.map((e) => {
       if (e.available.length > 0) setReserved(true)
       cont += e.available?.reduce((acum, e) => {
@@ -75,7 +75,7 @@ console.log('income ',income)
             </div>
             <div className={style.field}>
               <h2 className={style.titleField}>10% NET INCOME</h2>
-              <h4 className={style.numberField}>${income - (income * 0.9)} USD</h4>
+              <h4 className={style.numberField}>${Math.floor(income - (income * 0.9))} USD</h4>
               <p className={style.footerField}>Update daily</p>
             </div>
           </div>
@@ -94,7 +94,7 @@ console.log('income ',income)
                     </div>
                     <div>
                       <p>Gross Income: {e.price}</p>
-                      <p>Net Income: {e.price - (e.price * 0.9)}</p>
+                      <p>Net Income: {Math.floor(e.price - (e.price * 0.9))}</p>
                     </div>
                   </div>
                 )

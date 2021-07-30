@@ -21,6 +21,10 @@ import ValidationAdmin from "./components/ValidationAdmin/ValidationAdmin";
 import Error404 from "./components/Error404/Error404";
 import MenuAdmin from "./components/menuAdmin/MenuAdmin";
 import TablaAdmin from "./components/TablaAdmin/TablaAdmin";
+import FAQ from "./components/FAQ/FAQ"
+import TermsAndConditions from "./components/TermsAndConditions/TermsAndConditions";
+import GeneralBalance from "./components/GeneralBalance/GeneralBalance"
+import Earnings from "./components/Earnings/Earnings"
 
 function App() {
   const auth = useAuth();
@@ -46,6 +50,10 @@ function App() {
       <Route exact path="/validationAdmin" component={ValidationAdmin} />
       <Route exact path="/homeAdmin" component={MenuAdmin} />
       <Route exact path="/homeAdminTabla" component={TablaAdmin} />
+      <Route exact path="/FAQ" component={FAQ} />
+      <Route exact path="/terms" component={TermsAndConditions} />
+      <Route exact path="/Balance" component={GeneralBalance} />
+      <Route exact path="/earnings" component={Earnings} />
       <Route path="*" component={Error404} />
     </Switch>
   );

@@ -6,6 +6,7 @@ import { makeStyles, createStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import Pagination from "@material-ui/lab/Pagination";
 import axios from "axios";
+import Swal from 'sweetalert2'
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -21,21 +22,21 @@ function TablaAdmin() {
   const user = useSelector((state: any) => state.listOfUsers);
   const [data, setData] = useState(undefined);
   const [currentPage, setCurrentPage] = useState(0);
-  const filteredUsers = user?.slice(currentPage, currentPage + 8);
+  const filteredUsers = user?.slice(currentPage, currentPage + 9);
 
   const nextPage = () => {
-    if (user.length < currentPage + 8) {
+    if (user.length < currentPage + 9) {
       setCurrentPage(currentPage);
     } else {
-      setCurrentPage(currentPage + 8);
+      setCurrentPage(currentPage + 9);
     }
   };
 
   const prevPage = () => {
-    if (currentPage < 7) {
+    if (currentPage < 8) {
       setCurrentPage(0);
     } else {
-      setCurrentPage(currentPage - 8);
+      setCurrentPage(currentPage - 9);
     }
   };
 
@@ -58,36 +59,53 @@ function TablaAdmin() {
   //     console.log(data);
   //   });
 
+  const handleClickChange = (e) => {
+    Swal.fire({
+      title: 'Do you want to save the changes?',
+      showDenyButton: true,
+      confirmButtonText: `Save`,
+      denyButtonText: `Don't save`,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire('Saved!', '', 'success')
+      } else if (result.isDenied) {
+        Swal.fire('Changes are not saved', '', 'info')
+      }
+    })
+  }
+
   return (
     <div style={{ display: "grid" }}>
+      <h2 className="title">Registered Users</h2>
       <div className="container-tabla">
         <div className="grid-tabla color-grid">
           {" "}
           <p>Name</p>
-          <p>Host Name</p>
-          <p>City</p>
-          <p># reservation</p>
+          <p>Phone Number</p>
+          <p>Country</p>
           <p>Account status</p>
+          <p>Change Status</p>
         </div>
 
         {filteredUsers &&
           filteredUsers.map((x, i) => (
             <div key={i} className="grid-tabla">
               <p style={{ margin: "14px" }}>{x.name}</p>{" "}
-              <p style={{ margin: "14px" }}>valencia</p>
+              <p style={{ margin: "14px" }}>{x.phone_number}</p>
               <p style={{ margin: "14px" }}>
-                {x.city_and_country_of_residence}
+                {x.nationality}
               </p>
-              <input style={{ margin: "14px" }} type="checkbox" />
-              <button style={{ margin: "14px" }} className="boton-map">
-                hola
+              <p style={{ margin: "14px"}}>{x.status_account}</p>
+              {/* <input style={{ margin: "14px" }} type="checkbox" /> */}
+              <button onClick={(e) => {handleClickChange(e)}} style={{ margin: "14px" }} className="boton-map">
+                Change
               </button>
             </div>
           ))}
       </div>
       <div style={{ margin: "0 auto" }}>
-        <button onClick={prevPage}>prev</button>
-        <button onClick={nextPage}>next</button>
+        <button className="pagButton" onClick={prevPage}>⮜ Prev Page</button>
+        <button className="pagButton" onClick={nextPage}>Next Page ⮞</button>
       </div>
     </div>
   );

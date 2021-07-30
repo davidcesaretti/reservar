@@ -1,10 +1,10 @@
 import React from 'react'
 import style from './GeneralBalance.module.css'
 
-const GeneralBalance = ({ setSection }) => {
+const GeneralBalance = () => {
     return (
         <div>
-            <button className={style.backButton} onClick={() => { setSection('') }}>⮜ Back</button>
+            <button className={style.backButton} >⮜ Back</button>
             <h2 className={style.title}>Balance Sheet</h2>
 
             <div className={style.ctnOut}>
