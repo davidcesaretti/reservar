@@ -42,18 +42,18 @@ function App() {
       <Route exact path="/payments" component={Pay} />
       <Route exact path="/favourites" component={Favorites} />
       <Route exact path="/Calendary" component={Calendary} />
-      <Route exact path="/User" component={auth.user ? User : Register} />
+      <Route exact path="/User" component={auth?.user ? User : Register} />
       <Route exact path="/AddProperty/:id" component={AddProperty} />
       <Route exact path="/chat" component={Chat} />
       <Route exact path="/chathost" component={ChatHost} />
-      <Route exact path="/Admin" component={auth.user.email === "trekkerhenry@gmail.com" ? AdminDashboard : Error404} />
+      <Route exact path="/Admin" component={auth?.user?.email === "trekkerhenry@gmail.com" ? AdminDashboard : Error404} />
       {/* <Route exact path="/validationAdmin" component={ValidationAdmin} />
       <Route exact path="/homeAdmin" component={MenuAdmin} /> */}
-      <Route exact path="/homeAdminTabla" component={auth.user.email === "trekkerhenry@gmail.com" ? TablaAdmin : Error404}  />
-      <Route exact path="/FAQ" component={auth.user.email === "trekkerhenry@gmail.com" ? FAQ : Error404} />
-      <Route exact path="/terms" component={auth.user.email === "trekkerhenry@gmail.com" ? TermsAndConditions : Error404} />
-      <Route exact path="/Balance" component={auth.user.email === "trekkerhenry@gmail.com" ? GeneralBalance : Error404} />
-      <Route exact path="/earnings" component={auth.user.email === "trekkerhenry@gmail.com" ? Earnings : Error404} />
+      <Route exact path="/homeAdminTabla" component={auth?.user?.email === "trekkerhenry@gmail.com" ? TablaAdmin : Error404}  />
+      <Route exact path="/FAQ" component={auth?.user?.email === "trekkerhenry@gmail.com" ? FAQ : Error404} />
+      <Route exact path="/terms" component={auth?.user?.email === "trekkerhenry@gmail.com" ? TermsAndConditions : Error404} />
+      <Route exact path="/Balance" component={auth?.user?.email === "trekkerhenry@gmail.com" ? GeneralBalance : Error404} />
+      <Route exact path="/earnings" component={auth?.user?.email === "trekkerhenry@gmail.com" ? Earnings : Error404} />
       <Route path="*" component={Error404} />
     </Switch>
   );
