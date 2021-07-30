@@ -1,0 +1,105 @@
+form {
+    max-width: 900px;
+    margin: auto;
+    background-color: white;
+  }
+  
+  body {
+    padding: 20px 20px;
+   
+  }
+
+  h2.formtitle,
+  h2.formsectiontitle {
+    font-family: 'Roboto';
+    font-size: 1.5rem;
+    color: #000;
+    line-height: 1.15rem;
+    margin: 0;
+  }
+  
+  h3.formsectiontitle {
+    font-family: 'Roboto';
+    font-size: 1.25rem;
+    color: #000;
+    line-height: 1.2rem;
+  }
+  
+  h4.formsectiontitle {
+    font-family: 'Roboto';
+    font-size: 1.0rem;
+    color: #000;
+    line-height: 0.95rem;
+  }
+  
+  .formlabel {
+    display: block;
+    font-family: 'Roboto';
+    font-size: 0.875rem;
+    color: #000;
+    font-weight: 700;
+    line-height: 100%;
+  }
+  
+  .formfieldsection {
+    margin: 10px 0;
+  }
+  
+  input[type="text"],
+  input[type="email"],
+  input[type="date"] {
+    width: 100%;
+  }
+  
+  .radioselection {
+    font-family: 'Roboto';
+    font-size: 0.8125rem;
+    color: #000;
+  }
+  
+  * {
+    box-sizing: border-box;
+  }
+  
+  .col1 {
+    width: 8.33%;
+  }
+  
+  .col2 {
+    width: 16.66%;
+  }
+  
+  .col3 {
+    width: 25%;
+  }
+  
+  .row::after {
+    content: "";
+    clear: both;
+    display: block;
+  }
+ 
+  
+  .card {
+    background: #A6A845;
+    border-radius: 20px;
+    display: inline-block;
+    height: 300px;
+    margin: 1rem;
+    position: relative;
+    width: 300px;
+  }
+  
+  .card1 {
+    background: #fff;
+    border-radius: 2px;
+    display: inline-block;
+    height: 50px;
+    margin: 1rem;
+    position: relative;
+    width: 50px;
+  }
+  
+.init{
+  background: #fff;
+}

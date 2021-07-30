@@ -1,14 +1,21 @@
+import ActionViewArray from 'material-ui/svg-icons/action/view-array';
 import React from 'react'
 import style from './TermsAndConditions.module.css'
 
 const TermsAndConditions = ({ setSection }) => {
+
+    function save(ev){
+        var newValue=ev.target.textContent;
+        console.log("termino",newValue)
+      }
+    
     return (
         <div>
             <button onClick={() => { setSection('') }}>Back</button>
             <h2 className={style.init}><b>TERMS AND CONDITIONS</b></h2>
-            <div className={style.ctn}>
-                <p>
-                    <p>Last updated: 2023-05-17</p>
+            <div>
+               <p contentEditable="true" onBlur={save} className={style.p}>
+               <p>Last updated: 2023-05-17</p>
                     <p>1. <b>Introduction</b></p>
                     <p>Welcome to <b>trekker</b> (“Company”, “we”, “our”, “us”)!</p>
                     <p>These Terms of Service (“Terms”, “Terms of Service”) govern your use of our website located at <b>trekker.com</b> (together or individually “Service”) operated by <b>trekker</b>.</p>
@@ -98,7 +105,9 @@ const TermsAndConditions = ({ setSection }) => {
                     <p>Please send your feedback, comments, requests for technical support by email: <b>trekker@gmail.com</b>.</p>
                     <p className={style.final}>These <a href="https://policymaker.io/terms-and-conditions/">Terms of Service</a> were created for <b>trekker.com</b> by <a href="https://policymaker.io">PolicyMaker.io</a> on 2023-05-17.</p>
 
-                </p>
+               </p>
+            
+                <input type="button"  className={style.botoncta}><p className={style.botonup}>Update</p></input>
             </div>
         </div>
     )
