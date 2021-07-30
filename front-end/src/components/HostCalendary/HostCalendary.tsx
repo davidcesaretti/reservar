@@ -101,13 +101,7 @@ export default function HostCalendary({ data, salida, llegada, disableBoton }) {
   const fechaSiguiente3 = new Date(
     moment(fechaSiguiente2).format("YYYY-MM-DD")
   );
-  console.log(fechaSiguiente3, "fecha nueva");
-  console.log(
-    moment(disableFinal[1]).format("YYYY-MM-DD") ===
-      moment(fechaSiguiente3).format("YYYY-MM-DD")
-  );
-  console.log(disableFinal[1]);
-  console.log(arrivalDate, "fecha actual");
+
   const fechaBotonArray = disableFinal.map((x) =>
     moment(x).format("YYYY-MM-DD")
   );

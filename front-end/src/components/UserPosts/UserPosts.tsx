@@ -33,31 +33,28 @@ const useStyles = makeStyles((theme) => ({
     fontSize: "calc(2vw + 1em)",
   },
   noPublications: {
-    fontSize: '2em',
-    display: 'flex',
-    justifyContent: 'center',
-    alignContent: 'center',
-    margin: '0 auto',
-    paddingTop: '50px',
-    color: '#787A91'
-  }
+    fontSize: "2em",
+    display: "flex",
+    justifyContent: "center",
+    alignContent: "center",
+    margin: "0 auto",
+    paddingTop: "50px",
+    color: "#787A91",
+  },
 }));
 
 function UserPosts() {
   const dispatch = useDispatch();
   const auth = useAuth().user?.email;
   const post = useSelector((state: any) => state.postHost);
-  console.log(post);
 
   useEffect(() => {
     if (auth) {
       dispatch(findPost({ email: auth }));
     }
   }, [auth]);
-  console.log(auth);
 
   const classes = useStyles();
-  console.log(post, "       POSTTTT");
 
   return (
     <div className={classes.container}>
@@ -69,7 +66,11 @@ function UserPosts() {
       <Container className={classes.cardGrid} maxWidth="md">
         {/* End hero unit */}
         <Grid container spacing={4}>
-          {post.length === 0 ? <div className={classes.noPublications}>You don't have published properties</div> :
+          {post.length === 0 ? (
+            <div className={classes.noPublications}>
+              You don't have published properties
+            </div>
+          ) : (
             post.map((e) => (
               <Grid item key={e} xs={12} sm={6} md={6}>
                 <Card className={classes.card}>
@@ -89,7 +90,8 @@ function UserPosts() {
                   />
                 </Card>
               </Grid>
-            ))}
+            ))
+          )}
         </Grid>
       </Container>
     </div>

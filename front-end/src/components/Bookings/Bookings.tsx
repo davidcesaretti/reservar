@@ -14,8 +14,8 @@ import { Link } from "react-router-dom";
 import swal from "sweetalert";
 
 const useStyles = makeStyles((theme) => ({
-  container:{
-    minHeight:"482px",
+  container: {
+    minHeight: "482px",
   },
   cardGrid: {
     paddingTop: theme.spacing(6),
@@ -51,7 +51,7 @@ const Bookings = () => {
   const auth = useAuth();
   const cards = useSelector((state: any) => state.bookings);
   let email = auth.user.email;
-  console.log(auth.user, "aaaaaaaaaaaaaaaaaaaaaaaa")
+
   const [review, setReview] = useState({
     username: auth.user.displayName,
     foto: auth.user.photoURL,
@@ -92,60 +92,61 @@ const Bookings = () => {
           Booking properties
         </Typography>
       </Grid>
-        <Container className={classes.cardGrid} maxWidth="md">
-          {/* End hero unit */}
-          <Grid container spacing={4}>
+      <Container className={classes.cardGrid} maxWidth="md">
+        {/* End hero unit */}
+        <Grid container spacing={4}>
           {cards.length === 0 ? (
             <div className={classes.noPublications}>
               You don't have any Bookings
             </div>
           ) : (
             cards &&
-              cards.map((e) => (
-                <Grid item key={e} xs={12} sm={6} md={6}>
-                  <Card className={classes.card}>
-                    <CardComp
-                      _id={e._id}
-                      image={e.image}
-                      score={e.score}
-                      name={e.name}
-                      type={e.type}
-                      address={e.address}
-                      accommodates={e.accommodates}
-                      beds={e.beds}
-                      price={e.price}
-                      click={console.log("")}
-                      boton={false}
-                      deleteButton={false}
-                      state={e.state}
-                    />
-                  </Card>
-                  {e.flag && (
-                    <form onSubmit={onSubmit}>
-                      <button
-                        name="idPropertie"
-                        onClick={onInputChange}
-                        value={e.Prop_id}
-                        type="submit"
-                      >
-                        send review
-                      </button>
-                      <input
-                        required
-                        autoComplete="off"
-                        name="review"
-                        onChange={onInputChange}
-                        className="input"
-                        placeholder="Let your review"
-                      ></input>
-                    </form>
-                  )}
-                </Grid>
-              )))}
-          </Grid>
-        </Container>
-      </div>
-    );
+            cards.map((e) => (
+              <Grid item key={e} xs={12} sm={6} md={6}>
+                <Card className={classes.card}>
+                  <CardComp
+                    _id={e._id}
+                    image={e.image}
+                    score={e.score}
+                    name={e.name}
+                    type={e.type}
+                    address={e.address}
+                    accommodates={e.accommodates}
+                    beds={e.beds}
+                    price={e.price}
+                    click={console.log("")}
+                    boton={false}
+                    deleteButton={false}
+                    state={e.state}
+                  />
+                </Card>
+                {e.flag && (
+                  <form onSubmit={onSubmit}>
+                    <button
+                      name="idPropertie"
+                      onClick={onInputChange}
+                      value={e.Prop_id}
+                      type="submit"
+                    >
+                      send review
+                    </button>
+                    <input
+                      required
+                      autoComplete="off"
+                      name="review"
+                      onChange={onInputChange}
+                      className="input"
+                      placeholder="Let your review"
+                    ></input>
+                  </form>
+                )}
+              </Grid>
+            ))
+          )}
+        </Grid>
+      </Container>
+    </div>
+  );
 };
 
 export default Bookings;

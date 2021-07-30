@@ -7,7 +7,6 @@ export const reservesReducer = (
 ) => {
   switch (action.type) {
     case ActionTypes.bookings:
-      console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaa");
       return action.payload;
     default:
       return state;
