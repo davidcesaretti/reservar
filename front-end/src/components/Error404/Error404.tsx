@@ -6,9 +6,9 @@ import { Link } from "react-router-dom";
 
 const Error404 = () => {
     return (
-        <div>
+        <div className="body-error">
             <NavBar />
-            <h1>404 Error Page Not Found</h1>
+            <h1 className="h1-error">404 Error Page Not Found</h1>
             <p className="zoom-area">
                 <b>UPS!</b> That’s an error{" "}
             </p>

@@ -39,6 +39,7 @@ const useStyles = makeStyles((theme) => ({
     margin: '0 auto',
     paddingTop: '50px',
     marginBottom: '209px',
+    color: '#787A91'
   }
 }));
 
