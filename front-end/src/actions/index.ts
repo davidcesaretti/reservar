@@ -112,6 +112,11 @@ export interface reserveFaker {
   type: ActionTypes.reserveFake;
   payload: any;
 }
+
+export interface listOfLodgings {
+  type: ActionTypes.usersList;
+  payload: Array<Object>;
+}
 const url = "https://app-trekker.herokuapp.com";
 
 export const onLogin = async (data: Credentials) => {
@@ -298,6 +303,22 @@ export const getUsersList = () => {
       );
       dispatch<listOfUsers>({
         type: ActionTypes.usersList,
+        payload: list.data,
+      });
+    } catch (err) {
+      console.error(err);
+    }
+  };
+};
+
+export const getLodgingList = () => {
+  return async (dispatch: Dispatch) => {
+    try {
+      const list = await axios.get(
+        "https://app-trekker.herokuapp.com/admin/removeProps"
+      );
+      dispatch({
+        type: ActionTypes.lodgingUser,
         payload: list.data,
       });
     } catch (err) {

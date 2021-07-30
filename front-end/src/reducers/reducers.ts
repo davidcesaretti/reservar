@@ -21,6 +21,7 @@ import { statePaginado } from "./paginado";
 import { userList } from "./usersList";
 import { validateLogAdmin } from "./validateLogAdmin";
 import { getReserveFake } from "./getReserveFake";
+import { lodgingUser } from "./lodgingList";
 
 export interface StoreState {
   fechas: any;
@@ -43,6 +44,7 @@ export interface StoreState {
   listOfUsers: Array<any>;
   logAdmin: Number;
   reserveFake: Array<any>;
+  lodgingUserfinal: any;
 }
 
 export const reducers = combineReducers<StoreState>({
@@ -66,6 +68,7 @@ export const reducers = combineReducers<StoreState>({
   listOfUsers: userList,
   logAdmin: validateLogAdmin,
   reserveFake: getReserveFake,
+  lodgingUserfinal: lodgingUser,
 });
 
 export default reducers;
