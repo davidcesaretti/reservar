@@ -16,8 +16,8 @@ import ErrorNoprop from "../Error404/Noprop";
 import { useState } from "react";
 
 const useStyles = makeStyles((theme) => ({
-  container:{
-    minHeight:"482px",
+  container: {
+    minHeight: "482px",
   },
   cardGrid: {
     paddingTop: theme.spacing(6),
@@ -42,7 +42,7 @@ const useStyles = makeStyles((theme) => ({
     alignContent: "center",
     margin: "0 auto",
     paddingTop: "50px",
-    marginBottom: "209px",
+    marginBottom: "257px",
     color: "#787A91",
   },
 }));
@@ -103,7 +103,7 @@ const Favorites = () => {
   //   return <Spinner />;
   // } else {
   return (
-    <div  className={classes.container}>
+    <div className={classes.container}>
       <Grid>
         <Typography className={classes.title} variant="h4" align="center">
           Favourite properties
