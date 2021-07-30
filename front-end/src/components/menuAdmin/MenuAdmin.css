@@ -1,0 +1,38 @@
+.contenedor-adminMenu {
+  background-color: #313b1e;
+  height: 100vh;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 10% 10% 10% 10% 10% 10% 40%;
+  color: white;
+}
+.separador-adminMenu {
+  width: 40%;
+  border-bottom: solid 1px white;
+  margin: 0;
+}
+.div-parrafo {
+  width: 90%;
+  margin: 0 auto;
+  margin-top: 50px;
+}
+.div-parrafo p {
+  margin: 10px;
+  margin-left: 0;
+}
+.position-botonAdmin {
+  margin: 130px auto;
+}
+.botonAdmin-menu {
+  height: 40px;
+  width: 120px;
+  border-radius: 10px;
+  border: none;
+  font-size: 16px;
+  color: #fff;
+  background-color: #b2b451;
+  font-weight: bolder;
+  cursor: pointer;
+  transition: 400ms;
+}
