@@ -15,6 +15,9 @@ import Spinner from "../Spinner/Spinner";
 import ErrorNoprop from "../Error404/Noprop";
 
 const useStyles = makeStyles((theme) => ({
+  container:{
+    minHeight:"482px",
+  },
   cardGrid: {
     paddingTop: theme.spacing(6),
     paddingBottom: theme.spacing(8),
@@ -60,7 +63,7 @@ const Favorites = () => {
   //   return <Spinner />;
   // } else {
     return (
-      <div>
+      <div className={classes.container}>
         <Grid>
           <Typography className={classes.title} variant="h4" align="center">
             Favourite properties
