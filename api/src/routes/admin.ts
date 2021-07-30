@@ -48,5 +48,42 @@ router.get("/getusers", async (req, res) => {
     )
     res.send("User update!")
   })
+  router.post("/suspended", async(req, res, next) => {
+    const data = req.body
+    
+    await Promise.all(data.map(async(e) => {
+        await User.updateOne({email: Object.values(e)[0]},
+          {
+            $set:{status_account: "Suspended"}
+          })
+    }))
+   return res.send("Usuarios Suspendidos")
+  
+  })
+
+
+
+  router.post("/habilite", async(req, res, next) => {
+    const data = req.body
+   
+    await Promise.all(data.map(async(e) => {
+        await User.updateOne({email: Object.values(e)[0]},
+          {
+            $set:{status_account: "Active"}
+          })
+    }))
+   return res.send("Usuarios Habiltados")
+  
+  })
+
+  
+  router.post("/removeProps", async(req, res, next) => {
+    const list =req.body
+    list.map(async(e) => {
+      await Properties.deleteOne({_id: e.id})
+
+    })
+    res.send("propiedades borradas")
+  })
 
 export default router;
