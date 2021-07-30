@@ -6,7 +6,8 @@ import { makeStyles, createStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import Pagination from "@material-ui/lab/Pagination";
 import axios from "axios";
-import Swal from 'sweetalert2'
+import Swal from "sweetalert2";
+import MenuAdmin from "../menuAdmin/MenuAdmin";
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -61,51 +62,62 @@ function TablaAdmin() {
 
   const handleClickChange = (e) => {
     Swal.fire({
-      title: 'Do you want to save the changes?',
+      title: "Do you want to save the changes?",
       showDenyButton: true,
       confirmButtonText: `Save`,
       denyButtonText: `Don't save`,
     }).then((result) => {
       if (result.isConfirmed) {
-        Swal.fire('Saved!', '', 'success')
+        Swal.fire("Saved!", "", "success");
       } else if (result.isDenied) {
-        Swal.fire('Changes are not saved', '', 'info')
+        Swal.fire("Changes are not saved", "", "info");
       }
-    })
-  }
+    });
+  };
 
   return (
-    <div style={{ display: "grid" }}>
-      <h2 className="title">Registered Users</h2>
-      <div className="container-tabla">
-        <div className="grid-tabla color-grid">
-          {" "}
-          <p>Name</p>
-          <p>Phone Number</p>
-          <p>Country</p>
-          <p>Account status</p>
-          <p>Change Status</p>
-        </div>
+    <div className="con-homeAdmin">
+      <MenuAdmin />
+      <div style={{ display: "grid" }}>
+        <h2 className="title">Registered Users</h2>
+        <div className="container-tabla">
+          <div className="grid-tabla color-grid">
+            {" "}
+            <p>Name</p>
+            <p>Phone Number</p>
+            <p>Country</p>
+            <p>Account status</p>
+            <p>Change Status</p>
+          </div>
 
-        {filteredUsers &&
-          filteredUsers.map((x, i) => (
-            <div key={i} className="grid-tabla">
-              <p style={{ margin: "14px" }}>{x.name}</p>{" "}
-              <p style={{ margin: "14px" }}>{x.phone_number}</p>
-              <p style={{ margin: "14px" }}>
-                {x.nationality}
-              </p>
-              <p style={{ margin: "14px"}}>{x.status_account}</p>
-              {/* <input style={{ margin: "14px" }} type="checkbox" /> */}
-              <button onClick={(e) => {handleClickChange(e)}} style={{ margin: "14px" }} className="boton-map">
-                Change
-              </button>
-            </div>
-          ))}
-      </div>
-      <div style={{ margin: "0 auto" }}>
-        <button className="pagButton" onClick={prevPage}>⮜ Prev Page</button>
-        <button className="pagButton" onClick={nextPage}>Next Page ⮞</button>
+          {filteredUsers &&
+            filteredUsers.map((x, i) => (
+              <div key={i} className="grid-tabla">
+                <p style={{ margin: "14px" }}>{x.name}</p>{" "}
+                <p style={{ margin: "14px" }}>{x.phone_number}</p>
+                <p style={{ margin: "14px" }}>{x.nationality}</p>
+                <p style={{ margin: "14px" }}>{x.status_account}</p>
+                {/* <input style={{ margin: "14px" }} type="checkbox" /> */}
+                <button
+                  onClick={(e) => {
+                    handleClickChange(e);
+                  }}
+                  style={{ margin: "14px" }}
+                  className="boton-map"
+                >
+                  Change
+                </button>
+              </div>
+            ))}
+        </div>
+        <div style={{ margin: "0 auto" }}>
+          <button className="pagButton" onClick={prevPage}>
+            ⮜ Prev Page
+          </button>
+          <button className="pagButton" onClick={nextPage}>
+            Next Page ⮞
+          </button>
+        </div>
       </div>
     </div>
   );
