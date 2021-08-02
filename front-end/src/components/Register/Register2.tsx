@@ -194,7 +194,6 @@ const Register = () => {
               title: "Your account has been suspended",
               text: "Going back to home",
               icon: "warning",
-              showCancelButton: true,
               confirmButtonColor: "#3085d6",
               confirmButtonText: "Ok!",
             }).then((result) => {

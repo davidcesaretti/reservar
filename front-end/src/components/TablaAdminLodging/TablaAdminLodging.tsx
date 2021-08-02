@@ -33,11 +33,11 @@ function TablaAdmin() {
     const obj = { [e.target.name]: e.target.value, email: e.target.name };
 
     if (obj[e.target.name] === "Active") {
-      axios.post("https://app-trekker.herokuapp.com/admin/suspended", {
+      axios.post("http://localhost:3001/admin/suspended", {
         email: e.target.name,
       });
     } else {
-      axios.post("https://app-trekker.herokuapp.com/admin/habilite", {
+      axios.post("http://localhost:3001/admin/habilite", {
         email: e.target.name,
       });
     }
