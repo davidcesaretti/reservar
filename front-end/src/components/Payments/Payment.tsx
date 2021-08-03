@@ -159,7 +159,7 @@ export default function Pay({
   }, []);
 
   return (
-    <React.Fragment>
+    <>
       <CssBaseline />
       <NavBarPago />
       <main style={{ marginLeft: "0px" }}>
@@ -204,7 +204,7 @@ export default function Pay({
             </Grid>
           </CardContent>
           <Typography gutterBottom className={classes.titleInfo}>
-            GUEST INFORMATION
+            {/* GUEST INFORMATION */}
           </Typography>
           <Grid container spacing={0}>
             <Grid item xs={12} sm={6} className={classes.cardH}>
@@ -212,13 +212,13 @@ export default function Pay({
                 {map1 &&
                   map1.map((e) => (
                     <Grid item key={e} xs={12} sm={6} className={classes.card}>
-                      <Huespedes />
+                      {/* <Huespedes /> */}
                     </Grid>
                   ))}
               </CardContent>
             </Grid>
             <Grid item xs={12} sm={6} className={classes.card}>
-              <Confirmation />
+              {/* <Confirmation /> */}
               <Typography gutterBottom className={classes.titleForm}>
                 PAYMENT METHOD
               </Typography>
@@ -259,6 +259,6 @@ export default function Pay({
         <Footer />
         {/* End footer */}
       </div>
-    </React.Fragment>
+    </>
   );
 }

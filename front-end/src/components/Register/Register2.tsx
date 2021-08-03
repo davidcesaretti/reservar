@@ -171,7 +171,9 @@ const Register = () => {
   return (
     <Grid className={classes.ctn}>
       <Grid xs={12} className={classes.navBar}>
-        <img src={logo} alt="trekker" width="150px" height="60px" />
+        <Link to="/" className={classes.link}>
+          <img src={logo} alt="trekker" width="150px" height="60px" />
+        </Link>
         <Button
           className={classes.homeButton}
           color="secondary"
