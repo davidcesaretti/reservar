@@ -8,10 +8,6 @@ import SearchIcon from "@material-ui/icons/Search";
 import { Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import Image1 from "../../Image/pexels-pixabay-210017.jpeg";
-import Recom1 from "../../Image/recom1.jpeg";
-import Recom2 from "../../Image/recom2.jpeg";
-import Recom3 from "../../Image/recom3.jpeg";
-import Recom4 from "../../Image/recom4.jpeg";
 import Tipos1 from "../../Image/tipos1.jpeg";
 import Tipos2 from "../../Image/tipos2.jpeg";
 import Tipos3 from "../../Image/tipos3.jpeg";
@@ -25,7 +21,6 @@ import {
   fetchCardsHotels,
   findPost,
   getFavos,
-  setBoolean,
   getListOfCities
 } from "../../actions";
 import { Calendary } from "../Calendary/Calendary";
@@ -33,12 +28,9 @@ import MenuAppBar from "../Nav/Nav2";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../firebase/index";
-import Spinner from "../Spinner/Spinner";
-import Error404 from "../Error404/Error404";
 // import AutoComplete from "material-ui/AutoComplete";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 
-import axios from "axios";
 
 const useStyles = makeStyles((theme) => ({
   containerGeneral: {},
@@ -159,12 +151,6 @@ const Home = () => {
 useEffect(() => {
   dispatch(getListOfCities())
 }, [])
-
-
-const defaultProps = {
-  options: cities,
-  getOptionLabel: (option: any) => option,
-};
 
 
   useEffect(() => {
@@ -311,34 +297,16 @@ const defaultProps = {
                 alignItems: "center",
               }}
             >
-              
-                <Autocomplete
-               
+                <Autocomplete  
                   id="ciudades"
                   options={listOfCities}
-                  
-                  // onChange={(event, value:any) => setCities(value)}
                   onChange={(event: any, newValue: any | null) => {
                     setCities(newValue);
                   }}
-                  // getOptionLabel={(listOfCities) => listOfCities}
+                  getOptionLabel={(listOfCities) => listOfCities}
                   style={{ width: 200 }}
-                
-                
                   renderInput={(params:any) => <TextField {...params} label="Where are you going?" variant="standard" />}
                 />
-
-
-{/* <Autocomplete
-        {...defaultProps}
-        id="controlled-demo"
-        value={value}
-        onChange={(event: any, newValue: FilmOptionType | null) => {
-          setValue(newValue);
-        }}
-        renderInput={(params) => <TextField {...params} label="controlled" margin="normal" />}
-      /> */}
-
               <Calendary />
               <TextField
                 onChange={(e) => setGuest(e.target.value)}

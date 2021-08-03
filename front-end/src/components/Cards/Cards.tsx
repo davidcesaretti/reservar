@@ -12,6 +12,7 @@ import {
   FechasReserva,
   fetchCardsHotels,
   getFavos,
+  getListOfCities,
 } from "../../actions";
 import NavBar from "../Nav/Nav2";
 import Calendary from "../Calendary/Calendary";
@@ -24,6 +25,7 @@ import SearchIcon from "@material-ui/icons/Search";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../firebase/index";
 import Paginado from "../Paginado/Paginado";
+import Autocomplete from "@material-ui/lab/Autocomplete";
 
 const useStyles = makeStyles((theme) => ({
   icon: {
@@ -70,7 +72,12 @@ export default function Album() {
   const email = auth?.user?.email;
   const fechas = useSelector((state: any) => state.fechas);
   const userfavs = useSelector((state: any) => state.userfavossss);
+  const listOfCities = useSelector((state:any) => state.listOfCities)
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getListOfCities())
+  }, [])
 
   function busqueda() {
     dispatch(FechasReserva({ ...fechas, cities, guest }));
@@ -149,15 +156,16 @@ export default function Album() {
               alignItems: "center",
             }}
           >
-            <TextField
-              onChange={(e) => setCities(e.target?.value?.toLowerCase())}
-              id=""
-              label="Where are you going?"
-              variant="standard"
-              color="secondary"
-              margin="none"
-              size="small"
-            />
+            <Autocomplete  
+                  id="ciudades"
+                  options={listOfCities}
+                  onChange={(event: any, newValue: any | null) => {
+                    setCities(newValue);
+                  }}
+                  getOptionLabel={(listOfCities) => listOfCities}
+                  style={{ width: 200 }}
+                  renderInput={(params:any) => <TextField {...params} label="Where are you going?" variant="standard" />}
+                />
             <Calendary />
             <TextField
               onChange={(e) => setGuest(e.target.value)}

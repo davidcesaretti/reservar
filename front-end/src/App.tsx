@@ -25,7 +25,7 @@ import FAQ from "./components/FAQ/FAQ"
 import TermsAndConditions from "./components/TermsAndConditions/TermsAndConditions";
 import GeneralBalance from "./components/GeneralBalance/GeneralBalance"
 import Earnings from "./components/Earnings/Earnings"
-
+import AutocompleteGoogle from "./components/AutocompleteGoogle/AutocompleteGoogle"
 function App() {
   const auth = useAuth();
 
@@ -36,7 +36,7 @@ function App() {
       <Route exact path="/categories/:id" component={DetailHotel} />
       <Route exact path="/Login" component={Login} />
       <Route exact path="/Register" component={Register} />
-
+      <Route exact path="/auto" component={AutocompleteGoogle} />
       <Route exact path="/Filters" component={Filters} />
       <Route exact path="/Categories" component={Album} />
       <Route exact path="/payments" component={Pay} />
