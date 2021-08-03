@@ -396,7 +396,19 @@ function AddProperty() {
           </div>
           <div className="grid__input">
             <label> Property type</label>
-            <input ref={refType} type="text" />
+            {/* <input ref={refType} type="text" /> */}
+            <select 
+              name="select" 
+              ref={refType}
+            >
+              <option value={-1}></option>
+              <option value='Apartment'>Apartment</option>  
+              <option value='Condominium'>Condominium</option>
+              <option value='Guesthouse'>Guesthouse</option>  
+              <option value='Hostel'>Hostel</option>
+              <option value='House'>House</option>  
+              <option value='Loft'>Loft</option>  
+            </select>
           </div>
           <div className="grid__input">
             <label>Nightly price</label>
