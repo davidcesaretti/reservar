@@ -34,6 +34,9 @@ import { Link } from "react-router-dom";
 import { useAuth } from "../../firebase/index";
 import Spinner from "../Spinner/Spinner";
 import Error404 from "../Error404/Error404";
+// import AutoComplete from "material-ui/AutoComplete";
+import Autocomplete from "@material-ui/lab/Autocomplete";
+import axios from "axios";
 
 const useStyles = makeStyles((theme) => ({
   containerGeneral: {},
@@ -254,6 +257,14 @@ const Home = () => {
     }
   }, [email]);
 
+const [citiesFilter,setCitiesFilter] = useState([])
+
+useEffect(() => {
+  axios.get("http://localhost:3001/filter/cities").then(respuesta => {
+    setCitiesFilter(respuesta.data)
+  })
+}, [])
+
   return (
     <div>
       <MenuAppBar />
@@ -303,15 +314,15 @@ const Home = () => {
                 alignItems: "center",
               }}
             >
-              <TextField
-                onChange={(e) => setCities(e.target?.value?.toLowerCase())}
-                id=""
-                label="Where are you going?"
-                variant="standard"
-                color="secondary"
-                margin="none"
-                size="small"
-              />
+              
+                <Autocomplete
+                  id="combo-box-demo"
+                  options={citiesFilter}
+                  // getOptionLabel={(ciudades) => ciudades}
+                  style={{ width: 300 }}
+                  renderInput={(params) => <TextField {...params} label="Where are you going?" variant="standard" />}
+                />
+
               <Calendary />
               <TextField
                 onChange={(e) => setGuest(e.target.value)}
