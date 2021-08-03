@@ -19,6 +19,7 @@ import Chica from "../../Image/chica.jpeg";
 import { useDispatch, useSelector } from "react-redux";
 import {
   addFavourites,
+  BotonesPaginado,
   detailHotel,
   FechasReserva,
   fetchCardsHotels,
@@ -125,7 +126,7 @@ const Home = () => {
   const [cities, setCities] = useState(undefined);
   const [guest, setGuest] = useState(undefined);
   const [type, setType] = useState(undefined);
-  const fechas = useSelector((state: any) => state.fechas);
+  const fechas: any = useSelector((state: any) => state.fechas);
   const post = useSelector((state: any) => state.postsHost);
 
   const dispatch = useDispatch();
@@ -190,7 +191,7 @@ const Home = () => {
   //     )
   //   );
   // }, []);
-
+  console.log(fechas);
   function busqueda() {
     dispatch(FechasReserva({ ...fechas, cities, guest }));
     dispatch(
@@ -204,6 +205,18 @@ const Home = () => {
         cities === "" ? undefined : cities,
         fechas
       )
+    );
+    dispatch(
+      BotonesPaginado({
+        paginado: 1,
+        price: "nada",
+        amenities: "nada",
+        type: "nada",
+        guest: guest || "nada",
+        score: "nada",
+        cities: cities === "" ? "nada" : cities,
+        fechas: { checkin: fechas.checkin, checkout: fechas.checkout },
+      })
     );
   }
   const classes = useStyles();

@@ -62,7 +62,8 @@ router.get("/pago", async (req, res, next) => {
   if (payment_status === "approved") {
     const aux2 = [];
     Reserva.find({ payment_id: preference_id }).then(async (res) => {
-      aux2.push(res);
+      aux2.push(res[0]);
+
       await Properties.updateOne(
         { _id: aux2[0].Prop_id },
         { $push: { available: aux2[0] } }

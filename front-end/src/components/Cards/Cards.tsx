@@ -77,7 +77,7 @@ export default function Album() {
 
     dispatch(
       fetchCardsHotels(
-        undefined,
+        1,
         undefined,
         undefined,
         undefined,

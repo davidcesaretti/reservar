@@ -32,17 +32,26 @@ const Balance = () => {
   const email = auth.user.email;
 
   let cont = 0;
+  const filterFake = userPosts.map(
+    (
+      x //nuevo
+    ) => x.available.filter((y) => y.state !== "fake")
+  );
+
+  userPosts.forEach((x, i) => (x.available = filterFake[i])); //nuevo
 
   useEffect(() => {
     dispatch(findPost({ email: email }));
   }, []);
 
-  if (loaded && userPosts.length > 1) {
+  if (loaded && userPosts.length > 0) {
+    //nuevo
     userPosts.map((e) => {
       if (e.available.length > 0) setReserved(true);
       cont += e.available?.reduce((acum, e) => {
         return acum + e.price;
       }, 0);
+      console.log(cont);
     });
     setIncome(cont);
     setLoaded(false);

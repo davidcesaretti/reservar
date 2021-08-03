@@ -1,18 +1,17 @@
-input[type=text]:focus {
+/* input[type=text]:focus {
     border: 3px solid #555;
     
-}
+} */
 
 @import url(https://fonts.googleapis.com/css?family=Roboto:300);
 
 .loginpage {
   width: 60px;
- 
 }
 .form {
   position: relative;
   z-index: 1;
-  background: #FFFFFF;
+  background: #ffffff;
   max-width: 360px;
   margin: 0 auto 100px;
   padding: 45px;
@@ -31,7 +30,6 @@ input[type=text]:focus {
   box-sizing: border-box;
   font-size: 14px;
   border-radius: 5px;
-  
 }
 .formbutton {
   font-family: "Roboto", sans-serif;
@@ -41,7 +39,7 @@ input[type=text]:focus {
   width: 100%;
   border: 0;
   padding: 15px;
-  color: #FFFFFF;
+  color: #ffffff;
   font-size: 14px;
   -webkit-transition: all 0.3 ease;
   transition: all 0.3 ease;

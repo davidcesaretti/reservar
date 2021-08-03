@@ -112,8 +112,8 @@ const DetailHotel = () => {
   const dispatch = useDispatch();
   const auth = useAuth();
 
-  const [value, setValue] = useState(0);
-  const [hover, setHover] = useState(-1);
+  // const [value, setValue] = useState(0);
+  // const [hover, setHover] = useState(-1);
   const [aux, setAux] = React.useState<Boolean>(false);
   const [disable, setDisable] = useState(true);
 
@@ -204,6 +204,12 @@ const DetailHotel = () => {
     }
   }
   exploreProperties();
+
+  useEffect(() => {
+    if (detailhotel[0]?.host === auth.user?.email) {
+      setDisable(false);
+    }
+  }, [disable, auth]);
 
   const obj = {
     Prop_id: id,
