@@ -72,10 +72,7 @@ export interface userInformation {
   type: ActionTypes.userInfo;
   payload: Object;
 }
-export interface listOfUsers {
-  type: ActionTypes.usersList;
-  payload: Array<Object>;
-}
+
 export interface USERFAVS {
   type: ActionTypes.favUser;
   payload: Array<Object>;
@@ -117,6 +114,15 @@ export interface listOfLodgings {
   type: ActionTypes.usersList;
   payload: Array<Object>;
 }
+export interface listOfUsers {
+  type: ActionTypes.usersList;
+  payload: Array<Object>;
+}
+export interface listOfCities {
+  type: ActionTypes.listCities;
+  payload: Array<String>;
+}
+
 const url = "https://app-trekker.herokuapp.com";
 
 export const onLogin = async (data: Credentials) => {
@@ -488,14 +494,18 @@ export const addreview = (review) => {
   };
 };
 
-// export function deleteUsers(data: any) {
-//   return function (dispatch: Dispatch) {
-//     return fetch(url, {
-//       method: "DELETE",
-//       body: JSON.stringify(data),
-//       headers: {
-//         "Content-Type": "application/json",
-//       },
-//     }).then((res) => res.json());
-//   };
-// }
+export const getListOfCities = () => {
+  return async (dispatch: Dispatch) => {
+    try {
+      const list = await axios.get(
+        "http://localhost:3001/filter/cities" // cambiar por deploy
+      );
+      dispatch<listOfCities>({
+        type: ActionTypes.listCities,
+        payload: list.data,
+      });
+    } catch (err) {
+      console.error(err);
+    }
+  };
+};

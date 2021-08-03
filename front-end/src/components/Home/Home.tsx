@@ -26,6 +26,7 @@ import {
   findPost,
   getFavos,
   setBoolean,
+  getListOfCities
 } from "../../actions";
 import { Calendary } from "../Calendary/Calendary";
 import MenuAppBar from "../Nav/Nav2";
@@ -36,6 +37,7 @@ import Spinner from "../Spinner/Spinner";
 import Error404 from "../Error404/Error404";
 // import AutoComplete from "material-ui/AutoComplete";
 import Autocomplete from "@material-ui/lab/Autocomplete";
+
 import axios from "axios";
 
 const useStyles = makeStyles((theme) => ({
@@ -131,6 +133,8 @@ const Home = () => {
   const [type, setType] = useState(undefined);
   const fechas: any = useSelector((state: any) => state.fechas);
   const post = useSelector((state: any) => state.postsHost);
+  const listOfCities = useSelector((state:any) => state.listOfCities)
+  
 
   const dispatch = useDispatch();
   const auth = useAuth();
@@ -149,6 +153,19 @@ const Home = () => {
   let random1 = Math.floor(Math.random() * 4);
   let page = Math.floor(Math.random() * 12);
   let ciudadRandom = ciudades[random1];
+
+
+  
+useEffect(() => {
+  dispatch(getListOfCities())
+}, [])
+
+
+const defaultProps = {
+  options: cities,
+  getOptionLabel: (option: any) => option,
+};
+
 
   useEffect(() => {
     dispatch(
@@ -180,21 +197,7 @@ const Home = () => {
   //   );
   // }
 
-  // useEffect(() => {
-  //   dispatch(
-  //     fetchCardsHotels(
-  //       "1",
-  //       "asc",
-  //       "TV",
-  //       "Apartment",
-  //       4,
-  //       0,
-  //       undefined,
-  //       undefined
-  //     )
-  //   );
-  // }, []);
-  console.log(fechas);
+
   function busqueda() {
     dispatch(FechasReserva({ ...fechas, cities, guest }));
     dispatch(
@@ -257,13 +260,7 @@ const Home = () => {
     }
   }, [email]);
 
-const [citiesFilter,setCitiesFilter] = useState([])
 
-useEffect(() => {
-  axios.get("http://localhost:3001/filter/cities").then(respuesta => {
-    setCitiesFilter(respuesta.data)
-  })
-}, [])
 
   return (
     <div>
@@ -316,12 +313,31 @@ useEffect(() => {
             >
               
                 <Autocomplete
-                  id="combo-box-demo"
-                  options={citiesFilter}
-                  // getOptionLabel={(ciudades) => ciudades}
-                  style={{ width: 300 }}
-                  renderInput={(params) => <TextField {...params} label="Where are you going?" variant="standard" />}
+               
+                  id="ciudades"
+                  options={listOfCities}
+                  
+                  // onChange={(event, value:any) => setCities(value)}
+                  onChange={(event: any, newValue: any | null) => {
+                    setCities(newValue);
+                  }}
+                  // getOptionLabel={(listOfCities) => listOfCities}
+                  style={{ width: 200 }}
+                
+                
+                  renderInput={(params:any) => <TextField {...params} label="Where are you going?" variant="standard" />}
                 />
+
+
+{/* <Autocomplete
+        {...defaultProps}
+        id="controlled-demo"
+        value={value}
+        onChange={(event: any, newValue: FilmOptionType | null) => {
+          setValue(newValue);
+        }}
+        renderInput={(params) => <TextField {...params} label="controlled" margin="normal" />}
+      /> */}
 
               <Calendary />
               <TextField

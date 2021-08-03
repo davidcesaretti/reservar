@@ -111,8 +111,8 @@ router.get("/properties/:id", async (req: Request, res: Response, next) => {
 });
 
 router.get("/cities",  (req: Request, res: Response, next) => {
-  Cities.find({}).then((resp:any) => {
-    const namesCities = resp.map(e=> e.name)
+  Properties.find({}).then((resp:any) => {
+    const namesCities = resp.map(e=> e.city)
     var cities = [...new Set(namesCities)].filter((x:any) => x.length < 15 && x.length > 1)
     
     res.json(cities)
