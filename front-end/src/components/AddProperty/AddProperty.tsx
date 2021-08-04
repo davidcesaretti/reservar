@@ -39,7 +39,6 @@ function AddProperty() {
   const refDescription = useRef(undefined);
   const refAddress = useRef(undefined);
   const refCity = useRef(undefined);
-  const refCountry = useRef(undefined);
   const refType = useRef(undefined);
   const refPrice = useRef(undefined);
   const [guests, setGuests] = useState(1);
@@ -65,9 +64,7 @@ function AddProperty() {
     var location =
       refAddress.current?.value +
       "," +
-      refCity.current?.value +
-      "," +
-      refCountry.current?.value;
+      refCity.current?.value 
     //var location = "barrio, localidad, ciudad,venezuela"refAddress.current.value
     axios
       .get("https://maps.googleapis.com/maps/api/geocode/json", {
@@ -114,7 +111,6 @@ function AddProperty() {
     firebaseStorage.picture = detailEdit?.image;
     refAddress.current.value = detailEdit?.address;
     refCity.current.value = detailEdit?.city;
-    refCountry.current.value = "";
   }
   const handleUpdate = function (e) {
     const file = e.target.files[0];
@@ -160,15 +156,21 @@ function AddProperty() {
       alert("Please complete all the fields correctly");
     } else {
       Swal.fire({
-        title: "Do you want to create this property ?",
+        title: "Do you want to create this property?",
         showDenyButton: true,
-        showCancelButton: true,
-        confirmButtonText: `Accept`,
-        // denyButtonText: `Cancel`,
+        icon: "question",
+        confirmButtonText: `Save`,
+        denyButtonText: `Don't save`,
+        confirmButtonColor: 'rgba(90, 110, 56, 0.85)',
+        denyButtonColor: '#313b1e',
       }).then((result) => {
-        /* Read more about isConfirmed, isDenied below */
         if (result.isConfirmed) {
-          // axios.get(`http://localhost:3001/upload/delete/${_id}`);
+          Swal.fire({
+            title: "Saved!",
+             text:"", 
+             icon: "success",
+             confirmButtonColor: 'rgba(90, 110, 56, 0.85)',
+            });
           const formData = {
             name: refTitle.current.value,
             summary: refDescription.current.value,
@@ -180,8 +182,8 @@ function AddProperty() {
             amenities: amenities,
             price: refPrice.current.value,
             image: firebaseStorage.picture,
-            address: refAddress.current.value + " " + refCountry.current.value,
-            city: refCity.current.value,
+            address: refAddress.current.value + ", " + refCity.current.value,
+            city: refCity.current.value.split(",")[0],
             score: 0,
             host: auth,
             coordinates: maps,
@@ -198,7 +200,6 @@ function AddProperty() {
             firebaseStorage.picture,
             refAddress.current.value,
             refCity.current.value,
-            refCountry.current.value,
           ] = ["", "", "", "", "", "", "", ""];
           setAmenities([]);
           firebaseStorage.uploadValue = 0;
@@ -215,7 +216,12 @@ function AddProperty() {
           Swal.fire("Created!", "", "success");
           // setTimeout(dispatchuser, 2000);
         } else if (result.isDenied) {
-          Swal.fire("Property not created", "", "info");
+          Swal.fire({
+            title:"Changes are not saved",
+             text:"", 
+             icon:"info",
+             confirmButtonColor: 'rgba(90, 110, 56, 0.85)',
+            });
         }
       });
     }
@@ -236,15 +242,21 @@ function AddProperty() {
       alert("Please complete all the fields correctly");
     } else {
       Swal.fire({
-        title: "Do you want to edit this property ?",
+        title: "Do you want to edit this property?",
         showDenyButton: true,
-        showCancelButton: true,
-        confirmButtonText: `Accept`,
-        // denyButtonText: `Cancel`,
+        icon: "question",
+        confirmButtonText: `Save`,
+        denyButtonText: `Don't save`,
+        confirmButtonColor: 'rgba(90, 110, 56, 0.85)',
+        denyButtonColor: '#313b1e',
       }).then((result) => {
-        /* Read more about isConfirmed, isDenied below */
         if (result.isConfirmed) {
-          // axios.get(`http://localhost:3001/upload/delete/${_id}`);
+          Swal.fire({
+            title: "Saved!",
+             text:"", 
+             icon: "success",
+             confirmButtonColor: 'rgba(90, 110, 56, 0.85)',
+            });
           const formData = {
             name: refTitle.current.value,
             summary: refDescription.current.value,
@@ -256,8 +268,8 @@ function AddProperty() {
             amenities: amenities,
             price: refPrice.current.value,
             image: firebaseStorage.picture,
-            address: refAddress.current.value + " " + refCountry.current.value,
-            city: refCity.current.value,
+            address: refAddress.current.value + ", " + refCity.current.value,
+            city: refCity.current.value.split(",")[0],
             score: 0,
             coordinates: maps,
             id: idParam.id,
@@ -274,7 +286,6 @@ function AddProperty() {
             firebaseStorage.picture,
             refAddress.current.value,
             refCity.current.value,
-            refCountry.current.value,
           ] = ["", "", "", "", "", "", "", ""];
           setAmenities([]);
           firebaseStorage.uploadValue = 0;
@@ -291,7 +302,12 @@ function AddProperty() {
           Swal.fire("Edited!", "", "success");
           // setTimeout(dispatchuser, 2000);
         } else if (result.isDenied) {
-          Swal.fire("Property not edited", "", "info");
+          Swal.fire({
+            title:"Changes are not saved",
+             text:"", 
+             icon:"info",
+             confirmButtonColor: 'rgba(90, 110, 56, 0.85)',
+            });
         }
       });
     }
@@ -357,6 +373,13 @@ function AddProperty() {
   let fechaSiguiente = moment(arrivalDate).add(1, "days");
 
   function dispatchDates() {
+    Swal.fire({
+      position: 'center',
+      icon: 'success',
+      title: 'Your dates were blocked',
+      showConfirmButton: false,
+      timer: 1500
+    })
     const objDate = {
       fechaSalida: startDate,
       fechaLlegada: endDate,
@@ -389,26 +412,16 @@ function AddProperty() {
             <input ref={refAddress} type="text" required />
           </div>
 
-          {/* <div className="grid__input">
-            <label> City</label>
-            <input ref={refCity} type="text" />
-          </div> */}
-
           <div className="grid__input">
             <label> City</label>
             <Autocomplete
-              apiKey={"AIzaSyBA4G2uLWkWFOrQL67Wtb2aS4e-cRe7Fys"}
+              apiKey={process.env.REACT_APP_API_KEY}
               onPlaceSelected={(place) => {
-                console.log(place)
+                return place.formatted_address
               }}
               language="en"
-              // ref={refCity}
+              ref={refCity}
             />
-          </div>
-
-          <div className="grid__input">
-            <label> Country</label>
-            <input ref={refCountry} type="text" />
           </div>
 
           <div className="grid__input">

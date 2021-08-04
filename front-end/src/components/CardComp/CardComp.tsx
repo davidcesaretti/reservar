@@ -108,19 +108,29 @@ export default function CardComp({
 
   function handleClick(_id) {
     Swal.fire({
-      title: "Do you want to delete this property ?",
+      title: "Do you want to delete this property?",
       showDenyButton: true,
-      showCancelButton: true,
-      confirmButtonText: `Accept`,
-      // denyButtonText: `Cancel`,
+      icon: "question",
+      confirmButtonText: `Yes`,
+      denyButtonText: `No`,
+      confirmButtonColor: 'rgba(90, 110, 56, 0.85)',
+      denyButtonColor: '#313b1e',
     }).then((result) => {
-      /* Read more about isConfirmed, isDenied below */
       if (result.isConfirmed) {
+        Swal.fire({
+          title: "Eliminated!",
+           text:"", 
+           icon: "error",
+           confirmButtonColor: 'rgba(90, 110, 56, 0.85)',
+          });
         axios.get(`http://localhost:3001/upload/delete/${_id}`);
-        Swal.fire("Deleted!", "", "success");
-        // setTimeout(dispatchuser, 2000);
       } else if (result.isDenied) {
-        Swal.fire("Property not deleted", "", "info");
+        Swal.fire({
+          title:"",
+           text:"", 
+           icon:"info",
+           confirmButtonColor: 'rgba(90, 110, 56, 0.85)',
+          });
       }
     });
   }
