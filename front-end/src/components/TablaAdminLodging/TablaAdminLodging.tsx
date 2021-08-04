@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { fetchCardsHotels, getUsersList } from "../../actions";
+import { fetchCardsHotels, getUsersList,getLodgingList } from "../../actions";
 import "./Tabla.css";
 import { useDispatch, useSelector } from "react-redux";
 import { makeStyles, createStyles } from "@material-ui/core/styles";
@@ -19,8 +19,8 @@ const useStyles = makeStyles((theme) =>
   })
 );
 
-function TablaAdmin() {
-  const user = useSelector((state: any) => state.listOfUsers);
+function TablaAdminLodging() {
+  const lodging = useSelector((state: any) => state.listOfLodgings);
   const [data, setData] = useState(undefined);
   const [currentPage, setCurrentPage] = useState(0);
   const [name, setName] = useState({});
@@ -30,24 +30,25 @@ function TablaAdmin() {
       ...name,
       [e.target.name]: e.target.value ? e.target.value : "Active",
     });
-    const obj = { [e.target.name]: e.target.value, email: e.target.name };
+    const obj = { [e.target.name]: e.target.value, id: e.target.name };
 
     if (obj[e.target.name] === "Active") {
-      axios.post("http://localhost:3001/admin/suspended", {
-        email: e.target.name,
+      axios.post("http://localhost:3001/admin/suspendedLodging", {
+        id: e.target.name,
       });
     } else {
-      axios.post("http://localhost:3001/admin/habilite", {
-        email: e.target.name,
+      axios.post("http://localhost:3001/admin/habiliteLodging", {
+        id: e.target.name,
       });
     }
-    dispatch(getUsersList());
+    dispatch(getLodgingList());
   };
 
-  const filteredUsers = user?.slice(currentPage, currentPage + 8);
+  console.log(lodging)
+  const filteredLodging = lodging?.slice(currentPage, currentPage + 8);
 
   const nextPage = () => {
-    if (user.length < currentPage + 8) {
+    if (lodging.length < currentPage + 8) {
       setCurrentPage(currentPage);
     } else {
       setCurrentPage(currentPage + 8);
@@ -70,7 +71,7 @@ function TablaAdmin() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getUsersList());
+    dispatch(getLodgingList());
   }, [dispatch]);
 
   const handleClickChange = (e) => {
@@ -109,22 +110,22 @@ function TablaAdmin() {
           <div className="grid-tabla color-grid">
             {" "}
             <p>Name</p>
-            <p>Phone Number</p>
-            <p>Country</p>
+            <p>Host Name</p>
+            <p>City</p>
             <p>Account status</p>
             <p>Change Status</p>
           </div>
 
-          {filteredUsers &&
-            filteredUsers.map((x, i) => (
+          {filteredLodging &&
+            filteredLodging.map((x, i) => (
               <div key={i} className="grid-tabla">
-                <p style={{ margin: "14px" }}>{x.name}</p>{" "}
-                <p style={{ margin: "14px" }}>{x.phone_number}</p>
-                <p style={{ margin: "14px" }}>{x.nationality}</p>
+                <p style={{ margin: "14px" }}>{x.name}</p>{undefined}
+                <p style={{ margin: "14px" }}>{x.host}</p>
+                <p style={{ margin: "14px" }}>{x.city}</p>
                 <p style={{ margin: "14px" }}>{x.status_account}</p>
                 {/* <input style={{ margin: "14px" }} type="checkbox" /> */}
                 <button
-                  name={x.email}
+                  name={x.id}
                   value={x.status_account}
                   onClick={(e) => {
                     handleClickChange(e);
@@ -151,4 +152,4 @@ function TablaAdmin() {
   );
 }
 
-export default TablaAdmin;
+export default TablaAdminLodging;

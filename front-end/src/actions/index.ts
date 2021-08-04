@@ -321,7 +321,7 @@ export const getLodgingList = () => {
   return async (dispatch: Dispatch) => {
     try {
       const list = await axios.get(
-        "https://app-trekker.herokuapp.com/admin/removeProps"
+        "http://localhost:3001/admin/getprops"
       );
       dispatch({
         type: ActionTypes.lodgingUser,

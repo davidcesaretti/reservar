@@ -25,6 +25,7 @@ import FAQ from "./components/FAQ/FAQ"
 import TermsAndConditions from "./components/TermsAndConditions/TermsAndConditions";
 import GeneralBalance from "./components/GeneralBalance/GeneralBalance"
 import Earnings from "./components/Earnings/Earnings"
+import TablaAdminLodging from "./components/TablaAdminLodging/TablaAdminLodging"
 function App() {
   const auth = useAuth();
 
@@ -47,6 +48,7 @@ function App() {
       <Route exact path="/Admin" component={auth?.user?.email === "trekkerhenry@gmail.com" ? AdminDashboard : Error404} />
       {/* <Route exact path="/validationAdmin" component={ValidationAdmin} />
       <Route exact path="/homeAdmin" component={MenuAdmin} /> */}
+      <Route exact path="/tablalodging" component={auth?.user?.email === "trekkerhenry@gmail.com" ? TablaAdminLodging : Error404}  />
       <Route exact path="/homeAdminTabla" component={auth?.user?.email === "trekkerhenry@gmail.com" ? TablaAdmin : Error404}  />
       <Route exact path="/FAQ" component={auth?.user?.email === "trekkerhenry@gmail.com" ? FAQ : Error404} />
       <Route exact path="/terms" component={auth?.user?.email === "trekkerhenry@gmail.com" ? TermsAndConditions : Error404} />
