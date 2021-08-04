@@ -498,7 +498,7 @@ export const getListOfCities = () => {
   return async (dispatch: Dispatch) => {
     try {
       const list = await axios.get(
-        "http://localhost:3001/filter/cities" // cambiar por deploy
+        "http://localhost:3001/filter/cities" 
       );
       dispatch<listOfCities>({
         type: ActionTypes.listCities,

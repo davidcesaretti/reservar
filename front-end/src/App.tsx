@@ -34,8 +34,7 @@ function App() {
       <Route exact path="/categories" component={Album} />
       <Route exact path="/categories/:id" component={DetailHotel} />
       <Route exact path="/Login" component={Login} />
-      <Route exact path="/Register" component={Register} />
-  
+      <Route exact path="/Register" component={Register}/>
       <Route exact path="/Filters" component={Filters} />
       <Route exact path="/Categories" component={Album} />
       <Route exact path="/payments" component={Pay} />
