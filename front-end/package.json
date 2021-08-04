@@ -38,6 +38,7 @@
     "react-facebook-login": "^4.1.1",
     "react-firebase-hooks": "^3.0.4",
     "react-firebaseui": "^5.0.2",
+    "react-google-autocomplete": "^2.4.0",
     "react-google-login": "^5.2.2",
     "react-google-maps": "^9.4.5",
     "react-icons": "^4.2.0",
