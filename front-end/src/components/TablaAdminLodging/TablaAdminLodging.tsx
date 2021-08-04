@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { fetchCardsHotels, getUsersList,getLodgingList } from "../../actions";
-import "./Tabla.css";
+import "./TablaLodgin.css";
 import { useDispatch, useSelector } from "react-redux";
 import { makeStyles, createStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
@@ -8,6 +8,13 @@ import Pagination from "@material-ui/lab/Pagination";
 import axios from "axios";
 import Swal from "sweetalert2";
 import MenuAdmin from "../menuAdmin/MenuAdmin";
+import { Button } from "@material-ui/core";
+import DeleteIcon from '@material-ui/icons/Delete';
+import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
+import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
+import LoopIcon from '@material-ui/icons/Loop';
+
+
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -182,25 +189,33 @@ function TablaAdminLodging() {
                 >
                   Change
                 </button>
-                <button
+                {/* <button
                   name={x.id}
                   style={{ margin: "10px" }}
                   className="boton-map"
                   onClick={() => deleteProp(x.id)}
                 >
                   X
-                </button>
+                </button> */}
+                <Button aria-label="delete" 
+                  name={x.id}
+                  // style={{ margin: "10px" }}
+                  className="boton-map"
+                  onClick={() => deleteProp(x.id)}>
+                  <DeleteIcon />
+                </Button>
                 
               </div>
             ))}
         </div>
         <div style={{ margin: "0 auto" }}>
-          <button className="pagButton" onClick={prevPage}>
-            ⮜ Prev Page
-          </button>
-          <button className="pagButton" onClick={nextPage}>
-            Next Page ⮞
-          </button>
+          <Button className="pagButton" onClick={prevPage}>
+            <ArrowBackIosIcon/>
+          </Button>
+
+          <Button className="pagButton" onClick={nextPage}>
+          <ArrowForwardIosIcon/>
+          </Button>
         </div>
       </div>
     </div>

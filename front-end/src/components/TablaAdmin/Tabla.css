@@ -2,7 +2,7 @@
   text-align: center;
   color: #000000;
 }
-.container-tabla {
+.container-tabla1 {
   width: 80%;
   height: 75vh;
   /* background-color: aqua; */
@@ -10,22 +10,22 @@
   margin: 30px auto;
   margin-bottom: 0;
 }
-.grid-tabla {
+.grid-tabla1 {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
   justify-content: center;
   align-items: center;
 }
-.boton-map {
+.boton-map1 {
   margin: 0;
   width: 60px;
   height: 20px;
 }
-.color-grid {
+.color-grid1 {
   background-color: rgba(90, 110, 56, 0.85);
   padding: 12px;
 }
-.pagButton {
+.pagButton1 {
   margin-left: 15px;
   margin-top: 15px;
   font-size: 18px;

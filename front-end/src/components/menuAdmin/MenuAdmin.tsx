@@ -3,6 +3,7 @@ import "./MenuAdmin.css";
 import { useHistory } from "react-router-dom";
 import { useAuth } from "../../firebase/index";
 import { useDispatch, useSelector } from "react-redux";
+import {Link} from "react-router-dom"
 
 function MenuAdmin() {
   const auth = useAuth();
@@ -16,11 +17,15 @@ function MenuAdmin() {
   return (
     <div className="contenedor-adminMenu">
       <div className="div-parrafo">
+        <Link to="/homeAdminTabla">
         <p>Registered User</p>
+        </Link>
         <div className="separador-adminMenu"></div>
       </div>
       <div className="div-parrafo">
+        <Link to="/tablalodging">
         <p>Registered Lodgings</p>
+        </Link>
         <div className="separador-adminMenu"></div>
       </div>
       <div className="div-parrafo">
