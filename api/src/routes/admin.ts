@@ -28,6 +28,7 @@ router.get("/getprops", async (req, res) => {
     find.map(async (e) => {
       const nameUser = await User.findOne({ email: e.host });
       return {
+        id: e._id,
         name: e.name,
         host: nameUser.name,
         city: e.city,
@@ -73,12 +74,39 @@ router.post("/habilite", async (req, res, next) => {
   return res.send("Usuarios Habiltados");
 });
 
+
+
 router.post("/removeProps", async (req, res, next) => {
-  const list = req.body;
-  list.map(async (e) => {
-    await Properties.deleteOne({ _id: e.id });
-  });
-  res.send("propiedades borradas");
+  const {id} = req.body;
+ 
+    await Properties.deleteOne({ _id: id });
+  
+  res.send("propiedad borrada");
 });
+
+router.post("/suspendedLodging", async (req, res, next) => {
+  const { id } = req.body;
+  await Properties.updateOne(
+    { _id: id },
+    {
+      $set: { status_account: "Suspended" },
+    }
+  );
+  return res.send("Propiedad Suspendida");
+});
+
+
+router.post("/habiliteLodging", async (req, res, next) => {
+  const { id } = req.body;
+  await Properties.updateOne(
+    { _id: id },
+    {
+      $set: { status_account: "Active" },
+    }
+  );
+ 
+  return res.send("Propiedad Habiltada");
+});
+
 
 export default router;

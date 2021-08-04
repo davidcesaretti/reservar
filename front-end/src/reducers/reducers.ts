@@ -45,7 +45,7 @@ export interface StoreState {
   listOfUsers: Array<any>;
   logAdmin: Number;
   reserveFake: Array<any>;
-  lodgingUserfinal: any;
+  listOfLodgings: any;
   listOfCities: Array<String>
 }
 
@@ -70,7 +70,7 @@ export const reducers = combineReducers<StoreState>({
   listOfUsers: userList,
   logAdmin: validateLogAdmin,
   reserveFake: getReserveFake,
-  lodgingUserfinal: lodgingUser,
+  listOfLodgings: lodgingUser,
   listOfCities: getListOfCities,
 });
 

@@ -8,6 +8,10 @@ import Pagination from "@material-ui/lab/Pagination";
 import axios from "axios";
 import Swal from "sweetalert2";
 import MenuAdmin from "../menuAdmin/MenuAdmin";
+import { Button } from "@material-ui/core";
+import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
+import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
+import LoopIcon from '@material-ui/icons/Loop';
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -71,19 +75,33 @@ function TablaAdmin() {
 
   useEffect(() => {
     dispatch(getUsersList());
-  }, [dispatch]);
+  }, [dispatch,filteredUsers]);
 
   const handleClickChange = (e) => {
     Swal.fire({
       title: "Do you want to save the changes?",
       showDenyButton: true,
+      icon: "question",
       confirmButtonText: `Save`,
       denyButtonText: `Don't save`,
+      confirmButtonColor: 'rgba(90, 110, 56, 0.85)',
+    denyButtonColor: '#313b1e',
     }).then((result) => {
       if (result.isConfirmed) {
-        Swal.fire("Saved!", "", "success");
+        Swal.fire({
+          title: "Saved!",
+           text:"", 
+           icon: "success",
+           confirmButtonColor: 'rgba(90, 110, 56, 0.85)',
+          });
+        onChange(e);
       } else if (result.isDenied) {
-        Swal.fire("Changes are not saved", "", "info");
+        Swal.fire({
+          title:"Changes are not saved",
+           text:"", 
+           icon:"info",
+           confirmButtonColor: 'rgba(90, 110, 56, 0.85)',
+          });
       }
     });
   };
@@ -105,8 +123,8 @@ function TablaAdmin() {
         >
           Registered Users
         </h2>
-        <div className="container-tabla">
-          <div className="grid-tabla color-grid">
+        <div className="container-tabla1">
+          <div className="grid-tabla1 color-grid1">
             {" "}
             <p>Name</p>
             <p>Phone Number</p>
@@ -117,34 +135,46 @@ function TablaAdmin() {
 
           {filteredUsers &&
             filteredUsers.map((x, i) => (
-              <div key={i} className="grid-tabla">
+              <div key={i} className="grid-tabla1">
                 <p style={{ margin: "14px" }}>{x.name}</p>{" "}
                 <p style={{ margin: "14px" }}>{x.phone_number}</p>
                 <p style={{ margin: "14px" }}>{x.nationality}</p>
                 <p style={{ margin: "14px" }}>{x.status_account}</p>
-                {/* <input style={{ margin: "14px" }} type="checkbox" /> */}
+                
                 <button
                   name={x.email}
                   value={x.status_account}
                   onClick={(e) => {
                     handleClickChange(e);
-                    onChange(e);
                   }}
                   style={{ margin: "14px" }}
-                  className="boton-map"
+                  className="boton-map1"
                 >
-                  Change
+                  change
                 </button>
+
+                {/* <Button
+                name={x.email}
+                value={x.status_account}
+                onClick={(e) => {
+                  handleClickChange(e);
+                }}
+                style={{ margin: "14px" }}
+                className="boton-map"
+                >
+                  <LoopIcon/>
+                </Button> */}
               </div>
             ))}
         </div>
         <div style={{ margin: "0 auto" }}>
-          <button className="pagButton" onClick={prevPage}>
-            ⮜ Prev Page
-          </button>
-          <button className="pagButton" onClick={nextPage}>
-            Next Page ⮞
-          </button>
+        <Button className="pagButton1" onClick={prevPage}>
+            <ArrowBackIosIcon/>
+          </Button>
+
+          <Button className="pagButton1" onClick={nextPage}>
+          <ArrowForwardIosIcon/>
+          </Button>
         </div>
       </div>
     </div>

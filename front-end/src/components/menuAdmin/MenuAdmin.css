@@ -36,3 +36,7 @@
   cursor: pointer;
   transition: 400ms;
 }
+.contenedor-adminMenu a{
+  color: white;
+  text-decoration: none;
+}
