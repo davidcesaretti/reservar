@@ -18,6 +18,7 @@ import HostCalendary from "../HostCalendary/HostCalendary";
 import SimpleModal from "./modal";
 import Swal from "sweetalert2";
 import NavBar from "../Nav/Nav2";
+import Autocomplete from "react-google-autocomplete";
 
 function AddProperty() {
   interface firebase {
@@ -366,6 +367,7 @@ function AddProperty() {
     //  window.location.reload();
   }
 
+
   return (
     <div>
       {idParam.id && <NavBar />}
@@ -387,9 +389,21 @@ function AddProperty() {
             <input ref={refAddress} type="text" required />
           </div>
 
-          <div className="grid__input">
+          {/* <div className="grid__input">
             <label> City</label>
             <input ref={refCity} type="text" />
+          </div> */}
+
+          <div className="grid__input">
+            <label> City</label>
+            <Autocomplete
+              apiKey={"AIzaSyBA4G2uLWkWFOrQL67Wtb2aS4e-cRe7Fys"}
+              onPlaceSelected={(place) => {
+                console.log(place)
+              }}
+              language="en"
+              // ref={refCity}
+            />
           </div>
 
           <div className="grid__input">
