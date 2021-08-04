@@ -390,6 +390,7 @@ function AddProperty() {
           <div className="grid__input">
             <label> City</label>
             <input ref={refCity} type="text" />
+            {console.log(refCity)}
           </div>
 
           <div className="grid__input">

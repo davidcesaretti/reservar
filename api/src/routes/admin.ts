@@ -77,11 +77,11 @@ router.post("/habilite", async (req, res, next) => {
 
 
 router.post("/removeProps", async (req, res, next) => {
-  const list = req.body;
-  list.map(async (e) => {
-    await Properties.deleteOne({ _id: e.id });
-  });
-  res.send("propiedades borradas");
+  const {id} = req.body;
+ 
+    await Properties.deleteOne({ _id: id });
+  
+  res.send("propiedad borrada");
 });
 
 router.post("/suspendedLodging", async (req, res, next) => {

@@ -71,19 +71,33 @@ function TablaAdmin() {
 
   useEffect(() => {
     dispatch(getUsersList());
-  }, [dispatch]);
+  }, [dispatch,filteredUsers]);
 
   const handleClickChange = (e) => {
     Swal.fire({
       title: "Do you want to save the changes?",
       showDenyButton: true,
+      icon: "question",
       confirmButtonText: `Save`,
       denyButtonText: `Don't save`,
+      confirmButtonColor: 'rgba(90, 110, 56, 0.85)',
+    denyButtonColor: '#313b1e',
     }).then((result) => {
       if (result.isConfirmed) {
-        Swal.fire("Saved!", "", "success");
+        Swal.fire({
+          title: "Saved!",
+           text:"", 
+           icon: "success",
+           confirmButtonColor: 'rgba(90, 110, 56, 0.85)',
+          });
+        onChange(e);
       } else if (result.isDenied) {
-        Swal.fire("Changes are not saved", "", "info");
+        Swal.fire({
+          title:"Changes are not saved",
+           text:"", 
+           icon:"info",
+           confirmButtonColor: 'rgba(90, 110, 56, 0.85)',
+          });
       }
     });
   };
@@ -128,7 +142,6 @@ function TablaAdmin() {
                   value={x.status_account}
                   onClick={(e) => {
                     handleClickChange(e);
-                    onChange(e);
                   }}
                   style={{ margin: "14px" }}
                   className="boton-map"

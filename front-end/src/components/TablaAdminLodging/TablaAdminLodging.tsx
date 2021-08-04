@@ -72,23 +72,68 @@ function TablaAdminLodging() {
 
   useEffect(() => {
     dispatch(getLodgingList());
-  }, [dispatch]);
+  }, [dispatch, filteredLodging]);
 
   const handleClickChange = (e) => {
     Swal.fire({
       title: "Do you want to save the changes?",
       showDenyButton: true,
+      icon: "question",
       confirmButtonText: `Save`,
       denyButtonText: `Don't save`,
+      confirmButtonColor: 'rgba(90, 110, 56, 0.85)',
+    denyButtonColor: '#313b1e',
     }).then((result) => {
       if (result.isConfirmed) {
-        Swal.fire("Saved!", "", "success");
+        Swal.fire({
+          title: "Saved!",
+           text:"", 
+           icon: "success",
+           confirmButtonColor: 'rgba(90, 110, 56, 0.85)',
+          });
+        onChange(e);
       } else if (result.isDenied) {
-        Swal.fire("Changes are not saved", "", "info");
+        Swal.fire({
+          title:"Changes are not saved",
+           text:"", 
+           icon:"info",
+           confirmButtonColor: 'rgba(90, 110, 56, 0.85)',
+          });
       }
     });
   };
 
+  const deleteProp = (prop_Id)=> {
+    Swal.fire({
+      title: "Do you want to delete the property?",
+      showDenyButton: true,
+      icon: "question",
+      confirmButtonText: `Yes`,
+      denyButtonText: `No`,
+      confirmButtonColor: 'rgba(90, 110, 56, 0.85)',
+    denyButtonColor: '#313b1e',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          title: "Eliminated!",
+           text:"", 
+           icon: "error",
+           confirmButtonColor: 'rgba(90, 110, 56, 0.85)',
+          });
+          axios.post("http://localhost:3001/admin/removeProps", {id: prop_Id} )
+      } else if (result.isDenied) {
+        Swal.fire({
+          title:"",
+           text:"", 
+           icon:"info",
+           confirmButtonColor: 'rgba(90, 110, 56, 0.85)',
+          });
+      }
+    });
+     
+  }
+
+  
   return (
     <div className="con-homeAdmin">
       <MenuAdmin />
@@ -104,7 +149,7 @@ function TablaAdminLodging() {
           }}
           className="title"
         >
-          Registered Users
+          Registered Lodgings
         </h2>
         <div className="container-tabla">
           <div className="grid-tabla color-grid">
@@ -112,14 +157,15 @@ function TablaAdminLodging() {
             <p>Name</p>
             <p>Host Name</p>
             <p>City</p>
-            <p>Account status</p>
+            <p>Property status</p>
             <p>Change Status</p>
+            <p>Delete Property</p>
           </div>
 
           {filteredLodging &&
             filteredLodging.map((x, i) => (
               <div key={i} className="grid-tabla">
-                <p style={{ margin: "14px" }}>{x.name}</p>{undefined}
+                <p style={{ margin: "14px" }}>{x.name}</p>{" "}
                 <p style={{ margin: "14px" }}>{x.host}</p>
                 <p style={{ margin: "14px" }}>{x.city}</p>
                 <p style={{ margin: "14px" }}>{x.status_account}</p>
@@ -129,13 +175,22 @@ function TablaAdminLodging() {
                   value={x.status_account}
                   onClick={(e) => {
                     handleClickChange(e);
-                    onChange(e);
+                    
                   }}
                   style={{ margin: "14px" }}
                   className="boton-map"
                 >
                   Change
                 </button>
+                <button
+                  name={x.id}
+                  style={{ margin: "10px" }}
+                  className="boton-map"
+                  onClick={() => deleteProp(x.id)}
+                >
+                  X
+                </button>
+                
               </div>
             ))}
         </div>
