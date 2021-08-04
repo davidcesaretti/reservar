@@ -8,10 +8,6 @@ import SearchIcon from "@material-ui/icons/Search";
 import { Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import Image1 from "../../Image/pexels-pixabay-210017.jpeg";
-import Recom1 from "../../Image/recom1.jpeg";
-import Recom2 from "../../Image/recom2.jpeg";
-import Recom3 from "../../Image/recom3.jpeg";
-import Recom4 from "../../Image/recom4.jpeg";
 import Tipos1 from "../../Image/tipos1.jpeg";
 import Tipos2 from "../../Image/tipos2.jpeg";
 import Tipos3 from "../../Image/tipos3.jpeg";
@@ -25,15 +21,16 @@ import {
   fetchCardsHotels,
   findPost,
   getFavos,
-  setBoolean,
+  getListOfCities
 } from "../../actions";
 import { Calendary } from "../Calendary/Calendary";
 import MenuAppBar from "../Nav/Nav2";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../firebase/index";
-import Spinner from "../Spinner/Spinner";
-import Error404 from "../Error404/Error404";
+// import AutoComplete from "material-ui/AutoComplete";
+import Autocomplete from "@material-ui/lab/Autocomplete";
+
 
 const useStyles = makeStyles((theme) => ({
   containerGeneral: {},
@@ -128,6 +125,8 @@ const Home = () => {
   const [type, setType] = useState(undefined);
   const fechas: any = useSelector((state: any) => state.fechas);
   const post = useSelector((state: any) => state.postsHost);
+  const listOfCities = useSelector((state:any) => state.listOfCities)
+  
 
   const dispatch = useDispatch();
   const auth = useAuth();
@@ -146,6 +145,13 @@ const Home = () => {
   let random1 = Math.floor(Math.random() * 4);
   let page = Math.floor(Math.random() * 12);
   let ciudadRandom = ciudades[random1];
+
+
+  
+useEffect(() => {
+  dispatch(getListOfCities())
+}, [])
+
 
   useEffect(() => {
     dispatch(
@@ -177,21 +183,7 @@ const Home = () => {
   //   );
   // }
 
-  // useEffect(() => {
-  //   dispatch(
-  //     fetchCardsHotels(
-  //       "1",
-  //       "asc",
-  //       "TV",
-  //       "Apartment",
-  //       4,
-  //       0,
-  //       undefined,
-  //       undefined
-  //     )
-  //   );
-  // }, []);
-  console.log(fechas);
+
   function busqueda() {
     dispatch(FechasReserva({ ...fechas, cities, guest }));
     dispatch(
@@ -254,6 +246,8 @@ const Home = () => {
     }
   }, [email]);
 
+
+
   return (
     <div>
       <MenuAppBar />
@@ -303,15 +297,16 @@ const Home = () => {
                 alignItems: "center",
               }}
             >
-              <TextField
-                onChange={(e) => setCities(e.target?.value?.toLowerCase())}
-                id=""
-                label="Where are you going?"
-                variant="standard"
-                color="secondary"
-                margin="none"
-                size="small"
-              />
+                <Autocomplete  
+                  id="ciudades"
+                  options={listOfCities}
+                  onChange={(event: any, newValue: any | null) => {
+                    setCities(newValue);
+                  }}
+                  getOptionLabel={(listOfCities) => listOfCities}
+                  style={{ width: 200 }}
+                  renderInput={(params:any) => <TextField {...params} label="Where are you going?" variant="standard" />}
+                />
               <Calendary />
               <TextField
                 onChange={(e) => setGuest(e.target.value)}

@@ -386,14 +386,17 @@ function AddProperty() {
             <label> Address</label>
             <input ref={refAddress} type="text" required />
           </div>
+
           <div className="grid__input">
             <label> City</label>
             <input ref={refCity} type="text" />
           </div>
+
           <div className="grid__input">
             <label> Country</label>
             <input ref={refCountry} type="text" />
           </div>
+
           <div className="grid__input">
             <label> Property type</label>
             {/* <input ref={refType} type="text" /> */}

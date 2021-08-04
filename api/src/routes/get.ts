@@ -4,6 +4,7 @@ import { paginado } from "../paginado";
 import { Properties } from "../models/Properties";
 import { Reserva, User } from "../models/Users";
 import { Propertiestests } from "../models/propertiestests";
+import {Cities} from "../models/Cities"
 // import cors from "cors";
 //import config from "../lib/config";
 const router = Router();
@@ -108,5 +109,14 @@ router.get("/properties/:id", async (req: Request, res: Response, next) => {
   }
   next();
 });
+
+router.get("/cities",  (req: Request, res: Response, next) => {
+  Properties.find({}).then((resp:any) => {
+    const namesCities = resp.map(e=> e.city)
+    var cities = [...new Set(namesCities)].filter((x:any) => x.length < 15 && x.length > 1)
+    
+    res.json(cities)
+  })
+})
 
 export default router;
