@@ -49,51 +49,51 @@ const Perfil = () => {
     e.preventDefault();
 
     if (info.name === "") {
-      Swal.fire("Write your name")
+      Swal.fire({title: "Write your name", confirmButtonColor: '#9ea03b'})
       return;
     }
     if (!emailRegex.test(info.recuperation_email)) {
-      Swal.fire("Write an alternative mail in case you need to recover your account")
+      Swal.fire({title: "Write an alternative mail in case you need to recover your account", confirmButtonColor: '#9ea03b',})
       return;
     }
     if (info.phone_number === undefined) {
-      Swal.fire("Write your phone number")
+      Swal.fire({title:"Write your phone number", confirmButtonColor: '#9ea03b'})
       return;
     }
     if (info.identity_document_type === "") {
-      Swal.fire("Select your document type")
+      Swal.fire({title: "Select your document type", confirmButtonColor: '#9ea03b'})
       return;
     }
     if (info.identity_document_number === undefined) {
-      Swal.fire("Write your document number")
+      Swal.fire({title:"Write your document number", confirmButtonColor: '#9ea03b'})
       return;
     }
     if (info.nationality === "") {
-      Swal.fire("Write your nationality")
+      Swal.fire({title:"Write your nationality", confirmButtonColor: '#9ea03b'})
       return;
     }
     if (info.date_birth === "") {
-      Swal.fire("Write your birth date")
+      Swal.fire({title: "Write your birth date", confirmButtonColor: '#9ea03b'})
       return;
     }
     if (info.residence_address === "") {
-      Swal.fire("Write your adress")
+      Swal.fire({title:"Write your adress", confirmButtonColor: '#9ea03b'})
       return;
     }
     if (info.city_and_country_of_residence === "") {
-      Swal.fire("Write your residence")
+      Swal.fire({title:"Write your residence", confirmButtonColor: '#9ea03b'})
       return;
     }
     if (info.emergency_phone_number === undefined) {
-      Swal.fire("Write the phone of an emergency contact")
+      Swal.fire({title:"Write the phone of an emergency contact", confirmButtonColor: '#9ea03b'})
       return;
     }
     if (!emailRegex.test(info.emergency_contact)) {
-      Swal.fire("Write the email of the emergency contact")
+      Swal.fire({title:"Write the email of the emergency contact", confirmButtonColor: '#9ea03b'})
       return;
     }
     if (info.relationship === "") {
-      Swal.fire("Write your relationship with the emergency contact")
+      Swal.fire({title:"Write your relationship with the emergency contact", confirmButtonColor: '#9ea03b'})
       return;
     }
 
@@ -109,11 +109,17 @@ const Perfil = () => {
       showCancelButton: true,
       confirmButtonText: `Save`,
       denyButtonText: `Don't save`,
+      denyButtonColor: "#313b1e",
+      confirmButtonColor: '#9ea03b',
     }).then((result) => {
       /* Read more about isConfirmed, isDenied below */
       if (result.isConfirmed) {
         dispatch(updateUser(info, userEmail));
-        Swal.fire("Saved!", "", "success");
+        Swal.fire({
+          title:"Saved!",
+          confirmButtonColor: '#9ea03b',
+         icon:"success"
+      });
         setTimeout(dispatchuser, 2000);
       } else if (result.isDenied) {
         Swal.fire("Changes are not saved", "", "info");

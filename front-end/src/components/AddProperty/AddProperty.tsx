@@ -19,6 +19,7 @@ import SimpleModal from "./modal";
 import Swal from "sweetalert2";
 import NavBar from "../Nav/Nav2";
 import Autocomplete from "react-google-autocomplete";
+import { useHistory } from "react-router-dom";
 
 function AddProperty() {
   interface firebase {
@@ -32,6 +33,7 @@ function AddProperty() {
     setStartDate(start);
     setEndDate(end);
   };
+  const history = useHistory();
   const dateArray = [];
   const dispatch = useDispatch();
   const idParam = useParams();
@@ -153,7 +155,11 @@ function AddProperty() {
       !refAddress.current.value ||
       !refCity.current.value
     ) {
-      alert("Please complete all the fields correctly");
+      Swal.fire({
+        title:"Please complete all the fields correctly", 
+        confirmButtonColor: '#9ea03b',
+        icon: "info"
+       });
     } else {
       Swal.fire({
         title: "Do you want to create this property?",
@@ -161,12 +167,12 @@ function AddProperty() {
         icon: "question",
         confirmButtonText: `Save`,
         denyButtonText: `Don't save`,
-        confirmButtonColor: 'rgba(90, 110, 56, 0.85)',
+        confirmButtonColor: '#9ea03b',
         denyButtonColor: '#313b1e',
       }).then((result) => {
         if (result.isConfirmed) {
           Swal.fire({
-            title: "Saved!",
+            title: "Created!",
              text:"", 
              icon: "success",
              confirmButtonColor: 'rgba(90, 110, 56, 0.85)',
@@ -192,6 +198,7 @@ function AddProperty() {
             .post("http://localhost:3001/upload", formData)
             .then()
             .catch((error) => console.log(error));
+            // history.push("/");
           [
             refTitle.current.value,
             refDescription.current.value,
@@ -213,7 +220,7 @@ function AddProperty() {
           setBathrooms(1);
           setBeds(1);
           setBedrooms(1);
-          Swal.fire("Created!", "", "success");
+         
           // setTimeout(dispatchuser, 2000);
         } else if (result.isDenied) {
           Swal.fire({
@@ -239,15 +246,20 @@ function AddProperty() {
       !refAddress.current.value ||
       !refCity.current.value
     ) {
-      alert("Please complete all the fields correctly");
+      Swal.fire({
+      title:"Please complete all the fields correctly", 
+      confirmButtonColor: '#9ea03b',
+      icon: "info"
+      });
+
     } else {
       Swal.fire({
-        title: "Do you want to edit this property?",
+        title: "Do you want to save to changes?",
         showDenyButton: true,
         icon: "question",
         confirmButtonText: `Save`,
         denyButtonText: `Don't save`,
-        confirmButtonColor: 'rgba(90, 110, 56, 0.85)',
+        confirmButtonColor: '#9ea03b',
         denyButtonColor: '#313b1e',
       }).then((result) => {
         if (result.isConfirmed) {
@@ -255,7 +267,7 @@ function AddProperty() {
             title: "Saved!",
              text:"", 
              icon: "success",
-             confirmButtonColor: 'rgba(90, 110, 56, 0.85)',
+             confirmButtonColor: '#9ea03b',
             });
           const formData = {
             name: refTitle.current.value,
@@ -299,14 +311,14 @@ function AddProperty() {
           setBathrooms(1);
           setBeds(1);
           setBedrooms(1);
-          Swal.fire("Edited!", "", "success");
-          // setTimeout(dispatchuser, 2000);
+          
+      
         } else if (result.isDenied) {
           Swal.fire({
             title:"Changes are not saved",
              text:"", 
              icon:"info",
-             confirmButtonColor: 'rgba(90, 110, 56, 0.85)',
+             confirmButtonColor: '#9ea03b',
             });
         }
       });

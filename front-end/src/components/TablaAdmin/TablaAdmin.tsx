@@ -79,20 +79,20 @@ function TablaAdmin() {
 
   const handleClickChange = (e) => {
     Swal.fire({
-      title: "Do you want to save the changes?",
+      title: "Do you want to change the status?",
       showDenyButton: true,
       icon: "question",
-      confirmButtonText: `Save`,
-      denyButtonText: `Don't save`,
-      confirmButtonColor: 'rgba(90, 110, 56, 0.85)',
+      confirmButtonText: `Yes`,
+      denyButtonText: `No`,
+      confirmButtonColor: '#9ea03b',
     denyButtonColor: '#313b1e',
     }).then((result) => {
       if (result.isConfirmed) {
         Swal.fire({
-          title: "Saved!",
+          title: "Success",
            text:"", 
            icon: "success",
-           confirmButtonColor: 'rgba(90, 110, 56, 0.85)',
+           confirmButtonColor: '#9ea03b',
           });
         onChange(e);
       } else if (result.isDenied) {
@@ -100,13 +100,15 @@ function TablaAdmin() {
           title:"Changes are not saved",
            text:"", 
            icon:"info",
-           confirmButtonColor: 'rgba(90, 110, 56, 0.85)',
+           confirmButtonColor: '#9ea03b',
           });
       }
     });
   };
 
   return (
+    
+     
     <div className="con-homeAdmin">
       <MenuAdmin />
       <div style={{ display: "grid" }}>
@@ -127,7 +129,7 @@ function TablaAdmin() {
           <div className="grid-tabla1 color-grid1">
             {" "}
             <p>Name</p>
-            <p>Phone Number</p>
+            <p>Email</p>
             <p>Country</p>
             <p>Account status</p>
             <p>Change Status</p>
@@ -137,11 +139,11 @@ function TablaAdmin() {
             filteredUsers.map((x, i) => (
               <div key={i} className="grid-tabla1">
                 <p style={{ margin: "14px" }}>{x.name}</p>{" "}
-                <p style={{ margin: "14px" }}>{x.phone_number}</p>
+                <p style={{ margin: "14px" }}>{x.email}</p>
                 <p style={{ margin: "14px" }}>{x.nationality}</p>
                 <p style={{ margin: "14px" }}>{x.status_account}</p>
                 
-                <button
+                {/* <button
                   name={x.email}
                   value={x.status_account}
                   onClick={(e) => {
@@ -151,9 +153,9 @@ function TablaAdmin() {
                   className="boton-map1"
                 >
                   change
-                </button>
+                </button> */}
 
-                {/* <Button
+                <Button
                 name={x.email}
                 value={x.status_account}
                 onClick={(e) => {
@@ -163,7 +165,7 @@ function TablaAdmin() {
                 className="boton-map"
                 >
                   <LoopIcon/>
-                </Button> */}
+                </Button>
               </div>
             ))}
         </div>
@@ -178,6 +180,7 @@ function TablaAdmin() {
         </div>
       </div>
     </div>
+   
   );
 }
 
