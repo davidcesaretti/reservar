@@ -26,19 +26,18 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
   },
   link: {
-    marginTop: theme.spacing(2),
     textDecoration: "none",
     color: "white",
     marginRight: theme.spacing(2),
   },
   link1: {
-    marginTop: theme.spacing(2),
     textDecoration: "none",
     color: "white",
     marginRight: theme.spacing(2),
   },
   linkDecoration: {
     textDecoration: "none",
+    color: "white",
   },
 }));
 
@@ -89,8 +88,8 @@ export default function MenuAppBar() {
               </Link>
             </Grid>
           ) : (
-            <Link to="/register" className={classes.link1}>
-              <Button variant="contained" color="secondary">
+            <Link to="/register" className={classes.linkDecoration}>
+              <Button variant="contained" color="secondary" className={classes.link1}>
                 Log In/Register
               </Button>
             </Link>

@@ -85,6 +85,16 @@ router.post("/find", async (req: Request, res: Response) => {
   }
 });
 
+router.get("/getPosts", async( req: Request, res: Response ) => {
+  try {
+    const find = await Properties.find({});
+    console.log(find.length)
+    return res.json(find)
+  } catch (error) {
+    console.log(error)
+  }
+})
+
 router.post(
   "/edit",
   async (req: Request, res: Response, next: NextFunction) => {

@@ -26,6 +26,7 @@ import TermsAndConditions from "./components/TermsAndConditions/TermsAndConditio
 import GeneralBalance from "./components/GeneralBalance/GeneralBalance"
 import Earnings from "./components/Earnings/Earnings"
 import TablaAdminLodging from "./components/TablaAdminLodging/TablaAdminLodging"
+import Spinner from "./components/Spinner/Spinner"
 function App() {
   const auth = useAuth();
 
@@ -39,15 +40,15 @@ function App() {
       <Route exact path="/payments" component={Pay} />
       <Route exact path="/User" component={auth?.user ? User : Register} />
       <Route exact path="/AddProperty/:id" component={AddProperty} />
-      <Route exact path="/Admin" component={auth?.user?.email === "trekkerhenry@gmail.com" ? AdminDashboard : Error404} />
+      <Route exact path="/Admin" component={auth?.user?.email === "trekkerhenry@gmail.com" ? AdminDashboard : Spinner} />
       {/* <Route exact path="/validationAdmin" component={ValidationAdmin} />
       <Route exact path="/homeAdmin" component={MenuAdmin} /> */}
-      <Route exact path="/tablalodging" component={auth?.user?.email === "trekkerhenry@gmail.com" ? TablaAdminLodging : Error404}  />
-      <Route exact path="/homeAdminTabla" component={auth?.user?.email === "trekkerhenry@gmail.com" ? TablaAdmin : Error404}  />
-      <Route exact path="/FAQ" component={auth?.user?.email === "trekkerhenry@gmail.com" ? FAQ : Error404} />
-      <Route exact path="/terms" component={auth?.user?.email === "trekkerhenry@gmail.com" ? TermsAndConditions : Error404} />
-      <Route exact path="/Balance" component={auth?.user?.email === "trekkerhenry@gmail.com" ? GeneralBalance : Error404} />
-      <Route exact path="/earnings" component={auth?.user?.email === "trekkerhenry@gmail.com" ? Earnings : Error404} />
+      <Route exact path="/tablalodging" component={auth?.user?.email === "trekkerhenry@gmail.com" ? TablaAdminLodging : Spinner}  />
+      <Route exact path="/homeAdminTabla" component={auth?.user?.email === "trekkerhenry@gmail.com" ? TablaAdmin : Spinner}  />
+      <Route exact path="/FAQ" component={auth?.user?.email === "trekkerhenry@gmail.com" ? FAQ : Spinner} />
+      <Route exact path="/terms" component={auth?.user?.email === "trekkerhenry@gmail.com" ? TermsAndConditions : Spinner} />
+      <Route exact path="/Balance" component={auth?.user?.email === "trekkerhenry@gmail.com" ? GeneralBalance : Spinner} />
+      <Route exact path="/earnings" component={auth?.user?.email === "trekkerhenry@gmail.com" ? Earnings : Spinner} />
       <Route path="*" component={Error404} />
     </Switch>
   );

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { findPost } from "../../actions/index";
+import { GetPosts } from "../../actions/index";
 import { useAuth } from "../../firebase/index";
 import style from "./Earnings.module.css";
 import { Grid, Typography } from "@material-ui/core";
@@ -26,22 +26,32 @@ const Earnings = ({ setSection }) => {
   const [reserved, setReserved] = useState(false);
   const [loaded, setLoaded] = useState(true);
 
-  const userPosts = useSelector((state: any) => state.postHost);
+  const userPosts = useSelector((state: any) => state.getAllPosts);
 
   let month = new Date().toLocaleString("en-US", { month: "long" });
   let year = new Date().getFullYear();
 
   const email = auth?.user?.email;
 
+  const filterFake = userPosts.map(
+    (
+      x //nuevo
+    ) => x.available.filter((y) => y.state !== "fake")
+  );
+
+  userPosts.forEach((x, i) => (x.available = filterFake[i])); 
+
   useEffect(() => {
-    dispatch(findPost({}));
+    dispatch(GetPosts());
   }, [dispatch, loaded]);
 
   let cont = 0;
 
   if (loaded && userPosts.length > 0) {
     userPosts.map((e) => {
-      if (e.available.length > 0) setReserved(true);
+      if (e.available.length > 0) {
+        setReserved(true)
+      };
       cont += e.available?.reduce((acum, e) => {
         return acum + e.price;
       }, 0);
@@ -49,6 +59,8 @@ const Earnings = ({ setSection }) => {
     setIncome(cont);
     setLoaded(false);
   }
+
+  console.log(income)
 
   return (
     <div className="con-homeAdmin">
@@ -96,12 +108,12 @@ const Earnings = ({ setSection }) => {
                     <div className={style.propertie} key={e._id}>
                       <div>
                         <h3>{e.fechaLlegada.slice(0, 10)}</h3>
-                        <p>Reservation: {e._id}</p>
-                        <p>Property: {userPosts[0].name}</p>
+                        <p>Reservation: <b>{e._id}</b></p>
+                        <p>Property: <b>{e.propname}</b></p>
                       </div>
                       <div>
-                        <p>Gross Income: {e.price}</p>
-                        <p>Net Income: {Math.floor(e.price - e.price * 0.9)}</p>
+                        <p>Gross Income: <b>{e.price}</b></p>
+                        <p>Net Income: <b>{Math.floor(e.price - e.price * 0.9)}</b></p>
                       </div>
                     </div>
                   );

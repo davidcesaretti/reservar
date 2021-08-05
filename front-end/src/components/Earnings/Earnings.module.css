@@ -110,6 +110,7 @@ margin-left: 51px;
     width: 800px;
     margin: auto;
     margin-bottom: 120px;
+    padding-bottom: 10px;
 }
 .propertie{
     display: flex;
@@ -120,6 +121,7 @@ margin-left: 51px;
     padding-right: 15px;
     margin: 15px;
     border-radius: 10px;
+    margin-bottom: 15px;
 }
 .message{
     text-align: center;
