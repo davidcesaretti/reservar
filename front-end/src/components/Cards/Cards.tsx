@@ -39,9 +39,10 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(4),
   },
   cardGrid: {
-    paddingTop: theme.spacing(8),
+    paddingTop: theme.spacing(6),
     paddingBottom: theme.spacing(8),
     minHeight: "1480px",
+    
   },
   card: {
     height: "100%",
@@ -74,6 +75,7 @@ export default function Album() {
   const userfavs = useSelector((state: any) => state.userfavossss);
   const listOfCities = useSelector((state:any) => state.listOfCities)
   const dispatch = useDispatch();
+  let cantGuests = ["1","2","3","4","5","6","7","8","9"]
 
   useEffect(() => {
     dispatch(getListOfCities())
@@ -143,6 +145,8 @@ export default function Album() {
           justifyContent: "center",
           paddingTop: "16px",
           paddingBottom: "0",
+          marginTop: "20px",
+          
         }}
       >
         <FormControl>
@@ -163,19 +167,19 @@ export default function Album() {
                     setCities(newValue);
                   }}
                   getOptionLabel={(listOfCities) => listOfCities}
-                  style={{ width: 200 }}
+                  style={{ width: 220 }}
                   renderInput={(params:any) => <TextField {...params} label="Where are you going?" variant="standard" />}
                 />
             <Calendary />
-            <TextField
-              onChange={(e) => setGuest(e.target.value)}
-              id=""
-              label="Guests"
-              variant="standard"
-              color="primary"
-              margin="none"
-              size="small"
-            />
+            <Autocomplete  
+                  id="cantGuests"
+                  options={cantGuests}
+                  onChange={(event: any, newValue: any | null) => {
+                    setGuest(newValue);
+                  }}
+                  style={{ width: 180 }}
+                  renderInput={(params:any) => <TextField {...params} label="Guests" variant="standard" />}
+                />
             <Link to={"/categories"}>
               <Button
                 variant="contained"
@@ -197,15 +201,15 @@ export default function Album() {
           </FormLabel>
         </FormControl>
       </div>
-      {/* fksjahfjkashfkjashfasfrjkasfhapsfhlasfhlkasfhlkashflksflashflkasfhlkashlkashflkfa */}
+      
       <main style={{ marginLeft: "200px" }}>
-        {/* Hero unit */}
+      
         <Container className={classes.cardGrid} maxWidth="md">
-          {/* End hero unit */}
+         
           <Grid container spacing={4}>
             {cards.posts &&
-              cards.posts.map((e) => (
-                <Grid item key={e} xs={12} sm={6} md={6}>
+              cards.posts.map((e,i) => (
+                <Grid item key={i} xs={12} sm={6} md={6}>
                   <Card className={classes.card}>
                     <CardComp
                       _id={e._id}

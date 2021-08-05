@@ -37,10 +37,11 @@ const useStyles = makeStyles({
     background: "#324021",
     position: "absolute",
     color: "white",
-    marginTop: "120px",
+    marginTop: "153px",
     marginLeft: "20px",
     width: "20%",
-    height: "200%",
+    height: "141%",
+    borderRadius: "10px"
   },
   nombredetipo: {
     color: "white",
@@ -54,13 +55,14 @@ const useStyles = makeStyles({
   nombredecat: {
     marginTop: "27px",
     marginBottom: "10px",
+    fontSize:"17px"
   },
 
   btn: {
-    backgroundColor: "white" /* Green */,
+    backgroundColor: "#A6A845" /* Green */,
     cursor: "pointer",
     "&:focus": {
-      background: "#A6A845",
+      background: "white",
     },
     border: "none",
     color: "black",
@@ -81,11 +83,13 @@ const useStyles = makeStyles({
 
   selectugly: {
     color: "black",
-    backgroundColor: "white",
+    backgroundColor: "#A6A845",
     borderRadius: "3px",
+  
 
     "&:before": {
-      borderColor: "white",
+      borderColor: "#A6A845",
+      borderRadius: "3px"
     },
     minWidth: "100px",
   },
@@ -356,9 +360,10 @@ export default function CheckboxList() {
       <form onSubmit={submitData}>
         <Container maxWidth="xs" className={classes.filterbox}>
           <h3 className={classes.nombredecat}>Filter by...</h3>
-          {Categories.map((cat) => (
+          {Categories.map((cat, index) => (
             <>
               <Grid
+                key={index}
                 container
                 direction="column"
                 justifyContent="space-evenly"
@@ -387,8 +392,8 @@ export default function CheckboxList() {
                 )}
                 <List>
                   {cat.title !== "Type" && cat.title !== "Score" ? (
-                    cat?.filtros?.map((value) => (
-                      <ListItem className={classes.nombredetipo} key={value}>
+                    cat?.filtros?.map((value, index) => (
+                      <ListItem className={classes.nombredetipo} key={index}>
                         <GreenCheckbox
                           edge="start"
                           value={value}
@@ -408,9 +413,10 @@ export default function CheckboxList() {
                           name={cat.keyword}
                           onChange={setDataHandler}
                           className={classes.selectugly}
+                          defaultValue={"Select"}
                         >
-                          {cat?.filtros?.map((value) => (
-                            <MenuItem value={value.id}>{value.msg}</MenuItem>
+                          {cat?.filtros?.map((value, index) => (
+                            <MenuItem key={index} value={value.id}>{value.msg}</MenuItem>
                           ))}
                         </Select>
                       </FormControl>

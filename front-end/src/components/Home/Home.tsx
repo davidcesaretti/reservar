@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import "./home.css"
 import Footer from "../Footer/Footer";
 import TextField from "@material-ui/core/TextField";
 import FormControl from "@material-ui/core/FormControl";
@@ -148,6 +147,7 @@ const Home = () => {
     "sydney",
     "barcelona",
   ];
+  let cantGuests = ["1","2","3","4","5","6","7","8","9"]
   let random1 = Math.floor(Math.random() * 4);
   let page = Math.floor(Math.random() * 12);
   let ciudadRandom = ciudades[random1];
@@ -310,7 +310,7 @@ useEffect(() => {
                     setCities(newValue);
                   }}
                   // getOptionLabel={(listOfCities) => listOfCities}
-                  style={{ width: 200 }}
+                  style={{ width: 220 }}
                   renderInput={(params:any) => <TextField {...params} label="Where are you going?" variant="standard" />}
                 />
               <Calendary />
@@ -322,31 +322,19 @@ useEffect(() => {
                 color="primary"
                 margin="none"
                 size="small"
+                cantGuests
               /> */}
 
-          <FormControl >
-        <InputLabel id="demo-simple-select-label">Guest</InputLabel>
-        <Select style={{width: "150px"}}
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
-          onChange={(e) => setGuest(e.target.value)}
-          variant="standard"
-          color="primary"
-          margin="none"
-        >
-          <MenuItem value={1}>1</MenuItem>
-          <MenuItem value={2}>2</MenuItem>
-          <MenuItem value={3}>3</MenuItem>
-          <MenuItem value={4}>4</MenuItem>
-          <MenuItem value={5}>5</MenuItem>
-          <MenuItem value={6}>6</MenuItem>
-          <MenuItem value={7}>7</MenuItem>
-          <MenuItem value={8}>8</MenuItem>
-          <MenuItem value={9}>9</MenuItem>
-
-        </Select>
-      </FormControl>    
-
+                  <Autocomplete  
+                  id="cantGuests"
+                  options={cantGuests}
+                  onChange={(event: any, newValue: any | null) => {
+                    setGuest(newValue);
+                  }}
+                  
+                  style={{ width: 180 }}
+                  renderInput={(params:any) => <TextField {...params} label="Guests" variant="standard" />}
+                />
               <Link to={"/categories"}>
                 <Button
                   variant="contained"
