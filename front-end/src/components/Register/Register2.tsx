@@ -91,6 +91,9 @@ const useStyle = makeStyles((theme) => ({
   buttonOut: {
     marginBottom: theme.spacing(1),
   },
+  image: {
+    marginTop: "5px"
+  }
 }));
 const Register = () => {
   const auth = useAuth();
@@ -172,7 +175,7 @@ const Register = () => {
     <Grid className={classes.ctn}>
       <Grid xs={12} className={classes.navBar}>
         <Link to="/" className={classes.link}>
-          <img src={logo} alt="trekker" width="150px" height="60px" />
+          <img className={classes.image} src={logo} alt="trekker" width="150px" height="60px" />
         </Link>
         <Button
           className={classes.homeButton}

@@ -25,7 +25,8 @@ export enum ActionTypes {
   reserveFake = "RESERVE_FAKE",
   review = "REVIEW",
   lodgingUser = "LODGING_USER",
-  listCities = "LIST_CITIES"
+  listCities = "LIST_CITIES",
+  listPosts = "LIST_POSTS"
 }
 
 export type Action = FetchUsersAction;

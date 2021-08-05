@@ -85,6 +85,10 @@ export interface Credentials {
   username: string;
   password: string;
 }
+export interface AllPosts {
+  type: ActionTypes.listPosts;
+  payload: Array<Object>
+}
 export interface userInfo {
   name: string;
   email: string;
@@ -227,6 +231,16 @@ export const UserEmailGlobal = (data) => {
     });
   };
 };
+
+export const GetPosts = () => {
+  return async (dispatch: Dispatch) => {
+    const posts = await axios.get("http://localhost:3001/upload/getPosts")
+    dispatch<AllPosts>({
+      type: ActionTypes.listPosts,
+      payload: posts.data
+    })
+  }
+}
 
 export const SetCollection = (data) => {
   return async (dispatch: Dispatch) => {
