@@ -88,15 +88,17 @@ function TablaAdminLodging() {
       icon: "question",
       confirmButtonText: `Save`,
       denyButtonText: `Don't save`,
-      confirmButtonColor: 'rgba(90, 110, 56, 0.85)',
+      confirmButtonColor: '#9ea03b',
     denyButtonColor: '#313b1e',
+    iconColor:"#9ea03b"
     }).then((result) => {
       if (result.isConfirmed) {
         Swal.fire({
           title: "Saved!",
            text:"", 
            icon: "success",
-           confirmButtonColor: 'rgba(90, 110, 56, 0.85)',
+           confirmButtonColor: '#9ea03b',
+           iconColor:"#9ea03b"
           });
         onChange(e);
       } else if (result.isDenied) {
@@ -104,7 +106,8 @@ function TablaAdminLodging() {
           title:"Changes are not saved",
            text:"", 
            icon:"info",
-           confirmButtonColor: 'rgba(90, 110, 56, 0.85)',
+           confirmButtonColor: '#9ea03b',
+           iconColor:"#9ea03b"
           });
       }
     });
@@ -117,15 +120,16 @@ function TablaAdminLodging() {
       icon: "question",
       confirmButtonText: `Yes`,
       denyButtonText: `No`,
-      confirmButtonColor: 'rgba(90, 110, 56, 0.85)',
+      confirmButtonColor: '#9ea03b',
     denyButtonColor: '#313b1e',
+    iconColor:"#9ea03b"
     }).then((result) => {
       if (result.isConfirmed) {
         Swal.fire({
           title: "Eliminated!",
            text:"", 
            icon: "error",
-           confirmButtonColor: 'rgba(90, 110, 56, 0.85)',
+           confirmButtonColor: '#9ea03b',
           });
           axios.post("http://localhost:3001/admin/removeProps", {id: prop_Id} )
       } else if (result.isDenied) {
@@ -133,7 +137,8 @@ function TablaAdminLodging() {
           title:"",
            text:"", 
            icon:"info",
-           confirmButtonColor: 'rgba(90, 110, 56, 0.85)',
+           confirmButtonColor: '#9ea03b',
+           iconColor:"#9ea03b"
           });
       }
     });

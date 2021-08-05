@@ -62,6 +62,8 @@ function AddProperty() {
     latitude: 0,
     longitude: 0,
   };
+  
+
   function geoCode() {
     var location =
       refAddress.current?.value +
@@ -158,24 +160,26 @@ function AddProperty() {
       Swal.fire({
         title:"Please complete all the fields correctly", 
         confirmButtonColor: '#9ea03b',
-        icon: "info"
+        icon: "info",
+        iconColor:"#9ea03b"
        });
     } else {
       Swal.fire({
         title: "Do you want to create this property?",
         showDenyButton: true,
         icon: "question",
-        confirmButtonText: `Save`,
-        denyButtonText: `Don't save`,
+        confirmButtonText: `Yes`,
+        denyButtonText: `No`,
         confirmButtonColor: '#9ea03b',
         denyButtonColor: '#313b1e',
+        iconColor:"#9ea03b"
       }).then((result) => {
         if (result.isConfirmed) {
           Swal.fire({
             title: "Created!",
              text:"", 
              icon: "success",
-             confirmButtonColor: 'rgba(90, 110, 56, 0.85)',
+             confirmButtonColor: '#9ea03b',
             });
           const formData = {
             name: refTitle.current.value,
@@ -227,7 +231,8 @@ function AddProperty() {
             title:"Changes are not saved",
              text:"", 
              icon:"info",
-             confirmButtonColor: 'rgba(90, 110, 56, 0.85)',
+             confirmButtonColor: '#9ea03b',
+             
             });
         }
       });
@@ -249,7 +254,8 @@ function AddProperty() {
       Swal.fire({
       title:"Please complete all the fields correctly", 
       confirmButtonColor: '#9ea03b',
-      icon: "info"
+      icon: "info",
+      
       });
 
     } else {
@@ -261,6 +267,7 @@ function AddProperty() {
         denyButtonText: `Don't save`,
         confirmButtonColor: '#9ea03b',
         denyButtonColor: '#313b1e',
+        iconColor:"#9ea03b"
       }).then((result) => {
         if (result.isConfirmed) {
           Swal.fire({
@@ -392,7 +399,7 @@ function AddProperty() {
       showConfirmButton: false,
       timer: 1500
     })
-    const objDate = {
+     const objDate = {
       fechaSalida: startDate,
       fechaLlegada: endDate,
       email: auth,

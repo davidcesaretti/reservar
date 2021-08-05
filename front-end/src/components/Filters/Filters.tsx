@@ -40,7 +40,7 @@ const useStyles = makeStyles({
     marginTop: "153px",
     marginLeft: "20px",
     width: "20%",
-    height: "141%",
+    height: "151%",
     borderRadius: "10px"
   },
   nombredetipo: {
@@ -56,6 +56,11 @@ const useStyles = makeStyles({
     marginTop: "27px",
     marginBottom: "10px",
     fontSize:"17px"
+  },
+  titlecat:{
+    fontSize:"21px",
+    marginTop: "27px",
+    marginBottom: "10px",
   },
 
   btn: {
@@ -359,7 +364,7 @@ export default function CheckboxList() {
     <div>
       <form onSubmit={submitData}>
         <Container maxWidth="xs" className={classes.filterbox}>
-          <h3 className={classes.nombredecat}>Filter by...</h3>
+          <h2 className={classes.titlecat}>Filter by...</h2>
           {Categories.map((cat, index) => (
             <>
               <Grid

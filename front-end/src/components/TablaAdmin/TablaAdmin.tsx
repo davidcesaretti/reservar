@@ -86,6 +86,7 @@ function TablaAdmin() {
       denyButtonText: `No`,
       confirmButtonColor: '#9ea03b',
     denyButtonColor: '#313b1e',
+    iconColor:"#9ea03b"
     }).then((result) => {
       if (result.isConfirmed) {
         Swal.fire({
@@ -101,6 +102,7 @@ function TablaAdmin() {
            text:"", 
            icon:"info",
            confirmButtonColor: '#9ea03b',
+           iconColor:"#9ea03b"
           });
       }
     });

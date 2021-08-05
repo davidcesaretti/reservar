@@ -177,7 +177,7 @@ export default function Album() {
                   onChange={(event: any, newValue: any | null) => {
                     setGuest(newValue);
                   }}
-                  style={{ width: 180 }}
+                  style={{ width: 180,marginRight:12 }}
                   renderInput={(params:any) => <TextField {...params} label="Guests" variant="standard" />}
                 />
             <Link to={"/categories"}>
