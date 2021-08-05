@@ -60,7 +60,7 @@ const Earnings = ({ setSection }) => {
     setLoaded(false);
   }
 
-  console.log(income)
+
 
   return (
     <div className="con-homeAdmin">

@@ -14,12 +14,14 @@ import GeneralBalance from "../GeneralBalance/GeneralBalance";
 import PrivacyPolicy from "../PrivacyPolicy/PrivacyPolicy";
 import logo from "../../Image/trekker.svg";
 import MenuAdmin from "../menuAdmin/MenuAdmin";
+import { AnyAaaaRecord } from "dns";
 
 const AdminDashboard = () => {
   const auth = useAuth();
   const dispatch = useDispatch();
   const history = useHistory();
   const [section, setSection] = useState("");
+  const booleanState = useSelector((state:any) => state.booleanState)
 
   const handleClick = (e) => {
     setSection(e.target.name);

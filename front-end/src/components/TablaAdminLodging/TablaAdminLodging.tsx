@@ -13,6 +13,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import LoopIcon from '@material-ui/icons/Loop';
+import Spinner from "../Spinner/Spinner";
 
 
 
@@ -28,9 +29,10 @@ const useStyles = makeStyles((theme) =>
 
 function TablaAdminLodging() {
   const lodging = useSelector((state: any) => state.listOfLodgings);
-  const [data, setData] = useState(undefined);
+  const [flag, setFlag] = useState(false);
   const [currentPage, setCurrentPage] = useState(0);
   const [name, setName] = useState({});
+ 
 
   const onChange = (e: any) => {
     setName({
@@ -51,7 +53,6 @@ function TablaAdminLodging() {
     dispatch(getLodgingList());
   };
 
-  console.log(lodging)
   const filteredLodging = lodging?.slice(currentPage, currentPage + 8);
 
   const nextPage = () => {
@@ -78,6 +79,7 @@ function TablaAdminLodging() {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    setFlag(true)
     dispatch(getLodgingList());
   }, [dispatch, filteredLodging]);
 
@@ -149,6 +151,8 @@ function TablaAdminLodging() {
   return (
     <div className="con-homeAdmin">
       <MenuAdmin />
+      {!flag? <Spinner/>:
+        <div>
       <div style={{ display: "grid" }}>
         <h2
           style={{
@@ -223,6 +227,8 @@ function TablaAdminLodging() {
           </Button>
         </div>
       </div>
+      </div>
+      }
     </div>
   );
 }

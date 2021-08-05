@@ -57,6 +57,16 @@ export default function MenuAppBar() {
             </Link>
           </Typography>
 
+          {auth.user?.email === "trekkerhenry@gmail.com"?<Link to="/admin" className={classes.linkDecoration}>
+            <Button
+              variant="contained"
+              color="secondary"
+              className={classes.link1}
+            >
+              Panel Administration
+            </Button>
+          </Link>: false}
+
           <Link to="/categories" className={classes.linkDecoration}>
             <Button
               variant="contained"

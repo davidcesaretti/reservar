@@ -12,6 +12,7 @@ import { Button } from "@material-ui/core";
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import LoopIcon from '@material-ui/icons/Loop';
+import Spinner from "../Spinner/Spinner";
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -25,7 +26,7 @@ const useStyles = makeStyles((theme) =>
 
 function TablaAdmin() {
   const user = useSelector((state: any) => state.listOfUsers);
-  const [data, setData] = useState(undefined);
+  const [flag, setFlag] = useState(false);
   const [currentPage, setCurrentPage] = useState(0);
   const [name, setName] = useState({});
 
@@ -74,6 +75,7 @@ function TablaAdmin() {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    setFlag(true)
     dispatch(getUsersList());
   }, [dispatch,filteredUsers]);
 
@@ -113,6 +115,7 @@ function TablaAdmin() {
      
     <div className="con-homeAdmin">
       <MenuAdmin />
+      {!flag? <Spinner/>:
       <div style={{ display: "grid" }}>
         <h2
           style={{
@@ -181,6 +184,7 @@ function TablaAdmin() {
           </Button>
         </div>
       </div>
+}
     </div>
    
   );
