@@ -12,6 +12,7 @@ import Error404 from "../Error404/Error404";
 import Spinner from "../Spinner/Spinner";
 import { Link } from "react-router-dom";
 import swal from "sweetalert";
+import Swal from "sweetalert2";
 import CardBook from "./CardBookings";
 import "./Bookings.css";
 
@@ -78,7 +79,7 @@ const Bookings = () => {
     } else if (review.review.length > 150) {
       return swal("Up to 150 characters only supported");
     } else {
-      alert("Published review");
+      Swal.fire({title: "Published review", icon: "success", confirmButtonColor: '#9ea03b'});
     }
     dispatch(addreview(review));
   };

@@ -36,15 +36,9 @@ function App() {
       <Route exact path="/categories/:id" component={DetailHotel} />
       <Route exact path="/Login" component={Login} />
       <Route exact path="/Register" component={Register}/>
-      <Route exact path="/Filters" component={Filters} />
-      <Route exact path="/Categories" component={Album} />
       <Route exact path="/payments" component={Pay} />
-      <Route exact path="/favourites" component={Favorites} />
-      <Route exact path="/Calendary" component={Calendary} />
       <Route exact path="/User" component={auth?.user ? User : Register} />
       <Route exact path="/AddProperty/:id" component={AddProperty} />
-      <Route exact path="/chat" component={Chat} />
-      <Route exact path="/chathost" component={ChatHost} />
       <Route exact path="/Admin" component={auth?.user?.email === "trekkerhenry@gmail.com" ? AdminDashboard : Error404} />
       {/* <Route exact path="/validationAdmin" component={ValidationAdmin} />
       <Route exact path="/homeAdmin" component={MenuAdmin} /> */}

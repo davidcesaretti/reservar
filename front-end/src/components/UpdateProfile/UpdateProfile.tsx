@@ -106,7 +106,7 @@ const Perfil = () => {
     Swal.fire({
       title: "Do you want to save the changes?",
       showDenyButton: true,
-      showCancelButton: true,
+      icon: "question",
       confirmButtonText: `Save`,
       denyButtonText: `Don't save`,
       denyButtonColor: "#313b1e",
@@ -122,7 +122,9 @@ const Perfil = () => {
       });
         setTimeout(dispatchuser, 2000);
       } else if (result.isDenied) {
-        Swal.fire("Changes are not saved", "", "info");
+        Swal.fire({title: "Changes are not saved", 
+        confirmButtonColor: '#9ea03b',
+        icon:"info"});
       }
     });
   };

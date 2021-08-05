@@ -1,8 +1,12 @@
 import React, { useEffect } from "react";
+import "./home.css"
 import Footer from "../Footer/Footer";
 import TextField from "@material-ui/core/TextField";
 import FormControl from "@material-ui/core/FormControl";
 import FormLabel from "@material-ui/core/FormLabel";
+import { Select } from "@material-ui/core";
+import { InputLabel } from "@material-ui/core";
+import { MenuItem } from "@material-ui/core";
 import { Box, Button, Grid } from "@material-ui/core";
 import SearchIcon from "@material-ui/icons/Search";
 import { Typography } from "@material-ui/core";
@@ -117,6 +121,8 @@ const useStyles = makeStyles((theme) => ({
       margin: "0 5px",
     },
   },
+  
+   
 }));
 //fetchCardsHotels(page, price, amenities, type, accommodates, score);
 const Home = () => {
@@ -303,12 +309,12 @@ useEffect(() => {
                   onChange={(event: any, newValue: any | null) => {
                     setCities(newValue);
                   }}
-                  getOptionLabel={(listOfCities) => listOfCities}
+                  // getOptionLabel={(listOfCities) => listOfCities}
                   style={{ width: 200 }}
                   renderInput={(params:any) => <TextField {...params} label="Where are you going?" variant="standard" />}
                 />
               <Calendary />
-              <TextField
+              {/* <TextField
                 onChange={(e) => setGuest(e.target.value)}
                 id=""
                 label="Guests"
@@ -316,7 +322,31 @@ useEffect(() => {
                 color="primary"
                 margin="none"
                 size="small"
-              />
+              /> */}
+
+          <FormControl >
+        <InputLabel id="demo-simple-select-label">Guest</InputLabel>
+        <Select style={{width: "150px"}}
+          labelId="demo-simple-select-label"
+          id="demo-simple-select"
+          onChange={(e) => setGuest(e.target.value)}
+          variant="standard"
+          color="primary"
+          margin="none"
+        >
+          <MenuItem value={1}>1</MenuItem>
+          <MenuItem value={2}>2</MenuItem>
+          <MenuItem value={3}>3</MenuItem>
+          <MenuItem value={4}>4</MenuItem>
+          <MenuItem value={5}>5</MenuItem>
+          <MenuItem value={6}>6</MenuItem>
+          <MenuItem value={7}>7</MenuItem>
+          <MenuItem value={8}>8</MenuItem>
+          <MenuItem value={9}>9</MenuItem>
+
+        </Select>
+      </FormControl>    
+
               <Link to={"/categories"}>
                 <Button
                   variant="contained"

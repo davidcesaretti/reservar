@@ -113,7 +113,7 @@ export default function CardComp({
       icon: "question",
       confirmButtonText: `Yes`,
       denyButtonText: `No`,
-      confirmButtonColor: 'rgba(90, 110, 56, 0.85)',
+      confirmButtonColor: '#9ea03b',
       denyButtonColor: '#313b1e',
     }).then((result) => {
       if (result.isConfirmed) {
@@ -121,7 +121,7 @@ export default function CardComp({
           title: "Eliminated!",
            text:"", 
            icon: "error",
-           confirmButtonColor: 'rgba(90, 110, 56, 0.85)',
+           confirmButtonColor: '#9ea03b',
           });
         axios.get(`http://localhost:3001/upload/delete/${_id}`);
       } else if (result.isDenied) {
@@ -129,7 +129,7 @@ export default function CardComp({
           title:"",
            text:"", 
            icon:"info",
-           confirmButtonColor: 'rgba(90, 110, 56, 0.85)',
+           confirmButtonColor: '#9ea03b',
           });
       }
     });
