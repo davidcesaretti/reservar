@@ -305,7 +305,7 @@ export const getUsersList = () => {
   return async (dispatch: Dispatch) => {
     try {
       const list = await axios.get(
-        "https://app-trekker.herokuapp.com/userList"
+        "http://localhost:3001/userList"
       );
       dispatch<listOfUsers>({
         type: ActionTypes.usersList,

@@ -3,6 +3,9 @@ import Footer from "../Footer/Footer";
 import TextField from "@material-ui/core/TextField";
 import FormControl from "@material-ui/core/FormControl";
 import FormLabel from "@material-ui/core/FormLabel";
+import { Select } from "@material-ui/core";
+import { InputLabel } from "@material-ui/core";
+import { MenuItem } from "@material-ui/core";
 import { Box, Button, Grid } from "@material-ui/core";
 import SearchIcon from "@material-ui/icons/Search";
 import { Typography } from "@material-ui/core";
@@ -117,6 +120,8 @@ const useStyles = makeStyles((theme) => ({
       margin: "0 5px",
     },
   },
+  
+   
 }));
 //fetchCardsHotels(page, price, amenities, type, accommodates, score);
 const Home = () => {
@@ -142,6 +147,7 @@ const Home = () => {
     "sydney",
     "barcelona",
   ];
+  let cantGuests = ["1","2","3","4","5","6","7","8","9"]
   let random1 = Math.floor(Math.random() * 4);
   let page = Math.floor(Math.random() * 12);
   let ciudadRandom = ciudades[random1];
@@ -303,12 +309,12 @@ useEffect(() => {
                   onChange={(event: any, newValue: any | null) => {
                     setCities(newValue);
                   }}
-                  getOptionLabel={(listOfCities) => listOfCities}
-                  style={{ width: 200 }}
+                  // getOptionLabel={(listOfCities) => listOfCities}
+                  style={{ width: 220 }}
                   renderInput={(params:any) => <TextField {...params} label="Where are you going?" variant="standard" />}
                 />
               <Calendary />
-              <TextField
+              {/* <TextField
                 onChange={(e) => setGuest(e.target.value)}
                 id=""
                 label="Guests"
@@ -316,7 +322,19 @@ useEffect(() => {
                 color="primary"
                 margin="none"
                 size="small"
-              />
+                cantGuests
+              /> */}
+
+                  <Autocomplete  
+                  id="cantGuests"
+                  options={cantGuests}
+                  onChange={(event: any, newValue: any | null) => {
+                    setGuest(newValue);
+                  }}
+                  
+                  style={{ width: 180, marginRight:12 }}
+                  renderInput={(params:any) => <TextField {...params} label="Guests" variant="standard" />}
+                />
               <Link to={"/categories"}>
                 <Button
                   variant="contained"

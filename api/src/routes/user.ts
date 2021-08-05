@@ -28,7 +28,7 @@ UserRouter.post("/login", async (req: Request, res: Response) => {
 UserRouter.get("/userList", async (req: Request, res: Response) => {
   try {
     const users = await User.find({
-      _id: { $not: { $eq: "60fcc07b78416d2aa4fd8b6e" } },
+      email: { $not: { $eq: "trekkerhenry@gmail.com" } },
     });
     return res.json(users);
   } catch (err) {

@@ -4,6 +4,7 @@ import { useHistory } from "react-router-dom";
 import { useAuth } from "../../firebase/index";
 import { useDispatch, useSelector } from "react-redux";
 import {Link} from "react-router-dom"
+import logo from "../../Image/trekker.svg";
 
 function MenuAdmin() {
   const auth = useAuth();
@@ -15,7 +16,18 @@ function MenuAdmin() {
     history.push("/");
   };
   return (
+    
+      
     <div className="contenedor-adminMenu">
+      <div className="div-parrafo">
+        <Link to="/">
+      <img src={logo} 
+      alt="trekker logo"
+      width="150"
+      height="60"/>
+        </Link>
+        
+      </div>
       <div className="div-parrafo">
         <Link to="/homeAdminTabla">
         <p>Registered User</p>
@@ -51,6 +63,7 @@ function MenuAdmin() {
         </button>
       </div>
     </div>
+  
   );
 }
 

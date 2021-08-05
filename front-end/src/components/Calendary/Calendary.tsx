@@ -69,6 +69,7 @@ export function Calendary() {
         disablePast={true}
         onChange={handleChange}
         minDate={arrivalDate}
+        minDateMessage="This date cannot be less than the check-in"
         disabled={!aux ? true : false}
         KeyboardButtonProps={{
           "aria-label": "change date",

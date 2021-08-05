@@ -52,7 +52,7 @@ function UserPosts() {
     if (auth) {
       dispatch(findPost({ email: auth }));
     }
-  }, [auth]);
+  }, [auth, post]);
 
   const classes = useStyles();
 
