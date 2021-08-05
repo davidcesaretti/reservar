@@ -447,6 +447,7 @@ function AddProperty() {
             <label> Property type</label>
             {/* <input ref={refType} type="text" /> */}
             <select 
+              className="grid__select"
               name="select" 
               ref={refType}
             >

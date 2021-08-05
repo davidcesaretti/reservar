@@ -41,6 +41,10 @@
   gap: 5px;
   margin-bottom: 20px;
 }
+.grid__select {
+  border: solid 2px black;
+  border-radius: 5px;
+}
 .grid__input input {
   height: 20px;
   border-radius: 5px;

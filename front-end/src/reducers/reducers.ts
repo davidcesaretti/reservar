@@ -23,6 +23,7 @@ import { validateLogAdmin } from "./validateLogAdmin";
 import { getReserveFake } from "./getReserveFake";
 import { lodgingUser } from "./lodgingList";
 import {getListOfCities} from "./getListOfCities"
+import {getAllPosts} from "./getAllPosts"
 
 export interface StoreState {
   fechas: any;
@@ -47,6 +48,7 @@ export interface StoreState {
   reserveFake: Array<any>;
   listOfLodgings: any;
   listOfCities: Array<String>
+  getAllPosts: Array<Object>
 }
 
 export const reducers = combineReducers<StoreState>({
@@ -72,6 +74,7 @@ export const reducers = combineReducers<StoreState>({
   reserveFake: getReserveFake,
   listOfLodgings: lodgingUser,
   listOfCities: getListOfCities,
+  getAllPosts: getAllPosts,
 });
 
 export default reducers;
