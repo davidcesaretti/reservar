@@ -1,11 +1,7 @@
 import React from "react";
 
 function Media() {
-  return (
-    <div>
-      <p>For while only disponible in desktop</p>
-    </div>
-  );
+  return <div></div>;
 }
 
 export default Media;
