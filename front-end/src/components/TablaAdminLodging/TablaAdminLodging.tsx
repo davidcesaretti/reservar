@@ -185,7 +185,7 @@ function TablaAdminLodging() {
                 <p style={{ margin: "14px" }}>{x.host}</p>
                 <p style={{ margin: "14px" }}>{x.city}</p>
                 <p style={{ margin: "14px" }}>{x.status_account}</p>
-                {/* <input style={{ margin: "14px" }} type="checkbox" /> */}
+                
                 <button
                   name={x.id}
                   value={x.status_account}
@@ -198,14 +198,22 @@ function TablaAdminLodging() {
                 >
                   Change
                 </button>
-                {/* <button
-                  name={x.id}
-                  style={{ margin: "10px" }}
+
+            {/* <Button
+              variant="contained"
+              color="secondary"
+              name={x.id}
+                  value={x.status_account}
+                  onClick={(e) => {
+                    handleClickChange(e);
+                    
+                  }}
+                  style={{ margin: "14px", fontSize:"12px" }}
                   className="boton-map"
-                  onClick={() => deleteProp(x.id)}
-                >
-                  X
-                </button> */}
+            >
+              Change
+            </Button> */}
+        
                 <Button aria-label="delete" 
                   name={x.id}
                   // style={{ margin: "10px" }}

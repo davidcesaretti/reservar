@@ -20,12 +20,26 @@
 .boton-map1 {
   margin: 0;
   width: 60px;
-  height: 20px;
+  color: white;
+  height: 25px;
+  background-color: #a8a545;
+  border-radius: 4px;
+  border-style: none;
+  cursor: pointer;
+  transition: cubic-bezier(0.4, 0, 0.2, 1);
+  font-weight: bold;
+}
+.boton-map1:hover{
+  cursor: pointer;
+  transition: cubic-bezier(0.4, 0, 0.2, 1);
+  background-color: #838524;
 }
 .color-grid1 {
-  background: #9ea03b;
+  background: #a8a545;
   padding: 12px;
   border-radius: 6px;
+  color: white;
+  font-weight: bold;
 }
 .pagButton1 {
   margin-left: 15px;

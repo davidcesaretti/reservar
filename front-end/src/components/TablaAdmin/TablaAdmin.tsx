@@ -148,7 +148,7 @@ function TablaAdmin() {
                 <p style={{ margin: "14px" }}>{x.nationality}</p>
                 <p style={{ margin: "14px" }}>{x.status_account}</p>
                 
-                {/* <button
+                <button
                   name={x.email}
                   value={x.status_account}
                   onClick={(e) => {
@@ -158,9 +158,9 @@ function TablaAdmin() {
                   className="boton-map1"
                 >
                   change
-                </button> */}
+                </button>
 
-                <Button
+                {/* <Button
                 name={x.email}
                 value={x.status_account}
                 onClick={(e) => {
@@ -170,7 +170,8 @@ function TablaAdmin() {
                 className="boton-map"
                 >
                   <LoopIcon/>
-                </Button>
+                </Button> */}
+                 
               </div>
             ))}
         </div>
