@@ -24,7 +24,7 @@ import {
   fetchCardsHotels,
   findPost,
   getFavos,
-  getListOfCities
+  getListOfCities,
 } from "../../actions";
 import { Calendary } from "../Calendary/Calendary";
 import MenuAppBar from "../Nav/Nav2";
@@ -34,7 +34,6 @@ import { useAuth } from "../../firebase/index";
 // import AutoComplete from "material-ui/AutoComplete";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 
-
 const useStyles = makeStyles((theme) => ({
   containerGeneral: {},
   containerFilters: {
@@ -43,7 +42,7 @@ const useStyles = makeStyles((theme) => ({
     display: "grid",
     justifyContent: "center",
     backgroundPosition: "center center",
-    width: "100%",
+    maxWidth: "1519px",
     height: "20rem",
     borderBottom: "1.5px solid #333",
   },
@@ -120,8 +119,6 @@ const useStyles = makeStyles((theme) => ({
       margin: "0 5px",
     },
   },
-  
-   
 }));
 //fetchCardsHotels(page, price, amenities, type, accommodates, score);
 const Home = () => {
@@ -130,8 +127,7 @@ const Home = () => {
   const [type, setType] = useState(undefined);
   const fechas: any = useSelector((state: any) => state.fechas);
   const post = useSelector((state: any) => state.postsHost);
-  const listOfCities = useSelector((state:any) => state.listOfCities)
-  
+  const listOfCities = useSelector((state: any) => state.listOfCities);
 
   const dispatch = useDispatch();
   const auth = useAuth();
@@ -147,17 +143,14 @@ const Home = () => {
     "sydney",
     "barcelona",
   ];
-  let cantGuests = ["1","2","3","4","5","6","7","8","9"]
+  let cantGuests = ["1", "2", "3", "4", "5", "6", "7", "8", "9"];
   let random1 = Math.floor(Math.random() * 4);
   let page = Math.floor(Math.random() * 12);
   let ciudadRandom = ciudades[random1];
 
-
-  
-useEffect(() => {
-  dispatch(getListOfCities())
-}, [])
-
+  useEffect(() => {
+    dispatch(getListOfCities());
+  }, []);
 
   useEffect(() => {
     dispatch(
@@ -188,7 +181,6 @@ useEffect(() => {
   //     )
   //   );
   // }
-
 
   function busqueda() {
     dispatch(FechasReserva({ ...fechas, cities, guest }));
@@ -252,8 +244,6 @@ useEffect(() => {
     }
   }, [email]);
 
-
-
   return (
     <div>
       <MenuAppBar />
@@ -303,16 +293,22 @@ useEffect(() => {
                 alignItems: "center",
               }}
             >
-                <Autocomplete  
-                  id="ciudades"
-                  options={listOfCities}
-                  onChange={(event: any, newValue: any | null) => {
-                    setCities(newValue);
-                  }}
-                  // getOptionLabel={(listOfCities) => listOfCities}
-                  style={{ width: 220 }}
-                  renderInput={(params:any) => <TextField {...params} label="Where are you going?" variant="standard" />}
-                />
+              <Autocomplete
+                id="ciudades"
+                options={listOfCities}
+                onChange={(event: any, newValue: any | null) => {
+                  setCities(newValue);
+                }}
+                // getOptionLabel={(listOfCities) => listOfCities}
+                style={{ width: 220 }}
+                renderInput={(params: any) => (
+                  <TextField
+                    {...params}
+                    label="Where are you going?"
+                    variant="standard"
+                  />
+                )}
+              />
               <Calendary />
               {/* <TextField
                 onChange={(e) => setGuest(e.target.value)}
@@ -325,16 +321,17 @@ useEffect(() => {
                 cantGuests
               /> */}
 
-                  <Autocomplete  
-                  id="cantGuests"
-                  options={cantGuests}
-                  onChange={(event: any, newValue: any | null) => {
-                    setGuest(newValue);
-                  }}
-                  
-                  style={{ width: 180, marginRight:12 }}
-                  renderInput={(params:any) => <TextField {...params} label="Guests" variant="standard" />}
-                />
+              <Autocomplete
+                id="cantGuests"
+                options={cantGuests}
+                onChange={(event: any, newValue: any | null) => {
+                  setGuest(newValue);
+                }}
+                style={{ width: 180, marginRight: 12 }}
+                renderInput={(params: any) => (
+                  <TextField {...params} label="Guests" variant="standard" />
+                )}
+              />
               <Link to={"/categories"}>
                 <Button
                   variant="contained"
