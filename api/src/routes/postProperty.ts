@@ -1,6 +1,6 @@
 import express, { Response, Request, Router, NextFunction } from "express";
 import { Properties } from "../models/Properties";
-import { User } from "../models/Users";
+import { User, Reserva } from "../models/Users";
 import multer from "multer";
 
 const path = require("path");
@@ -146,10 +146,37 @@ router.get(
   "/delete/:id",
   async (req: Request, res: Response, next: NextFunction) => {
     const { id } = req.params;
-
-    const deleteProperty = await Properties.deleteOne({ _id: id });
-    res.send("Propiedad borrada");
+    try{const reservaProp= await Reserva.findOne({Prop_id: id})
+    await User.updateOne({ reservas:id }, { $pull: { reserveId: reservaProp._id } });
+    await Properties.deleteOne({ _id: id });
+    await Reserva.deleteOne({Prop_id: id})
+     await User.updateOne({ reservas:id }, { $pull: { reservas: id } });
+console.log(reservaProp._id )
+    res.send(reservaProp)}
+    catch(err){
+      console.log(err)
+    }
   }
 );
+
+router.get(
+  "/testing/:id",
+  async (req: Request, res: Response, next: NextFunction) => {
+    const { id } = req.params;
+    try{const reservaProp= await Reserva.findOne({Prop_id: id})
+    // const xd = await User.find({ $in:{reserveId: reservaProp._id} });
+    // const xd=User.find({reserveId: {$in: [reservaProp._id]}})
+
+   console.log(reservaProp._id)
+    // await Properties.deleteOne({ _id: id });
+    // await Reserva.deleteOne({Prop_id: id})
+    //  await User.updateOne({ reservas:id }, { $pull: { reservas: id } });
+    res.send("nada")}
+    catch(err){
+      console.log(err)
+    }
+  }
+);
+
 
 export default router;

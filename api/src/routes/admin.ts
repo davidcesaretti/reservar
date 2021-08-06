@@ -76,12 +76,15 @@ router.post("/habilite", async (req, res, next) => {
 
 
 
-router.post("/removeProps", async (req, res, next) => {
+router.delete("/removeProps", async (req, res, next) => {
   const {id} = req.body;
- 
-    await Properties.deleteOne({ _id: id });
-  
-  res.send("propiedad borrada");
+  const reservaProp= await Reserva.findOne({Prop_id: id})
+  await Properties.deleteOne({ _id: id });
+  await Reserva.deleteOne({Prop_id: id})
+  await User.updateOne({ reservas:id }, { $pull: { reservas: id } });
+  await User.updateOne({ reservas:id }, { $pull: { reserveId: reservaProp._id } });
+   
+  res.send("Propiedad e Informacion de la reserva borrada");
 });
 
 router.post("/suspendedLodging", async (req, res, next) => {
