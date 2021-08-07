@@ -31,7 +31,6 @@ router.use(
 );
 
 router.post("/", async (req: Request, res: Response, next: NextFunction) => {
-  console.log(req.body);
   let {
     name,
     summary,
@@ -88,7 +87,6 @@ router.post("/find", async (req: Request, res: Response) => {
 router.get("/getPosts", async( req: Request, res: Response ) => {
   try {
     const find = await Properties.find({});
-    console.log(find.length)
     return res.json(find)
   } catch (error) {
     console.log(error)
@@ -146,16 +144,15 @@ router.get(
   "/delete/:id",
   async (req: Request, res: Response, next: NextFunction) => {
     const { id } = req.params;
-    try{const reservaProp= await Reserva.findOne({Prop_id: id})
-    await User.updateOne({ reservas:id }, { $pull: { reserveId: reservaProp._id } });
     await Properties.deleteOne({ _id: id });
-    await Reserva.deleteOne({Prop_id: id})
-     await User.updateOne({ reservas:id }, { $pull: { reservas: id } });
-console.log(reservaProp._id )
-    res.send(reservaProp)}
-    catch(err){
-      console.log(err)
-    }
+    const reservaProp= await Reserva.findOne({Prop_id: id})
+    if(reservaProp){
+      const idString = reservaProp._id
+      await User.updateOne({ reservas:id }, { $pull: { reserveId: idString } });
+      await User.updateOne({ reservas:id }, { $pull: { reservas: id } });
+      await Reserva.deleteOne({Prop_id: id})     
+      res.send(reservaProp)
+    } 
   }
 );
 
@@ -163,18 +160,12 @@ router.get(
   "/testing/:id",
   async (req: Request, res: Response, next: NextFunction) => {
     const { id } = req.params;
-    try{const reservaProp= await Reserva.findOne({Prop_id: id})
-    // const xd = await User.find({ $in:{reserveId: reservaProp._id} });
-    // const xd=User.find({reserveId: {$in: [reservaProp._id]}})
-
-   console.log(reservaProp._id)
-    // await Properties.deleteOne({ _id: id });
-    // await Reserva.deleteOne({Prop_id: id})
-    //  await User.updateOne({ reservas:id }, { $pull: { reservas: id } });
-    res.send("nada")}
-    catch(err){
-      console.log(err)
-    }
+    const reservaProp= await Reserva.findOne({Prop_id: id})
+    
+    const idString = reservaProp._id
+    const busqueda= await User.updateOne({ reservas:id }, { $pull: { reserveId: idString } });
+    res.json(busqueda)
+    
   }
 );
 

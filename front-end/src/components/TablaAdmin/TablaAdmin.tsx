@@ -77,7 +77,8 @@ function TablaAdmin() {
   useEffect(() => {
     setFlag(true)
     dispatch(getUsersList());
-  }, [dispatch,filteredUsers]);
+  },[dispatch,user]);
+
 
   const handleClickChange = (e) => {
     Swal.fire({
@@ -140,13 +141,14 @@ function TablaAdmin() {
             <p>Change Status</p>
           </div>
 
-          {filteredUsers &&
+          {filteredUsers.length?
             filteredUsers.map((x, i) => (
               <div key={i} className="grid-tabla1">
                 <p style={{ margin: "14px" }}>{x.name}</p>{" "}
                 <p style={{ margin: "14px" }}>{x.email}</p>
                 <p style={{ margin: "14px" }}>{x.nationality}</p>
                 <p style={{ margin: "14px" }}>{x.status_account}</p>
+                
                 
                 <button
                   name={x.email}
@@ -158,22 +160,10 @@ function TablaAdmin() {
                   className="boton-map1"
                 >
                   change
-                </button>
-
-                {/* <Button
-                name={x.email}
-                value={x.status_account}
-                onClick={(e) => {
-                  handleClickChange(e);
-                }}
-                style={{ margin: "14px" }}
-                className="boton-map"
-                >
-                  <LoopIcon/>
-                </Button> */}
-                 
+                </button>     
               </div>
-            ))}
+            )): <h1 className="title">No users yet...</h1>
+          }
         </div>
         <div style={{ margin: "0 auto" }}>
         <Button className="pagButton1" onClick={prevPage}>

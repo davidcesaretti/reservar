@@ -81,7 +81,8 @@ function TablaAdminLodging() {
   useEffect(() => {
     setFlag(true)
     dispatch(getLodgingList());
-  }, [dispatch, filteredLodging]);
+  }, [dispatch, lodging]);
+
 
   const handleClickChange = (e) => {
     Swal.fire({
@@ -178,13 +179,14 @@ function TablaAdminLodging() {
             <p>Delete Property</p>
           </div>
 
-          {filteredLodging &&
+          {filteredLodging.length?
             filteredLodging.map((x, i) => (
               <div key={i} className="grid-tabla">
                 <p style={{ margin: "14px" }}>{x.name}</p>{" "}
                 <p style={{ margin: "14px" }}>{x.host}</p>
                 <p style={{ margin: "14px" }}>{x.city}</p>
                 <p style={{ margin: "14px" }}>{x.status_account}</p>
+                
                 
                 <button
                   name={x.id}
@@ -223,7 +225,8 @@ function TablaAdminLodging() {
                 </Button>
                 
               </div>
-            ))}
+            )):<h1 className="title">No lodgings yet...</h1>
+          }
         </div>
         <div style={{ margin: "0 auto" }}>
           <Button className="pagButton" onClick={prevPage}>
