@@ -46,9 +46,8 @@ const useStyles = makeStyles((theme: Theme) =>
       margin: "5px auto",
       width: "140px",
       height: "20px",
-      color: "white",
       backgroundColor: "#b2b451",
-      border: "0.5px solid #000000",
+      border: "none",
       boxSizing: "border-box",
       boxShadow: "0px 2px 2px rgba(0, 0, 0, 0.25)",
       borderRadius: "5px",
@@ -92,14 +91,14 @@ export default function SimpleModal({ data, idProp }) {
 
   const body = (
     <div style={modalStyle} className={classes.paper}>
-      <h2 id="simple-modal-title" style={{ textAlign: "center" }}>
+      <h1 id="simple-modal-title" style={{ textAlign: "center" }}>
         Upcoming blocked dates
-      </h2>
+      </h1>
       {/* <p id="simple-modal-description">
         Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
       </p> */}
 
-      {data &&
+      {data.length?
         data.map((x, i) => (
           <div
             key={i}
@@ -124,7 +123,8 @@ export default function SimpleModal({ data, idProp }) {
               <GoTrashcan style={{ width: "20px", height: "20px" }} />
             </button>
           </div>
-        ))}
+        )):<h3 style={{textAlign:"center", color:"gray", marginTop:"30px"}}>you don't have blackout dates yet...</h3>
+      }
       {/* <SimpleModal data={data} /> */}
     </div>
   );

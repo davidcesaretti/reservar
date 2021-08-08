@@ -88,6 +88,7 @@ const Bookings = () => {
     dispatch(getBooking(email));
   }, []);
 
+  console.log(cards)
   return (
     <div className={classes.container}>
       <Grid>

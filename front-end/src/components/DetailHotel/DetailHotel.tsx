@@ -456,7 +456,7 @@ const DetailHotel = () => {
                     {!disable && (
                       <button
                         style={{
-                          backgroundColor: "grey",
+                          backgroundColor: "#afafaf",
                           cursor: "not-allowed",
                         }}
                         className="boton__submit-add marginCero color-alert"

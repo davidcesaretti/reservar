@@ -9,7 +9,6 @@ import { Link } from "react-router-dom";
 import { useAuth } from "../../firebase/index";
 import logo from "../../Image/trekker.svg";
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
-import AccountBoxIcon from '@material-ui/icons/AccountBox';
 import ListAltIcon from '@material-ui/icons/ListAlt';
 import PersonIcon from '@material-ui/icons/Person';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
@@ -77,7 +76,7 @@ export default function MenuAppBar() {
               color="secondary"
               className={classes.link1}
             >
-              < ListAltIcon style={{marginRight:"2px"}}/>
+              {/* < ListAltIcon style={{marginRight:"2px"}}/> */}
               Catalogue
             </Button>
           </Link>
@@ -92,7 +91,7 @@ export default function MenuAppBar() {
                   className={classes.link1}
                   
                 >
-                  <PersonIcon style={{marginRight:"2px"}}/>
+                  {/* <PersonIcon style={{marginRight:"2px"}}/> */}
                   My Profile
                 </Button>
               </Link>
@@ -102,14 +101,14 @@ export default function MenuAppBar() {
                 color="secondary"
                 onClick={() => auth.signout()}
               >
-                <ExitToAppIcon style={{marginRight:"2px"}} />
+                {/* <ExitToAppIcon style={{marginRight:"2px"}} /> */}
                  Sign Out
               </Button>
             </Grid>
           ) : (
             <Link to="/register" className={classes.linkDecoration}>
               <Button variant="contained" color="secondary" className={classes.link1}>
-                <PersonAddIcon style={{marginRight:"3px"}}/>
+                {/* <PersonAddIcon style={{marginRight:"3px"}}/> */}
                 Log In/Register
               </Button>
             </Link>
