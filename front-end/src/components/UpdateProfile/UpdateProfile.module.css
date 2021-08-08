@@ -51,20 +51,20 @@
 .update {
   width: 8rem;
   height: 3rem;
-  background: #b2b451;
-  border: 2px solid #000000;
+  background:  rgb(88, 114, 43);
+  border: none;
   box-sizing: border-box;
   border-radius: 10px;
   text-align: center;
   color: #fff;
-  padding: 1rem;
   text-decoration: none;
   font-weight: bold;
   font-size: 1rem;
   margin-bottom: 6rem;
   cursor: pointer;
   margin-right: 10px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 .update:hover {
-  background: rgb(88, 114, 43);
+  background: #A6A845;
 }

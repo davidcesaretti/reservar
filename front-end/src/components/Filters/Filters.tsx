@@ -362,6 +362,12 @@ export default function CheckboxList() {
       )
     );
   };
+function goTop () {
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth'
+})
+}
 
   return (
     <div>
@@ -442,6 +448,7 @@ export default function CheckboxList() {
             variant="text"
             color="inherit"
             type="submit"
+            onClick={()=> goTop()}
           >
             <LineWeightIcon />
             Filter

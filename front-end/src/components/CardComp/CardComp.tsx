@@ -51,7 +51,7 @@ const useStyles = makeStyles((theme: Theme) =>
     iconfav: {
       color: "black",
       padding: "5px",
-      background: "white",
+      background: "#ffffffba",
       fontSize: "1.2rem",
       marginLeft: "2px",
     },

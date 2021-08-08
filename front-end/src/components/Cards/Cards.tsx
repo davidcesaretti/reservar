@@ -64,6 +64,7 @@ const useStyles = makeStyles((theme) => ({
   navbar: {
     height: "80%",
   },
+
   
 }));
 
@@ -209,7 +210,7 @@ export default function Album() {
       
         <Container className={classes.cardGrid} maxWidth="md">
          
-          <Grid container spacing={4} style={{display:"flex", justifyContent: "center"}}>
+          <Grid container spacing={4}>
             {cards?.posts?.length?
               cards.posts.map((e,i) => (
                 <Grid item key={i} xs={12} sm={6} md={6}>
@@ -229,8 +230,8 @@ export default function Album() {
                       deleteButton={false}
                     />
                   </Card>
-                </Grid>
-              )):<div>
+                </Grid >
+              )):<div style={{marginLeft:"350px"}}>
                 <img src={search} alt="search" width="150px" height="150px" style={{marginLeft:"50px", marginTop:"50px"}}/>
                 <h2 style={{fontSize:"35px"}}>No results found...</h2>
               </div>
