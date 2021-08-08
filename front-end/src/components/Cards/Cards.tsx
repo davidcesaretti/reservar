@@ -26,6 +26,7 @@ import { Link } from "react-router-dom";
 import { useAuth } from "../../firebase/index";
 import Paginado from "../Paginado/Paginado";
 import Autocomplete from "@material-ui/lab/Autocomplete";
+import search from "../../Image/search.png"
 
 const useStyles = makeStyles((theme) => ({
   icon: {
@@ -42,6 +43,7 @@ const useStyles = makeStyles((theme) => ({
     paddingTop: theme.spacing(6),
     paddingBottom: theme.spacing(8),
     minHeight: "1480px",
+    
     
   },
   card: {
@@ -62,6 +64,7 @@ const useStyles = makeStyles((theme) => ({
   navbar: {
     height: "80%",
   },
+  
 }));
 
 export default function Album() {
@@ -206,8 +209,8 @@ export default function Album() {
       
         <Container className={classes.cardGrid} maxWidth="md">
          
-          <Grid container spacing={4}>
-            {cards.posts &&
+          <Grid container spacing={4} style={{display:"flex", justifyContent: "center"}}>
+            {cards?.posts?.length?
               cards.posts.map((e,i) => (
                 <Grid item key={i} xs={12} sm={6} md={6}>
                   <Card className={classes.card}>
@@ -227,7 +230,11 @@ export default function Album() {
                     />
                   </Card>
                 </Grid>
-              ))}
+              )):<div>
+                <img src={search} alt="search" width="150px" height="150px" style={{marginLeft:"50px", marginTop:"50px"}}/>
+                <h2 style={{fontSize:"35px"}}>No results found...</h2>
+              </div>
+            }
           </Grid>
         </Container>
         <Paginado />
