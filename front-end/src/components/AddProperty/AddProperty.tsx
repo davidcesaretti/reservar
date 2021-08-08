@@ -13,7 +13,6 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker-cssmodules.css";
 import "react-datepicker/dist/react-datepicker.css";
 import moment from "moment";
-import subDays from "date-fns/subDays";
 import HostCalendary from "../HostCalendary/HostCalendary";
 import SimpleModal from "./modal";
 import Swal from "sweetalert2";
@@ -105,7 +104,7 @@ function AddProperty() {
   // }, [ref]);
   // console.log(idParam.id); ///sdadasdasdsadas//
 
-  if (idParam.id && detailEdit && edit) {
+  if (idParam.id && detailEdit && edit && refTitle) {
     setEdit(false);
     //console.log(refTitle.current.value);
     refTitle.current.value = detailEdit?.name;
@@ -367,29 +366,13 @@ function AddProperty() {
 
   const disableFinal = dateArray.map((x) => new Date(x));
 
-  // const startDate="2021-07-28"
-  // const stopDate = "2021-07-31"
 
-  // getDates(startDate,stopDate)
-
-  const disableCustomDt = (current) => {
-    return !dateArray.includes(current.format("YYYY-MM-DD"));
-  };
-  const disableWeekends = (current) => {
-    return [moment().day() === 0 || moment().day() === 6];
-  };
+ 
   const isWeekday = (date) => {
     const day = date.getDay();
     return day !== 0 && day !== 6;
   };
-  //disable past dates
-
-  const yesterday = moment().subtract(1, "day");
-  const disablePastDt = (current) => {
-    return current.isAfter(yesterday);
-  };
-
-  let fechaSiguiente = moment(arrivalDate).add(1, "days");
+  
 
   function dispatchDates() {
     Swal.fire({
@@ -804,7 +787,7 @@ function AddProperty() {
               {!endDate && (
                 <button
                   style={{
-                    border: "0.5px solid #000000",
+                    border: "none",
                     boxSizing: "border-box",
                     boxShadow: "0px 2px 2px rgba(0, 0, 0, 0.25)",
                     borderRadius: "5px",
@@ -823,9 +806,9 @@ function AddProperty() {
                     margin: "5px auto",
                     width: "140px",
                     height: "20px",
-                    color: "white",
+                
                     backgroundColor: "#b2b451",
-                    border: "0.5px solid #000000",
+                    border: "none",
                     boxSizing: "border-box",
                     boxShadow: "0px 2px 2px rgba(0, 0, 0, 0.25)",
                     borderRadius: "5px",

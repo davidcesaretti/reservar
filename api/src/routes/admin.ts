@@ -4,8 +4,8 @@ import { Properties } from "../models/Properties";
 
 const router = Router();
 
-router.get("/getusers", async (req, res) => {
-  const users = await User.find({});
+router.get("/getusers", async (req, res, next) => {
+ try{ const users = await User.find({});
   const userMapped = await Promise.all(
     users.map(async (e) => {
       const find = await Properties.find({ host: e.email });
@@ -20,17 +20,23 @@ router.get("/getusers", async (req, res) => {
     })
   );
   return res.json(userMapped);
+}
+catch(error){
+  next()
+}
+
 });
 
 router.get("/getprops", async (req, res) => {
   const find = await Properties.find({ host: { $exists: true } });
+  if(find){
   const propsMapped = await Promise.all(
     find.map(async (e) => {
       const nameUser = await User.findOne({ email: e.host });
       return {
         id: e._id,
         name: e.name,
-        host: nameUser.name,
+        host: nameUser?.name || "",
         city: e.city,
         reservations_completed: 1,
         status_account: e.status_account,
@@ -38,6 +44,9 @@ router.get("/getprops", async (req, res) => {
     })
   );
   return res.json(propsMapped);
+  }
+  else return;
+  
 });
 
 router.put("/updateRolesUser", async (req, res) => {
@@ -76,12 +85,15 @@ router.post("/habilite", async (req, res, next) => {
 
 
 
-router.post("/removeProps", async (req, res, next) => {
+router.delete("/removeProps", async (req, res, next) => {
   const {id} = req.body;
- 
-    await Properties.deleteOne({ _id: id });
-  
-  res.send("propiedad borrada");
+  const reservaProp= await Reserva.findOne({Prop_id: id})
+  await Properties.deleteOne({ _id: id });
+  await Reserva.deleteOne({Prop_id: id});
+  await User.updateOne({ reservas:id }, { $pull: { reservas: id } });
+  await User.updateOne({ reservas:id }, { $pull: { reserveId: reservaProp._id } });
+   
+  res.send("Propiedad e Informacion de la reserva borrada");
 });
 
 router.post("/suspendedLodging", async (req, res, next) => {

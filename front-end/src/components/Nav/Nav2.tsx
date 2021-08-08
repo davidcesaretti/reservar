@@ -4,11 +4,14 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
-
 import Grid from "@material-ui/core/Grid";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../firebase/index";
 import logo from "../../Image/trekker.svg";
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import ListAltIcon from '@material-ui/icons/ListAlt';
+import PersonIcon from '@material-ui/icons/Person';
+import PersonAddIcon from '@material-ui/icons/PersonAdd';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -57,39 +60,55 @@ export default function MenuAppBar() {
             </Link>
           </Typography>
 
+          {auth.user?.email === "trekkerhenry@gmail.com"?<Link to="/admin" className={classes.linkDecoration}>
+            <Button
+              variant="contained"
+              color="secondary"
+              className={classes.link1}
+            >
+              Panel Administration
+            </Button>
+          </Link>: false}
+
           <Link to="/categories" className={classes.linkDecoration}>
             <Button
               variant="contained"
               color="secondary"
               className={classes.link1}
             >
+              {/* < ListAltIcon style={{marginRight:"2px"}}/> */}
               Catalogue
             </Button>
           </Link>
 
           {auth.user ? (
             <Grid>
+              
+              <Link to="/User" className={classes.linkDecoration}>
+                <Button
+                  variant="contained"
+                  color="secondary"
+                  className={classes.link1}
+                  
+                >
+                  {/* <PersonIcon style={{marginRight:"2px"}}/> */}
+                  My Profile
+                </Button>
+              </Link>
               <Button
                 className={classes.link1}
                 variant="contained"
                 color="secondary"
                 onClick={() => auth.signout()}
               >
-                Sign Out
+                {/* <ExitToAppIcon style={{marginRight:"2px"}} /> */}
+                 Sign Out
               </Button>
-              <Link to="/User" className={classes.linkDecoration}>
-                <Button
-                  variant="contained"
-                  color="secondary"
-                  className={classes.link1}
-                >
-                  My Profile
-                </Button>
-              </Link>
             </Grid>
           ) : (
             <Link to="/register" className={classes.linkDecoration}>
               <Button variant="contained" color="secondary" className={classes.link1}>
+                {/* <PersonAddIcon style={{marginRight:"3px"}}/> */}
                 Log In/Register
               </Button>
             </Link>

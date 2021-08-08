@@ -13,6 +13,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import LoopIcon from '@material-ui/icons/Loop';
+import Spinner from "../Spinner/Spinner";
 
 
 
@@ -28,9 +29,10 @@ const useStyles = makeStyles((theme) =>
 
 function TablaAdminLodging() {
   const lodging = useSelector((state: any) => state.listOfLodgings);
-  const [data, setData] = useState(undefined);
+  const [flag, setFlag] = useState(false);
   const [currentPage, setCurrentPage] = useState(0);
   const [name, setName] = useState({});
+ 
 
   const onChange = (e: any) => {
     setName({
@@ -51,7 +53,6 @@ function TablaAdminLodging() {
     dispatch(getLodgingList());
   };
 
-  console.log(lodging)
   const filteredLodging = lodging?.slice(currentPage, currentPage + 8);
 
   const nextPage = () => {
@@ -78,8 +79,10 @@ function TablaAdminLodging() {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    setFlag(true)
     dispatch(getLodgingList());
-  }, [dispatch, filteredLodging]);
+  }, [dispatch, lodging]);
+
 
   const handleClickChange = (e) => {
     Swal.fire({
@@ -149,6 +152,8 @@ function TablaAdminLodging() {
   return (
     <div className="con-homeAdmin">
       <MenuAdmin />
+      {!flag? <Spinner/>:
+        <div>
       <div style={{ display: "grid" }}>
         <h2
           style={{
@@ -174,14 +179,15 @@ function TablaAdminLodging() {
             <p>Delete Property</p>
           </div>
 
-          {filteredLodging &&
+          {filteredLodging.length?
             filteredLodging.map((x, i) => (
               <div key={i} className="grid-tabla">
                 <p style={{ margin: "14px" }}>{x.name}</p>{" "}
                 <p style={{ margin: "14px" }}>{x.host}</p>
                 <p style={{ margin: "14px" }}>{x.city}</p>
                 <p style={{ margin: "14px" }}>{x.status_account}</p>
-                {/* <input style={{ margin: "14px" }} type="checkbox" /> */}
+                
+                
                 <button
                   name={x.id}
                   value={x.status_account}
@@ -194,14 +200,22 @@ function TablaAdminLodging() {
                 >
                   Change
                 </button>
-                {/* <button
-                  name={x.id}
-                  style={{ margin: "10px" }}
+
+            {/* <Button
+              variant="contained"
+              color="secondary"
+              name={x.id}
+                  value={x.status_account}
+                  onClick={(e) => {
+                    handleClickChange(e);
+                    
+                  }}
+                  style={{ margin: "14px", fontSize:"12px" }}
                   className="boton-map"
-                  onClick={() => deleteProp(x.id)}
-                >
-                  X
-                </button> */}
+            >
+              Change
+            </Button> */}
+        
                 <Button aria-label="delete" 
                   name={x.id}
                   // style={{ margin: "10px" }}
@@ -211,7 +225,8 @@ function TablaAdminLodging() {
                 </Button>
                 
               </div>
-            ))}
+            )):<h1 className="title">No lodgings yet...</h1>
+          }
         </div>
         <div style={{ margin: "0 auto" }}>
           <Button className="pagButton" onClick={prevPage}>
@@ -223,6 +238,8 @@ function TablaAdminLodging() {
           </Button>
         </div>
       </div>
+      </div>
+      }
     </div>
   );
 }

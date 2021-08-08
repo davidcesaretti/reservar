@@ -251,14 +251,14 @@ UserRouter.post("/getfavorites", async (req, res) => {
   res.json(props);
 });
 
-UserRouter.post("/getreserves", async (req, res) => {
-  const { email } = req.body;
+// UserRouter.post("/getreserves", async (req, res) => {
+//   const { email } = req.body;
 
-  const hoy = new Date();
-  const user = await User.findOne({ email: email });
-  const reserva = await Properties.find({ _id: user?.reservas });
-  res.json(reserva);
-});
+//   const hoy = new Date();
+//   const user = await User.findOne({ email: email });
+//   // const reserva = await Properties.find({ _id: user?.reservas });
+//   res.json(reserva);
+// });
 
 UserRouter.post("/bookchat", async (req, res) => {
   const { email } = req.body;

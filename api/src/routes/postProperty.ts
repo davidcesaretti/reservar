@@ -1,6 +1,6 @@
 import express, { Response, Request, Router, NextFunction } from "express";
 import { Properties } from "../models/Properties";
-import { User } from "../models/Users";
+import { User, Reserva } from "../models/Users";
 import multer from "multer";
 
 const path = require("path");
@@ -31,7 +31,6 @@ router.use(
 );
 
 router.post("/", async (req: Request, res: Response, next: NextFunction) => {
-  console.log(req.body);
   let {
     name,
     summary,
@@ -88,7 +87,6 @@ router.post("/find", async (req: Request, res: Response) => {
 router.get("/getPosts", async( req: Request, res: Response ) => {
   try {
     const find = await Properties.find({});
-    console.log(find.length)
     return res.json(find)
   } catch (error) {
     console.log(error)
@@ -146,10 +144,30 @@ router.get(
   "/delete/:id",
   async (req: Request, res: Response, next: NextFunction) => {
     const { id } = req.params;
-
-    const deleteProperty = await Properties.deleteOne({ _id: id });
-    res.send("Propiedad borrada");
+    await Properties.deleteOne({ _id: id });
+    const reservaProp= await Reserva.findOne({Prop_id: id})
+    if(reservaProp){
+      const idString = reservaProp._id
+      await User.updateOne({ reservas:id }, { $pull: { reserveId: idString } });
+      await User.updateOne({ reservas:id }, { $pull: { reservas: id } });
+      await Reserva.deleteOne({Prop_id: id})     
+      res.send(reservaProp)
+    } 
   }
 );
+
+router.get(
+  "/testing/:id",
+  async (req: Request, res: Response, next: NextFunction) => {
+    const { id } = req.params;
+    const reservaProp= await Reserva.findOne({Prop_id: id})
+    
+    const idString = reservaProp._id
+    const busqueda= await User.updateOne({ reservas:id }, { $pull: { reserveId: idString } });
+    res.json(busqueda)
+    
+  }
+);
+
 
 export default router;

@@ -58,6 +58,7 @@ const User = () => {
   if (!userInfo) {
     Swal.fire({
       title: "Please, complete your information",
+      confirmButtonColor: '#9ea03b',
       showClass: {
         popup: "animate__animated animate__fadeInDown",
       },
@@ -74,6 +75,7 @@ const User = () => {
     } else {
       Swal.fire({
         title: "Please, complete your information",
+        confirmButtonColor: '#9ea03b',
         showClass: {
           popup: "animate__animated animate__fadeInDown",
         },

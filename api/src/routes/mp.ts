@@ -71,11 +71,11 @@ router.get("/pago", async (req, res, next) => {
 
       await User.updateOne(
         { email: aux2[0].info_user },
-        { $push: { reserveId: aux[0]._id } }
+        { $set: { reserveId: aux[0]._id } }
       );
       await User.updateOne(
         { email: aux2[0].info_user },
-        { $push: { reservas: aux2[0].Prop_id } }
+        { $set: { reservas: aux2[0].Prop_id } }
       );
     });
     var aux = [];

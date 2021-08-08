@@ -41,7 +41,9 @@ function MenuAdmin() {
         <div className="separador-adminMenu"></div>
       </div>
       <div className="div-parrafo">
+      <Link to="/earnings">
         <p>Earnings</p>
+        </Link>
         <div className="separador-adminMenu"></div>
       </div>
 

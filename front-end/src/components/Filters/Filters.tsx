@@ -40,7 +40,7 @@ const useStyles = makeStyles({
     marginTop: "153px",
     marginLeft: "20px",
     width: "20%",
-    height: "151%",
+    height: "148%",
     borderRadius: "10px"
   },
   nombredetipo: {
@@ -65,12 +65,14 @@ const useStyles = makeStyles({
 
   btn: {
     backgroundColor: "#A6A845" /* Green */,
+    color:"white",
     cursor: "pointer",
     "&:focus": {
       background: "white",
+      color: "black"
     },
     border: "none",
-    color: "black",
+    
     padding: "10px",
     textAlign: "center",
     textDecoration: "none",
@@ -87,14 +89,15 @@ const useStyles = makeStyles({
   },
 
   selectugly: {
-    color: "black",
+    color: "white",
     backgroundColor: "#A6A845",
-    borderRadius: "3px",
-  
+    borderRadius: "5px",
+    padding: "4px 9px",
+    marginLeft: "6px",
 
     "&:before": {
-      borderColor: "#A6A845",
-      borderRadius: "3px"
+      
+      borderRadius: "5px"
     },
     minWidth: "100px",
   },
@@ -122,7 +125,7 @@ const useStyles = makeStyles({
     display: "flex",
     fontSize: "16px",
     borderRadius: "5px",
-    margin: "10px",
+    margin: "25px 0",
     width: "90%",
   },
 });
@@ -359,6 +362,12 @@ export default function CheckboxList() {
       )
     );
   };
+function goTop () {
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth'
+})
+}
 
   return (
     <div>
@@ -419,6 +428,7 @@ export default function CheckboxList() {
                           onChange={setDataHandler}
                           className={classes.selectugly}
                           defaultValue={"Select"}
+                          
                         >
                           {cat?.filtros?.map((value, index) => (
                             <MenuItem key={index} value={value.id}>{value.msg}</MenuItem>
@@ -438,30 +448,11 @@ export default function CheckboxList() {
             variant="text"
             color="inherit"
             type="submit"
+            onClick={()=> goTop()}
           >
             <LineWeightIcon />
             Filter
           </Button>
-          {/* <Button
-            variant="text"
-            color="inherit"
-            onClick={(e) => {
-              onPrev(e);
-            }}
-          >
-            {" "}
-            Prev{" "}
-          </Button>
-          <Button
-            variant="text"
-            color="inherit"
-            onClick={(e) => {
-              onNext(e);
-            }}
-          >
-            {" "}
-            Next{" "}
-          </Button> */}
         </Container>
       </form>
     </div>

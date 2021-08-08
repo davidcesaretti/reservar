@@ -5,25 +5,42 @@
 .container-tabla {
   width: 80%;
   height: 75vh;
-  /* background-color: aqua; */
+  background-color: whitesmoke;
   border-style: solid;
   margin: 30px auto;
-  margin-bottom: 0;
+  
+  border-radius: 10px;
 }
 .grid-tabla {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 0.5fr;
   justify-content: center;
   align-items: center;
 }
 .boton-map {
   margin: 0;
   width: 60px;
-  height: 20px;
+  color: white;
+  font-weight: bold;
+  height: 25px;
+  background-color: #a8a545;
+  border-radius: 4px;
+  border-style: none;
+  cursor: pointer;
+  transition: cubic-bezier(0.4, 0, 0.2, 1);
 }
+.boton-map:hover{
+  cursor: pointer;
+  transition: cubic-bezier(0.4, 0, 0.2, 1);
+  background-color: #838524;
+}
+
 .color-grid {
-  background-color: #9ea03b;
+  background-color: #a8a545;
   padding: 12px;
+  border-radius: 6px;
+  
+  font-weight: bold;
 }
 .pagButton {
   margin-left: 15px;

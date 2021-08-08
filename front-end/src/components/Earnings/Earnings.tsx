@@ -60,7 +60,7 @@ const Earnings = ({ setSection }) => {
     setLoaded(false);
   }
 
-  console.log(income)
+
 
   return (
     <div className="con-homeAdmin">
@@ -85,7 +85,7 @@ const Earnings = ({ setSection }) => {
                   <h2 className={style.titleField}>
                     GROSS INCOME
                     <span className={style.subTitleField}>
-                      (All my properties included)
+                      (All properties included)
                     </span>
                   </h2>
                   <h4 className={style.numberField}>${income} USD</h4>

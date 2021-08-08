@@ -12,6 +12,7 @@ import { Button } from "@material-ui/core";
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import LoopIcon from '@material-ui/icons/Loop';
+import Spinner from "../Spinner/Spinner";
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -25,7 +26,7 @@ const useStyles = makeStyles((theme) =>
 
 function TablaAdmin() {
   const user = useSelector((state: any) => state.listOfUsers);
-  const [data, setData] = useState(undefined);
+  const [flag, setFlag] = useState(false);
   const [currentPage, setCurrentPage] = useState(0);
   const [name, setName] = useState({});
 
@@ -74,8 +75,10 @@ function TablaAdmin() {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    setFlag(true)
     dispatch(getUsersList());
-  }, [dispatch,filteredUsers]);
+  },[dispatch,user]);
+
 
   const handleClickChange = (e) => {
     Swal.fire({
@@ -113,6 +116,7 @@ function TablaAdmin() {
      
     <div className="con-homeAdmin">
       <MenuAdmin />
+      {!flag? <Spinner/>:
       <div style={{ display: "grid" }}>
         <h2
           style={{
@@ -137,7 +141,7 @@ function TablaAdmin() {
             <p>Change Status</p>
           </div>
 
-          {filteredUsers &&
+          {filteredUsers.length?
             filteredUsers.map((x, i) => (
               <div key={i} className="grid-tabla1">
                 <p style={{ margin: "14px" }}>{x.name}</p>{" "}
@@ -145,7 +149,8 @@ function TablaAdmin() {
                 <p style={{ margin: "14px" }}>{x.nationality}</p>
                 <p style={{ margin: "14px" }}>{x.status_account}</p>
                 
-                {/* <button
+                
+                <button
                   name={x.email}
                   value={x.status_account}
                   onClick={(e) => {
@@ -155,21 +160,10 @@ function TablaAdmin() {
                   className="boton-map1"
                 >
                   change
-                </button> */}
-
-                <Button
-                name={x.email}
-                value={x.status_account}
-                onClick={(e) => {
-                  handleClickChange(e);
-                }}
-                style={{ margin: "14px" }}
-                className="boton-map"
-                >
-                  <LoopIcon/>
-                </Button>
+                </button>     
               </div>
-            ))}
+            )): <h1 className="title">No users yet...</h1>
+          }
         </div>
         <div style={{ margin: "0 auto" }}>
         <Button className="pagButton1" onClick={prevPage}>
@@ -181,6 +175,7 @@ function TablaAdmin() {
           </Button>
         </div>
       </div>
+}
     </div>
    
   );
